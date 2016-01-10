@@ -95,10 +95,13 @@ tcsetattr(fd, TCSANOW, &options);
 /* Read from port */
 // fcntl(fd, F_SETFL, FNDELAY);
 // fcntl(fd, F_SETFL, 0);
-    for (loop = 0; loop<20; loop++)
+////    for (loop = 0; loop<20; loop++)
+
+/* endless-loop */
+for (loop = 0; true; loop++)
     {
     	bytes = read(fd, &buffer, sizeof(buffer));
-    	printf("%2d(%2d): ", loop, bytes);
+    	printf("%4d(%2d): ", loop, bytes);
 	//    printf("->%02X.\n", buffer);
 	if (bytes == -1)
 	    {
@@ -112,7 +115,8 @@ tcsetattr(fd, TCSANOW, &options);
 		    }
 	//	    printf("\n");
 	    }
-	    usleep(20000);
+	    /* wait 36ms */
+	    usleep(36000);
     	bytes = read(fd, &buffer, sizeof(buffer));
 	//    printf("%2d(%2d): ", loop, bytes);
 	//    printf("->%02X.\n", buffer);
