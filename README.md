@@ -1,4 +1,4 @@
-smi-tools
+SMI-tools
 =========
 
 This is a small smi commandline tool.
@@ -29,7 +29,7 @@ smi drive should go up an is connected via /dev/ttyS0
 smi 12 up /dev/ttyS0
 
 Clone git repository and compile
-================================
+--------------------------------
 ```
 git clone https://github.com/ingof/smi-tools.git
 cd smi-Tools
