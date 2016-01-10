@@ -98,7 +98,7 @@ tcsetattr(fd, TCSANOW, &options);
 ////    for (loop = 0; loop<20; loop++)
 
 /* endless-loop */
-for (loop = 0; true; loop++)
+for (loop = 0; loop < 30000; loop++)
     {
     	bytes = read(fd, &buffer, sizeof(buffer));
     	printf("%4d(%2d): ", loop, bytes);
@@ -136,7 +136,9 @@ for (loop = 0; true; loop++)
 
 /* Close Port */
    close(fd);
+   printf("<serial port closed!\n");
    return (0);
+   
 }
 
 
