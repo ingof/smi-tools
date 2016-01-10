@@ -23,9 +23,7 @@ default is stop
 default is /dev/ttyUSB0<br>
 **example:**
 smi drive should go up an is connected via /dev/ttyS0
-'''
-smi 12 up /dev/ttyS0
-'''
+```smi 12 up /dev/ttyS0```
 
 monitor data on the smi-bus:
 ----------------------------
