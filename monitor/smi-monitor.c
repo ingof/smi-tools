@@ -93,24 +93,11 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 tcsetattr(fd, TCSANOW, &options);
 
 
-/* Write to port */
- 	int n;
-	char tmpBytes[4];
-	tmpBytes[0]=0x50 + driveID;
-    tmpBytes[1]=commandID;
-    tmpBytes[2]=tmpBytes[0] + tmpBytes[1];
-    tmpBytes[2]=~(tmpBytes[0] + tmpBytes[1])+ 1;
-    n = write(fd, tmpBytes, 3);
-    if (n < 0)
-      fputs("write() of smi command failed!\n", stderr);
-      printf("%02X %02X %02X: ",tmpBytes[0],tmpBytes[1],tmpBytes[2]);
-
-
 /* Read from port */
  fcntl(fd, F_SETFL, FNDELAY);
  fcntl(fd, F_SETFL, 0);
     bytes = read(fd, &buffer, sizeof(buffer));
-//    printf("number of bytes read is %d\n", bytes);
+    printf("number of bytes read is %d\n", bytes);
 //    printf("->%02X.\n", buffer);
     //perror ("read error:");
     for (x = 3; x < bytes ; x++) {
