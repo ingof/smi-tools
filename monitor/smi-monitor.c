@@ -97,14 +97,20 @@ tcsetattr(fd, TCSANOW, &options);
  fcntl(fd, F_SETFL, FNDELAY);
  fcntl(fd, F_SETFL, 0);
     bytes = read(fd, &buffer, sizeof(buffer));
-    printf("number of bytes read is %d\n", bytes);
+    printf("(%d) ", bytes);
 //    printf("->%02X.\n", buffer);
-    //perror ("read error:");
-    for (x = 3; x < bytes ; x++) {
-        c = buffer[x];
-        printf("%02X ",c);
+    if (bytes == -1)
+    {
+    	perror ("read error:");
     }
-    printf("\n");
+    else
+    {
+	    for (x = 0; x < bytes ; x++) {
+	        c = buffer[x];
+	        printf("%02X ",c);
+	    }
+	    printf("\n");
+    }
 
 /* Close Port */
    close(fd);
