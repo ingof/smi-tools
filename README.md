@@ -15,11 +15,10 @@ Syntax:
 smi driveid command [serial-port]
 
 required: driveID
------------------
-the ID of the drive. (0..15)
+* the ID of the drive. (0..15)
 
 required: command
-stop, up, hoch, down, runter
+  * stop, up, hoch, down, runter
 
 optional: serialport
 default is /dev/ttyUSB0
