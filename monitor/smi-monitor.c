@@ -106,12 +106,13 @@ tcsetattr(fd, TCSANOW, &options);
 	    }
 	    else
 	    {
-		    for (x = 0; x < bytes+1 ; x++) {
+		    for (x = 0; x < bytes ; x++) {
 		        c = buffer[x];
 		        printf("%02X ",c);
 		    }
 		    printf("\n");
 	    }
+	    sleep(1);
     }
 
 /* Close Port */
