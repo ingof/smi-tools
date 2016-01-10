@@ -20,8 +20,9 @@ the ID of the drive. (0..15)
 stop, up, hoch, down, runter<br>
 default is stop
 * **optional:** serial port<br>
-default is /dev/ttyUSB0<br>
-**example:**
+default is /dev/ttyUSB0
+
+**example:**<br>
 smi drive should go up and is connected via /dev/ttyS0
 ```
 smi 12 up /dev/ttyS0
