@@ -101,7 +101,7 @@ tcsetattr(fd, TCSANOW, &options);
 for (loop = 0; loop < 30000; loop++)
     {
     	bytes = read(fd, &buffer, sizeof(buffer));
-    	printf("%4d(%2d): ", loop, bytes);
+    	printf("%4d: ", loop, bytes);
 	//    printf("->%02X.\n", buffer);
 	if (bytes == -1)
 	    {
