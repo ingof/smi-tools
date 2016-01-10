@@ -31,7 +31,7 @@ Clone git repository and compile
 --------------------------------
 ```
 git clone https://github.com/ingof/smi-tools.git
-cd smi-Tools
+cd smi-tools
 make all
 ```
 
