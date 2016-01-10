@@ -1,3 +1,6 @@
+smi-tools
+=========
+
 This is a small smi commandline tool.
 
 you need a USB to SMI interface or a serial to SMI interface wich is connected to the usb-port.
@@ -12,6 +15,7 @@ Syntax:
 smi driveid command [serial-port]
 
 required: driveID
+-----------------
 the ID of the drive. (0..15)
 
 required: command
@@ -23,4 +27,14 @@ default is /dev/ttyUSB0
 example:
 smi drive should go up an is connected via /dev/ttyS0
 smi 12 up /dev/ttyS0
+
+Clone git repository and compile
+================================
+```
+git clone https://github.com/ingof/smi-tools.git
+cd smi-Tools
+make all
+```
+
+
 
