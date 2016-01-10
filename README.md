@@ -11,10 +11,10 @@ i connected my smi-interface to a synology diskstation.
 
 at the moment there is no check of the commandline-parameters.
 
-**Syntax:**\\
+**Syntax:** \\
 smi driveid command [serial-port]
 
-**required: driveID**\\
+**required: driveID** //
 the ID of the drive. (0..15)
 
 **required: command**\\
