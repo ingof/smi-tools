@@ -7,7 +7,9 @@ default: all
 
 # compile all files
 all:  /comandline/smi.c /monitor/smi-monitor.c
+	cd ./comandline
 	$(CC) $(OPT) -o smi /comandline/smi.c
+	cd ../monitor
 	$(CC) $(OPT) -o smi-monitor /monitor/smi-monitor.c
   
 # compile only smi commandline
