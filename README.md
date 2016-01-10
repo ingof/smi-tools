@@ -22,8 +22,10 @@ default is stop
 * **optional:** serial port<br>
 default is /dev/ttyUSB0<br>
 **example:**
-smi drive should go up an is connected via /dev/ttyS0
-```smi 12 up /dev/ttyS0```
+smi drive should go up and is connected via /dev/ttyS0
+```
+smi 12 up /dev/ttyS0
+```
 
 monitor data on the smi-bus:
 ----------------------------
@@ -31,7 +33,7 @@ monitor data on the smi-bus:
 * **optional:** serialport<br>
 default is /dev/ttyUSB1
 
-now can see the received data in as hexdata
+now can see the all received data as hexdata
 
 Clone git repository and compile
 --------------------------------
