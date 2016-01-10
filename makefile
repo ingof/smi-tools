@@ -6,13 +6,13 @@ OPT = -g -Wall
 default: all
 
 # compile all files
-all:  /commandline/smi.c /monitor/smi-monitor.c
-	$(CC) $(OPT) -o smi /commandline/smi.c
+all:  /comandline/smi.c /monitor/smi-monitor.c
+	$(CC) $(OPT) -o smi /comandline/smi.c
 	$(CC) $(OPT) -o smi-monitor /monitor/smi-monitor.c
   
 # compile only smi commandline
-smi:  /commandline/smi.c
-	$(CC) $(OPT) -o smi /commandline/smi.c
+smi:  /comandline/smi.c
+	$(CC) $(OPT) -o smi /comandline/smi.c
 
 # compile only monitor
 monitor:  /monitor/smi-monitor.c
