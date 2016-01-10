@@ -93,12 +93,12 @@ tcsetattr(fd, TCSANOW, &options);
 
 
 /* Read from port */
- fcntl(fd, F_SETFL, FNDELAY);
- fcntl(fd, F_SETFL, 0);
-    for (loop = 0; loop<10; loop++)
+// fcntl(fd, F_SETFL, FNDELAY);
+// fcntl(fd, F_SETFL, 0);
+    for (loop = 0; loop<20; loop++)
     {
     	bytes = read(fd, &buffer, sizeof(buffer));
-	    printf("(%d): ", bytes);
+	    printf("%2d(%2d): ", loop, bytes);
 	//    printf("->%02X.\n", buffer);
 	    if (bytes == -1)
 	    {
