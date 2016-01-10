@@ -32,7 +32,7 @@ Clone git repository and compile
 ```
 git clone https://github.com/ingof/smi-tools.git
 cd smi-tools
-make all
+make
 ```
 
 
