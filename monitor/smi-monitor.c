@@ -15,7 +15,6 @@ int main( int argc, char* argv[] ) {
 
 	int fd; /* File descriptor for the port */
 	int x;
-	int x2;
 	int loop;
 	int bytes;
 	char c;
@@ -115,7 +114,7 @@ tcsetattr(fd, TCSANOW, &options);
 	    }
 	    sleep(1);
     	bytes = read(fd, &buffer, sizeof(buffer));
-	    printf("%2d(%2d): ", loop, bytes);
+	//    printf("%2d(%2d): ", loop, bytes);
 	//    printf("->%02X.\n", buffer);
 	    if (bytes == -1)
 	    {
@@ -123,8 +122,8 @@ tcsetattr(fd, TCSANOW, &options);
 	    }
 	    else
 	    {
-		    for (x2 = x; x2 < bytes ; x2++) {
-		        c = buffer[x2];
+		    for (x = 0; x < bytes ; x++) {
+		        c = buffer[x];
 		        printf("%02X ",c);
 		    }
 		    printf("\n");
