@@ -11,18 +11,16 @@ i connected my smi-interface to a synology diskstation.
 
 at the moment there is no check of the commandline-parameters.
 
-**Syntax:**
-
+**Syntax:**<br>
 smi driveid command [serial-port]
 
-**required: driveID**
-
+**required: driveID**<br>
 the ID of the drive. (0..15)
 
 **required: command**<br>
 stop, up, hoch, down, runter
 
-**optional: serialport**<p>
+**optional: serialport**<br>
 default is /dev/ttyUSB0
 
 example:
