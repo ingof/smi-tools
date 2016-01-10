@@ -98,6 +98,22 @@ tcsetattr(fd, TCSANOW, &options);
     for (loop = 0; loop<20; loop++)
     {
     	bytes = read(fd, &buffer, sizeof(buffer));
+    	printf("%2d(%2d): ", loop, bytes);
+	//    printf("->%02X.\n", buffer);
+	if (bytes == -1)
+	    {
+	    	perror ("read error:");
+	    }
+	    else
+	    {
+		    for (x = 0; x < bytes ; x++) {
+		        c = buffer[x];
+		        printf("%02X ",c);
+		    }
+		    printf("\n");
+	    }
+	    sleep(1);
+    	bytes = read(fd, &buffer, sizeof(buffer));
 	    printf("%2d(%2d): ", loop, bytes);
 	//    printf("->%02X.\n", buffer);
 	    if (bytes == -1)
@@ -112,7 +128,6 @@ tcsetattr(fd, TCSANOW, &options);
 		    }
 		    printf("\n");
 	    }
-	    sleep(1);
     }
 
 /* Close Port */
