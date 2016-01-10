@@ -112,7 +112,7 @@ tcsetattr(fd, TCSANOW, &options);
 		    }
 	//	    printf("\n");
 	    }
-	    sleep(1);
+	    usleep(20000);
     	bytes = read(fd, &buffer, sizeof(buffer));
 	//    printf("%2d(%2d): ", loop, bytes);
 	//    printf("->%02X.\n", buffer);
