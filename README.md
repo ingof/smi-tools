@@ -11,11 +11,13 @@ i connected my smi-interface to a synology diskstation.
 
 at the moment there is no check of the commandline-parameters.
 
-**Syntax:** smi driveid command [serial-port]
-* **required:** driveID
+Send command to smi drive:
+--------------------------
+**Syntax:** smi driveid command [serial-port]<br>
+* **required:** driveID<br>
 the ID of the drive. (0..15)
-* **optional:** command
-stop, up, hoch, down, runter
+* **optional:** command<br>
+stop, up, hoch, down, runter<br>
 default is stop
 * **optional:** serial port<br>
 default is /dev/ttyUSB0<br>
@@ -23,8 +25,10 @@ default is /dev/ttyUSB0<br>
 smi drive should go up an is connected via /dev/ttyS0
 ''' smi 12 up /dev/ttyS0 '''
 
-**Syntax:** smi-monitor [serial-port]
-* **optional: serialport**<br>
+monitor data on the smi-bus:
+----------------------------
+**Syntax:** smi-monitor [serial-port]<br>
+* **optional:** serialport<br>
 default is /dev/ttyUSB1
 
 now can see the received data in as hexdata
