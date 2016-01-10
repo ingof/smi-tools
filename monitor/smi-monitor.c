@@ -13,6 +13,7 @@ int main( int argc, char* argv[] ) {
 
 	int fd; /* File descriptor for the port */
 	int x;
+	int loop;
 	int bytes;
 	char c;
 	char buffer[12];
@@ -70,7 +71,7 @@ int main( int argc, char* argv[] ) {
 	bytes = read(fd, &buffer, sizeof(buffer));
 //    printf("number of bytes read is %d\n", bytes);
 //    printf("->%02X.\n", buffer);
-	for (int loop = 0; loop<10; loop++) {
+	for (loop = 0; loop<10; loop++) {
 		if (bytes == -1)
 		{
 			/* read error */
