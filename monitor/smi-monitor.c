@@ -8,8 +8,6 @@
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
-	int driveID=12;
-	int commandID=0;
 	char * serialPort="/dev/ttyUSB0";
 	char serialPort2[]="/dev/ttyUSB0";
 
@@ -69,24 +67,25 @@ int main( int argc, char* argv[] ) {
 
 	/* Read from port */
 	fcntl(fd, F_SETFL, FNDELAY);
-	fcntl(fd, F_SETFL, 0);
 	bytes = read(fd, &buffer, sizeof(buffer));
 //    printf("number of bytes read is %d\n", bytes);
 //    printf("->%02X.\n", buffer);
-	if (bytes == -1)
-	{
-		/* read error */
-		perror ("read error:");
-    }
-    else
-    {
-    	/* read successfull */
-    	for (x = 3; x < bytes ; x++) {
-    		c = buffer[x];
-    		printf("%02X ",c);
-    	}
-    	printf("\n");
-    }
+	for (int loop = 0; loop<10; loop++) {
+		if (bytes == -1)
+		{
+			/* read error */
+			perror ("read error:");
+		}
+		else
+		{
+			/* read successfull */
+			for (x = 3; x < bytes ; x++) {
+		    		c = buffer[x];
+		    		printf("%02X ",c);
+			}
+			printf("\n");
+		}
+	}
 
 	/* Close Port */
 	close(fd);
