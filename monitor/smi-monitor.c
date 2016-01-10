@@ -123,11 +123,11 @@ tcsetattr(fd, TCSANOW, &options);
 int open_port(void)
 {
 	int fd; /* File descriptor for the port */
-	fd = open("/dev/ttyUSB1", O_RDWR | O_NOCTTY | O_NDELAY);
+	fd = open("/dev/ttyUSB2", O_RDWR | O_NOCTTY | O_NDELAY);
 	if (fd == -1)
 	{
 		/* Could not open the port. */
-		perror("open_port: Unable to open /dev/ttyUSB1 - ");
+		perror("open_port: Unable to open /dev/ttyUSB2 - ");
 		
 	}
 	else
