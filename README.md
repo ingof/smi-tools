@@ -21,13 +21,13 @@ default is stop
 default is /dev/ttyUSB0
 **example:**
 smi drive should go up an is connected via /dev/ttyS0
-smi 12 up /dev/ttyS0
+'''smi 12 up /dev/ttyS0'''
 
 **Syntax:** smi-monitor [serial-port]
-**optional: serialport**<br>
+* **optional: serialport**<br>
 default is /dev/ttyUSB1
 
-
+now can see the received data in as hexdata
 
 Clone git repository and compile
 --------------------------------
