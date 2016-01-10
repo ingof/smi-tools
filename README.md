@@ -13,10 +13,9 @@ at the moment there is no check of the commandline-parameters.
 
 **Syntax:** smi driveid command [serial-port]
 
-* required: driveID
+* **required**: driveID
 the ID of the drive. (0..15)
-
-* required: command
+* **required**: command
 stop, up, hoch, down, runter
 
 **optional: serialport**<br>
