@@ -33,70 +33,64 @@ int main( int argc, char* argv[] ) {
 	* Returns the file descriptor on success or -1 on error.
 	*/
 
-  fd = open(serialPort, O_RDWR | O_NOCTTY | O_NDELAY);
-  if (fd == -1)
-  {
-  	/* Could not open the port. */
-  	perror("open_port: Unable to open serialPort ");
-  } 
-  else
-  {
-  	fcntl(fd, F_SETFL, 0);
-  	
-  }
+	fd = open(serialPort, O_RDWR | O_NOCTTY | O_NDELAY);
+	if (fd == -1)
+	{
+		/* Could not open the port. */
+		perror("open_port: Unable to open serialPort ");
+		
+	} 
+	else
+	{
+		fcntl(fd, F_SETFL, 0);
+	}
 
 
-struct termios options;
+	struct termios options;
+	/* Get the current options for the port... */
+	tcgetattr(fd, &options);
+	/* Set the baud rates to 2400... */
+	cfsetispeed(&options, B2400);
+	cfsetospeed(&options, B2400);
+	/* Enable the receiver and set local mode... */
+	options.c_cflag |= (CLOCAL | CREAD);
+	/* Setting Character Size */
+	options.c_cflag &= ~CSIZE; /* Mask the character size bits */
+	options.c_cflag |= CS8;    /* Select 8 data bits */
+	/* Setting 8N1 */
+	options.c_cflag &= ~PARENB;
+	options.c_cflag &= ~CSTOPB;
+	options.c_cflag &= ~CSIZE;
+	options.c_cflag |= CS8;
+	/* choosing RAW-Input */
+	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+	/* Set the new options for the port... */
+	tcsetattr(fd, TCSANOW, &options);
 
-/* Get the current options for the port... */
-tcgetattr(fd, &options);
-
-/* Set the baud rates to 2400... */
-cfsetispeed(&options, B2400);
-cfsetospeed(&options, B2400);
-
-/* Enable the receiver and set local mode... */
-options.c_cflag |= (CLOCAL | CREAD);
-
-/* Setting Character Size */
-options.c_cflag &= ~CSIZE; /* Mask the character size bits */
-options.c_cflag |= CS8;    /* Select 8 data bits */
-
-
-/* Setting 8N1 */
-options.c_cflag &= ~PARENB;
-options.c_cflag &= ~CSTOPB;
-options.c_cflag &= ~CSIZE;
-options.c_cflag |= CS8;
-
-/* choosing RAW-Input */
-options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
-
-/* Set the new options for the port... */
-tcsetattr(fd, TCSANOW, &options);
-
-/* Read from port */
- fcntl(fd, F_SETFL, FNDELAY);
- fcntl(fd, F_SETFL, 0);
-    bytes = read(fd, &buffer, sizeof(buffer));
+	/* Read from port */
+	fcntl(fd, F_SETFL, FNDELAY);
+	fcntl(fd, F_SETFL, 0);
+	bytes = read(fd, &buffer, sizeof(buffer));
 //    printf("number of bytes read is %d\n", bytes);
 //    printf("->%02X.\n", buffer);
-    if (bytes=-1)
-    {
-    perror ("read error:");
+	if (bytes == -1)
+	{
+		/* read error */
+		perror ("read error:");
     }
     else
     {
-    for (x = 3; x < bytes ; x++) {
-    c = buffer[x];
-    printf("%02X ",c);
-      }
+    	/* read successfull */
+    	for (x = 3; x < bytes ; x++) {
+    		c = buffer[x];
+    		printf("%02X ",c);
+    	}
+    	printf("\n");
     }
-    printf("\n");
 
-/* Close Port */
-   close(fd);
-   return (0);
+	/* Close Port */
+	close(fd);
+	return (0);
 }
 
 
@@ -108,7 +102,6 @@ open_port(void)
 	{
 		/* Could not open the port. */
 		perror("open_port: Unable to open /dev/ttyUSB0 - ");
-		
 	}
 	else
 	{
