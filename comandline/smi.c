@@ -125,7 +125,7 @@ tcsetattr(fd, TCSANOW, &options);
 }
 
 
-open_port(void)
+int open_port(void)
 {
 	int fd; /* File descriptor for the port */
 	fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
