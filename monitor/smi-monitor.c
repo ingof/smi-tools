@@ -106,7 +106,7 @@ tcsetattr(fd, TCSANOW, &options);
 	    }
 	    else
 	    {
-		    for (x = 0; x < bytes ; x++) {
+		    for (x = 0; x < bytes+1 ; x++) {
 		        c = buffer[x];
 		        printf("%02X ",c);
 		    }
