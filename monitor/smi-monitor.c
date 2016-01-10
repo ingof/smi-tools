@@ -15,9 +15,10 @@ int main( int argc, char* argv[] ) {
 
 	int fd; /* File descriptor for the port */
 	int x;
+	int loop;
 	int bytes;
 	char c;
-	char buffer[12];
+	char buffer[20];
    //char *bufptr;
     
    /* dirst paramter is driveID */
@@ -96,20 +97,23 @@ tcsetattr(fd, TCSANOW, &options);
 /* Read from port */
  fcntl(fd, F_SETFL, FNDELAY);
  fcntl(fd, F_SETFL, 0);
-    bytes = read(fd, &buffer, sizeof(buffer));
-    printf("(%d) ", bytes);
-//    printf("->%02X.\n", buffer);
-    if (bytes == -1)
+    for (loop = 0; loop<10; loop++)
     {
-    	perror ("read error:");
-    }
-    else
-    {
-	    for (x = 0; x < bytes ; x++) {
-	        c = buffer[x];
-	        printf("%02X ",c);
+    	bytes = read(fd, &buffer, sizeof(buffer));
+	    printf("(%d): ", bytes);
+	//    printf("->%02X.\n", buffer);
+	    if (bytes == -1)
+	    {
+	    	perror ("read error:");
 	    }
-	    printf("\n");
+	    else
+	    {
+		    for (x = 0; x < bytes ; x++) {
+		        c = buffer[x];
+		        printf("%02X ",c);
+		    }
+		    printf("\n");
+	    }
     }
 
 /* Close Port */
