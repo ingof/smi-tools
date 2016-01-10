@@ -68,10 +68,10 @@ int main( int argc, char* argv[] ) {
 
 	/* Read from port */
 	fcntl(fd, F_SETFL, FNDELAY);
-	bytes = read(fd, &buffer, sizeof(buffer));
+	for (loop = 0; loop<10; loop++) {
+		bytes = read(fd, &buffer, sizeof(buffer));
 //    printf("number of bytes read is %d\n", bytes);
 //    printf("->%02X.\n", buffer);
-	for (loop = 0; loop<10; loop++) {
 		if (bytes == -1)
 		{
 			/* read error */
