@@ -8,8 +8,8 @@
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
-	char * serialPort="/dev/ttyUSB1";
-	char serialPort2[]="/dev/ttyUSB1";
+	char * serialPort="/dev/ttyUSB0";
+	char serialPort2[]="/dev/ttyUSB0";
 
 	int fd; /* File descriptor for the port */
 	int x;
@@ -118,11 +118,11 @@ for (loop=0; ; loop++)
 int open_port(void)
 {
 	int fd; /* File descriptor for the port */
-	fd = open("/dev/ttyUSB1", O_RDWR | O_NOCTTY | O_NDELAY);
+	fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
 	if (fd == -1)
 	{
 		/* Could not open the port. */
-		perror("Unable to open /dev/ttyUSB1 - ");
+		perror("Unable to open /dev/ttyUSB0 - ");
 		
 	}
 	else
