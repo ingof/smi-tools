@@ -20,7 +20,7 @@ the ID of the drive. (0..15)
 stop, up, hoch, down, runter<br>
 default is stop
 * **optional:** serial port<br>
-default is /dev/ttyUSB0
+default is /dev/ttyUSB2
 
 **example:**<br>
 smi drive should go up and is connected via /dev/ttyS0
@@ -32,7 +32,7 @@ monitor data on the smi-bus:
 ----------------------------
 **Syntax:** smi-monitor [serial-port]<br>
 * **optional:** serialport<br>
-default is /dev/ttyUSB1
+default is /dev/ttyUSB0
 
 now can see the all received data as hexdata
 
