@@ -56,6 +56,7 @@ int main( int argc, char* argv[] ) {
   {
   	/* Could not open the port. */
   	perror("open_port: Unable to open serialPort");
+  	return(-1)
   } 
   else
   {
