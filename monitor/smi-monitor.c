@@ -8,8 +8,6 @@
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
-	int driveID=12;
-	int commandID=0;
 	char * serialPort="/dev/ttyUSB1";
 	char serialPort2[]="/dev/ttyUSB1";
 
@@ -21,30 +19,12 @@ int main( int argc, char* argv[] ) {
 	char buffer[20];
    //char *bufptr;
     
-   /* dirst paramter is driveID */
-   if (argc > 1) {
-   	driveID=atoi(argv[1]);
-   }
-   /*secon paramter is the command */
-   if (argc > 2)
+   /* first parameter is serialPort*/
+   if (argc > 1)
    {
-   	/* Stop command */
-   	if (strcmp(argv[2], "stop") == 0) commandID=0;
-	/* up-command */
- 	if (strcmp(argv[2], "up") == 0) commandID=1;
- 	if (strcmp(argv[2], "hoch") == 0) commandID=1;
-	/* down command */
-	if (strcmp(argv[2], "down") == 0) commandID=2;
-	if (strcmp(argv[2], "runter") == 0) commandID=2;
-   }
-   
-   /* third parameter is serialPort*/
-   if (argc > 3)
-   {
-   	serialPort=argv[3];
+   	serialPort=argv[1];
    } else {
    	serialPort=serialPort2;
-   	
    }
    /*
 	* 'open_port()' - Open serial port 1.
@@ -55,7 +35,7 @@ int main( int argc, char* argv[] ) {
   if (fd == -1)
   {
   	/* Could not open the port. */
-  	perror("open_port: Unable to open serialPort");
+  	perror("Unable to open serial-port");
   	return(-1);
   } 
   else
@@ -92,48 +72,40 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 /* Set the new options for the port... */
 tcsetattr(fd, TCSANOW, &options);
 
-
-/* Read from port */
-// fcntl(fd, F_SETFL, FNDELAY);
-// fcntl(fd, F_SETFL, 0);
-////    for (loop = 0; loop<20; loop++)
-
 /* endless-loop */
 for (loop=0; ; loop++)
     {
     	bytes = read(fd, &buffer, sizeof(buffer));
     	printf("%4d: ", loop);
-	//    printf("->%02X.\n", buffer);
 	if (bytes == -1)
-	    {
-	    	perror ("read error:");
-	    }
-	    else
-	    {
-		    for (x = 0; x < bytes ; x++) {
-		        c = buffer[x];
-		        printf("%02X ",c);
-		    }
-	//	    printf("\n");
-	    }
-	    /* wait 36ms */
-	    usleep(36000);
-    	bytes = read(fd, &buffer, sizeof(buffer));
-	//    printf("%2d(%2d): ", loop, bytes);
-	//    printf("->%02X.\n", buffer);
-	    if (bytes == -1)
-	    {
-	    	perror ("read error:");
-	    }
-	    else
-	    {
-		    for (x = 0; x < bytes ; x++) {
-		        c = buffer[x];
-		        printf("%02X ",c);
-		    }
-		    printf("\n");
-	    }
-    }
+	{
+		perror ("read error:");
+	}
+	else
+	{
+		for (x = 0; x < bytes ; x++)
+		{
+			c = buffer[x];
+			printf("%02X ",c);
+		}
+	}
+	/* wait 36ms */
+	usleep(36000);
+	bytes = read(fd, &buffer, sizeof(buffer));
+	if (bytes == -1)
+	{
+		perror ("read error:");
+	}
+	else
+	{
+		for (x = 0; x < bytes ; x++)
+		{
+			c = buffer[x];
+			printf("%02X ",c);
+		}
+	printf("\n");
+	}
+}
 
 /* Close Port */
    close(fd);
@@ -150,7 +122,7 @@ int open_port(void)
 	if (fd == -1)
 	{
 		/* Could not open the port. */
-		perror("open_port: Unable to open /dev/ttyUSB1 - ");
+		perror("Unable to open /dev/ttyUSB1 - ");
 		
 	}
 	else
