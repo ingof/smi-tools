@@ -56,7 +56,7 @@ int main( int argc, char* argv[] ) {
   {
   	/* Could not open the port. */
   	perror("open_port: Unable to open serialPort");
-  	return(-1)
+  	return(-1);
   } 
   else
   {
@@ -102,7 +102,7 @@ tcsetattr(fd, TCSANOW, &options);
 for (loop=0; ; loop++)
     {
     	bytes = read(fd, &buffer, sizeof(buffer));
-    	printf("%4d: ", loop, bytes);
+    	printf("%4d: ", loop);
 	//    printf("->%02X.\n", buffer);
 	if (bytes == -1)
 	    {
