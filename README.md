@@ -36,12 +36,13 @@ default is /dev/ttyUSB0
 
 now can see the all received data as hexdata
 
-Clone git repository and compile
---------------------------------
+Clone git repository compile and install
+----------------------------------------
 ```
 git clone https://github.com/ingof/smi-tools.git
 cd smi-tools
 make
+make install
 ```
 
 
