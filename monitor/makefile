@@ -1,4 +1,4 @@
-CC = /opt/bin/gcc
+CC = gcc
 OPT = -g -Wall
 
 # default target
