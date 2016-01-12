@@ -25,7 +25,6 @@ clean:
 	$(RM) count *.o *~
 	rm -rf ../smi-tools *
 	cd ..
-	ls
 	
 # removes all object, temporary an executable files
 install:
