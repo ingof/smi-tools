@@ -7,7 +7,7 @@ you need a USB to SMI interface or a serial to SMI interface wich is connected t
 The tool only supports installed drives with a given id.
 try the tool at your own risk.
 
-i connected my smi-interface to a synology diskstation.
+the smi-tools will work on "Synology Diskstation" and on "Raspberry Pi 2"
 
 at the moment there is no check of the commandline-parameters.
 
