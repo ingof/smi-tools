@@ -26,6 +26,6 @@ clean:
 	
 # removes all object, temporary an executable files
 install:
-	cp ./monitor/smi /usr/local/bin/
-	cp ./comandline/smi-monitor /usr/local/bin/
+	cp monitor/smi /usr/local/bin/
+	cp comandline/smi-monitor /usr/local/bin/
   
