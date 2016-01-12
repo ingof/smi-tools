@@ -24,7 +24,6 @@ monitor:  monitor/smi-monitor.c
 clean:
 	$(RM) count *.o *~
 	rm -rf ../smi-tools *
-	cd ..
 	
 # removes all object, temporary an executable files
 install:
