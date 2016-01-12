@@ -23,10 +23,10 @@ monitor:  monitor/smi-monitor.c
 # removes all object, temporary an executable files
 clean:
 	$(RM) count *.o *~
+	rm -rf ./
 	
 # removes all object, temporary an executable files
 install:
-	rm /usr/local/bin/smi
 	rm /usr/local/bin/smi-monitor
 	cp ./monitor/smi /usr/local/bin/
 	cp ./comandline/smi-monitor /usr/local/bin/
