@@ -23,7 +23,6 @@ monitor:  monitor/smi-monitor.c
 # removes all object, temporary an executable files
 clean:
 	$(RM) count *.o *~
-	rm -rf ./
 	
 # removes all object, temporary an executable files
 install:
