@@ -11,6 +11,7 @@ int main( int argc, char* argv[] ) {
 	char * serialPort="/dev/ttyUSB0";
 	char serialPort2[]="/dev/ttyUSB0";
 	int serialSpeed=2400;
+	
 	int fd; /* File descriptor for the port */
 	int x;
 	int loop;
