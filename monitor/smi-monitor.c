@@ -11,6 +11,7 @@ int main( int argc, char* argv[] ) {
 	char * serialPort="/dev/ttyUSB0";
 	char serialPort2[]="/dev/ttyUSB0";
 	int serialSpeed=2400;
+	int serialWait=36;
 	
 	int fd; /* File descriptor for the port */
 	int x;
@@ -28,12 +29,19 @@ int main( int argc, char* argv[] ) {
    	/* default speed for serial port */
    	serialSpeed=2400;
    }
-   /* first parameter is serialPort*/
+   /* second parameter is serialPort*/
    if (argc > 2)
    {
    	serialPort=argv[2];
    } else {
    	serialPort=serialPort2;
+   }
+   /* third parameter is serialWait in ms*/
+   if (argc > 3)
+   {
+   	serialWait=argv[3];
+   } else {
+   	serialWait=36;
    }
    /*
 	* 'open_port()' - Open serial port 1.
@@ -117,7 +125,7 @@ for (loop=0; ; loop++)
 		}
 	}
 	/* wait 36ms */
-	usleep(36000);
+	usleep(serialWait*1000);
 	bytes = read(fd, &buffer, sizeof(buffer));
 	if (bytes == -1)
 	{
