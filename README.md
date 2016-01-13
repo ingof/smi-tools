@@ -30,7 +30,11 @@ smi 12 up /dev/ttyS0
 
 monitor data on the smi-bus:
 ----------------------------
-**Syntax:** smi-monitor [serial-port]<br>
+**Syntax:** smi-monitor [serial-speed] [serial-wait] [serial-port]<br>
+* **optional:** serialSpeed<br>
+default is 2400
+* **optional:** serialWait<br>
+default is 36 (ms)
 * **optional:** serialport<br>
 default is /dev/ttyUSB0
 
