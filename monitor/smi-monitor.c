@@ -19,10 +19,18 @@ int main( int argc, char* argv[] ) {
 	char buffer[20];
    //char *bufptr;
     
-   /* first parameter is serialPort*/
+   /* first parameter is serialSpeed*/
    if (argc > 1)
    {
-   	serialPort=argv[1];
+   	serialSpeed=atoi(argv[1]);
+   } else {
+   	/* default speed for serial port */
+   	serialSpeed=2400;
+   }
+   /* first parameter is serialPort*/
+   if (argc > 2)
+   {
+   	serialPort=argv[2];
    } else {
    	serialPort=serialPort2;
    }
@@ -48,9 +56,27 @@ struct termios options;
 /* Get the current options for the port... */
 tcgetattr(fd, &options);
 
-/* Set the baud rates to 2400... */
-cfsetispeed(&options, B2400);
-cfsetospeed(&options, B2400);
+if (serialSpeed == 2400)
+{
+	/* Set the baud rates to 2400... */
+	printf("2.400\n");
+	cfsetispeed(&options, B2400);
+	cfsetospeed(&options, B2400);
+}
+if (serialSpeed == 9600)
+{
+	/* Set the baud rates to 9600... */
+	printf("9.600\n");
+	cfsetispeed(&options, B9600);
+	cfsetospeed(&options, B9600);
+}
+if (serialSpeed == 19200)
+{
+	/* Set the baud rates to 19200... */
+	printf("19.200\n");
+	cfsetispeed(&options, B19200);
+	cfsetospeed(&options, B19200);
+}
 
 /* Enable the receiver and set local mode... */
 options.c_cflag |= (CLOCAL | CREAD);
