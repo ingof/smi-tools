@@ -38,6 +38,12 @@ default is 36 (ms)
 * **optional:** serialport<br>
 default is /dev/ttyUSB0
 
+
+**example:**<br>
+log on /dev/ttyUSB0 at 19.200Bit/s and wait 5ms for whole telegramm
+```
+smi-monitor 19200 /dev/ttyUSB0 5
+```
 now can see the all received data as hexdata
 
 Clone git repository compile and install
