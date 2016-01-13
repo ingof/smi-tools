@@ -39,7 +39,7 @@ int main( int argc, char* argv[] ) {
    /* third parameter is serialWait in ms*/
    if (argc > 3)
    {
-   	serialWait=argv[3];
+   	serialWait=atoi(argv[3]);
    } else {
    	serialWait=36;
    }
