@@ -13,7 +13,7 @@ at the moment there is no check of the commandline-parameters.
 
 Send command to smi drive:
 --------------------------
-**Syntax:** smi driveid command [serial-port]<br>
+**Syntax:** smi driveid command [serial-port] [serialWait]<br>
 * **required:** driveID<br>
 the ID of the drive. (0..15)
 * **optional:** command<br>
@@ -21,6 +21,8 @@ stop, up, hoch, down, runter<br>
 default is stop
 * **optional:** serial port<br>
 default is /dev/ttyUSB2
+* **optional:** serialWait<br>
+default is 5 (ms)
 
 **example:**<br>
 smi drive should go up and is connected via /dev/ttyS0
@@ -30,13 +32,13 @@ smi 12 up /dev/ttyS0
 
 monitor data on the smi-bus:
 ----------------------------
-**Syntax:** smi-monitor [serial-speed] [serial-wait] [serial-port]<br>
+**Syntax:** smi-monitor [serial-speed] [serial-port] [serial-wait]<br>
 * **optional:** serialSpeed<br>
 default is 2400
-* **optional:** serialWait<br>
-default is 40 (ms)
 * **optional:** serialport<br>
 default is /dev/ttyUSB0
+* **optional:** serialWait<br>
+default is 40 (ms)
 
 
 **example:**<br>
