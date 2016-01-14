@@ -12,7 +12,7 @@ int main( int argc, char* argv[] ) {
 	int commandID=0;
 	char * serialPort="/dev/ttyUSB1";
 	char serialPort2[]="/dev/ttyUSB1";
-	int serialWait=5;
+	int serialWait=60;
 	int fd; /* File descriptor for the port */
 	int x;
 	int bytes;
@@ -113,7 +113,7 @@ tcsetattr(fd, TCSANOW, &options);
       fputs("write() of smi command failed!\n", stderr);
       printf("%02X %02X %02X: ",tmpBytes[0],tmpBytes[1],tmpBytes[2]);
 
-	/* wait 5ms */
+	/* wait 60ms for answer */
 	usleep(serialWait*1000);
 
 	/* Read from port */
@@ -130,7 +130,17 @@ tcsetattr(fd, TCSANOW, &options);
 
 /* Close Port */
    close(fd);
-   return (0);
+   printf("return.%03d.",buffer[bytes]);
+   if (buffer[bytes]==0xff)
+   	{
+   		return (0);
+   	}
+   	else
+   	{
+   		return(-1);
+   	}
+   }
+
 }
 
 
