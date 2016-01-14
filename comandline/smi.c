@@ -12,7 +12,7 @@ int main( int argc, char* argv[] ) {
 	int commandID=0;
 	char * serialPort="/dev/ttyUSB2";
 	char serialPort2[]="/dev/ttyUSB2";
-
+	int serialWait=40;
 	int fd; /* File descriptor for the port */
 	int x;
 	int bytes;
@@ -43,6 +43,14 @@ int main( int argc, char* argv[] ) {
    	serialPort=argv[3];
    } else {
    	serialPort=serialPort2;
+   	
+   }
+   /* fourth parameter is serialWait*/
+   if (argc > 4)
+   {
+   	serialWait=argv[4];
+   } else {
+   	serialWait=40;
    	
    }
    /*
