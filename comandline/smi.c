@@ -48,7 +48,7 @@ int main( int argc, char* argv[] ) {
    /* fourth parameter is serialWait*/
    if (argc > 4)
    {
-   	serialWait=argv[4];
+   	serialWait=atoi(argv[4]);
    } else {
    	serialWait=40;
    	
