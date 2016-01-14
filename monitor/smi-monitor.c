@@ -11,7 +11,7 @@ int main( int argc, char* argv[] ) {
 	char * serialPort="/dev/ttyUSB0";
 	char serialPort2[]="/dev/ttyUSB0";
 	int serialSpeed=2400;
-	int serialWait=36;
+	int serialWait=40;
 	
 	int fd; /* File descriptor for the port */
 	int x;
@@ -41,7 +41,7 @@ int main( int argc, char* argv[] ) {
    {
    	serialWait=atoi(argv[3]);
    } else {
-   	serialWait=36;
+   	serialWait=40;
    }
    /*
 	* 'open_port()' - Open serial port 1.
