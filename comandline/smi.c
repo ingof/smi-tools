@@ -10,8 +10,8 @@ int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
 	int driveID=12;
 	int commandID=0;
-	char * serialPort="/dev/ttyUSB2";
-	char serialPort2[]="/dev/ttyUSB2";
+	char * serialPort="/dev/ttyUSB1";
+	char serialPort2[]="/dev/ttyUSB1";
 	int serialWait=40;
 	int fd; /* File descriptor for the port */
 	int x;
@@ -102,22 +102,23 @@ tcsetattr(fd, TCSANOW, &options);
 
 
 /* Write to port */
- 	int n;
+	int n;
 	char tmpBytes[4];
 	tmpBytes[0]=0x50 + driveID;
-    tmpBytes[1]=commandID;
-    tmpBytes[2]=tmpBytes[0] + tmpBytes[1];
-    tmpBytes[2]=~(tmpBytes[0] + tmpBytes[1])+ 1;
+	tmpBytes[1]=commandID;
+	tmpBytes[2]=tmpBytes[0] + tmpBytes[1];
+	tmpBytes[2]=~(tmpBytes[0] + tmpBytes[1])+ 1;
     n = write(fd, tmpBytes, 3);
     if (n < 0)
       fputs("write() of smi command failed!\n", stderr);
       printf("%02X %02X %02X: ",tmpBytes[0],tmpBytes[1],tmpBytes[2]);
 
+	/* wait 36ms */
+	usleep(serialWait*1000);
 
-/* Read from port */
- fcntl(fd, F_SETFL, FNDELAY);
- fcntl(fd, F_SETFL, 0);
-    bytes = read(fd, &buffer, sizeof(buffer));
+	/* Read from port */
+	fcntl(fd, F_SETFL, FNDELAY);
+	bytes = read(fd, &buffer, sizeof(buffer));
 //    printf("number of bytes read is %d\n", bytes);
 //    printf("->%02X.\n", buffer);
     //perror ("read error:");
@@ -136,11 +137,11 @@ tcsetattr(fd, TCSANOW, &options);
 int open_port(void)
 {
 	int fd; /* File descriptor for the port */
-	fd = open("/dev/ttyUSB2", O_RDWR | O_NOCTTY | O_NDELAY);
+	fd = open("/dev/ttyUSB1", O_RDWR | O_NOCTTY | O_NDELAY);
 	if (fd == -1)
 	{
 		/* Could not open the port. */
-		perror("open_port: Unable to open /dev/ttyUSB2 - ");
+		perror("open_port: Unable to open /dev/ttyUSB1 - ");
 		
 	}
 	else
