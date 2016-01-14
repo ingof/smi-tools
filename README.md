@@ -20,14 +20,14 @@ the ID of the drive. (0..15)
 stop, up, hoch, down, runter<br>
 default is stop
 * **optional:** serial port<br>
-default is /dev/ttyUSB2
+default is /dev/ttyUSB1
 * **optional:** serialWait<br>
-default is 5 (ms)
+default is 60 (ms)
 
 **example:**<br>
-smi drive should go up and is connected via /dev/ttyS0
+smi drive should go up and is connected via /dev/ttyS0 and is waiting 60ms for Answer
 ```
-smi 12 up /dev/ttyS0
+smi 12 up /dev/ttyS0 60
 ```
 
 monitor data on the smi-bus:
