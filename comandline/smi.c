@@ -130,8 +130,8 @@ tcsetattr(fd, TCSANOW, &options);
 
 /* Close Port */
    close(fd);
-   printf("return.%03d.",buffer[bytes]);
-   if (buffer[bytes]==0xff)
+   printf("return.%03d.",buffer[bytes-1]);
+   if (buffer[bytes-1]==0xff)
    {
    	return (0);
    }
