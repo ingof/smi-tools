@@ -124,7 +124,7 @@ for (loop=0; ; loop++)
 			printf("%02X ",c);
 		}
 	}
-	/* wait 36ms */
+	/* wait 40ms */
 	usleep(serialWait*1000);
 	bytes = read(fd, &buffer, sizeof(buffer));
 	if (bytes == -1)
