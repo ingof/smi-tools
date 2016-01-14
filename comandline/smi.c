@@ -132,13 +132,12 @@ tcsetattr(fd, TCSANOW, &options);
    close(fd);
    printf("return.%03d.",buffer[bytes]);
    if (buffer[bytes]==0xff)
-   	{
-   		return (0);
-   	}
-   	else
-   	{
-   		return(-1);
-   	}
+   {
+   	return (0);
+   }
+   else
+   {
+   	return(-1);
    }
 
 }
