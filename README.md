@@ -34,7 +34,7 @@ monitor data on the smi-bus:
 * **optional:** serialSpeed<br>
 default is 2400
 * **optional:** serialWait<br>
-default is 36 (ms)
+default is 40 (ms)
 * **optional:** serialport<br>
 default is /dev/ttyUSB0
 
