@@ -5,7 +5,8 @@ OPT = -g -Wall
 default: monitor
 
 # compile only monitor
-monitor:  smi-monitor.c
+monitor:  hex-monitor.c smi-monitor.c
+	$(CC) $(OPT) -o hex-monitor hex-monitor.c
 	$(CC) $(OPT) -o smi-monitor smi-monitor.c
   
 # removes all object, temporary an executable files
