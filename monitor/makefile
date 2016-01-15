@@ -5,7 +5,7 @@ OPT = -g -Wall
 default: all
 
 # compile only monitor
-all:  hex-monitor.c smi-monitor.c
+all:
 	%.c: %.
 		$(CC) $(OPT) -o $<
 #all:  hex-monitor.c smi-monitor.c
