@@ -147,8 +147,15 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			c = buffer[x];
-			printf("%02X ",c);
+			if buffer[x]==0xf0) {
+				c = buffer[x];
+				printf("%02X ",c);
+			}
+			else
+			{
+				c = buffer[x];
+				printf("\n          %02X ",c);
+			}
 		}
 	}
 	/* wait 5ms */
@@ -163,8 +170,15 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			c = buffer[x];
-			printf("%02X ",c);
+			if buffer[x]==0xf0) {
+				c = buffer[x];
+				printf("%02X ",c);
+			}
+			else
+			{
+				c = buffer[x];
+				printf("\n          %02X ",c);
+			}
 		}
 	printf("\n");
 	}
