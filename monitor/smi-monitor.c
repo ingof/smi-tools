@@ -147,7 +147,7 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			if buffer[x]==0xf0) {
+			if (buffer[x]==0xf0) {
 				c = buffer[x];
 				printf("%02X ",c);
 			}
@@ -170,7 +170,7 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			if buffer[x]==0xf0) {
+			if (buffer[x]==0xf0) {
 				c = buffer[x];
 				printf("%02X ",c);
 			}
