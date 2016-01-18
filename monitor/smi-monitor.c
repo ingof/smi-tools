@@ -14,7 +14,8 @@ int main( int argc, char* argv[] ) {
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialWait=40;
 	
-	int fd; /* File descriptor for the port */
+	int fdSwb; /* File descriptor for the SWB-port */
+	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
 	int loop;
 	int bytes;
