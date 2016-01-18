@@ -8,9 +8,10 @@
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
-	char * serialPort="/dev/ttyUSB0";
-	char serialPort2[]="/dev/ttyUSB0";
-	int serialSpeed=2400;
+	char * serialSwbPort="/dev/ttySWB0";
+	char serialSwb0Port[]="/dev/ttySWB0";
+	char * serialSmiPort="/dev/ttySMI0";
+	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialWait=40;
 	
 	int fd; /* File descriptor for the port */
@@ -21,20 +22,19 @@ int main( int argc, char* argv[] ) {
 	char buffer[20];
    //char *bufptr;
     
-   /* first parameter is serialSpeed*/
+   /* first parameter is serialSwb0Port*/
    if (argc > 1)
    {
-   	serialSpeed=atoi(argv[1]);
+   	serialSwbPort=argv[1];
    } else {
-   	/* default speed for serial port */
-   	serialSpeed=2400;
+   	serialSwbPort=serialSwb0Port;
    }
-   /* second parameter is serialPort*/
+   /* second parameter is serialSmi0Port*/
    if (argc > 2)
    {
-   	serialPort=argv[2];
+   	serialSmiPort=argv[2];
    } else {
-   	serialPort=serialPort2;
+   	serialSmiPort=serialSmi0Port;
    }
    /* third parameter is serialWait in ms*/
    if (argc > 3)
@@ -48,44 +48,39 @@ int main( int argc, char* argv[] ) {
 	* Returns the file descriptor on success or -1 on error.
 	*/
 
-  fd = open(serialPort, O_RDWR | O_NOCTTY | O_NDELAY);
-  if (fd == -1)
+  fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY);
+  if (fdSwb == -1)
   {
   	/* Could not open the port. */
-  	perror("Unable to open serial-port");
+  	perror("Unable to open serial SWB-port");
   	return(-1);
   } 
   else
   {
-  	fcntl(fd, F_SETFL, 0);
+  	fcntl(fdSwb, F_SETFL, 0);
+  }
+  
+  fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY);
+  if (fdSmi == -1)
+  {
+  	/* Could not open the port. */
+  	perror("Unable to open serial SMI-port");
+  	return(-1);
+  } 
+  else
+  {
+  	fcntl(fdSmi, F_SETFL, 0);
   }
 
 struct termios options;
 
-/* Get the current options for the port... */
-tcgetattr(fd, &options);
+/* Get the current options for the SWB-port... */
+tcgetattr(fdSwb, &options);
 
-if (serialSpeed == 2400)
-{
-	/* Set the baud rates to 2400... */
-	printf("2.400\n");
-	cfsetispeed(&options, B2400);
-	cfsetospeed(&options, B2400);
-}
-if (serialSpeed == 9600)
-{
-	/* Set the baud rates to 9600... */
-	printf("9.600\n");
-	cfsetispeed(&options, B9600);
-	cfsetospeed(&options, B9600);
-}
-if (serialSpeed == 19200)
-{
-	/* Set the baud rates to 19200... */
-	printf("19.200\n");
-	cfsetispeed(&options, B19200);
-	cfsetospeed(&options, B19200);
-}
+/* Set the baud rates to 19200... */
+printf("SWB: 19.200\n");
+cfsetispeed(&options, B19200);
+cfsetospeed(&options, B19200);
 
 /* Enable the receiver and set local mode... */
 options.c_cflag |= (CLOCAL | CREAD);
@@ -93,7 +88,6 @@ options.c_cflag |= (CLOCAL | CREAD);
 /* Setting Character Size */
 options.c_cflag &= ~CSIZE; /* Mask the character size bits */
 options.c_cflag |= CS8;    /* Select 8 data bits */
-
 
 /* Setting 8N1 */
 options.c_cflag &= ~PARENB;
@@ -105,16 +99,81 @@ options.c_cflag |= CS8;
 options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 
 /* Set the new options for the port... */
-tcsetattr(fd, TCSANOW, &options);
+tcsetattr(fdSwb, TCSANOW, &options);
+
+
+/* Get the current options for the SMI-port... */
+tcgetattr(fdSmi, &options);
+
+/* Set the baud rates to 2400... */
+printf("SMI: 2.400\n");
+cfsetispeed(&options, B2400);
+cfsetospeed(&options, B2400);
+
+/* Enable the receiver and set local mode... */
+options.c_cflag |= (CLOCAL | CREAD);
+
+/* Setting Character Size */
+options.c_cflag &= ~CSIZE; /* Mask the character size bits */
+options.c_cflag |= CS8;    /* Select 8 data bits */
+
+/* Setting 8N1 */
+options.c_cflag &= ~PARENB;
+options.c_cflag &= ~CSTOPB;
+options.c_cflag &= ~CSIZE;
+options.c_cflag |= CS8;
+
+/* choosing RAW-Input */
+options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+
+/* Set the new options for the port... */
+tcsetattr(fdSmi, TCSANOW, &options);
+
+
 
 /* endless-loop */
 for (loop=0; ; loop++)
     {
-    	bytes = read(fd, &buffer, sizeof(buffer));
-    	printf("%4d: ", loop);
+    	/* SWB-Bus */
+    	bytes = read(fdSwb, &buffer, sizeof(buffer));
+    	printf("%4d SWB: ", loop);
 	if (bytes == -1)
 	{
-		perror ("read error:");
+		perror ("read error swb:");
+	}
+	else
+	{
+		for (x = 0; x < bytes ; x++)
+		{
+			c = buffer[x];
+			printf("%02X ",c);
+		}
+	}
+	/* wait 5ms */
+//	usleep(serialWait*1000);
+	usleep(5*1000);
+	bytes = read(fdSwb, &buffer, sizeof(buffer));
+	if (bytes == -1)
+	{
+		perror ("read error swb:");
+	}
+	else
+	{
+		for (x = 0; x < bytes ; x++)
+		{
+			c = buffer[x];
+			printf("%02X ",c);
+		}
+	printf("\n");
+	}
+	
+	
+    	/* SMI-Bus */
+    	bytes = read(fdSMi, &buffer, sizeof(buffer));
+    	printf("%4d SMI: ", loop);
+	if (bytes == -1)
+	{
+		perror ("read error smi :");
 	}
 	else
 	{
@@ -126,10 +185,10 @@ for (loop=0; ; loop++)
 	}
 	/* wait 40ms */
 	usleep(serialWait*1000);
-	bytes = read(fd, &buffer, sizeof(buffer));
+	bytes = read(fdSMi, &buffer, sizeof(buffer));
 	if (bytes == -1)
 	{
-		perror ("read error:");
+		perror ("read error smi:");
 	}
 	else
 	{
@@ -142,9 +201,11 @@ for (loop=0; ; loop++)
 	}
 }
 
-/* Close Port */
-   close(fd);
-   printf("<serial port closed!\n");
+/* Close Ports */
+   close(fdSwb);
+   printf("<serial Swb port closed!\n");
+   close(fdSmi);
+   printf("<serial Swb port closed!\n");
    return (0);
    
 }
