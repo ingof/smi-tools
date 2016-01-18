@@ -53,7 +53,7 @@ int main( int argc, char* argv[] ) {
   if (fdSwb == -1)
   {
   	/* Could not open the port. */
-  	perror("Unable to open serial SWB-port", serialSwbPort);
+  	perror("Unable to open serial SWB-port");
   	printf("|%s|",serialSwbPort);
   	return(-1);
   } 
