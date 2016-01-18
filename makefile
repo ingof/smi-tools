@@ -5,7 +5,7 @@ OPT = -g -Wall
 default: all
 
 # compile all files
-all:  comandline/smi.c monitor/smi-monitor.c
+all:  comandline/smi.c monitor/smi-monitor.c monitor/hex-monitor.c
 	cd comandline && $(MAKE) all
 	cd monitor && $(MAKE) all
 
@@ -14,7 +14,7 @@ smi:  comandline/smi.c
 	cd comandline && $(MAKE) all
 
 # compile only monitor
-monitor:  monitor/smi-monitor.c
+monitor:  monitor/smi-monitor.c monitor/hex-monitor.c
 	cd monitor && $(MAKE) all
 
 # removes all object, temporary and executable files
@@ -24,6 +24,7 @@ clean:
 	
 # installes the executable files
 install:
+	cp monitor/hex-monitor /usr/local/bin/
 	cp monitor/smi-monitor /usr/local/bin/
 	cp comandline/smi /usr/local/bin/
   
