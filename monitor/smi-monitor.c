@@ -170,7 +170,7 @@ for (loop=0; ; loop++)
 	
 	
     	/* SMI-Bus */
-    	bytes = read(fdSMi, &buffer, sizeof(buffer));
+    	bytes = read(fdSmi, &buffer, sizeof(buffer));
     	printf("%4d SMI: ", loop);
 	if (bytes == -1)
 	{
@@ -186,7 +186,7 @@ for (loop=0; ; loop++)
 	}
 	/* wait 40ms */
 	usleep(serialWait*1000);
-	bytes = read(fdSMi, &buffer, sizeof(buffer));
+	bytes = read(fdSmi, &buffer, sizeof(buffer));
 	if (bytes == -1)
 	{
 		perror ("read error smi:");
