@@ -98,12 +98,12 @@ tcsetattr(fdSwb, TCSANOW, &options);
 	{
 	  /* Could not open the port. */
 	  perror("Unable to open serial SMI-port");
-	  printf("|%s|",serialSMIPort);
+	  printf("|%s|",serialSmiPort);
 	  return(-1);
 	} 
 	else
 	{
-	  printf("%s|\n",serialSMIPort);
+	  printf("%s|\n",serialSmiPort);
 	  fcntl(fdSmi, F_SETFL, 0);
 	}
 
