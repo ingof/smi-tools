@@ -54,12 +54,10 @@ int main( int argc, char* argv[] ) {
   {
   	/* Could not open the port. */
   	perror("Unable to open serial SWB-port");
-  	printf("|%s|",serialSwbPort);
   	return(-1);
   } 
   else
   {
-  	printf("%s|\n\n",serialSwbPort);
   	fcntl(fdSwb, F_SETFL, 0);
   }
   
@@ -98,12 +96,10 @@ tcsetattr(fdSwb, TCSANOW, &options);
 	{
 	  /* Could not open the port. */
 	  perror("Unable to open serial SMI-port");
-	  printf("|%s|",serialSmiPort);
 	  return(-1);
 	} 
 	else
 	{
-	  printf("%s|\n",serialSmiPort);
 	  fcntl(fdSmi, F_SETFL, 0);
 	}
 
@@ -173,6 +169,7 @@ for (loop=0; ; loop++)
 	printf("\n");
 	}
 	
+	loop++
 	
     	/* SMI-Bus */
     	bytes = read(fdSmi, &buffer, sizeof(buffer));
