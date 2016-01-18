@@ -30,9 +30,9 @@ smi drive should go up and is connected via /dev/ttyS0 and is waiting 60ms for A
 smi 12 up /dev/ttyS0 60
 ```
 
-monitor data on the smi-bus:
+monitor data on the smi-bus only:
 ----------------------------
-**Syntax:** smi-monitor [serial-speed] [serial-port] [serial-wait]<br>
+**Syntax:** hex-monitor [serial-speed] [serial-port] [serial-wait]<br>
 * **optional:** serialSpeed<br>
 default is 2400
 * **optional:** serialport<br>
@@ -47,6 +47,7 @@ log on /dev/ttyUSB0 at 19.200Bit/s and wait 5ms for whole telegramm
 smi-monitor 19200 /dev/ttyUSB0 5
 ```
 now can see the all received data as hexdata
+
 
 Clone git repository compile and install
 ----------------------------------------
