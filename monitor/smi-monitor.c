@@ -12,7 +12,8 @@ int main( int argc, char* argv[] ) {
 	char serialSwb0Port[]="/dev/ttySWB0";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
-	int serialWait=40;
+	int serialSwbWait=5;
+	int serialSmiWait=40;
 	
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
@@ -30,19 +31,26 @@ int main( int argc, char* argv[] ) {
    } else {
    	serialSwbPort=serialSwb0Port;
    }
-   /* second parameter is serialSmi0Port*/
+   /* second parameter is serialSwbWait in ms*/
    if (argc > 2)
    {
-   	serialSmiPort=argv[2];
+   	serialSwbWait=atoi(argv[2]);
+   } else {
+   	serialSwbWait=5;
+   }
+   /* second parameter is serialSmi0Port*/
+   if (argc > 3)
+   {
+   	serialSmiPort=argv[3];
    } else {
    	serialSmiPort=serialSmi0Port;
    }
-   /* third parameter is serialWait in ms*/
-   if (argc > 3)
+   /* fourth parameter is serialSmiWait in ms*/
+   if (argc > 4)
    {
-   	serialWait=atoi(argv[3]);
+   	serialSmiWait=atoi(argv[4]);
    } else {
-   	serialWait=40;
+   	serialSmiWait=40;
    }
    /*
 	* 'open_port()' - Open serial port 1.
@@ -160,7 +168,7 @@ for (loop=0; ; loop++)
 	}
 	/* wait 5ms */
 //	usleep(serialWait*1000);
-	usleep(5*1000);
+	usleep(serialSwbWait*1000);
 	bytes = read(fdSwb, &buffer, sizeof(buffer));
 	if (bytes == -1)
 	{
@@ -201,7 +209,7 @@ for (loop=0; ; loop++)
 		}
 	}
 	/* wait 40ms */
-	usleep(serialWait*1000);
+	usleep(serialSmiWait*1000);
 	bytes = read(fdSmi, &buffer, sizeof(buffer));
 	if (bytes == -1)
 	{
