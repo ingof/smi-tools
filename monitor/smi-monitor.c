@@ -63,20 +63,6 @@ int main( int argc, char* argv[] ) {
   	fcntl(fdSwb, F_SETFL, 0);
   }
   
-  fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY);
-  if (fdSmi == -1)
-  {
-  	/* Could not open the port. */
-  	perror("Unable to open serial SMI-port");
-  	printf("|%s|",serialSMIPort);
-  	return(-1);
-  } 
-  else
-  {
-  	printf("%s|\n",serialSMIPort);
-  	fcntl(fdSmi, F_SETFL, 0);
-  }
-
 struct termios options;
 
 /* Get the current options for the SWB-port... */
@@ -105,6 +91,21 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 
 /* Set the new options for the port... */
 tcsetattr(fdSwb, TCSANOW, &options);
+
+
+	fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY);
+	if (fdSmi == -1)
+	{
+	  /* Could not open the port. */
+	  perror("Unable to open serial SMI-port");
+	  printf("|%s|",serialSMIPort);
+	  return(-1);
+	} 
+	else
+	{
+	  printf("%s|\n",serialSMIPort);
+	  fcntl(fdSmi, F_SETFL, 0);
+	}
 
 
 /* Get the current options for the SMI-port... */
