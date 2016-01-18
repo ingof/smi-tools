@@ -53,11 +53,13 @@ int main( int argc, char* argv[] ) {
   if (fdSwb == -1)
   {
   	/* Could not open the port. */
-  	perror("Unable to open serial SWB-port");
+  	perror("Unable to open serial SWB-port", serialSwbPort);
+  	printf("|%s|",serialSwbPort);
   	return(-1);
   } 
   else
   {
+  	printf("%s|\n\n",serialSwbPort);
   	fcntl(fdSwb, F_SETFL, 0);
   }
   
@@ -66,10 +68,12 @@ int main( int argc, char* argv[] ) {
   {
   	/* Could not open the port. */
   	perror("Unable to open serial SMI-port");
+  	printf("|%s|",serialSMIPort);
   	return(-1);
   } 
   else
   {
+  	printf("%s|\n",serialSMIPort);
   	fcntl(fdSmi, F_SETFL, 0);
   }
 
