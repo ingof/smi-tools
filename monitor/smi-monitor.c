@@ -169,7 +169,7 @@ for (loop=0; ; loop++)
 	printf("\n");
 	}
 	
-	loop++
+	loop++;
 	
     	/* SMI-Bus */
     	bytes = read(fdSmi, &buffer, sizeof(buffer));
