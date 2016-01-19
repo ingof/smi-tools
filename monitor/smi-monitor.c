@@ -14,6 +14,8 @@ int main( int argc, char* argv[] ) {
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=5;
 	int serialSmiWait=40;
+	int serialSwbCount;
+	int serialSmiCount;
 	
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
@@ -21,7 +23,10 @@ int main( int argc, char* argv[] ) {
 	int loop;
 	int bytes;
 	char c;
-	char buffer[20];
+	char bufferSwb[20];
+	char bufferSmi[20];
+	int bufferSwbCnt;
+	int bufferSmiCnt;
    //char *bufptr;
     
    /* first parameter is serialSwb0Port*/
@@ -142,10 +147,12 @@ tcsetattr(fdSmi, TCSANOW, &options);
 
 
 /* endless-loop */
+serialSmiCount=0;
+serialSwbCount=0;
 for (loop=0; ; loop++)
     {
     	/* SWB-Bus */
-    	bytes = read(fdSwb, &buffer, sizeof(buffer));
+    	bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
     	printf("%4d SWB: ", loop);
 	if (bytes == -1)
 	{
@@ -155,21 +162,21 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			if (buffer[x]==0xf0) {
-				c = buffer[x];
+			if (bufferSwb[x]==0xf0) {
+				c = bufferSwb[x];
 				printf("\n          %02X ",c);
 			}
 			else
 			{
-				c = buffer[x];
+				c = bufferSwb[x];
 				printf("%02X ",c);
 			}
 		}
 	}
 	/* wait 5ms */
 //	usleep(serialWait*1000);
-	usleep(serialSwbWait*1000);
-	bytes = read(fdSwb, &buffer, sizeof(buffer));
+//	usleep(serialSwbWait*1000);
+	bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
 	if (bytes == -1)
 	{
 		perror ("read error swb:");
@@ -178,13 +185,13 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			if (buffer[x]==0xf0) {
-				c = buffer[x];
+			if (bufferSwb[x]==0xf0) {
+				c = bufferSwb[x];
 				printf("\n          %02X ",c);
 			}
 			else
 			{
-				c = buffer[x];
+				c = bufferSwb[x];
 				printf("%02X ",c);
 			}
 		}
@@ -194,7 +201,7 @@ for (loop=0; ; loop++)
 	loop++;
 	
     	/* SMI-Bus */
-    	bytes = read(fdSmi, &buffer, sizeof(buffer));
+    	bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
     	printf("%4d SMI: ", loop);
 	if (bytes == -1)
 	{
@@ -204,13 +211,13 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			c = buffer[x];
+			c = bufferSmi[x];
 			printf("%02X ",c);
 		}
 	}
 	/* wait 40ms */
-	usleep(serialSmiWait*1000);
-	bytes = read(fdSmi, &buffer, sizeof(buffer));
+//	usleep(serialSmiWait*1000);
+	bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
 	if (bytes == -1)
 	{
 		perror ("read error smi:");
@@ -219,11 +226,14 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			c = buffer[x];
+			c = bufferSmi[x];
 			printf("%02X ",c);
 		}
 	printf("\n");
 	}
+	/* wait 1ms */
+	usleep(1000);
+
 }
 
 /* Close Ports */
