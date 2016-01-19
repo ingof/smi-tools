@@ -196,7 +196,7 @@ for (loop=0; ; loop++)
     	/* SMI-Bus */
 	if (serialSmiCount==0)
 	{
-		bytes = read(fdSwb, &bufferSmi, sizeof(bufferSmi));
+		bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
 	    	serialSmiCount=bytes;
 		if (bytes == -1)
 		{
