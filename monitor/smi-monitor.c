@@ -152,87 +152,96 @@ serialSwbCount=0;
 for (loop=0; ; loop++)
     {
     	/* SWB-Bus */
-    	bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
-    	printf("%4d SWB: ", loop);
-	if (bytes == -1)
+	if (serialSwbCount==0)
 	{
-		perror ("read error swb:");
-	}
-	else
-	{
-		for (x = 0; x < bytes ; x++)
+		bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
+	    	serialSwbCount=bytes;
+		if (bytes == -1)
 		{
-			if (bufferSwb[x]==0xf0) {
-				c = bufferSwb[x];
-				printf("\n          %02X ",c);
-			}
-			else
-			{
-				c = bufferSwb[x];
-				printf("%02X ",c);
-			}
+			perror ("read error swb:");
 		}
-	}
-	/* wait 5ms */
-//	usleep(serialWait*1000);
-//	usleep(serialSwbWait*1000);
-	bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
-	if (bytes == -1)
-	{
-		perror ("read error swb:");
-	}
-	else
-	{
-		for (x = 0; x < bytes ; x++)
-		{
-			if (bufferSwb[x]==0xf0) {
-				c = bufferSwb[x];
-				printf("\n          %02X ",c);
-			}
-			else
-			{
-				c = bufferSwb[x];
-				printf("%02X ",c);
-			}
-		}
-	printf("\n");
 	}
 	
-	loop++;
+	if (serialSwbCount>=serialSwbWait)
+	{
+		printf("%4d SWB: ", loop);
+		for (x = 0; x < (bytes) ; x++)
+		{
+			c = bufferSwb[x];
+			if (bufferSwb[x]==0xf0) {
+				printf("\n          ");
+			}
+			printf("%02X ",c);
+		}
+		bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
+		if (bytes == -1)
+		{
+			perror ("read error swb:");
+		}
+		else
+		{
+			for (x = 0; x < (bytes) ; x++)
+			{
+				c = bufferSwb[x];
+				if (bufferSwb[x]==0xf0) {
+					printf("\n          ");
+				}
+				printf("%02X ",c);
+			}
+			printf("\n");
+			serialSwbCount=-1;
+		}
+	}
 	
     	/* SMI-Bus */
-    	bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
-    	printf("%4d SMI: ", loop);
-	if (bytes == -1)
+	if (serialSmiCount==0)
 	{
-		perror ("read error smi :");
-	}
-	else
-	{
-		for (x = 0; x < bytes ; x++)
+		bytes = read(fdSwb, &bufferSmi, sizeof(bufferSmi));
+	    	serialSmiCount=bytes;
+		if (bytes == -1)
 		{
-			c = bufferSmi[x];
-			printf("%02X ",c);
+			perror ("read error swb:");
+		}
+		else
+		{
+			loop++;
 		}
 	}
-	/* wait 40ms */
-//	usleep(serialSmiWait*1000);
-	bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
-	if (bytes == -1)
+	
+	if (serialSmiCount>=serialSmiWait)
 	{
-		perror ("read error smi:");
-	}
-	else
-	{
-		for (x = 0; x < bytes ; x++)
+		printf("%4d SWB: ", loop);
+		for (x = 0; x < (bytes) ; x++)
 		{
 			c = bufferSmi[x];
+			if (bufferSmi[x]==0xf0) {
+				printf("\n          ");
+			}
 			printf("%02X ",c);
 		}
-	printf("\n");
+		bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
+		if (bytes == -1)
+		{
+			perror ("read error smi:");
+		}
+		else
+		{
+			for (x = 0; x < (bytes) ; x++)
+			{
+				c = bufferSmi[x];
+				if (bufferSmi[x]==0xf0) {
+					printf("\n          ");
+				}
+				printf("%02X ",c);
+			}
+			printf("\n");
+			serialSmiCount=-1;
+		}
 	}
 	/* wait 1ms */
 	usleep(1000);
+	serialSwbCount++;
+	serialSmiCount++;
 
 }
 
