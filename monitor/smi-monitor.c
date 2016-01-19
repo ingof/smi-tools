@@ -210,13 +210,10 @@ for (loop=0; ; loop++)
 	
 	if (serialSmiCount>=serialSmiWait)
 	{
-		printf("%4d SWB: ", loop);
+		printf("%4d SMI: ", loop);
 		for (x = 0; x < (bytes) ; x++)
 		{
 			c = bufferSmi[x];
-			if (bufferSmi[x]==0xf0) {
-				printf("\n          ");
-			}
 			printf("%02X ",c);
 		}
 		bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
@@ -229,9 +226,6 @@ for (loop=0; ; loop++)
 			for (x = 0; x < (bytes) ; x++)
 			{
 				c = bufferSmi[x];
-				if (bufferSmi[x]==0xf0) {
-					printf("\n          ");
-				}
 				printf("%02X ",c);
 			}
 			printf("\n");
