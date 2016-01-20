@@ -24,11 +24,11 @@ int main( int argc, char* argv[] ) {
 	int loop;
 	int bytes=0;
 ////	int bytesSmi;
-	int bytesSwb=0;
+//	int bytesSwb=0;
 	char c;
 	int ch;
 	char buffer[40];
-	char bufferSwb[40];
+//	char bufferSwb[40];
 //	char bufferSmi[40];
 //	int bufferSwbCnt;
 //	int bufferSmiCnt;
@@ -169,7 +169,7 @@ for (loop=0; ; loop++)
 		bytes = read(fdSwb, &buffer, sizeof(buffer));
 			for (x = 0; x < (bytes) ; x++)
 			{
-				c = bufferSwb[x];
+				c = buffer[x];
 				printf("%02X ",c);
 			}
 		printf("\n");
