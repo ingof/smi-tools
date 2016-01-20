@@ -6,7 +6,7 @@
 #include <termios.h> /* POSIX terminal control definitions */
 #include <stdlib.h> /* converting functions */
 
-char getch_nb(); 
+int getch_nb(); 
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
