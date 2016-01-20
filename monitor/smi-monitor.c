@@ -10,8 +10,8 @@ int getch_nb();
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
-//	char * serialSwbPort="/dev/ttySWB1";
-//	char serialSwb0Port[]="/dev/ttySWB1";
+	char * serialSwbPort="/dev/ttySWB1";
+	char serialSwb0Port[]="/dev/ttySWB1";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=5;
