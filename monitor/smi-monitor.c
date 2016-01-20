@@ -173,6 +173,11 @@ for (loop=0; ; loop++)
 	    	memcpy(bufferSmi, buffer, sizeof(buffer));
 	    	bytesSmi=bytes;
 //	    	serialSmiCount=bytesSmi;
+		for (x = 0; x < (bytesSmi) ; x++)
+		{
+			c = bufferSmi[x];
+			printf("%02X ",c);
+		}
 	}
 	printf("Smi *1\n");
 
@@ -233,6 +238,11 @@ for (loop=0; ; loop++)
 		printf("Swb ---\n");
 	    	memcpy(bufferSwb, buffer, sizeof(buffer));
 	    	bytesSwb=bytes;
+		for (x = 0; x < (bytesSwb) ; x++)
+		{
+			c = bufferSwb[x];
+			printf("%02X ",c);
+		}
 //	    	serialSwbCount=bytesSwb;
 	}
 	printf("Swb *1\n");
