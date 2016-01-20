@@ -10,8 +10,8 @@ int getch_nb();
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
-	char * serialSwbPort="/dev/ttySWB0";
-	char serialSwb0Port[]="/dev/ttySWB0";
+//	char * serialSwbPort="/dev/ttySWB1";
+//	char serialSwb0Port[]="/dev/ttySWB1";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=5;
@@ -161,6 +161,9 @@ for (loop=0; ; loop++)
     	/* SWB-Bus */
 	//printf("bytesSwb-a%d\n",bytesSwb);
 	ch = getch_nb();
+	int bytes_avaiable;
+	ioctl(fdSwb, FIONREAD, &bytes_available);
+	
 	//printf("bytesSwb-n%d\n",bytesSwb);
 	if (ch >=0)
 	{
@@ -216,6 +219,7 @@ int getch_nb(void) {
   struct termios term, oterm;
   int fd = 0;
   int c = 0;
+  char 
   tcgetattr("/dev/ttySWB0", &oterm);
   memcpy(&term, &oterm, sizeof(term));
   term.c_lflag = term.c_lflag & (!ICANON);
