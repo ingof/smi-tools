@@ -201,9 +201,11 @@ for (loop=0; ; loop++)
 		}
 	}
 	printf("Smi *2\n");
+	printf("bytesSwb-a%d\n",bytesSwb);
 
     	/* SWB-Bus */
 	bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
+	printf("bytesSwb-n<%d\n",bytesSwb);
 	if (bytesSwb < -1)
 		{
 			printf("Swb-a *N\n");
