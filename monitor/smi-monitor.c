@@ -158,7 +158,7 @@ for (loop=0; ; loop++)
 	if (bytesSwb>0)
 	{
 		printf("Swb ---\n");
-	    	bufferSwb[]=buffer[];
+	    	memcpy(bufferSwb, buffer, sizeof(buffer));
 	    	serialSwbCount=bytesSwb;
 		if (bytesSwb == -1)
 		{
@@ -198,7 +198,7 @@ for (loop=0; ; loop++)
 	if (bytesSmi>0)
 	{
 		printf("Smi ---\n");
-	    	bufferSmi[]=buffer[];
+	    	memcpy(bufferSmi, buffer, sizeof(buffer));
 	    	serialSmiCount=bytesSmi;
 		if (bytesSmi == -1)
 		{
