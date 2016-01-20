@@ -80,7 +80,7 @@ struct termios options;
 tcgetattr(fdSwb, &options);
 
 /* Set the baud rates to 19200... */
-printf("SWB: 19.200\n");
+printf("SWB: 19.200 (%dms)\n",serialSwbWait);
 cfsetispeed(&options, B19200);
 cfsetospeed(&options, B19200);
 
@@ -121,7 +121,7 @@ tcsetattr(fdSwb, TCSANOW, &options);
 tcgetattr(fdSmi, &options);
 
 /* Set the baud rates to 2400... */
-printf("SMI: 2.400\n");
+printf("SMI:  2.400 (%dms)\n",serialSmiWait);
 cfsetispeed(&options, B2400);
 cfsetospeed(&options, B2400);
 
@@ -168,9 +168,9 @@ for (loop=0; ; loop++)
 		for (x = 0; x < (bytes) ; x++)
 		{
 			c = bufferSwb[x];
-			if (bufferSwb[x]==0xf0) {
-				printf("\n          ");
-			}
+//			if (bufferSwb[x]==0xf0) {
+//				printf("\n          ");
+//			}
 			printf("%02X ",c);
 		}
 		bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
@@ -183,9 +183,9 @@ for (loop=0; ; loop++)
 			for (x = 0; x < (bytes) ; x++)
 			{
 				c = bufferSwb[x];
-				if (bufferSwb[x]==0xf0) {
-					printf("\n          ");
-				}
+//				if (bufferSwb[x]==0xf0) {
+//					printf("\n          ");
+//				}
 				printf("%02X ",c);
 			}
 			printf("\n");
@@ -236,6 +236,7 @@ for (loop=0; ; loop++)
 	usleep(1000);
 	serialSwbCount++;
 	serialSmiCount++;
+	printf(" %d-%d",serialSwbCount ,serialSmiCount);
 
 }
 
