@@ -166,7 +166,7 @@ for (loop=0; ; loop++)
 	}
 	else
 	{
-		printf("%d \",ch)
+		printf("%d \n",ch)
 	}
 	/* wait 300ms */
 	usleep(300000);
