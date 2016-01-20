@@ -21,6 +21,7 @@ int main( int argc, char* argv[] ) {
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
 	int loop;
+	int bytes;
 	int bytesSmi;
 	int bytesSwb;
 	char c;
