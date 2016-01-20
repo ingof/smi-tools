@@ -221,7 +221,7 @@ int getch_nb(void) {
   int fd = 0;
   int c = 0;
   char 
-  tcgetattr("/dev/ttySWB0", &oterm);
+  tcgetattr(fd, &oterm);
   memcpy(&term, &oterm, sizeof(term));
   term.c_lflag = term.c_lflag & (!ICANON);
   term.c_cc[VMIN] = 0;
