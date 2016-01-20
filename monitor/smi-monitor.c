@@ -24,12 +24,12 @@ int main( int argc, char* argv[] ) {
 	int fdSmi; /* File descriptor for the SMI-port */
 //	int x;
 	int loop;
-//	int bytes;
+	int bytes;
 ////	int bytesSmi;
 //	int bytesSwb;
 //	char c;
 	int ch;
-//	char buffer[40];
+	char buffer[40];
 //	char bufferSwb[40];
 ////	char bufferSmi[40];
 //	int bufferSwbCnt;
