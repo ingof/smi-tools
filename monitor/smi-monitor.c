@@ -161,6 +161,10 @@ for (loop=0; ; loop++)
 		perror ("read error swb:");
 		serialSmiCount=-1;
 	}
+	if (bytesSmi == 0)
+	{
+		printf("Smi-a 0 %d\n",loop);
+	}
 	if (bytesSmi>0)
 	{
 		printf("Smi ---\n");
@@ -205,6 +209,10 @@ for (loop=0; ; loop++)
 			perror ("read error swb:");
 			serialSwbCount=-1;
 		}
+	if (bytesSwb == 0)
+	{
+		printf("Swb-a 0 %d\n",loop);
+	}
 	if (bytesSwb>0)
 	{
 		printf("Swb ---\n");
