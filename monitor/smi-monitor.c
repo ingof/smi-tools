@@ -22,12 +22,12 @@ int main( int argc, char* argv[] ) {
 	int x;
 	int loop;
 	int bytes;
-	int bytesSmi;
+////	int bytesSmi;
 	int bytesSwb;
 	char c;
 	char buffer[40];
 	char bufferSwb[40];
-	char bufferSmi[40];
+////	char bufferSmi[40];
 //	int bufferSwbCnt;
 //	int bufferSmiCnt;
    //char *bufptr;
