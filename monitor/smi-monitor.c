@@ -163,13 +163,12 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytes = read(fdSwb, &buffer, sizeof(buffer));
-			printf("SWB: ");
 			for (x = 0; x < (bytes) ; x++)
 			{
 				c = buffer[x];
 				if (c==0xf0)
 				{
-					printf("\n");
+					printf("SWB: ");
 				}
 				printf("%02X ",c);
 			}
@@ -204,8 +203,6 @@ for (loop=0; ; loop++)
 		serialSmiCount=0;
 	}
 
-//	printf(" %d-%d\n",serialSwbCount ,serialSmiCount);
-//	printf("Cnt *4\n");
 
 }
 
