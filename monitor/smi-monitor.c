@@ -160,6 +160,7 @@ for (loop=0; ; loop++)
 		if (bytes == -1)
 		{
 			perror ("read error swb:");
+			serialSwbCount=-1;
 		}
 	}
 	
@@ -198,6 +199,7 @@ for (loop=0; ; loop++)
 		if (bytes == -1)
 		{
 			perror ("read error swb:");
+			serialSmiCount=-1;
 		}
 //		else
 //		{
