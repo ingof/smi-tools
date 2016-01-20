@@ -7,8 +7,6 @@
 #include <stdlib.h> /* converting functions */
 #include <sys/ioctl.h> /* ioctl() */
 
-int getch_nb(); 
-
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
 	char * serialSwbPort="/dev/ttySWB1";
@@ -24,7 +22,7 @@ int main( int argc, char* argv[] ) {
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
 	int loop;
-//	int bytes;
+	int bytes=0;
 ////	int bytesSmi;
 	int bytesSwb=0;
 	char c;
