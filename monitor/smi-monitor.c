@@ -22,16 +22,16 @@ int main( int argc, char* argv[] ) {
 
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
-//	int x;
+	int x;
 	int loop;
 	int bytes;
 ////	int bytesSmi;
-//	int bytesSwb;
-//	char c;
+	int bytesSwb;
+	char c;
 	int ch;
 	char buffer[40];
-//	char bufferSwb[40];
-////	char bufferSmi[40];
+	char bufferSwb[40];
+//	char bufferSmi[40];
 //	int bufferSwbCnt;
 //	int bufferSmiCnt;
    //char *bufptr;
@@ -168,10 +168,10 @@ for (loop=0; ; loop++)
 	//printf("bytesSwb-n%d\n",bytesSwb);
 	if (bytes_available>=0)
 	{
-		bytes = read(fdSmi, &buffer, sizeof(buffer));
-			for (x = 0; x < (bytesSmi) ; x++)
+		bytes = read(fdSwb, &buffer, sizeof(buffer));
+			for (x = 0; x < (bytesSwb) ; x++)
 			{
-				c = bufferSmi[x];
+				c = bufferSwb[x];
 				printf("%02X ",c);
 			}
 		printf("\n");
