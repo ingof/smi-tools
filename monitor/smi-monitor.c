@@ -216,7 +216,7 @@ int getch_nb(void) {
   struct termios term, oterm;
   int fd = 0;
   int c = 0;
-  tcgetattr(fd, &oterm);
+  tcgetattr("´/dev/ttySWB0", &oterm);
   memcpy(&term, &oterm, sizeof(term));
   term.c_lflag = term.c_lflag & (!ICANON);
   term.c_cc[VMIN] = 0;
