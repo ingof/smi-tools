@@ -168,9 +168,6 @@ for (loop=0; ; loop++)
 		for (x = 0; x < (bytes) ; x++)
 		{
 			c = bufferSwb[x];
-//			if (bufferSwb[x]==0xf0) {
-//				printf("\n          ");
-//			}
 			printf("%02X ",c);
 		}
 		bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
@@ -183,9 +180,6 @@ for (loop=0; ; loop++)
 			for (x = 0; x < (bytes) ; x++)
 			{
 				c = bufferSwb[x];
-//				if (bufferSwb[x]==0xf0) {
-//					printf("\n          ");
-//				}
 				printf("%02X ",c);
 			}
 			printf("\n");
