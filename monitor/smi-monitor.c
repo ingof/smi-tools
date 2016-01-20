@@ -161,7 +161,7 @@ for (loop=0; ; loop++)
 	
     	/* SWB-Bus */
 	//printf("bytesSwb-a%d\n",bytesSwb);
-	ch = getch_nb();
+	//ch = getch_nb();
 	int bytes_available;
 	ioctl(fdSwb, FIONREAD, &bytes_available);
 	
@@ -214,21 +214,5 @@ int open_port(void)
 		fcntl(fd, F_SETFL, FNDELAY);
 	}
 	return (fd);
-}
-
-int getch_nb(void) {
-  struct termios term, oterm;
-  int fd = 0;
-  int c = 0;
-  char 
-  tcgetattr(fd, &oterm);
-  memcpy(&term, &oterm, sizeof(term));
-  term.c_lflag = term.c_lflag & (!ICANON);
-  term.c_cc[VMIN] = 0;
-  term.c_cc[VTIME] = 1;
-  tcsetattr(fd, TCSANOW, &term);
-  c = getchar();
-  tcsetattr(fd, TCSANOW, &oterm);
-  return c; // gibt -1 zurück, wenn kein Zeichen gelesen wurde
 }
 
