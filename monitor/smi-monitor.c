@@ -155,16 +155,16 @@ for (loop=0; ; loop++)
     {
     	/* SWB-Bus */
 	bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
+	if (bytesSwb == -1)
+		{
+			perror ("read error swb:");
+			serialSwbCount=-1;
+		}
 	if (bytesSwb>0)
 	{
 		printf("Swb ---\n");
 	    	memcpy(bufferSwb, buffer, sizeof(buffer));
 	    	serialSwbCount=bytesSwb;
-		if (bytesSwb == -1)
-		{
-			perror ("read error swb:");
-			serialSwbCount=-1;
-		}
 	}
 	
 	if (serialSwbCount>=serialSwbWait)
@@ -195,16 +195,16 @@ for (loop=0; ; loop++)
 	
     	/* SMI-Bus */
 	bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
+	if (bytesSmi == -1)
+	{
+		perror ("read error swb:");
+		serialSmiCount=-1;
+	}
 	if (bytesSmi>0)
 	{
 		printf("Smi ---\n");
 	    	memcpy(bufferSmi, buffer, sizeof(buffer));
 	    	serialSmiCount=bytesSmi;
-		if (bytesSmi == -1)
-		{
-			perror ("read error swb:");
-			serialSmiCount=-1;
-		}
 //		else
 //		{
 //			loop++;
