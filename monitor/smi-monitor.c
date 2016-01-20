@@ -166,10 +166,6 @@ for (loop=0; ; loop++)
 		printf("Smi ---\n");
 	    	memcpy(bufferSmi, buffer, sizeof(buffer));
 	    	serialSmiCount=bytesSmi;
-//		else
-//		{
-//			loop++;
-//		}
 	}
 	
 	if (serialSmiCount>=serialSmiWait)
@@ -241,10 +237,25 @@ for (loop=0; ; loop++)
 
 
 	/* wait 1ms */
-	loop++;
 	usleep(1000);
+	if (serialSwbCount<0)
+	{
+		serialSwbCount=0;
+	}
+	if (serialSmiCount<0)
+	{
+		serialSmiCount=0;
+	}
 	serialSwbCount++;
 	serialSmiCount++;
+	if (serialSwbCount>serialSwbWait)
+	{
+		serialSwbCount=0;
+	}
+	if (serialSmiCount>serialSmiwait)
+	{
+		serialSmiCount=0;
+	}
 	printf(" %d-%d",serialSwbCount ,serialSmiCount);
 
 }
