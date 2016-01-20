@@ -154,7 +154,7 @@ for (loop=0; ; loop++)
     	/* SWB-Bus */
 	if (serialSwbCount==0)
 	{
-		printf("Swb ---"\n);
+		printf("Swb ---\n");
 		bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
 	    	serialSwbCount=bytes;
 		if (bytes == -1)
@@ -165,7 +165,7 @@ for (loop=0; ; loop++)
 	
 	if (serialSwbCount>=serialSwbWait)
 	{
-		printf("Swb XXX"\n);
+		printf("Swb XXX\n");
 		printf("%4d SWB: ", loop);
 		for (x = 0; x < (bytes) ; x++)
 		{
@@ -192,7 +192,7 @@ for (loop=0; ; loop++)
     	/* SMI-Bus */
 	if (serialSmiCount==0)
 	{
-		printf("Smi ---"\n);
+		printf("Smi ---\n");
 		bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
 	    	serialSmiCount=bytes;
 		if (bytes == -1)
@@ -207,7 +207,7 @@ for (loop=0; ; loop++)
 	
 	if (serialSmiCount>=serialSmiWait)
 	{
-		printf("Smi XXX"\n);
+		printf("Smi XXX\n");
 
 		printf("%4d SMI: ", loop);
 		for (x = 0; x < (bytes) ; x++)
