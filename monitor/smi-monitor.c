@@ -26,7 +26,7 @@ int main( int argc, char* argv[] ) {
 	int loop;
 	int bytes;
 ////	int bytesSmi;
-	int bytesSwb;
+	int bytesSwb=0;
 	char c;
 	int ch;
 	char buffer[40];
@@ -162,7 +162,7 @@ for (loop=0; ; loop++)
     	/* SWB-Bus */
 	//printf("bytesSwb-a%d\n",bytesSwb);
 	//ch = getch_nb();
-	int bytes_available;
+	int bytes_available=0;
 	ioctl(fdSwb, FIONREAD, &ch);
 	
 	//printf("bytesSwb-n%d\n",bytesSwb);
