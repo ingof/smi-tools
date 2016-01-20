@@ -159,9 +159,9 @@ for (loop=0; ; loop++)
     {
 	
     	/* SWB-Bus */
-	printf("bytesSwb-a%d\n",bytesSwb);
+	//printf("bytesSwb-a%d\n",bytesSwb);
 	ch = getch_nb();
-	printf("bytesSwb-n%d\n",bytesSwb);
+	//printf("bytesSwb-n%d\n",bytesSwb);
 	if (ch == -1)
 	{
 		printf(".");
