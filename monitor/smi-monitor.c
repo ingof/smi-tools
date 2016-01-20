@@ -252,7 +252,7 @@ for (loop=0; ; loop++)
 	{
 		serialSwbCount=0;
 	}
-	if (serialSmiCount>serialSmiwait)
+	if (serialSmiCount>serialSmiWait)
 	{
 		serialSmiCount=0;
 	}
