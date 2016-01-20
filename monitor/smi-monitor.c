@@ -162,14 +162,11 @@ for (loop=0; ; loop++)
 	//printf("bytesSwb-a%d\n",bytesSwb);
 	ch = getch_nb();
 	//printf("bytesSwb-n%d\n",bytesSwb);
-	if (ch == -1)
-	{
-		printf(".");
-	}
-	else
+	if (ch >=0)
 	{
 		printf("%d \n",ch);
 	}
+	
 	/* wait 300ms */
 	usleep(300000);
 	serialSwbCount++;
@@ -226,7 +223,6 @@ int getch_nb(void) {
   term.c_cc[VTIME] = 1;
   tcsetattr(fd, TCSANOW, &term);
   c = getchar();
-  printf("|%d ",c);
   tcsetattr(fd, TCSANOW, &oterm);
   return c; // gibt -1 zurück, wenn kein Zeichen gelesen wurde
 }
