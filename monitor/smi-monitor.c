@@ -167,7 +167,7 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytes = read(fdSwb, &buffer, sizeof(buffer));
-			for (x = 0; x < (bytesSwb) ; x++)
+			for (x = 0; x < (bytes) ; x++)
 			{
 				c = bufferSwb[x];
 				printf("%02X ",c);
