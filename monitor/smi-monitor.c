@@ -225,8 +225,8 @@ int getch_nb(void) {
   term.c_cc[VMIN] = 0;
   term.c_cc[VTIME] = 1;
   tcsetattr(fd, TCSANOW, &term);
-  c = getwchar();
-  printf("|%d ");
+  c = getchar();
+  printf("|%d ",c);
   tcsetattr(fd, TCSANOW, &oterm);
   return c; // gibt -1 zurück, wenn kein Zeichen gelesen wurde
 }
