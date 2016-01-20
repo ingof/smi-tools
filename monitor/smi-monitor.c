@@ -179,12 +179,14 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytes = read(fdSmi, &buffer, sizeof(buffer));
-			printf("\nSMI: ");
+			printf("\033[31m\nSMI: ");
 			for (x = 0; x < (bytes) ; x++)
 			{
 				c = buffer[x];
 				printf("%02X ",c);
 			}
+			printf("\033[m");
+			
 	}
 
 	
