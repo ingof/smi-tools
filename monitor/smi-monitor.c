@@ -156,8 +156,9 @@ for (loop=0; ; loop++)
     {
 	
     	/* SWB-Bus */
+	printf("bytesSwb-a%d\n",bytesSwb);
 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-	printf("bytesSwb-n<%d\n",bytesSwb);
+	printf("bytesSwb-n%d\n",bytesSwb);
 	if (bytes < -1)
 	{
 		printf("Swb-a *N\n");
@@ -243,9 +244,9 @@ for (loop=0; ; loop++)
 	{
 		serialSmiCount=0;
 	}
-	printf("Cnt *4\n");
 
-	printf(" %d-%d",serialSwbCount ,serialSmiCount);
+	printf(" %d-%d\n",serialSwbCount ,serialSmiCount);
+	printf("Cnt *4\n");
 
 }
 
