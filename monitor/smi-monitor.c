@@ -162,8 +162,8 @@ for (loop=0; ; loop++)
     	/* SWB-Bus */
 	//printf("bytesSwb-a%d\n",bytesSwb);
 	//ch = getch_nb();
-	int bytes_available;
-	ioctl(fdSwb, FIONREAD, &bytes_available);
+	//int bytes_available;
+	ioctl(fdSwb, FIONREAD, &ch);
 	
 	//printf("bytesSwb-n%d\n",bytesSwb);
 	if (ch >=0)
