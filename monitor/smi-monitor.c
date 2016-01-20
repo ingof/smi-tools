@@ -27,7 +27,7 @@ int main( int argc, char* argv[] ) {
 ////	int bytesSmi;
 //	int bytesSwb;
 //	char c;
-	char ch;
+	int ch;
 //	char buffer[40];
 //	char bufferSwb[40];
 ////	char bufferSmi[40];
