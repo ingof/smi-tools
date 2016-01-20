@@ -5,6 +5,7 @@
 #include <errno.h>   /* Error number definitions */
 #include <termios.h> /* POSIX terminal control definitions */
 #include <stdlib.h> /* converting functions */
+#include <sys/ioctl.h> /* ioctl() *)
 
 int getch_nb(); 
 
