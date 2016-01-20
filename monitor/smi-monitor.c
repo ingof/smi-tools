@@ -179,7 +179,7 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytes = read(fdSmi, &buffer, sizeof(buffer));
-			printf("\033[31m\nSMI: ");
+			printf("\033[1m\nSMI: ");
 			for (x = 0; x < (bytes) ; x++)
 			{
 				c = buffer[x];
