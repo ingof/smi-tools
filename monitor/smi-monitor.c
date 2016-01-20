@@ -25,6 +25,7 @@ int main( int argc, char* argv[] ) {
 ////	int bytesSmi;
 	int bytesSwb;
 	char c;
+	char ch;
 	char buffer[40];
 	char bufferSwb[40];
 ////	char bufferSmi[40];
@@ -157,85 +158,20 @@ for (loop=0; ; loop++)
 	
     	/* SWB-Bus */
 	printf("bytesSwb-a%d\n",bytesSwb);
-	bytes = read(fdSwb, &buffer, sizeof(buffer));
+	ch = getch_nb();
 	printf("bytesSwb-n%d\n",bytesSwb);
-	if (bytes < -1)
+	if (ch == -1)
 	{
-		printf("Swb-a *N\n");
-		perror ("read error swb:");
-		serialSwbCount=-1;
+		printf(".");
 	}
-	if (bytes == -1)
+	else
 	{
-		printf("Swb-a *n\n");
-		perror ("read error swb:");
-		serialSwbCount=-1;
+		printf("%d \",ch)
 	}
-	if (bytes == 0)
-	{
-		printf("Swb-a *0\n");
-		printf("Swb-a 0 %d\n",loop);
-		serialSwbCount=-1;
-	}
-	if (bytesSwb>0)
-	{
-		printf("Swb-a *p\n");
-		printf("Swb ---\n");
-	    	memcpy(bufferSwb, buffer, sizeof(buffer));
-	    	bytesSwb=bytes;
-		for (x = 0; x < (bytesSwb) ; x++)
-		{
-			c = bufferSwb[x];
-			printf("%02X ",c);
-		}
-//	    	serialSwbCount=bytesSwb;
-	}
-	printf("Swb *1\n");
-	
-	if (serialSwbCount>=serialSwbWait)
-	{
-		printf("Swb XXX\n");
-		printf("%4d SWB: ", loop);
-		for (x = 0; x < (bytesSwb) ; x++)
-		{
-			c = bufferSwb[x];
-			printf("%02X ",c);
-		}
-		bytesSwb = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
-		if (bytesSwb == -1)
-		{
-			perror ("read error swb:");
-		}
-		else
-		{
-			for (x = 0; x < (bytesSwb) ; x++)
-			{
-				c = bufferSwb[x];
-				printf("%02X ",c);
-			}
-			printf("\n");
-			serialSwbCount=-1;
-		}
-	}
-	printf("Swb *2\n");
-
-
-
-	/* wait 1ms */
-	usleep(1000);
-	printf("Cnt *1\n");
-	if (serialSwbCount<0)
-	{
-		serialSwbCount=0;
-	}
-	if (serialSmiCount<0)
-	{
-		serialSmiCount=0;
-	}
-	printf("Cnt *2\n");
+	/* wait 300ms */
+	usleep(300000);
 	serialSwbCount++;
 	serialSmiCount++;
-	printf("Cnt *3\n");
 	if (serialSwbCount>serialSwbWait)
 	{
 		serialSwbCount=0;
@@ -245,8 +181,8 @@ for (loop=0; ; loop++)
 		serialSmiCount=0;
 	}
 
-	printf(" %d-%d\n",serialSwbCount ,serialSmiCount);
-	printf("Cnt *4\n");
+//	printf(" %d-%d\n",serialSwbCount ,serialSmiCount);
+//	printf("Cnt *4\n");
 
 }
 
@@ -276,3 +212,19 @@ int open_port(void)
 	}
 	return (fd);
 }
+
+int getch_nb(void) {
+  struct termios term, oterm;
+  int fd = 0;
+  int c = 0;
+  tcgetattr(fd, &oterm);
+  memcpy(&term, &oterm, sizeof(term));
+  term.c_lflag = term.c_lflag & (!ICANON);
+  term.c_cc[VMIN] = 0;
+  term.c_cc[VTIME] = 1;
+  tcsetattr(fd, TCSANOW, &term);
+  c = getchar();
+  tcsetattr(fd, TCSANOW, &oterm);
+  return c; // gibt -1 zurück, wenn kein Zeichen gelesen wurde
+}
+
