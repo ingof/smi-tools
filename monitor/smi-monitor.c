@@ -21,7 +21,8 @@ int main( int argc, char* argv[] ) {
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
 	int loop;
-	int bytes;
+	int bytesSmi;
+	int bytesSwb;
 	char c;
 	char bufferSwb[20];
 	char bufferSmi[20];
@@ -152,12 +153,12 @@ serialSwbCount=0;
 for (loop=0; ; loop++)
     {
     	/* SWB-Bus */
-	if (serialSwbCount==0)
+	bytesSwb = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
+	if (bytesSwb>0)
 	{
 		printf("Swb ---\n");
-		bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
-	    	serialSwbCount=bytes;
-		if (bytes == -1)
+	    	serialSwbCount=bytesSwb;
+		if (bytesSwb == -1)
 		{
 			perror ("read error swb:");
 			serialSwbCount=-1;
@@ -168,19 +169,19 @@ for (loop=0; ; loop++)
 	{
 		printf("Swb XXX\n");
 		printf("%4d SWB: ", loop);
-		for (x = 0; x < (bytes) ; x++)
+		for (x = 0; x < (bytesSwb) ; x++)
 		{
 			c = bufferSwb[x];
 			printf("%02X ",c);
 		}
-		bytes = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
-		if (bytes == -1)
+		bytesSwb = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
+		if (bytesSwb == -1)
 		{
 			perror ("read error swb:");
 		}
 		else
 		{
-			for (x = 0; x < (bytes) ; x++)
+			for (x = 0; x < (bytesSwb) ; x++)
 			{
 				c = bufferSwb[x];
 				printf("%02X ",c);
@@ -191,12 +192,12 @@ for (loop=0; ; loop++)
 	}
 	
     	/* SMI-Bus */
-	if (serialSmiCount==0)
+	bytesSmi = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
+	if (bytesSmi>0)
 	{
 		printf("Smi ---\n");
-		bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
-	    	serialSmiCount=bytes;
-		if (bytes == -1)
+	    	serialSmiCount=bytesSmi;
+		if (bytesSmi == -1)
 		{
 			perror ("read error swb:");
 			serialSmiCount=-1;
@@ -212,19 +213,19 @@ for (loop=0; ; loop++)
 		printf("Smi XXX\n");
 
 		printf("%4d SMI: ", loop);
-		for (x = 0; x < (bytes) ; x++)
+		for (x = 0; x < (bytesSmi) ; x++)
 		{
 			c = bufferSmi[x];
 			printf("%02X ",c);
 		}
-		bytes = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
-		if (bytes == -1)
+		bytesSmi = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
+		if (bytesSmi == -1)
 		{
 			perror ("read error smi:");
 		}
 		else
 		{
-			for (x = 0; x < (bytes) ; x++)
+			for (x = 0; x < (bytesSmi) ; x++)
 			{
 				c = bufferSmi[x];
 				printf("%02X ",c);
