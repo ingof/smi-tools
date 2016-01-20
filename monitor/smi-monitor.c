@@ -168,11 +168,10 @@ for (loop=0; ; loop++)
 				c = buffer[x];
 				if (c==0xf0)
 				{
-					printf("SWB: ");
+					printf("\nSWB: ");
 				}
 				printf("%02X ",c);
 			}
-		printf("\n");
 	}
 	
     	/* SMI-Bus */
@@ -180,13 +179,12 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytes = read(fdSmi, &buffer, sizeof(buffer));
-			printf("SMI: ");
+			printf("\nSMI: ");
 			for (x = 0; x < (bytes) ; x++)
 			{
 				c = buffer[x];
 				printf("%02X ",c);
 			}
-		printf("\n");
 	}
 
 	
