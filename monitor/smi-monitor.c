@@ -172,7 +172,6 @@ for (loop=0; ; loop++)
 	}
 	
     	/* SMI-Bus */
-	int bytes_available=0;
 	ioctl(fdSmi, FIONREAD, &ch);
 	if (bytes_available>=0)
 	{
