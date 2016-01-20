@@ -204,17 +204,26 @@ for (loop=0; ; loop++)
 
     	/* SWB-Bus */
 	bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
+	if (bytesSwb < -1)
+		{
+			printf("Swb-a *N\n");
+			perror ("read error swb:");
+			serialSwbCount=-1;
+		}
 	if (bytesSwb == -1)
 		{
+			printf("Swb-a *n\n");
 			perror ("read error swb:");
 			serialSwbCount=-1;
 		}
 	if (bytesSwb == 0)
 	{
+		printf("Swb-a *0\n");
 		printf("Swb-a 0 %d\n",loop);
 	}
 	if (bytesSwb>0)
 	{
+		printf("Swb-a *p\n");
 		printf("Swb ---\n");
 	    	memcpy(bufferSwb, buffer, sizeof(buffer));
 //	    	serialSwbCount=bytesSwb;
