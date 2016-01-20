@@ -196,10 +196,10 @@ for (loop=0; ; loop++)
 		{
 			perror ("read error swb:");
 		}
-		else
-		{
-			loop++;
-		}
+//		else
+//		{
+//			loop++;
+//		}
 	}
 	
 	if (serialSmiCount>=serialSmiWait)
@@ -227,6 +227,7 @@ for (loop=0; ; loop++)
 		}
 	}
 	/* wait 1ms */
+	loop++;
 	usleep(1000);
 	serialSwbCount++;
 	serialSmiCount++;
