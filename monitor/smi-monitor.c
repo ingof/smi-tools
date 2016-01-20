@@ -24,6 +24,7 @@ int main( int argc, char* argv[] ) {
 	int bytesSmi;
 	int bytesSwb;
 	char c;
+	char buffer[20];
 	char bufferSwb[20];
 	char bufferSmi[20];
 //	int bufferSwbCnt;
@@ -153,10 +154,11 @@ serialSwbCount=0;
 for (loop=0; ; loop++)
     {
     	/* SWB-Bus */
-	bytesSwb = read(fdSwb, &bufferSwb, sizeof(bufferSwb));
+	bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
 	if (bytesSwb>0)
 	{
 		printf("Swb ---\n");
+	    	bufferSwb=buffer;
 	    	serialSwbCount=bytesSwb;
 		if (bytesSwb == -1)
 		{
@@ -192,10 +194,11 @@ for (loop=0; ; loop++)
 	}
 	
     	/* SMI-Bus */
-	bytesSmi = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
+	bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
 	if (bytesSmi>0)
 	{
 		printf("Smi ---\n");
+	    	bufferSmi=buffer;
 	    	serialSmiCount=bytesSmi;
 		if (bytesSmi == -1)
 		{
