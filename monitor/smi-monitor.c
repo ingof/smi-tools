@@ -167,6 +167,8 @@ for (loop=0; ; loop++)
 	    	memcpy(bufferSmi, buffer, sizeof(buffer));
 //	    	serialSmiCount=bytesSmi;
 	}
+	printf("Smi *1\n");
+
 	
 	if (serialSmiCount>=serialSmiWait)
 	{
@@ -194,6 +196,7 @@ for (loop=0; ; loop++)
 			serialSmiCount=-1;
 		}
 	}
+	printf("Smi *2\n");
 
     	/* SWB-Bus */
 	bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
@@ -208,6 +211,7 @@ for (loop=0; ; loop++)
 	    	memcpy(bufferSwb, buffer, sizeof(buffer));
 //	    	serialSwbCount=bytesSwb;
 	}
+	printf("Swb *1\n");
 	
 	if (serialSwbCount>=serialSwbWait)
 	{
@@ -234,10 +238,13 @@ for (loop=0; ; loop++)
 			serialSwbCount=-1;
 		}
 	}
+	printf("Swb *2\n");
+
 
 
 	/* wait 1ms */
 	usleep(1000);
+	printf("Cnt *1\n");
 	if (serialSwbCount<0)
 	{
 		serialSwbCount=0;
@@ -246,8 +253,10 @@ for (loop=0; ; loop++)
 	{
 		serialSmiCount=0;
 	}
+	printf("Cnt *2\n");
 	serialSwbCount++;
 	serialSmiCount++;
+	printf("Cnt *3\n");
 	if (serialSwbCount>serialSwbWait)
 	{
 		serialSwbCount=0;
@@ -256,6 +265,8 @@ for (loop=0; ; loop++)
 	{
 		serialSmiCount=0;
 	}
+	printf("Cnt *4\n");
+
 	printf(" %d-%d",serialSwbCount ,serialSmiCount);
 
 }
