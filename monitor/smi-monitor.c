@@ -162,13 +162,19 @@ for (loop=0; ; loop++)
     	/* SWB-Bus */
 	//printf("bytesSwb-a%d\n",bytesSwb);
 	//ch = getch_nb();
-	//int bytes_available;
+	int bytes_available;
 	ioctl(fdSwb, FIONREAD, &ch);
 	
 	//printf("bytesSwb-n%d\n",bytesSwb);
-	if (ch >=0)
+	if (bytes_available>=0)
 	{
-		printf("%02X \n",ch);
+		bytes = read(fdSmi, &buffer, sizeof(buffer));
+			for (x = 0; x < (bytesSmi) ; x++)
+			{
+				c = bufferSmi[x];
+				printf("%02X ",c);
+			}
+		printf("\n");
 	}
 	
 	/* wait 300ms */
