@@ -65,7 +65,7 @@ int main( int argc, char* argv[] ) {
 	* Returns the file descriptor on success or -1 on error.
 	*/
 
-  fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY);
+  fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
   if (fdSwb == -1)
   {
   	/* Could not open the port. */
@@ -107,7 +107,7 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 tcsetattr(fdSwb, TCSANOW, &options);
 
 
-	fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY);
+	fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
 	if (fdSmi == -1)
 	{
 	  /* Could not open the port. */
