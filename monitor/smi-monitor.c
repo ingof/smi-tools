@@ -155,62 +155,6 @@ serialSwbCount=0;
 for (loop=0; ; loop++)
     {
 	
-    	/* SMI-Bus */
-	bytes = read(fdSmi, &buffer, sizeof(buffer));
-	if (bytes == -1)
-	{
-		perror ("read error swb:");
-		serialSmiCount=-1;
-	}
-	if (bytes == 0)
-	{
-		printf("Smi-a 0 %d\n",loop);
-		serialSmiCount=-1;
-	}
-	if (bytes>0)
-	{
-		printf("Smi ---\n");
-	    	memcpy(bufferSmi, buffer, sizeof(buffer));
-	    	bytesSmi=bytes;
-//	    	serialSmiCount=bytesSmi;
-		for (x = 0; x < (bytesSmi) ; x++)
-		{
-			c = bufferSmi[x];
-			printf("%02X ",c);
-		}
-	}
-	printf("Smi *1\n");
-
-	
-	if (serialSmiCount>=serialSmiWait)
-	{
-		printf("Smi XXX\n");
-
-		printf("%4d SMI: ", loop);
-		for (x = 0; x < (bytesSmi) ; x++)
-		{
-			c = bufferSmi[x];
-			printf("%02X ",c);
-		}
-		bytesSmi = read(fdSmi, &bufferSmi, sizeof(bufferSmi));
-		if (bytesSmi == -1)
-		{
-			perror ("read error smi:");
-		}
-		else
-		{
-			for (x = 0; x < (bytesSmi) ; x++)
-			{
-				c = bufferSmi[x];
-				printf("%02X ",c);
-			}
-			printf("\n");
-			serialSmiCount=-1;
-		}
-	}
-	printf("Smi *2\n");
-	printf("bytesSwb-a%d\n",bytesSwb);
-
     	/* SWB-Bus */
 	bytes = read(fdSwb, &buffer, sizeof(buffer));
 	printf("bytesSwb-n<%d\n",bytesSwb);
