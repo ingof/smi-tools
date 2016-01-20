@@ -164,7 +164,7 @@ for (loop=0; ; loop++)
 	//printf("bytesSwb-n%d\n",bytesSwb);
 	if (ch >=0)
 	{
-		printf("%d \n",ch);
+		printf("%02X \n",ch);
 	}
 	
 	/* wait 300ms */
