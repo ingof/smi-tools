@@ -217,7 +217,7 @@ for (loop=0; ; loop++)
 	serialSmiCnt++;
 	if (serialSwbCnt>serialSwbWait)
 	{
-		serialSwbCount=0;
+		serialSwbCnt=0;
 	}
 	if (serialSmiCnt>serialSmiWait)
 	{
