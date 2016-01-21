@@ -161,7 +161,7 @@ for (loop=0; ; loop++)
 	int bytes_available=0;
 	ioctl(fdSwb, FIONREAD, &ch);
 	{
-		if (serialSwbCount==0)
+		if (serialSwbCnt==0)
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
 			bufferSwbCnt=bytes;
