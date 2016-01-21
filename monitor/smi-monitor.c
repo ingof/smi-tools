@@ -159,6 +159,7 @@ for (loop=0; ; loop++)
 	
       	/* SWB-Bus */
 	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
+	printf("b%d",bytes);
 	if (bytes_available>0)
 	{
 		if (serialSwbCnt==0)
@@ -201,6 +202,7 @@ for (loop=0; ; loop++)
     	/* SMI-Bus */
 	bytes_available=0;
 	bytes_available=ioctl(fdSmi, FIONREAD, &ch);
+	printf("i%d",bytes);
 	if (bytes_available>0)
 	{
 		if (serialSmiCnt==0)
