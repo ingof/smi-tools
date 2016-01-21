@@ -184,12 +184,15 @@ for (loop=0; ; loop++)
 			bufferSwbCnt+=bytes;
 			memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
 		}
-		/* print message */
-		printf("\n%4d Swb: ",loop);
-		for (x = 0; x < (serialSwbCnt) ; x++)
+		if (bufferSwbCnt>0)
 		{
-			c = bufferSwb[x];
-			printf("%02X ",c);
+			/* print message */
+			printf("\n%4d Swb: ",loop);
+			for (x = 0; x < (serialSwbCnt) ; x++)
+			{
+				c = bufferSwb[x];
+				printf("%02X ",c);
+			}	
 		}
 		/* clear message */
 		bufferSwbCnt=0;
@@ -223,12 +226,15 @@ for (loop=0; ; loop++)
 			bufferSmiCnt+=bytes;
 			memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
 		}
-		/* print message */
-		printf("\n%4d Smi: ",loop);
-		for (x = 0; x < (serialSmiCnt) ; x++)
+		if (bufferSwbCnt>0)
 		{
-			c = bufferSmi[x];
-			printf("%02X ",c);
+			/* print message */
+			printf("\n%4d Smi: ",loop);
+			for (x = 0; x < (serialSmiCnt) ; x++)
+			{
+				c = bufferSmi[x];
+				printf("%02X ",c);
+			}
 		}
 		/* clear message */
 		bufferSmiCnt=0;
