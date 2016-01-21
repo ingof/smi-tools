@@ -30,7 +30,6 @@ int main( int argc, char* argv[] ) {
 	char buffer[50];
 	char bufferSwb[50];
 //	char bufferSmi[50];
-	int serialSwbCnt;
 	int bufferSwbCnt;
 //	int bufferSmiCnt;
    //char *bufptr;
