@@ -160,6 +160,8 @@ for (loop=0; ; loop++)
       	/* SWB-Bus */
 	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
 	printf("b%d",bytes_available);
+	/* wait for ioctl */
+	usleep(100);
 	if (bytes_available>0)
 	{
 		if (serialSwbCnt==0)
@@ -202,6 +204,8 @@ for (loop=0; ; loop++)
     	/* SMI-Bus */
 	bytes_available=0;
 	bytes_available=ioctl(fdSmi, FIONREAD, &ch);
+	/* wait for ioctl */
+	usleep(100);
 	printf("i%d",bytes_available);
 	if (bytes_available>0)
 	{
@@ -242,8 +246,8 @@ for (loop=0; ; loop++)
 		serialSmiCnt=0;
 	}
 	
-	/* wait 100ms */
-	usleep(100000);
+	/* wait 10ms */
+	usleep(10000);
 	serialSwbCnt++;
 	serialSmiCnt++;
 	if (serialSwbCnt>serialSwbWait)
