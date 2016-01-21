@@ -17,7 +17,7 @@ int main( int argc, char* argv[] ) {
 	int serialSmiWait=40;
 	int serialSwbCnt;
 	int serialSmiCnt;
-	int bytes_available;
+	int bytes_available=0;
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
