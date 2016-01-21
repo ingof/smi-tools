@@ -188,7 +188,7 @@ for (loop=0; ; loop++)
 		{
 			/* print message */
 			printf("\n%4d Swb: ",loop);
-			for (x = 0; x < (serialSwbCnt) ; x++)
+			for (x = 0; x < (bufferSwbCnt) ; x++)
 			{
 				c = bufferSwb[x];
 				printf("%02X ",c);
@@ -230,7 +230,7 @@ for (loop=0; ; loop++)
 		{
 			/* print message */
 			printf("\n%4d Smi: ",loop);
-			for (x = 0; x < (serialSmiCnt) ; x++)
+			for (x = 0; x < (bufferSmiCnt) ; x++)
 			{
 				c = bufferSmi[x];
 				printf("%02X ",c);
