@@ -29,9 +29,9 @@ int main( int argc, char* argv[] ) {
 	int ch;
 	char buffer[50];
 	char bufferSwb[50];
-//	char bufferSmi[50];
+	char bufferSmi[50];
 	int bufferSwbCnt;
-//	int bufferSmiCnt;
+	int bufferSmiCnt;
    //char *bufptr;
     
    /* first parameter is serialSwb0Port*/
