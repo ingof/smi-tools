@@ -17,7 +17,7 @@ int main( int argc, char* argv[] ) {
 	int serialSmiWait=40;
 	int serialSwbCnt=0;
 	int serialSmiCnt=0;
-//	int bytes_available=0;
+	int bytes_available=0;
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
@@ -158,7 +158,6 @@ for (loop=0; ; loop++)
     {
 	
       	/* SWB-Bus */
-	int bytes_available=0;
 	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
 	if (bytes_available>0)
 	{
@@ -241,8 +240,8 @@ for (loop=0; ; loop++)
 		serialSmiCnt=0;
 	}
 	
-	/* wait 1ms */
-	usleep(1000);
+	/* wait 100ms */
+	usleep(100000);
 	serialSwbCnt++;
 	serialSmiCnt++;
 	if (serialSwbCnt>serialSwbWait)
@@ -253,6 +252,7 @@ for (loop=0; ; loop++)
 	{
 		serialSmiCnt=0;
 	}
+	printf(".");
 
 
 }
