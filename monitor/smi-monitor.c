@@ -157,9 +157,10 @@ serialSwbCnt=0;
 for (loop=0; ; loop++)
     {
 	
-    	/* SWB-Bus */
+      	/* SWB-Bus */
 	int bytes_available=0;
-	ioctl(fdSwb, FIONREAD, &ch);
+	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
+	if (bytes_available>0)
 	{
 		if (serialSwbCnt==0)
 		{
@@ -173,31 +174,32 @@ for (loop=0; ; loop++)
 			bufferSwbCnt+=bytes;
 			memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
 		}
-		if (serialSwbCnt>=serialSwbWait)
+	}
+	if (serialSwbCnt>=serialSwbWait)
+	{
+		bytes_available=ioctl(fdSwb, FIONREAD, &ch);
+		if (bytes_available>0)
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
 			bufferSwbCnt+=bytes;
 			memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
-			/* print message */
-			printf("\n%4d SWB: ",loop);
-			for (x = 0; x < (serialSwbCnt) ; x++)
-			{
-				c = bufferSwb[x];
-//				if (c==0xf0)
-//				{
-//					printf("\nSWB: ");
-//				}
-				printf("%02X ",c);
-			}
-			/* clear message */
-			bufferSwbCnt=0;
-			serialSwbCnt=0;
 		}
+		/* print message */
+		printf("\n%4d Swb: ",loop);
+		for (x = 0; x < (serialSwbCnt) ; x++)
+		{
+			c = bufferSwb[x];
+			printf("%02X ",c);
+		}
+		/* clear message */
+		bufferSwbCnt=0;
+		serialSwbCnt=0;
 	}
 	
     	/* SMI-Bus */
 	bytes_available=0;
-	ioctl(fdSmi, FIONREAD, &ch);
+	bytes_available=ioctl(fdSmi, FIONREAD, &ch);
+	if (bytes_available>0)
 	{
 		if (serialSmiCnt==0)
 		{
@@ -211,22 +213,26 @@ for (loop=0; ; loop++)
 			bufferSmiCnt+=bytes;
 			memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
 		}
-		if (serialSmiCnt>=serialSmiWait)
+	}
+	if (serialSmiCnt>=serialSmiWait)
+	{
+		bytes_available=ioctl(fdSmi, FIONREAD, &ch);
+		if (bytes_available>0)
 		{
 		 	bytes = read(fdSmi, &buffer, sizeof(buffer));
 			bufferSmiCnt+=bytes;
 			memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
-			/* print message */
-			printf("\n%4d Smi: ",loop);
-			for (x = 0; x < (serialSmiCnt) ; x++)
-			{
-				c = bufferSmi[x];
-				printf("%02X ",c);
-			}
-			/* clear message */
-			bufferSmiCnt=0;
-			serialSmiCnt=0;
 		}
+		/* print message */
+		printf("\n%4d Smi: ",loop);
+		for (x = 0; x < (serialSmiCnt) ; x++)
+		{
+			c = bufferSmi[x];
+			printf("%02X ",c);
+		}
+		/* clear message */
+		bufferSmiCnt=0;
+		serialSmiCnt=0;
 	}
 	
 	/* wait 1ms */
