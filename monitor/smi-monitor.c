@@ -15,8 +15,8 @@ int main( int argc, char* argv[] ) {
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=5;
 	int serialSmiWait=40;
-	int serialSwbCount;
-	int serialSmiCount;
+	int serialSwbCnt;
+	int serialSmiCnt;
 
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
@@ -153,8 +153,8 @@ tcsetattr(fdSmi, TCSANOW, &options);
 
 
 /* endless-loop */
-serialSmiCount=0;
-serialSwbCount=0;
+serialSmiCnt=0;
+serialSwbCnt=0;
 for (loop=0; ; loop++)
     {
 	
@@ -165,20 +165,20 @@ for (loop=0; ; loop++)
 		if (serialSwbCount==0)
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			bufferSwbCount=bytes;
+			bufferSwbCnt=bytes;
 			memmove(bufferSwb, buffer, sizeof(buffer));
 		}
 		if (serialSwbCount>0 && serialSwbCnt<serialSwbWait)
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			bufferSwbCount+=bytes;
-			memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
+			bufferSwbCnt+=bytes;
+			memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
 		}
 		if (serialSwbCnt>=serialSwbWait)
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			bufferSwbCount+=bytes;
-			memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
+			bufferSwbCnt+=bytes;
+			memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
 			/* print message */
 			printf("\n%4d SWB: ",loop);
 			for (x = 0; x < (serialSwbCnt) ; x++)
@@ -191,8 +191,8 @@ for (loop=0; ; loop++)
 				printf("%02X ",c);
 			}
 			/* clear message */
-			bufferSwbCount=0;
-			serialSwbCount=0;
+			bufferSwbCnt=0;
+			serialSwbCnt=0;
 		}
 	}
 	
@@ -214,15 +214,15 @@ for (loop=0; ; loop++)
 	
 	/* wait 1ms */
 	usleep(1000);
-	serialSwbCount++;
-	serialSmiCount++;
-	if (serialSwbCount>serialSwbWait)
+	serialSwbCnt++;
+	serialSmiCnt++;
+	if (serialSwbCnt>serialSwbWait)
 	{
 		serialSwbCount=0;
 	}
-	if (serialSmiCount>serialSmiWait)
+	if (serialSmiCnt>serialSmiWait)
 	{
-		serialSmiCount=0;
+		serialSmiCnt=0;
 	}
 
 
