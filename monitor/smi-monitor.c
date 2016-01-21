@@ -27,10 +27,11 @@ int main( int argc, char* argv[] ) {
 //	int bytesSwb=0;
 	char c;
 	int ch;
-	char buffer[40];
-//	char bufferSwb[40];
-//	char bufferSmi[40];
-//	int bufferSwbCnt;
+	char buffer[50];
+	char bufferSwb[50];
+//	char bufferSmi[50];
+	int serialSwbCnt;
+	int bufferSwbCnt;
 //	int bufferSmiCnt;
    //char *bufptr;
     
@@ -160,18 +161,38 @@ for (loop=0; ; loop++)
     	/* SWB-Bus */
 	int bytes_available=0;
 	ioctl(fdSwb, FIONREAD, &ch);
-	if (bytes_available>=0)
 	{
-		bytes = read(fdSwb, &buffer, sizeof(buffer));
-			for (x = 0; x < (bytes) ; x++)
+		if (serialSwbCount==0)
+		{
+		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
+			serialSwbCnt=bytes;
+			memmove(bufferSwb, buffer, sizeof(buffer));
+		}
+		if (serialSwbCount>0 | serialSwbCnt<serialSwbWait)
+		{
+		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
+			serialSwbCnt+=bytes;
+			memmove(bufferSwb+serialSwbCount, buffer, sizeof(buffer));
+		}
+		if (serialSwbCnt>=serialSwbWait)
+		{
+		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
+			serialSwbCnt+=bytes;
+			memmove(bufferSwb+serialSwbCount, buffer, sizeof(buffer));
+			/* print message */
+			printf("\n%4d SWB: ",loop);
+			for (x = 0; x < (serialSwbCnt) ; x++)
 			{
-				c = buffer[x];
-				if (c==0xf0)
-				{
-					printf("\nSWB: ");
-				}
+				c = bufferSwb[x];
+//				if (c==0xf0)
+//				{
+//					printf("\nSWB: ");
+//				}
 				printf("%02X ",c);
 			}
+			/* clear message */
+			serialSwbCnt=0;
+		}
 	}
 	
     	/* SMI-Bus */
@@ -179,7 +200,7 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytes = read(fdSmi, &buffer, sizeof(buffer));
-			printf("\033[1m\nSMI: ");
+			printf("\033[1m\n%4d SMI: ", loop);
 			for (x = 0; x < (bytes) ; x++)
 			{
 				c = buffer[x];
@@ -190,8 +211,8 @@ for (loop=0; ; loop++)
 	}
 
 	
-	/* wait 300ms */
-	usleep(300000);
+	/* wait 1ms */
+	usleep(1000);
 	serialSwbCount++;
 	serialSmiCount++;
 	if (serialSwbCount>serialSwbWait)
