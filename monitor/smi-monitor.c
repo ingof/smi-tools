@@ -13,7 +13,7 @@ int main( int argc, char* argv[] ) {
 	char serialSwb0Port[]="/dev/ttySWB1";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
-	int serialSwbWait=5;
+	int serialSwbWait=10;
 	int serialSmiWait=40;
 	int serialSwbCnt;
 	int serialSmiCnt;
@@ -196,20 +196,38 @@ for (loop=0; ; loop++)
 	}
 	
     	/* SMI-Bus */
+	int bytes_available=0;
 	ioctl(fdSmi, FIONREAD, &ch);
-	if (bytes_available>=0)
 	{
-		bytes = read(fdSmi, &buffer, sizeof(buffer));
-			printf("\033[1m\n%4d SMI: ", loop);
-			for (x = 0; x < (bytes) ; x++)
+		if (serialSmiCnt==0)
+		{
+		 	bytes = read(fdSmi, &buffer, sizeof(buffer));
+			bufferSmiCnt=bytes;
+			memmove(bufferSmi, buffer, sizeof(buffer));
+		}
+		if ((serialSmiCnt>0) && (serialSmiCnt<serialSmiWait))
+		{
+		 	bytes = read(fdSmi, &buffer, sizeof(buffer));
+			bufferSmiCnt+=bytes;
+			memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
+		}
+		if (serialSmiCnt>=serialSmiWait)
+		{
+		 	bytes = read(fdSmi, &buffer, sizeof(buffer));
+			bufferSmiCnt+=bytes;
+			memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
+			/* print message */
+			printf("\n%4d Smi: ",loop);
+			for (x = 0; x < (serialSmiCnt) ; x++)
 			{
-				c = buffer[x];
+				c = bufferSmi[x];
 				printf("%02X ",c);
 			}
-			printf("\033[m");
-			
+			/* clear message */
+			bufferSmiCnt=0;
+			serialSmiCnt=0;
+		}
 	}
-
 	
 	/* wait 1ms */
 	usleep(1000);
