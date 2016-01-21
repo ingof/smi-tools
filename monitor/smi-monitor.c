@@ -167,7 +167,7 @@ for (loop=0; ; loop++)
 			bufferSwbCnt=bytes;
 			memmove(bufferSwb, buffer, sizeof(buffer));
 		}
-		if (serialSwbCount>0 && serialSwbCnt<serialSwbWait)
+		if ((serialSwbCnt>0) && (serialSwbCnt<serialSwbWait))
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
 			bufferSwbCnt+=bytes;
