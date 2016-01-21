@@ -17,7 +17,7 @@ int main( int argc, char* argv[] ) {
 	int serialSmiWait=40;
 	int serialSwbCnt;
 	int serialSmiCnt;
-	int bytes_available=0;
+//	int bytes_available=0;
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
@@ -158,7 +158,7 @@ for (loop=0; ; loop++)
     {
 	
     	/* SWB-Bus */
-	bytes_available=0;
+	int bytes_available=0;
 	ioctl(fdSwb, FIONREAD, &ch);
 	{
 		if (serialSwbCnt==0)
