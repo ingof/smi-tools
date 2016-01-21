@@ -165,20 +165,20 @@ for (loop=0; ; loop++)
 		if (serialSwbCount==0)
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			serialSwbCnt=bytes;
+			bufferSwbCount=bytes;
 			memmove(bufferSwb, buffer, sizeof(buffer));
 		}
-		if (serialSwbCount>0 | serialSwbCnt<serialSwbWait)
+		if (serialSwbCount>0 && serialSwbCnt<serialSwbWait)
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			serialSwbCnt+=bytes;
-			memmove(bufferSwb+serialSwbCount, buffer, sizeof(buffer));
+			bufferSwbCount+=bytes;
+			memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
 		}
 		if (serialSwbCnt>=serialSwbWait)
 		{
 		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			serialSwbCnt+=bytes;
-			memmove(bufferSwb+serialSwbCount, buffer, sizeof(buffer));
+			bufferSwbCount+=bytes;
+			memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
 			/* print message */
 			printf("\n%4d SWB: ",loop);
 			for (x = 0; x < (serialSwbCnt) ; x++)
@@ -191,7 +191,8 @@ for (loop=0; ; loop++)
 				printf("%02X ",c);
 			}
 			/* clear message */
-			serialSwbCnt=0;
+			bufferSwbCount=0;
+			serialSwbCount=0;
 		}
 	}
 	
