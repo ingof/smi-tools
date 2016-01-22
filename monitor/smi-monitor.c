@@ -176,7 +176,7 @@ for (loop=0; ; loop++)
 		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			for (x = 0; x < (serialSwbCount) ; x++)
+			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 			printf("\n(%d|%d)",bufferSwbCount,x);
 				c = bufferSwb[x];
