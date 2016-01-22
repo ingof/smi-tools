@@ -166,9 +166,9 @@ for (loop=0; ; loop++)
 	{
 		perror("ioctl(fdSwb)");
 	}
+	bytes_available=ch;
 	printf("\nIOCTL[%d|%2x]:",bytes_available,ch);
 //	if ((bytes_available>=0)||(bytes_available<0))
-	bytes_available=ch;
 	if (bytes_available>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
@@ -178,7 +178,7 @@ for (loop=0; ; loop++)
 		{
 			for (x = 0; x < (serialSwbCount) ; x++)
 			{
-//			printf("(%d|%d)",bufferSwbCount,x);
+			printf("\n(%d|%d)",bufferSwbCount,x);
 				c = bufferSwb[x];
 				if (c==0xf0)
 				{
