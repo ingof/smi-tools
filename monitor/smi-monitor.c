@@ -162,7 +162,7 @@ for (loop=0; ; loop++)
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 	if (IOReturn<0)
 	{
-		perror("ioctl(%d)",fdSwb);
+		perror("ioctl(swb)");
 	}
 	if (serialBytes>=0)
 	{
@@ -180,7 +180,7 @@ for (loop=0; ; loop++)
 		{
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
-//			printf("\n(%d|%d)",bufferSwbCount,x);
+				printf("\n%d|%d|%d \n               ",bufferSwbCount,bytesSwb,x);
 				c = bufferSwb[x];
 				if (c==0xf0)
 				{
