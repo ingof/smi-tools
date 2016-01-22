@@ -180,7 +180,7 @@ for (loop=0; ; loop++)
 		{
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
-				printf("\n%d|%d|%d \n               ",bufferSwbCount,bytesSwb,x);
+//				printf("\n%d|%d|%d \n               ",bufferSwbCount,bytesSwb,x);
 				c = bufferSwb[x];
 				if (c==0xf0)
 				{
