@@ -160,7 +160,11 @@ for (loop=0; ; loop++)
     	/* SWB-Bus */
 	int bytes_available=0;
 	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
-	if (bytes_available<0) perror("ioctl() Fehler");
+	if (bytes_available<0)
+	{
+		perror("ioctl() Fehler");
+		printf("\nioctl()=5d",bytes_available);
+	}
 	printf("[%d|%2x]",bytes_available,ch);
 	if ((bytes_available>=0)||(bytes_available<0))
 	{
