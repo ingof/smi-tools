@@ -23,15 +23,15 @@ int main( int argc, char* argv[] ) {
 	int x;
 	int loop;
 	int bytes=0;
-////	int bytesSmi;
+	int bytesSmi=0;
 	int bytesSwb=0;
 	char c;
 	int ch;
-	char buffer[40];
-	char bufferSwb[40];
-//	char bufferSmi[40];
-//	int bufferSwbCnt;
-//	int bufferSmiCnt;
+	char buffer[50];
+	char bufferSwb[50];
+	char bufferSmi[50];
+	int bufferSwbCnt=0;
+	int bufferSmiCnt=0;
    //char *bufptr;
     
    /* first parameter is serialSwb0Port*/
@@ -169,25 +169,30 @@ for (loop=0; ; loop++)
 			c = bufferSwb[x];
 			if (c==0xf0)
 			{
-				printf("\nSWB: ");
+				printf("\nSWB: %02X ",c);
 			}
-			printf("%02X ",c);
+			else
+			{
+				printf("%02X ",c);
+			}
 		}
+		bufferSwbCnt=0;
 	}
 	
     	/* SMI-Bus */
 	ioctl(fdSmi, FIONREAD, &ch);
 	if (bytes_available>=0)
 	{
-		bytes = read(fdSmi, &buffer, sizeof(buffer));
-			printf("\033[1m\nSMI: ");
-			for (x = 0; x < (bytes) ; x++)
-			{
-				c = buffer[x];
-				printf("%02X ",c);
-			}
-			printf("\033[m");
-			
+		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
+		memmove(bufferSmi, buffer, sizeof(buffer));
+		printf("\033[1m\nSMI: ");
+		for (x = 0; x < (bytesSmi) ; x++)
+		{
+			c = bufferSmi[x];
+			printf("%02X ",c);
+		}
+		printf("\033[m");
+		bufferSmiCnt=0;	
 	}
 
 	
@@ -203,8 +208,6 @@ for (loop=0; ; loop++)
 	{
 		serialSmiCount=0;
 	}
-
-
 }
 
 /* Close Ports */
