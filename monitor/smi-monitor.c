@@ -13,11 +13,11 @@ int main( int argc, char* argv[] ) {
 	char serialSwb0Port[]="/dev/ttySWB1";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
-	int serialSwbWait=10;
+	int serialSwbWait=5;
 	int serialSmiWait=40;
-	int serialSwbCnt=0;
-	int serialSmiCnt=0;
-	int bytes_available=0;
+	int serialSwbCount;
+	int serialSmiCount;
+
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
@@ -27,11 +27,11 @@ int main( int argc, char* argv[] ) {
 //	int bytesSwb=0;
 	char c;
 	int ch;
-	char buffer[50];
-	char bufferSwb[50];
-	char bufferSmi[50];
-	int bufferSwbCnt=0;
-	int bufferSmiCnt=0;
+	char buffer[40];
+//	char bufferSwb[40];
+//	char bufferSmi[40];
+//	int bufferSwbCnt;
+//	int bufferSmiCnt;
    //char *bufptr;
     
    /* first parameter is serialSwb0Port*/
@@ -152,113 +152,56 @@ tcsetattr(fdSmi, TCSANOW, &options);
 
 
 /* endless-loop */
-serialSmiCnt=0;
-serialSwbCnt=0;
+serialSmiCount=0;
+serialSwbCount=0;
 for (loop=0; ; loop++)
     {
 	
-      	/* SWB-Bus */
-	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
-	printf("b%d",bytes_available);
-	/* wait for ioctl */
-	usleep(100);
-	if (bytes_available>0)
+    	/* SWB-Bus */
+	int bytes_available=0;
+	ioctl(fdSwb, FIONREAD, &ch);
+	if (bytes_available>=0)
 	{
-		if (serialSwbCnt==0)
-		{
-		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			bufferSwbCnt=bytes;
-			memmove(bufferSwb, buffer, sizeof(buffer));
-		}
-		if ((serialSwbCnt>0) && (serialSwbCnt<serialSwbWait))
-		{
-		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			bufferSwbCnt+=bytes;
-			memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
-		}
-	}
-	if (serialSwbCnt>=serialSwbWait)
-	{
-		bytes_available=ioctl(fdSwb, FIONREAD, &ch);
-		if (bytes_available>0)
-		{
-		 	bytes = read(fdSwb, &buffer, sizeof(buffer));
-			bufferSwbCnt+=bytes;
-			memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
-		}
-		if (bufferSwbCnt>0)
-		{
-			/* print message */
-			printf("\n%4d Swb: ",loop);
-			for (x = 0; x < (bufferSwbCnt) ; x++)
+		bytes = read(fdSwb, &buffer, sizeof(buffer));
+			for (x = 0; x < (bytes) ; x++)
 			{
-				c = bufferSwb[x];
+				c = buffer[x];
+				if (c==0xf0)
+				{
+					printf("\nSWB: ");
+				}
 				printf("%02X ",c);
-			}	
-		}
-		/* clear message */
-		bufferSwbCnt=0;
-		serialSwbCnt=0;
+			}
 	}
 	
     	/* SMI-Bus */
-	bytes_available=0;
-	bytes_available=ioctl(fdSmi, FIONREAD, &ch);
-	/* wait for ioctl */
-	usleep(100);
-	printf("i%d",bytes_available);
-	if (bytes_available>0)
+	ioctl(fdSmi, FIONREAD, &ch);
+	if (bytes_available>=0)
 	{
-		if (serialSmiCnt==0)
-		{
-		 	bytes = read(fdSmi, &buffer, sizeof(buffer));
-			bufferSmiCnt=bytes;
-			memmove(bufferSmi, buffer, sizeof(buffer));
-		}
-		if ((serialSmiCnt>0) && (serialSmiCnt<serialSmiWait))
-		{
-		 	bytes = read(fdSmi, &buffer, sizeof(buffer));
-			bufferSmiCnt+=bytes;
-			memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
-		}
-	}
-	if (serialSmiCnt>=serialSmiWait)
-	{
-		bytes_available=ioctl(fdSmi, FIONREAD, &ch);
-		if (bytes_available>0)
-		{
-		 	bytes = read(fdSmi, &buffer, sizeof(buffer));
-			bufferSmiCnt+=bytes;
-			memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
-		}
-		if (bufferSwbCnt>0)
-		{
-			/* print message */
-			printf("\n%4d Smi: ",loop);
-			for (x = 0; x < (bufferSmiCnt) ; x++)
+		bytes = read(fdSmi, &buffer, sizeof(buffer));
+			printf("\033[1m\nSMI: ");
+			for (x = 0; x < (bytes) ; x++)
 			{
-				c = bufferSmi[x];
+				c = buffer[x];
 				printf("%02X ",c);
 			}
-		}
-		/* clear message */
-		bufferSmiCnt=0;
-		serialSmiCnt=0;
+			printf("\033[m");
+			
 	}
+
 	
-	/* wait 10ms */
-	usleep(10000);
-	serialSwbCnt++;
-	serialSmiCnt++;
-	if (serialSwbCnt>serialSwbWait)
+	/* wait 300ms */
+	usleep(300000);
+	serialSwbCount++;
+	serialSmiCount++;
+	if (serialSwbCount>serialSwbWait)
 	{
-		serialSwbCnt=0;
+		serialSwbCount=0;
 	}
-	if (serialSmiCnt>serialSmiWait)
+	if (serialSmiCount>serialSmiWait)
 	{
-		serialSmiCnt=0;
+		serialSmiCount=0;
 	}
-	printf(".");
 
 
 }
@@ -289,4 +232,3 @@ int open_port(void)
 	}
 	return (fd);
 }
-
