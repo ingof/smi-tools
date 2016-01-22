@@ -168,6 +168,7 @@ for (loop=0; ; loop++)
 	}
 	printf("\nIOCTL[%d|%2x]:",bytes_available,ch);
 //	if ((bytes_available>=0)||(bytes_available<0))
+	bytes_available=ch;
 	if (bytes_available>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
