@@ -159,7 +159,7 @@ for (loop=0; ; loop++)
 	
     	/* SWB-Bus */
 	int bytes_available=0;
-	ioctl(fdSwb, FIONREAD, &ch);
+	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
 	if (bytes_available>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
@@ -185,7 +185,7 @@ for (loop=0; ; loop++)
 	}
 	
     	/* SMI-Bus */
-	ioctl(fdSmi, FIONREAD, &ch);
+	bytes_available=ioctl(fdSmi, FIONREAD, &ch);
 	if (bytes_available>=0)
 	{
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
