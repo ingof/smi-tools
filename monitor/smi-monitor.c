@@ -15,8 +15,8 @@ int main( int argc, char* argv[] ) {
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=5;
 	int serialSmiWait=40;
-	int serialSwbCnt;
-	int serialSmiCnt;
+	int serialSwbCount;
+	int serialSmiCount;
 
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
@@ -30,8 +30,8 @@ int main( int argc, char* argv[] ) {
 	char buffer[50];
 	char bufferSwb[50];
 	char bufferSmi[50];
-	int bufferSwbCnt=0;
-	int bufferSmiCnt=0;
+	int bufferSwbCount=0;
+	int bufferSmiCount=0;
    //char *bufptr;
     
    /* first parameter is serialSwb0Port*/
@@ -163,9 +163,9 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
-		memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
-		printf("CNT:%d ",bufferSwbCnt);
-		if (serialSwbCnt>=serialSwbWait)
+		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
+		printf("CNT:%d ",bufferSwbCount);
+		if (serialSwbCount>=serialSwbWait)
 		{
 			for (x = 0; x < (bytesSwb) ; x++)
 			{
@@ -179,7 +179,7 @@ for (loop=0; ; loop++)
 					printf("%02X ",c);
 				}
 			}
-			bufferSwbCnt=0;
+			bufferSwbCount=0;
 		}
 	}
 	
@@ -188,7 +188,7 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
-		memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
+		memmove(bufferSmi+bufferSmiCount, buffer, sizeof(buffer));
 		printf("\033[1m\nSMI: ");
 		for (x = 0; x < (bytesSmi) ; x++)
 		{
@@ -196,7 +196,7 @@ for (loop=0; ; loop++)
 			printf("%02X ",c);
 		}
 		printf("\033[m");
-		bufferSmiCnt=0;	
+		bufferSmiCount=0;	
 	}
 
 	
