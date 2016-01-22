@@ -164,19 +164,23 @@ for (loop=0; ; loop++)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
 		memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
-		for (x = 0; x < (bytesSwb) ; x++)
+		printf("CNT:%d ",bufferSwbCnt);
+		if (serialSwbCnt>=serialSwbWait)
 		{
-			c = bufferSwb[x];
-			if (c==0xf0)
+			for (x = 0; x < (bytesSwb) ; x++)
 			{
-				printf("\nSWB: %02X ",c);
+				c = bufferSwb[x];
+				if (c==0xf0)
+				{
+					printf("\nSWB: %02X ",c);
+				}
+				else
+				{
+					printf("%02X ",c);
+				}
 			}
-			else
-			{
-				printf("%02X ",c);
-			}
+			bufferSwbCnt=0;
 		}
-		bufferSwbCnt=0;
 	}
 	
     	/* SMI-Bus */
