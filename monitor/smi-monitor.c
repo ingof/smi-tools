@@ -178,7 +178,7 @@ for (loop=0; ; loop++)
 		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			printf("\n%d SWB: %02X ",serialswbCount,c);
+			printf("\n%d SWB: %02X ",serialSwbCount,c);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
@@ -215,8 +215,8 @@ for (loop=0; ; loop++)
 	}
 
 	
-	/* wait 2ms */
-	usleep(2000);
+	/* wait 1ms */
+	usleep(1000);
 	serialSwbCount++;
 	serialSmiCount++;
 	if (serialSwbCount>serialSwbWait)
