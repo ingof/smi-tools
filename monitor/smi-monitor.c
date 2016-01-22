@@ -24,11 +24,11 @@ int main( int argc, char* argv[] ) {
 	int loop;
 	int bytes=0;
 ////	int bytesSmi;
-//	int bytesSwb=0;
+	int bytesSwb=0;
 	char c;
 	int ch;
 	char buffer[40];
-//	char bufferSwb[40];
+	char bufferSwb[40];
 //	char bufferSmi[40];
 //	int bufferSwbCnt;
 //	int bufferSmiCnt;
@@ -162,16 +162,17 @@ for (loop=0; ; loop++)
 	ioctl(fdSwb, FIONREAD, &ch);
 	if (bytes_available>=0)
 	{
-		bytes = read(fdSwb, &buffer, sizeof(buffer));
-			for (x = 0; x < (bytes) ; x++)
+		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
+		memmove(bufferSwb, buffer, sizeof(buffer));
+		for (x = 0; x < (bytesSwb) ; x++)
+		{
+			c = bufferSwb[x];
+			if (c==0xf0)
 			{
-				c = buffer[x];
-				if (c==0xf0)
-				{
-					printf("\nSWB: ");
-				}
-				printf("%02X ",c);
+				printf("\nSWB: ");
 			}
+			printf("%02X ",c);
+		}
 	}
 	
     	/* SMI-Bus */
