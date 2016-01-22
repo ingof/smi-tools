@@ -163,11 +163,11 @@ for (loop=0; ; loop++)
 	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
 	if (bytes_available<0)
 	{
-		perror("ioctl() Fehler");
-		printf("\nioctl()=%d",bytes_available);
+		perror("ioctl(fdSwb)");
 	}
-	printf("IOCTL[%d|%2x]",bytes_available,ch);
-	if ((bytes_available>=0)||(bytes_available<0))
+//	printf("IOCTL[%d|%2x]",bytes_available,ch);
+//	if ((bytes_available>=0)||(bytes_available<0))
+	if (bytes_available>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
 		if (bytesSwb>0) bufferSwbCount+=bytesSwb;
@@ -176,7 +176,7 @@ for (loop=0; ; loop++)
 		{
 			for (x = 0; x < (serialSwbCount) ; x++)
 			{
-			printf("(%d|%d)",bufferSwbCount,x);
+//			printf("(%d|%d)",bufferSwbCount,x);
 				c = bufferSwb[x];
 				if (c==0xf0)
 				{
