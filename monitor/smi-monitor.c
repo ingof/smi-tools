@@ -22,7 +22,7 @@ int main( int argc, char* argv[] ) {
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
 	int loop;
-	int bytes=0;
+//	int bytes=0;
 	int bytesSmi=0;
 	int bytesSwb=0;
 	char c;
