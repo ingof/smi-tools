@@ -163,7 +163,7 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
-		memmove(bufferSwb, buffer, sizeof(buffer));
+		memmove(bufferSwb+bufferSwbCnt, buffer, sizeof(buffer));
 		for (x = 0; x < (bytesSwb) ; x++)
 		{
 			c = bufferSwb[x];
@@ -184,7 +184,7 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
-		memmove(bufferSmi, buffer, sizeof(buffer));
+		memmove(bufferSmi+bufferSmiCnt, buffer, sizeof(buffer));
 		printf("\033[1m\nSMI: ");
 		for (x = 0; x < (bytesSmi) ; x++)
 		{
