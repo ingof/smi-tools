@@ -221,8 +221,8 @@ for (loop=0; ; loop++)
 	}
 
 	
-	/* wait 300ms */
-	usleep(300000);
+	/* wait 2ms */
+	usleep(2000);
 	serialSwbCount++;
 	serialSmiCount++;
 	if (serialSwbCount>serialSwbWait)
