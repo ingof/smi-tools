@@ -163,7 +163,7 @@ for (loop=0; ; loop++)
 	if (bytes_available<0)
 	{
 		perror("ioctl() Fehler");
-		printf("\nioctl()=5d",bytes_available);
+		printf("\nioctl()=%d",bytes_available);
 	}
 	printf("[%d|%2x]",bytes_available,ch);
 	if ((bytes_available>=0)||(bytes_available<0))
