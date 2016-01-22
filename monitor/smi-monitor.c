@@ -17,7 +17,7 @@ int main( int argc, char* argv[] ) {
 	int serialSmiWait=40;
 	int serialSwbCount;
 	int serialSmiCount;
-	int bytes_available;
+	int IOReturn;
 
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
@@ -27,7 +27,7 @@ int main( int argc, char* argv[] ) {
 	int bytesSmi=0;
 	int bytesSwb=0;
 	char c;
-	int ch;
+	int serialBytes;
 	char buffer[50];
 	char bufferSwb[50];
 	char bufferSmi[50];
@@ -159,20 +159,22 @@ for (loop=0; ; loop++)
     {
 	
     	/* SWB-Bus */
-	bytes_available=0;
-	/*fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK); */
-	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
-	if (bytes_available<0)
+	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+	if (IOReturn<0)
 	{
 		perror("ioctl(fdSwb)");
 	}
-	bytes_available=ch;
-//	printf("\nIOCTL[%d|%2x]:",bytes_available,ch);
-//	if ((bytes_available>=0)||(bytes_available<0))
-	if (bytes_available>=0)
+	if (serialBytes>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
-		if (bytesSwb>0) bufferSwbCount+=bytesSwb;
+		if (bytesSwb<0)
+		{
+			perror("read(Swb)");
+		}
+		if (serialBytes>0)
+		{
+			bufferSwbCount+=bytesSwb;
+		}
 		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
