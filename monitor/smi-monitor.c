@@ -197,7 +197,7 @@ for (loop=0; ; loop++)
 	//bytes_available=-1;
 	if ((bytes_available>=0)&&(bytes_available<0))
 	{
-		printf("das sollte nie passieren SMI!!!\n")
+		printf("das sollte nie passieren SMI!!!\n");
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
 		if (bytesSmi>0) bufferSmiCount+=bytesSmi;
 		memmove(bufferSmi+bufferSmiCount, buffer, sizeof(buffer));
