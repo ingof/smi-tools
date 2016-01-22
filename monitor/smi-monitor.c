@@ -163,7 +163,7 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
-		bufferSwbCount+=bytesSwb;
+		if (bytesSwb>0) bufferSwbCount+=bytesSwb;
 		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
 		printf("CNT:%d ",bufferSwbCount);
 		if (serialSwbCount>=serialSwbWait)
@@ -190,7 +190,7 @@ for (loop=0; ; loop++)
 	if (bytes_available>=0)
 	{
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
-		bufferSmiCount+=bytesSmi;
+		if (bytesSmi>0) bufferSmiCount+=bytesSmi;
 		memmove(bufferSmi+bufferSmiCount, buffer, sizeof(buffer));
 		printf("\033[1m\nSMI: ");
 		for (x = 0; x < (bytesSmi) ; x++)
