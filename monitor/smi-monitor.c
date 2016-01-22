@@ -167,7 +167,7 @@ for (loop=0; ; loop++)
 		perror("ioctl(fdSwb)");
 	}
 	bytes_available=ch;
-	printf("\nIOCTL[%d|%2x]:",bytes_available,ch);
+//	printf("\nIOCTL[%d|%2x]:",bytes_available,ch);
 //	if ((bytes_available>=0)||(bytes_available<0))
 	if (bytes_available>=0)
 	{
