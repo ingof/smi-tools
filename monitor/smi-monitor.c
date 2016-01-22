@@ -191,14 +191,17 @@ for (loop=0; ; loop++)
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
 		if (bytesSmi>0) bufferSmiCount+=bytesSmi;
 		memmove(bufferSmi+bufferSmiCount, buffer, sizeof(buffer));
-		printf("\033[1m\nSMI: ");
-		for (x = 0; x < (bytesSmi) ; x++)
+		if (bufferSmiCount>0)
 		{
-			c = bufferSmi[x];
-			printf("%02X ",c);
+			printf("\033[1m\nSMI: ");
+			for (x = 0; x < (bytesSmi) ; x++)
+			{
+				c = bufferSmi[x];
+				printf("%02X ",c);
+			}
+			printf("\033[m");
+			bufferSmiCount=0;
 		}
-		printf("\033[m");
-		bufferSmiCount=0;	
 	}
 
 	
