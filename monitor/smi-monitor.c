@@ -168,7 +168,8 @@ for (loop=0; ; loop++)
 		printf("CNT:%d ",bufferSwbCount);
 		if (serialSwbCount>=serialSwbWait)
 		{
-			for (x = 0; x < (bytesSwb) ; x++)
+			printf("(%d|%d)",serialSwbCount,bufferSwbCount);
+			for (x = 0; x < (serialSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
 				if (c==0xf0)
