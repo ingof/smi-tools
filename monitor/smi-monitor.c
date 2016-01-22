@@ -192,9 +192,9 @@ for (loop=0; ; loop++)
 	}
 	
     	/* SMI-Bus */
-	bytes_available=ioctl(fdSmi, FIONREAD, &ch);
+	//bytes_available=ioctl(fdSmi, FIONREAD, &ch);
 	bytes_available=-1;
-	if (bytes_available>=0)
+	if ((bytes_available>=0)&&(bytes_available<0))
 	{
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
 		if (bytesSmi>0) bufferSmiCount+=bytesSmi;
