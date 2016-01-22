@@ -169,7 +169,7 @@ for (loop=0; ; loop++)
 		{
 			for (x = 0; x < (serialSwbCount) ; x++)
 			{
-			printf("(%d|%d|%d|%d)",serialSwbCount,bufferSwbCount,sizeof(bufferSwb),sizeof(buffer));
+			printf("(%d|%d)",bufferSwbCount,x);
 				c = bufferSwb[x];
 				if (c==0xf0)
 				{
