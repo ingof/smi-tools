@@ -176,7 +176,7 @@ for (loop=0; ; loop++)
 			bufferSwbCount+=bytesSwb;
 		}
 		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
-		printf("\nCount: %d\nBytes: %d\n",bufferSwbCount,bytesSwb);
+//		printf("\nCount: %d\nBytes: %d\n",bufferSwbCount,bytesSwb);
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
 			printf("\nSWB: %02X ",c);
