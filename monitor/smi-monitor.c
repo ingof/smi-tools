@@ -178,7 +178,7 @@ for (loop=0; ; loop++)
 		{
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
-			printf("\n(%d|%d)",bufferSwbCount,x);
+//			printf("\n(%d|%d)",bufferSwbCount,x);
 				c = bufferSwb[x];
 				if (c==0xf0)
 				{
