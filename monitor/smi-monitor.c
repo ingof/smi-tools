@@ -162,7 +162,7 @@ for (loop=0; ; loop++)
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 	if (IOReturn<0)
 	{
-		perror("ioctl(fdSwb)");
+		perror("ioctl(%d)",fdSwb);
 	}
 	if (serialBytes>=0)
 	{
