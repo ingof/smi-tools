@@ -17,6 +17,7 @@ int main( int argc, char* argv[] ) {
 	int serialSmiWait=40;
 	int serialSwbCount;
 	int serialSmiCount;
+	int bytes_available;
 
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
@@ -158,14 +159,14 @@ for (loop=0; ; loop++)
     {
 	
     	/* SWB-Bus */
-	int bytes_available=0;
+	bytes_available=0;
 	/*fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK); */
 	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
 	if (bytes_available<0)
 	{
 		perror("ioctl(fdSwb)");
 	}
-//	printf("IOCTL[%d|%2x]",bytes_available,ch);
+	printf("\nIOCTL[%d|%2x]:",bytes_available,ch);
 //	if ((bytes_available>=0)||(bytes_available<0))
 	if (bytes_available>=0)
 	{
@@ -193,9 +194,10 @@ for (loop=0; ; loop++)
 	
     	/* SMI-Bus */
 	//bytes_available=ioctl(fdSmi, FIONREAD, &ch);
-	bytes_available=-1;
+	//bytes_available=-1;
 	if ((bytes_available>=0)&&(bytes_available<0))
 	{
+		printf("das sollte nie passieren SMI!!!\n")
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
 		if (bytesSmi>0) bufferSmiCount+=bytesSmi;
 		memmove(bufferSmi+bufferSmiCount, buffer, sizeof(buffer));
