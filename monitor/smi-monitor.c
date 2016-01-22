@@ -159,13 +159,14 @@ for (loop=0; ; loop++)
 	
     	/* SWB-Bus */
 	int bytes_available=0;
+	/*fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK); */
 	bytes_available=ioctl(fdSwb, FIONREAD, &ch);
 	if (bytes_available<0)
 	{
 		perror("ioctl() Fehler");
 		printf("\nioctl()=%d",bytes_available);
 	}
-	printf("[%d|%2x]",bytes_available,ch);
+	printf("IOCTL[%d|%2x]",bytes_available,ch);
 	if ((bytes_available>=0)||(bytes_available<0))
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
@@ -192,6 +193,7 @@ for (loop=0; ; loop++)
 	
     	/* SMI-Bus */
 	bytes_available=ioctl(fdSmi, FIONREAD, &ch);
+	bytes_available=-1;
 	if (bytes_available>=0)
 	{
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
