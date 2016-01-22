@@ -165,12 +165,11 @@ for (loop=0; ; loop++)
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
 		if (bytesSwb>0) bufferSwbCount+=bytesSwb;
 		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
-		printf("CNT:%d ",bufferSwbCount);
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			printf("(%d|%d)",serialSwbCount,bufferSwbCount);
 			for (x = 0; x < (serialSwbCount) ; x++)
 			{
+			printf("(%d|%d|%d|%d)",serialSwbCount,bufferSwbCount,sizeof(bufferSwb),sizeof(buffer));
 				c = bufferSwb[x];
 				if (c==0xf0)
 				{
