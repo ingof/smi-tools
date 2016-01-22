@@ -196,13 +196,16 @@ for (loop=0; ; loop++)
 	}
 	
     	/* SMI-Bus */
-	//bytes_available=ioctl(fdSmi, FIONREAD, &ch);
-	//bytes_available=-1;
-	if ((bytes_available>=0)&&(bytes_available<0))
+	//IOReturn=ioctl(fdSmi, FIONREAD, &ch);
+	//IOReturn=-1;
+	if ((IOReturn>=0)&&(IOReturn<0))
 	{
 		printf("das sollte nie passieren SMI!!!\n");
 		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
-		if (bytesSmi>0) bufferSmiCount+=bytesSmi;
+		if (bytesSmi>0)
+		{
+			bufferSmiCount+=bytesSmi;
+		}
 		memmove(bufferSmi+bufferSmiCount, buffer, sizeof(buffer));
 		if (bufferSmiCount>0)
 		{
