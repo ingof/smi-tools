@@ -161,44 +161,46 @@ for ( ; ; )
 	loop++;
 	
 	/* SWB-Bus */
-	printf("\n1(%d),%d> ",loop,serialSwbCount);
-//	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-	IOReturn=0;
+	printf("\n1(%d)",loop);
+	printf(",%d>",serialSwbCount);
+	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+//	IOReturn=0;
 //	serialBytes=0;
+	printf("... ");
 	if (IOReturn<0)
 	{
 		printf("N ");
 		perror("ioctl(swb)");	
 	}
-	else
+	if ((IOReturn==0)&&(serialBytes>0)
 	{
-			printf("Y ");
-			printf("%d.",loop);
-			bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
-			if (bytesSwb<0)
+		printf("Y ");
+		printf("%d.",loop);
+		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
+		if (bytesSwb<0)
+		{
+			perror("read(Swb)");
+			serialSwbCount--;
+		}
+		if (bytesSwb>0)
+		{
+			memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
+			bufferSwbCount+=bytesSwb;
+		}
+		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
+		{
+			printf("\033[1m%dSWB: ",serialSwbCount);
+			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
-				perror("read(Swb)");
-				serialSwbCount--;
+				c = bufferSwb[x];
+				printf("%02X ",c);
 			}
-			if (bytesSwb>0)
-			{
-				memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
-				bufferSwbCount+=bytesSwb;
-			}
-			if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
-			{
-				printf("\033[1m%dSWB: ",serialSwbCount);
-				for (x = 0; x < (bufferSwbCount) ; x++)
-				{
-					c = bufferSwb[x];
-					printf("%02X ",c);
-				}
-				printf("\033[m");
-				bufferSwbCount=0;
-				serialSwbCount=-1;
-			}
+			printf("\033[m");
+			bufferSwbCount=0;
+			serialSwbCount=-1;
+		}
 	}
-	
+
     	/* SMI-Bus */
 	//IOReturn=ioctl(fdSmi, FIONREAD, &ch);
 	//IOReturn=-1;
