@@ -157,7 +157,7 @@ serialSmiCount=0;
 serialSwbCount=0;
 for (loop=0; ; loop++)
     {
-	
+	printf("%d.",loop);
     	/* SWB-Bus */
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 	if (IOReturn<0)
@@ -174,12 +174,12 @@ for (loop=0; ; loop++)
 		if (bytesSwb>0)
 		{
 			memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
-			printf("\nmemmove(bufferSwb+%d, buffer, %d",bufferSwbCount, bytesSwb);
+//			printf("%d,%d ",bufferSwbCount, bytesSwb);
 			bufferSwbCount+=bytesSwb;
 		}
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			printf("\nSWB: ");
+			printf("\n5dSWB: ",serialSwbCount);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
