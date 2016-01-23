@@ -175,14 +175,13 @@ for (loop=0; ; loop++)
 		{
 			bufferSwbCount+=bytesSwb;
 		}
-			printf("\nVOR : %02X ",c);
+			printf("\n\nVOR : %02X ",c);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
 					printf("%02X ",c);
 			}
-			printf("\n");
-		memmove(bufferSwb, buffer, sizeof(bufferSwbCount));
+		memmove(bufferSwb, buffer, bufferSwbCount);
 		//bufferSwb= bufferSwb.concat(buffer);
 			printf("\nNACH: %02X ",c);
 			for (x = 0; x < (bufferSwbCount) ; x++)
