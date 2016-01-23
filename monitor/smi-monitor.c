@@ -172,7 +172,7 @@ for ( ; ; )
 		printf("N ");
 		perror("ioctl(swb)");	
 	}
-	if ((IOReturn==0)&&(serialBytes>0)
+	if ((IOReturn==0)&&(serialBytes>0))
 	{
 		printf("Y ");
 		printf("%d.",loop);
