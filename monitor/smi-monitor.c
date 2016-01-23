@@ -173,7 +173,7 @@ for (loop=0; ; loop++)
 		}
 		if (bytesSwb>0)
 		{
-			printf("\n\nVOR : ",c);
+			printf("\n\nVOR : ");
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
@@ -186,7 +186,7 @@ for (loop=0; ; loop++)
 		//memmove(bufferSwb+sizeof(bufferSwb), buffer, sizeof(buffer));
 		//bufferSwb= bufferSwb.concat(buffer);
 		//printf("\nmemmove(bufferSwb+%d, buffer, %d",sizeof(bufferSwb), sizeof(buffer));
-			printf("\nNACH: ",c);
+			printf("\nNACH: ");
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
@@ -195,7 +195,7 @@ for (loop=0; ; loop++)
 //		printf("\nCount: %d\nBytes: %d\n",bufferSwbCount,bytesSwb);
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			printf("\nSWB: ",c);
+			printf("\nSWB: ");
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
