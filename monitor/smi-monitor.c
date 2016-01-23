@@ -179,7 +179,7 @@ for (loop=0; ; loop++)
 				c = bufferSwb[x];
 					printf("%02X ",c);
 			}
-			memmove(bufferSwb+bufferSwbCount-1, buffer, bytesSwb+1);
+			memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
 			printf("\nmemmove(bufferSwb+%d, buffer, %d",bufferSwbCount, bytesSwb);
 			bufferSwbCount+=bytesSwb;
 		}
@@ -196,7 +196,7 @@ for (loop=0; ; loop++)
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
 			printf("\nSWB: %02X ",c);
-			for (x = 0; x < (bufferSwbCount) ; x++)
+			for (x = 1; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
 					printf("%02X ",c);
