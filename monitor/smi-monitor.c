@@ -165,7 +165,7 @@ for (loop=0; ; loop++)
 		perror("ioctl(swb)");
 		serialSwbCount--;
 	}
-	if (serialBytes=0)
+	if (serialBytes==0)
 	{
 		serialSwbCount--;
 	if (serialBytes>0)
