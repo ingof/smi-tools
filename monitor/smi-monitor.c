@@ -243,7 +243,7 @@ for (loop=0; ; loop++)
 int open_port(void)
 {
 	int fd; /* File descriptor for the port */
-	fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
+	fd = open("/dev/ttySMI0", O_RDWR | O_NOCTTY | O_NDELAY);
 	if (fd == -1)
 	{
 		/* Could not open the port. */
