@@ -179,7 +179,7 @@ for (loop=0; ; loop++)
 				c = bufferSwb[x];
 					printf("%02X ",c);
 			}
-			memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
+			memmove(bufferSwb+bufferSwbCount-1, buffer, bytesSwb);
 			printf("\nmemmove(bufferSwb+%d, buffer, %d",bufferSwbCount, bytesSwb);
 			bufferSwbCount+=bytesSwb;
 		}
