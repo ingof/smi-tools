@@ -167,6 +167,7 @@ for (loop=0; ; loop++)
 	}
 	if (serialBytes>=0)
 	{
+		printf("%d.",loop);
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
 		if (bytesSwb<0)
 		{
