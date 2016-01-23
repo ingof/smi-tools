@@ -182,7 +182,8 @@ for (loop=0; ; loop++)
 					printf("%02X ",c);
 			}
 			printf("\n");
-		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
+		memmove(bufferSwb, buffer, sizeof(bufferSwbCount));
+		//bufferSwb= bufferSwb.concat(buffer);
 			printf("\nNACH: %02X ",c);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
