@@ -155,11 +155,13 @@ tcsetattr(fdSmi, TCSANOW, &options);
 /* endless-loop */
 serialSmiCount=0;
 serialSwbCount=0;
-for (loop=0; ; loop++)
+loop=0;
+for ( ; ; )
     {
-
+	loop++;
+	
 	/* SWB-Bus */
-	printf("1(%d)>",loop);
+	printf("\n1(%d),%d> ",loop,serialSwbcount);
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 	if (IOReturn<0)
 	{
@@ -233,7 +235,7 @@ for (loop=0; ; loop++)
 	{
 		serialSmiCount=0;
 	}
-	printf("2\n");
+	printf("2");
 
 }
 
