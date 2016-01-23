@@ -168,6 +168,7 @@ for (loop=0; ; loop++)
 	if (serialBytes==0)
 	{
 		serialSwbCount--;
+	}
 	if (serialBytes>0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
