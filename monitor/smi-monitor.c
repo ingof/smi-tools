@@ -167,7 +167,7 @@ for ( ; ; )
 //	IOReturn=0;
 //	serialBytes=0;
 //	printf(".");
-	sleep(1);
+	usleep(100);
 	if (IOReturn<0)
 	{
 //		printf("N ");
