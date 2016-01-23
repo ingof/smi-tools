@@ -165,7 +165,7 @@ for (loop=0; ; loop++)
 		perror("ioctl(swb)");
 		serialSwbCount--;
 	}
-	if (serialBytes>=0)
+	else
 	{
 		printf("%d.",loop);
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
