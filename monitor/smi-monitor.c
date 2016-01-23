@@ -175,7 +175,20 @@ for (loop=0; ; loop++)
 		{
 			bufferSwbCount+=bytesSwb;
 		}
+			printf("\nVOR : %02X ",c);
+			for (x = 0; x < (bufferSwbCount) ; x++)
+			{
+				c = bufferSwb[x];
+					printf("%02X ",c);
+			}
+			printf("\n");
 		memmove(bufferSwb+bufferSwbCount, buffer, sizeof(buffer));
+			printf("\nNACH: %02X ",c);
+			for (x = 0; x < (bufferSwbCount) ; x++)
+			{
+				c = bufferSwb[x];
+					printf("%02X ",c);
+			}
 //		printf("\nCount: %d\nBytes: %d\n",bufferSwbCount,bytesSwb);
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
