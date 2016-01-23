@@ -179,7 +179,7 @@ for (loop=0; ; loop++)
 		}
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			printf("\n5dSWB: ",serialSwbCount);
+			printf("\n%dSWB: ",serialSwbCount);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
