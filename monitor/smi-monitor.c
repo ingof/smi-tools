@@ -162,7 +162,8 @@ for ( ; ; )
 	
 	/* SWB-Bus */
 	printf("\n1(%d),%d> ",loop,serialSwbCount);
-	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+//	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+	IOReturn=0;
 	if (IOReturn<0)
 	{
 		printf("N ");
