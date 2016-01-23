@@ -1,6 +1,15 @@
 # MPlab-X project folder
 **/*.X/**
 
+# netbeans project folder
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
+
 # Object files
 *.o
 *.ko
