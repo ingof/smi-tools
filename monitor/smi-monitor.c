@@ -180,7 +180,7 @@ for (loop=0; ; loop++)
 		}
 		if (bytesSwb==0)
 		{
-			serialSwbCount--;
+//			serialSwbCount--;
 		}
 		if (bytesSwb>0)
 		{
