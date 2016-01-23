@@ -183,7 +183,7 @@ for (loop=0; ; loop++)
 			}
 		memmove(bufferSwb+sizeof(bufferSwb), buffer, sizeof(buffer));
 		//bufferSwb= bufferSwb.concat(buffer);
-		printf("memmove(%d+%d, %d, %d",bufferSwb,sizeof(bufferSwb),buffer, sizeof(buffer));
+		printf("\nmemmove(bufferSwb+%d, buffer, %d",sizeof(bufferSwb), sizeof(buffer));
 			printf("\nNACH: %02X ",c);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
