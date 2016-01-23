@@ -3,6 +3,7 @@
 
 # netbeans project folder
 nbproject/private/
+nbproject/**
 build/
 nbbuild/
 dist/
