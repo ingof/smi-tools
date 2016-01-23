@@ -165,21 +165,21 @@ for (loop=0; ; loop++)
 		perror("ioctl(swb)");
 		serialSwbCount--;
 	}
-	if (serialBytes==0)
-	{
-		serialSwbCount--;
-	}
-	if (serialBytes>0)
+	if (serialBytes>=0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
 		if (bytesSwb<0)
 		{
 			perror("read(Swb)");
+			serialSwbCount--;
+		}
+		if (bytesSwb==0)
+		{
+			serialSwbCount--;
 		}
 		if (bytesSwb>0)
 		{
 			memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
-//			printf("%d,%d ",bufferSwbCount, bytesSwb);
 			bufferSwbCount+=bytesSwb;
 		}
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
