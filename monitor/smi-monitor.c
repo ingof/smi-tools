@@ -23,16 +23,16 @@ int main( int argc, char* argv[] ) {
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
 	int loop;
-//	int bytes=0;
-	int bytesSmi=0;
+//////	int bytes=0;
+//	int bytesSmi=0;
 	int bytesSwb=0;
 	char c;
 	int serialBytes;
 	char buffer[50];
 	char bufferSwb[50];
-	char bufferSmi[50];
+//	char bufferSmi[50];
 	int bufferSwbCount=0;
-	int bufferSmiCount=0;
+//	int bufferSmiCount=0;
    //char *bufptr;
     
    /* first parameter is serialSwb0Port*/
