@@ -166,7 +166,7 @@ for ( ; ; )
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 //	IOReturn=0;
 //	serialBytes=0;
-//	printf("... ");
+	printf(".");
 	if (IOReturn<0)
 	{
 //		printf("N ");
