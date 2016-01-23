@@ -163,8 +163,12 @@ for (loop=0; ; loop++)
 	if (IOReturn<0)
 	{
 		perror("ioctl(swb)");
+		serialSwbCount--;
 	}
-	if (serialBytes>=0)
+	if (serialBytes=0)
+	{
+		serialSwbCount--;
+	if (serialBytes>0)
 	{
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
 		if (bytesSwb<0)
