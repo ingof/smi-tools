@@ -34,7 +34,7 @@ int main( int argc, char* argv[] ) {
 	int bufferSwbCount=0;
 //	int bufferSmiCount=0;
    //char *bufptr;
-    
+
    /* first parameter is serialSwb0Port*/
    if (argc > 1)
    {
@@ -74,12 +74,12 @@ int main( int argc, char* argv[] ) {
   	/* Could not open the port. */
   	perror("Unable to open serial SWB-port");
   	return(-1);
-  } 
+  }
   else
   {
   	fcntl(fdSwb, F_SETFL, 0);
   }
-  
+
 struct termios options;
 
 /* Get the current options for the SWB-port... */
@@ -116,7 +116,7 @@ tcsetattr(fdSwb, TCSANOW, &options);
 	  /* Could not open the port. */
 	  perror("Unable to open serial SMI-port");
 	  return(-1);
-	} 
+	}
 	else
 	{
 	  fcntl(fdSmi, F_SETFL, 0);
@@ -160,7 +160,7 @@ for ( ; ; )
     {
 	loop++;
 	if (loop>=0x80000000) loop=0;
-	
+
 	/* SWB-Bus */
 //	printf("\n1(%d)",loop);
 //	printf(",%d>",serialSwbCount);
@@ -173,14 +173,16 @@ for ( ; ; )
 	if (IOReturn<0)
 	{
 //		printf("N ");
-		perror("ioctl(swb)");	
+		perror("ioctl(swb)");
 	}
 	if ((IOReturn==0)&&(serialBytes>0))
 	{
 //		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 //		printf("Y ");
 //		printf("%d.",loop);
-		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
+		/* create temporary buffer for received Bytes */
+		int tmpBuffer[serialBytes];
+		bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
 		if (bytesSwb<0)
 		{
 			perror("read(Swb)");
@@ -188,7 +190,7 @@ for ( ; ; )
 		}
 		if (bytesSwb>0)
 		{
-			memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
+			memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 			bufferSwbCount+=bytesSwb;
 		}
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
@@ -230,7 +232,7 @@ for ( ; ; )
 //		}
 //	}
 
-	
+
 	/* wait 1ms */
 	usleep(1000);
 	serialSwbCount++;
@@ -253,7 +255,7 @@ for ( ; ; )
    close(fdSmi);
    printf("<serial Swb port closed!\n");
    return (0);
-   
+
 }
 
 
@@ -265,7 +267,7 @@ int open_port(void)
 	{
 		/* Could not open the port. */
 		perror("Unable to open /dev/ttyUSB0 - ");
-		
+
 	}
 	else
 	{
