@@ -167,6 +167,7 @@ for ( ; ; )
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 //	IOReturn=0;
 //	serialBytes=0;
+	printf(".");
 //	printf(" \b");
 //	usleep(100);
 	if (IOReturn<0)
@@ -176,7 +177,7 @@ for ( ; ; )
 	}
 	if ((IOReturn==0)&&(serialBytes>0))
 	{
-		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+//		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 //		printf("Y ");
 //		printf("%d.",loop);
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
