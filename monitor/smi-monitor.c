@@ -193,13 +193,13 @@ for ( ; ; )
 		}
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			printf("\033[1m\n%06x SWB: ",loop);
+			printf("\033[1m%06x SWB: ",loop);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
 				printf("%02X ",c);
 			}
-//			printf("\033[m");
+			printf("\033[m");
 			bufferSwbCount=0;
 			serialSwbCount=-1;
 		}
