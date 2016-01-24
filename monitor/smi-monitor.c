@@ -164,9 +164,10 @@ for ( ; ; )
 //	printf("\n1(%d)",loop);
 //	printf(",%d>",serialSwbCount);
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 //	IOReturn=0;
 //	serialBytes=0;
-	printf(".\b");
+//	printf(" \b");
 //	usleep(100);
 	if (IOReturn<0)
 	{
