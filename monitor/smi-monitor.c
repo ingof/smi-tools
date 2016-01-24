@@ -168,7 +168,7 @@ for ( ; ; )
 //	IOReturn=0;
 //	serialBytes=0;
 //	printf(".");
-//	printf(" \b");
+	printf(".\b");
 //	usleep(100);
 	if (IOReturn<0)
 	{
