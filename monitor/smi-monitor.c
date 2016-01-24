@@ -28,7 +28,7 @@ int main( int argc, char* argv[] ) {
 	int bytesSwb=0;
 	char c;
 	int serialBytes;
-	char buffer[50];
+	//char buffer[50];
 	char bufferSwb[50];
 //	char bufferSmi[50];
 	int bufferSwbCount=0;
