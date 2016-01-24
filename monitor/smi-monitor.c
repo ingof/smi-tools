@@ -159,11 +159,11 @@ loop=0;
 for ( ; ; )
     {
 	loop++;
+	if (loop>=0x80000000) loop=0;
 	
 	/* SWB-Bus */
 //	printf("\n1(%d)",loop);
 //	printf(",%d>",serialSwbCount);
-	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 //	IOReturn=0;
 //	serialBytes=0;
@@ -176,6 +176,7 @@ for ( ; ; )
 	}
 	if ((IOReturn==0)&&(serialBytes>0))
 	{
+		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 //		printf("Y ");
 //		printf("%d.",loop);
 		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
@@ -191,7 +192,7 @@ for ( ; ; )
 		}
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			printf("\n%02x SWB: ",loop);
+			printf("\033[1m\n%06x SWB: ",loop);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
