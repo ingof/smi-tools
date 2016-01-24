@@ -168,7 +168,7 @@ for ( ; ; )
 //	IOReturn=0;
 //	serialBytes=0;
 //	printf(".");
-	printf(".\b");
+//	printf(".\b");
 //	usleep(100);
 	if (IOReturn<0)
 	{
@@ -195,7 +195,7 @@ for ( ; ; )
 		}
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
 		{
-			printf("\033[1m%06x SWB: ",loop);
+			printf("\n\033[1m%06x SWB: ",loop);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
