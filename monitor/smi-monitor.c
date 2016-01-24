@@ -28,7 +28,7 @@ int main( int argc, char* argv[] ) {
 	int bytesSwb=0;
 	char c;
 	int serialBytes;
-	//char buffer[50];
+	char buffer[50];
 	char bufferSwb[50];
 //	char bufferSmi[50];
 	int bufferSwbCount=0;
@@ -181,8 +181,8 @@ for ( ; ; )
 //		printf("Y ");
 //		printf("%d.",loop);
 		/* create temporary buffer for received Bytes */
-		int tmpBuffer[serialBytes+50];
-		bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
+		//int tmpBuffer[serialBytes+50];
+		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
 		if (bytesSwb<0)
 		{
 			perror("read(Swb)");
@@ -190,7 +190,7 @@ for ( ; ; )
 		}
 		if (bytesSwb>0)
 		{
-			memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+			memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
 			bufferSwbCount+=bytesSwb;
 		}
 		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
