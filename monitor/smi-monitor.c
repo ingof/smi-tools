@@ -181,7 +181,7 @@ for ( ; ; )
 //		printf("Y ");
 //		printf("%d.",loop);
 		/* create temporary buffer for received Bytes */
-		int tmpBuffer[serialBytes];
+		int tmpBuffer[serialBytes-1];
 		bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
 		if (bytesSwb<0)
 		{
