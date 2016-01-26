@@ -47,7 +47,7 @@ int main( int argc, char* argv[] ) {
    if (argc > 2) {
    	serialSwbWait=atoi(argv[2]);
    } else {
-   	serialSwbWait=5;
+   	serialSwbWait=3;
    }
    /* second parameter is serialSmi0Port*/
    if (argc > 3) {
@@ -59,7 +59,7 @@ int main( int argc, char* argv[] ) {
    if (argc > 4) {
    	serialSmiWait=atoi(argv[4]);
   	} else {
-   	serialSmiWait=40;
+   	serialSmiWait=10;
    }
    /*
 	* 'open_port()' - Open serial port 1.
