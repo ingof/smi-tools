@@ -13,10 +13,12 @@ int main( int argc, char* argv[] ) {
 	char serialSwb0Port[]="/dev/ttySWB1";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
-	int serialSwbWait=5;
-	int serialSmiWait=40;
+	int serialSwbWait=5; //1;15ms
+	int serialSmiWait=5; //5;49ms
 	int serialSwbCount;
 	int serialSmiCount;
+	int actualSwbTimeout=0;
+	int actualSmiTimeout=0;
 	int IOReturn;
 
 	int fdSwb; /* File descriptor for the SWB-port */
@@ -36,31 +38,27 @@ int main( int argc, char* argv[] ) {
    //char *bufptr;
 
    /* first parameter is serialSwb0Port*/
-   if (argc > 1)
-   {
+   if (argc > 1) {
    	serialSwbPort=argv[1];
    } else {
    	serialSwbPort=serialSwb0Port;
    }
    /* second parameter is serialSwbWait in ms*/
-   if (argc > 2)
-   {
+   if (argc > 2) {
    	serialSwbWait=atoi(argv[2]);
    } else {
    	serialSwbWait=5;
    }
    /* second parameter is serialSmi0Port*/
-   if (argc > 3)
-   {
+   if (argc > 3) {
    	serialSmiPort=argv[3];
    } else {
    	serialSmiPort=serialSmi0Port;
    }
    /* fourth parameter is serialSmiWait in ms*/
-   if (argc > 4)
-   {
+   if (argc > 4) {
    	serialSmiWait=atoi(argv[4]);
-   } else {
+  	} else {
    	serialSmiWait=40;
    }
    /*
@@ -74,9 +72,7 @@ int main( int argc, char* argv[] ) {
   	/* Could not open the port. */
   	perror("Unable to open serial SWB-port");
   	return(-1);
-  }
-  else
-  {
+  } else {
   	fcntl(fdSwb, F_SETFL, 0);
   }
 
@@ -111,14 +107,11 @@ tcsetattr(fdSwb, TCSANOW, &options);
 
 
 	fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
-	if (fdSmi == -1)
-	{
+	if (fdSmi == -1) {
 	  /* Could not open the port. */
 	  perror("Unable to open serial SMI-port");
 	  return(-1);
-	}
-	else
-	{
+	} else {
 	  fcntl(fdSmi, F_SETFL, 0);
 	}
 
@@ -162,40 +155,40 @@ for ( ; ; )
 	if (loop>=0x80000000) loop=0;
 
 	/* SWB-Bus */
-//	printf("\n1(%d)",loop);
-//	printf(",%d>",serialSwbCount);
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-//	IOReturn=0;
-//	serialBytes=0;
-//	printf(".");
-//	printf(".\b");
-//	usleep(100);
-	if (IOReturn<0)
-	{
-//		printf("N ");
+	printf("loop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop,serialBytes,actualSwbTimeout,serialSwbCount);
+//	printf(" \b");
+	if (IOReturn<0) {
 		perror("ioctl(swb)");
+		if (actualSwbTimeout>0) actualSwbTimeout--;
 	}
-	if ((IOReturn==0)&&(serialBytes>0))
-	{
-//		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-//		printf("Y ");
-//		printf("%d.",loop);
-		/* create temporary buffer for received Bytes */
-		//int tmpBuffer[serialBytes+50];
-		bytesSwb = read(fdSwb, &buffer, sizeof(buffer));
-		if (bytesSwb<0)
-		{
-			perror("read(Swb)");
-			serialSwbCount--;
+	if (IOReturn==0) {
+		if ((serialBytes==0)&&(actualSwbTimeout>0)) {
+			actualSwbTimeout--;
 		}
-		if (bytesSwb>0)
-		{
-			memmove(bufferSwb+bufferSwbCount, buffer, bytesSwb);
-			bufferSwbCount+=bytesSwb;
+		if (serialBytes>0) {
+			if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
+				/* start receiving and reset timeout */
+				actualSwbTimeout=serialSwbWait;
+			}
+			//		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+			/* create temporary buffer for received Bytes */
+			int tmpBuffer[serialBytes];
+			bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
+			if (bytesSwb<0) {
+				perror("read(Swb)");
+			}
+			if (bytesSwb<=0) {
+				actualSwbTimeout--;
+			}
+			if (bytesSwb>0) {
+				memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+				bufferSwbCount+=bytesSwb;
+			}
 		}
-		if ((serialSwbCount>=serialSwbWait)&&(bufferSwbCount>0))
-		{
-			printf("\n\033[1m%06x SWB: ",loop);
+		/* stop receiving and print message */
+		if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
+			printf("\033[1m%06x SWB: ",loop);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
@@ -203,7 +196,6 @@ for ( ; ; )
 			}
 			printf("\033[m");
 			bufferSwbCount=0;
-			serialSwbCount=-1;
 		}
 	}
 
@@ -237,12 +229,10 @@ for ( ; ; )
 	usleep(1000);
 	serialSwbCount++;
 	serialSmiCount++;
-	if (serialSwbCount>serialSwbWait)
-	{
+	if (serialSwbCount>serialSwbWait) {
 		serialSwbCount=0;
 	}
-	if (serialSmiCount>serialSmiWait)
-	{
+	if (serialSmiCount>serialSmiWait) {
 		serialSmiCount=0;
 	}
 //	printf("2");
@@ -263,14 +253,11 @@ int open_port(void)
 {
 	int fd; /* File descriptor for the port */
 	fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
-	if (fd == -1)
-	{
+	if (fd == -1) {
 		/* Could not open the port. */
 		perror("Unable to open /dev/ttyUSB0 - ");
 
-	}
-	else
-	{
+	} else {
 		fcntl(fd, F_SETFL, FNDELAY);
 	}
 	return (fd);
