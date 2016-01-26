@@ -13,12 +13,12 @@ int main( int argc, char* argv[] ) {
 	char serialSwb0Port[]="/dev/ttySWB1";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
-	int serialSwbWait=5; //1;15ms
+	int serialSwbWait=2; //1;15ms
 	int serialSmiWait=5; //5;49ms
 	int serialSwbCount;
 	int serialSmiCount;
 	int actualSwbTimeout=0;
-	int actualSmiTimeout=0;
+//	int actualSmiTimeout=0;
 	int IOReturn;
 
 	int fdSwb; /* File descriptor for the SWB-port */
@@ -30,7 +30,7 @@ int main( int argc, char* argv[] ) {
 	int bytesSwb=0;
 	char c;
 	int serialBytes;
-	char buffer[50];
+//	char buffer[50];
 	char bufferSwb[50];
 //	char bufferSmi[50];
 	int bufferSwbCount=0;
