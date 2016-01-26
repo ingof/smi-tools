@@ -156,7 +156,7 @@ for ( ; ; )
 
 	/* SWB-Bus */
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-	if ((serialBytes+actualSwbTimeout)>0) printf("\nloop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop,serialBytes,actualSwbTimeout,serialSwbCount);
+	if ((serialBytes+actualSwbTimeout)>0) printf("\nloop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSwbTimeout,serialSwbCount);
 //	printf(" \b");
 	if (IOReturn<0) {
 		perror("ioctl(swb)");
@@ -169,7 +169,7 @@ for ( ; ; )
 		if (serialBytes>0) {
 			if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
 				/* start receiving and reset timeout */
-				actualSwbTimeout=serialSwbWait;
+				actualSwbTimeout=(serialSwbWait*2);
 			}
 			//		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 			/* create temporary buffer for received Bytes */
@@ -225,8 +225,8 @@ for ( ; ; )
 //	}
 
 
-	/* wait 1ms */
-	usleep(1000);
+	/* wait 0,5ms */
+	usleep(500);
 	serialSwbCount++;
 	serialSmiCount++;
 	if (serialSwbCount>serialSwbWait) {
