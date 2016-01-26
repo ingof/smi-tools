@@ -14,7 +14,7 @@ int main( int argc, char* argv[] ) {
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=2; //1;15ms
-	int serialSmiWait=5; //5;49ms
+	int serialSmiWait=10; //5;49ms
 	int serialSwbCount;
 	int serialSmiCount;
 	int actualSwbTimeout=0;
@@ -169,7 +169,7 @@ for ( ; ; )
 		if (serialBytes>0) {
 			if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
 				/* start receiving and reset timeout */
-				actualSwbTimeout=(serialSwbWait*2);
+				actualSwbTimeout=serialSwbWait;
 			}
 			//		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 			/* create temporary buffer for received Bytes */
