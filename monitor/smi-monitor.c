@@ -18,7 +18,7 @@ int main( int argc, char* argv[] ) {
 	int serialSwbCount;
 	int serialSmiCount;
 	int actualSwbTimeout=0;
-/	int actualSmiTimeout=0;
+	int actualSmiTimeout=0;
 	int IOReturn;
 
 	int fdSwb; /* File descriptor for the SWB-port */
@@ -201,7 +201,7 @@ for ( ; ; )
 
     	/* SMI-Bus */
 	IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-	if ((serialBytes+actualSmiTimeout)>0) printf("\nloop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSmiTimeout,serialSmiCount);
+//	if ((serialBytes+actualSmiTimeout)>0) printf("\nloop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSmiTimeout,serialSmiCount);
 //	printf(" \b");
 	if (IOReturn<0) {
 		perror("ioctl(smi)");
