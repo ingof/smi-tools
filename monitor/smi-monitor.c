@@ -192,7 +192,7 @@ for ( ; ; )
 		}
 		/* stop receiving and print message */
 		if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-			printf("\n%6d.%04d SWB: ",loop/2000,(loop-((loop/2000)*2000)/2));
+			printf("\n%6d.%03d SWB: ",loop/2000,(loop-((loop/2000)*2000)/2));
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
@@ -241,7 +241,7 @@ for ( ; ; )
 		}
 		/* stop receiving and print message */
 		if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-			printf("\n\033[1m%6d.%04d SMI: ",loop/2000,(loop-((loop/2000)*2000)/2));
+			printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop-((loop/2000)*2000)/2));
 			for (x = 0; x < (bufferSmiCount) ; x++)
 			{
 				c = bufferSmi[x];
