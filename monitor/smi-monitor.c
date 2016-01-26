@@ -205,7 +205,7 @@ for ( ; ; )
 
     	/* SMI-Bus */
 	IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-	//if ((serialBytes+actualSmiTimeout)>0) printf("\nSMI loop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSmiTimeout,serialSmiCount);
+	if ((serialBytes+actualSmiTimeout)>0) printf("\nSMI loop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSmiTimeout,serialSmiCount);
 //	printf(" \b");
 	if (IOReturn<0) {
 		perror("ioctl(smi)");
