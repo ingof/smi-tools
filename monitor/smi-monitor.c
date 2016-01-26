@@ -200,6 +200,7 @@ for ( ; ; )
 			}
 			printf("\033[m");
 			bufferSwbCount=0;
+			fflush(stdout); // Will now print everything in the stdout buffer
 		}
 	}
 
@@ -249,35 +250,10 @@ for ( ; ; )
 			}
 			printf("\033[m");
 			bufferSmiCount=0;
+			fflush(stdout); // Will now print everything in the stdout buffer
 		}
 	}
 	
-	/* SMI-Bus */
-	//IOReturn=ioctl(fdSmi, FIONREAD, &ch);
-	//IOReturn=-1;
-//	if ((IOReturn>=0)&&(IOReturn<0))
-//	{
-//		printf("das sollte nie passieren SMI!!!\n");
-//		bytesSmi = read(fdSmi, &buffer, sizeof(buffer));
-//		if (bytesSmi>0)
-//		{
-//			bufferSmiCount+=bytesSmi;
-//		}
-//		memmove(bufferSmi+bufferSmiCount, buffer, sizeof(buffer));
-//		if (bufferSmiCount>0)
-//		{
-//			printf("\033[1m\nSMI: ");
-//			for (x = 0; x < (bytesSmi) ; x++)
-//			{
-//				c = bufferSmi[x];
-//				printf("%02X ",c);
-//			}
-//			printf("\033[m");
-//			bufferSmiCount=0;
-//		}
-//	}
-
-	fflush(stdout); // Will now print everything in the stdout buffer
 
 	/* wait 0,5ms */
 	usleep(500);
