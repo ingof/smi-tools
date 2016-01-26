@@ -9,8 +9,8 @@
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
-	char * serialSwbPort="/dev/ttySWB1";
-	char serialSwb0Port[]="/dev/ttySWB1";
+	char * serialSwbPort="/dev/ttySWB0";
+	char serialSwb0Port[]="/dev/ttySWB0";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=3; //1,5ms; 15ms
@@ -277,6 +277,7 @@ for ( ; ; )
 //		}
 //	}
 
+	fflush(stdout); // Will now print everything in the stdout buffer
 
 	/* wait 0,5ms */
 	usleep(500);
