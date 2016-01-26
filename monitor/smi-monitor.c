@@ -156,7 +156,7 @@ for ( ; ; )
 
 	/* SWB-Bus */
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-	printf("\nloop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop,serialBytes,actualSwbTimeout,serialSwbCount);
+	if ((serialBytes+actualSwbTimeout)>0) printf("\nloop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop,serialBytes,actualSwbTimeout,serialSwbCount);
 //	printf(" \b");
 	if (IOReturn<0) {
 		perror("ioctl(swb)");
