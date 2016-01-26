@@ -156,7 +156,7 @@ for ( ; ; )
 
 	/* SWB-Bus */
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-//	if ((serialBytes+actualSwbTimeout)>0) printf("\nloop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSwbTimeout,serialSwbCount);
+	if ((serialBytes+actualSwbTimeout)>0) printf("\nSWB loop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSwbTimeout,serialSwbCount);
 //	printf(" \b");
 	if (IOReturn<0) {
 		perror("ioctl(swb)");
@@ -188,7 +188,7 @@ for ( ; ; )
 		}
 		/* stop receiving and print message */
 		if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-			printf("\%08x SWB: ",loop);
+			printf("\%10d SWB: ",loop);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
@@ -201,7 +201,7 @@ for ( ; ; )
 
     	/* SMI-Bus */
 	IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-//	if ((serialBytes+actualSmiTimeout)>0) printf("\nloop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSmiTimeout,serialSmiCount);
+	if ((serialBytes+actualSmiTimeout)>0) printf("\nSMI loop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSmiTimeout,serialSmiCount);
 //	printf(" \b");
 	if (IOReturn<0) {
 		perror("ioctl(smi)");
@@ -233,7 +233,7 @@ for ( ; ; )
 		}
 		/* stop receiving and print message */
 		if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-			printf("\033[1m%08x SMI: ",loop);
+			printf("\033[1m%010d SMI: ",loop);
 			for (x = 0; x < (bufferSmiCount) ; x++)
 			{
 				c = bufferSmi[x];
