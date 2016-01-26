@@ -171,6 +171,10 @@ for ( ; ; )
 				/* start receiving and reset timeout */
 				actualSwbTimeout=serialSwbWait;
 			}
+			if ((actualSwbTimeout>=0)&&(bufferSwbCount>=0)) {
+				/* start receiving and reset timeout */
+				actualSwbTimeout=serialSwbWait;
+			}
 			//		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 			/* create temporary buffer for received Bytes */
 			int tmpBuffer[serialBytes];
@@ -213,6 +217,10 @@ for ( ; ; )
 		}
 		if (serialBytes>0) {
 			if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
+				/* start receiving and reset timeout */
+				actualSmiTimeout=serialSmiWait;
+			}
+			if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
 				/* start receiving and reset timeout */
 				actualSmiTimeout=serialSmiWait;
 			}
