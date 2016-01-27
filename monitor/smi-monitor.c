@@ -15,8 +15,6 @@ int main( int argc, char* argv[] ) {
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=3; //1,5ms; 15ms
 	int serialSmiWait=10; //5ms ; 40ms
-	int serialSwbCount;
-	int serialSmiCount;
 	int actualSwbTimeout=0;
 	int actualSmiTimeout=0;
 	int IOReturn;
@@ -143,12 +141,7 @@ tcsetattr(fdSmi, TCSANOW, &options);
 
 
 /* endless-loop */
-serialSmiCount=0;
-serialSwbCount=0;
-loop=0;
-for ( ; ; )
-    {
-	loop++;
+for (loop=0; ;loop++) {
 	if (loop>=0x80000000) loop=0;
 
 	/* SWB-Bus */
@@ -233,7 +226,7 @@ for ( ; ; )
 		}
 		/* stop receiving and print message */
 		if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-			printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop-((loop/2000)*2000)/2));
+			printf("\n\033[1m%6d.%03d SMI: ",loop/2000,loop%2000);
 			for (x = 0; x < (bufferSmiCount) ; x++)
 			{
 				c = bufferSmi[x];
@@ -245,18 +238,8 @@ for ( ; ; )
 		}
 	}
 
-
 	/* wait 0,5ms */
 	usleep(500);
-	serialSwbCount++;
-	serialSmiCount++;
-	if (serialSwbCount>serialSwbWait) {
-		serialSwbCount=0;
-	}
-	if (serialSmiCount>serialSmiWait) {
-		serialSmiCount=0;
-	}
-
 }
 
 	/* Close Ports */
