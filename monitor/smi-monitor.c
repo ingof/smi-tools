@@ -25,17 +25,14 @@ int main( int argc, char* argv[] ) {
 	int fdSmi; /* File descriptor for the SMI-port */
 	int x;
 	int loop;
-//////	int bytes=0;
 	int bytesSmi=0;
 	int bytesSwb=0;
 	char c;
 	int serialBytes;
-//	char buffer[50];
 	char bufferSwb[50];
 	char bufferSmi[50];
 	int bufferSwbCount=0;
 	int bufferSmiCount=0;
-   //char *bufptr;
 
    /* first parameter is serialSwb0Port*/
    if (argc > 1) {
@@ -156,8 +153,6 @@ for ( ; ; )
 
 	/* SWB-Bus */
 	IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-	//if ((serialBytes+actualSwbTimeout)>0) printf("\nSWB loop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSwbTimeout,serialSwbCount);
-//	printf(" \b");
 	if (IOReturn<0) {
 		perror("ioctl(swb)");
 		if (actualSwbTimeout>0) actualSwbTimeout--;
@@ -175,7 +170,6 @@ for ( ; ; )
 				/* start receiving and reset timeout */
 				actualSwbTimeout=serialSwbWait;
 			}
-			//		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 			/* create temporary buffer for received Bytes */
 			int tmpBuffer[serialBytes];
 			bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
@@ -192,7 +186,7 @@ for ( ; ; )
 		}
 		/* stop receiving and print message */
 		if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-			printf("\n%6d.%03d SWB: ",loop/2000,(loop-((loop/2000)*2000)/2));
+			printf("\n%6d.%03d SWB: ",loop/2000,loop%2000);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
@@ -204,10 +198,8 @@ for ( ; ; )
 		}
 	}
 
-    	/* SMI-Bus */
+  /* SMI-Bus */
 	IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-//	if ((serialBytes+actualSmiTimeout)>0) printf("\nSMI loop: %d \tBytes: %d \tTimeout: %d \tCount: %d",loop/2,serialBytes,actualSmiTimeout,serialSmiCount);
-//	printf(" \b");
 	if (IOReturn<0) {
 		perror("ioctl(smi)");
 		if (actualSmiTimeout>0) actualSmiTimeout--;
@@ -225,7 +217,6 @@ for ( ; ; )
 				/* start receiving and reset timeout */
 				actualSmiTimeout=serialSmiWait;
 			}
-			//		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
 			/* create temporary buffer for received Bytes */
 			int tmpBuffer[serialBytes];
 			bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
@@ -253,7 +244,7 @@ for ( ; ; )
 			fflush(stdout); // Will now print everything in the stdout buffer
 		}
 	}
-	
+
 
 	/* wait 0,5ms */
 	usleep(500);
@@ -265,11 +256,10 @@ for ( ; ; )
 	if (serialSmiCount>serialSmiWait) {
 		serialSmiCount=0;
 	}
-//	printf("2");
 
 }
 
-/* Close Ports */
+	/* Close Ports */
    close(fdSwb);
    printf("<serial Swb port closed!\n");
    close(fdSmi);
