@@ -282,7 +282,7 @@ int checkSmiCRC(char *dataBuffer, int bufferSize) {
 		if (dataBuffer[bufferSize-1]==tmpChkSum) {
 			return (int) tmpChkSum;
 		} else {
-			return tmpCheckSum * -1;
+			return tmpChkSum * -1;
 		}
 	}
 	return 0;
