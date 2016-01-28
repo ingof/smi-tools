@@ -232,18 +232,19 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				c = bufferSmi[bufferSmiCount];
-				int result=checkSmiCRC(bufferSmi,bufferSmiCount);
-				if (result==-2) {
-					/* frame without CRC -> yellow */
-					printf("\033[1m");
-				}
-				if (result==-1) {
-					/* crc not ok -> red */
-					printf("\033[31m");
-				}
-				if (result>=0) {
-					/* crc is ok -> green */
-					printf("\033[32m");
+				switch (checkSmiCRC(bufferSmi,bufferSmiCount)) {
+					case -2:
+						/* frame without CRC -> yellow */
+						printf("\033[1m");
+						break;
+					case -1:
+						/* crc not ok -> red */
+						printf("\033[31m");
+						break;
+					default:
+						/* crc is ok -> green */
+						printf("\033[32m");
+						break;
 				}
 					c = bufferSmi[bufferSmiCount-1];
 					printf("%02X \033[m",c);
@@ -279,10 +280,8 @@ int checkSmiCRC(char *dataBuffer, int bufferSize) {
 		int i;
 		for (i = 0; i < bufferSize-1; i++) {
 			tmpChkSum+=dataBuffer[i];
-			printf("|%02x->%02x|",dataBuffer[i],tmpChkSum);
 		}
 		tmpChkSum=(~tmpChkSum)+1;
-		printf(" *CheckSMI: %02x->%02x* ",tmpChkSum,dataBuffer[bufferSize-1]);
 		if (dataBuffer[bufferSize-1]==tmpChkSum) {
 			return 0;
 		} else {
