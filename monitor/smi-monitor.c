@@ -138,6 +138,9 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 /* Set the new options for the port... */
 tcsetattr(fdSmi, TCSANOW, &options);
 
+for (loop=0; loop < 10000;loop+=123) {
+	printf("%6d\%2000 -> %03d SMI: ",loop,loop%2000);
+}
 
 
 /* endless-loop */
