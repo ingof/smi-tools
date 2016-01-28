@@ -30,7 +30,7 @@ return crc;
 
 
 
-void main(void)
+int main(void)
 {
     uint8_t buffer[10];
     uint16_t i, num;
@@ -80,4 +80,5 @@ void main(void)
   printf("\nMsg3: ");
   for(i=0;i<7;i++)
     printf("%02x, ", buffer[i]);
+  return  0;
 }
