@@ -179,14 +179,11 @@ int main( int argc, char* argv[] ) {
 			/* stop receiving and print message */
 			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
 				printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
-				for (x = 0; x < (bufferSwbCount-1) ; x++)
+				for (x = 0; x < (bufferSwbCount) ; x++)
 				{
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
-				c = bufferSwb[bufferSwbCount];
-				if (checkSmiCRC(bufferSwb,bufferSwbCount)>=0) printf("\033[31m-\033[4m-");
-					printf("%02X ",c);
 				printf("\033[m");
 				bufferSwbCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
@@ -230,11 +227,20 @@ int main( int argc, char* argv[] ) {
 			if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
 				printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
 				checkSmiCRC(bufferSmi,bufferSmiCount);
-				for (x = 0; x < (bufferSmiCount) ; x++)
+				for (x = 0; x < (bufferSmiCount-1) ; x++)
 				{
 					c = bufferSmi[x];
 					printf("%02X ",c);
 				}
+				c = bufferSmi[bufferSmiCount];
+				if (checkSmiCRC(bufferSmi,bufferSmiCount)<0) {
+					/* crc not ok */
+					printf("\033[31m");
+				} else {
+					/* crc is ok */
+					printf("\033[32m");
+				}
+					printf("[%02X] ",c);
 				printf("\033[m");
 				bufferSmiCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
