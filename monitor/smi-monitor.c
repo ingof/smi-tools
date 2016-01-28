@@ -179,11 +179,14 @@ int main( int argc, char* argv[] ) {
 			/* stop receiving and print message */
 			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
 				printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
-				for (x = 0; x < (bufferSwbCount) ; x++)
+				for (x = 0; x < (bufferSwbCount-1) ; x++)
 				{
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
+				c = bufferSwb[bufferSwbCount];
+				if (checkSmiCRC()<0) printf("\033[31m-\033[4m-");
+					printf("%02X ",c);
 				printf("\033[m");
 				bufferSwbCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
@@ -261,7 +264,7 @@ int checkSmiCRC(char *dataBuffer, int bufferSize) {
 		return 0;
 	} else {
 		/* create checksum */
-		int tmpChkSum=0;
+		char tmpChkSum=0;
 		int i;
 		for (i = 0; i < bufferSize-2; i++) {
 			tmpChkSum+=dataBuffer[i];
