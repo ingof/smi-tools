@@ -260,11 +260,12 @@ int checkSmiCRC(int *dataBuffer, int bufferSize) {
 	} else {
 		/* create checksum */
 		int tmpChkSum=0;
-		for (int i = 0; i < bufferSize-2; i++) {
+		int i;
+		for (i = 0; i < bufferSize-2; i++) {
 			tmpChkSum+=dataBuffer[i];
 		}
 		tmpChkSum=(~tmpCheckSum)+1;
-		printf("\nCheckSMI: %d->%d",tmpChksum,dataBuffer[bufferSize-1]);
+		printf("\nCheckSMI: %d->%d",tmpChkSum,dataBuffer[bufferSize-1]);
 		if (dataBuffer[bufferSize-1]==tmpCheckSum) {
 			/* code */
 			return 0;
