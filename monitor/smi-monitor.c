@@ -138,10 +138,6 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 /* Set the new options for the port... */
 tcsetattr(fdSmi, TCSANOW, &options);
 
-for (loop=0; loop < 10000;loop+=123) {
-	printf("%6d mod 2000 -> %03d   / 2000 -> %d ",loop,loop%2000,loop/2000);
-}
-
 
 /* endless-loop */
 for (loop=0; ;loop++) {
@@ -182,7 +178,7 @@ for (loop=0; ;loop++) {
 		}
 		/* stop receiving and print message */
 		if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-			printf("\n%6d.%03d SWB: ",loop/2000,loop%2000);
+			printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
 			for (x = 0; x < (bufferSwbCount) ; x++)
 			{
 				c = bufferSwb[x];
@@ -229,7 +225,7 @@ for (loop=0; ;loop++) {
 		}
 		/* stop receiving and print message */
 		if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-			printf("\n\033[1m%6d.%03d SMI: ",loop/2000,loop%2000);
+			printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%2000);
 			for (x = 0; x < (bufferSmiCount) ; x++)
 			{
 				c = bufferSmi[x];
