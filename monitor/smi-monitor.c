@@ -251,11 +251,11 @@ int main( int argc, char* argv[] ) {
 
 }
 
-int checkSwbCRC(int dataBuffer, int bufferSize) {
+int checkSwbCRC(char *dataBuffer, int bufferSize) {
 	return 0;
 }
 
-int checkSmiCRC(int *dataBuffer, int bufferSize) {
+int checkSmiCRC(char *dataBuffer, int bufferSize) {
 	if (bufferSize<=3) return 0;
 	if ((dataBuffer[0]<0x20) || (dataBuffer[0]>=0x80)) {
 		return 0;
