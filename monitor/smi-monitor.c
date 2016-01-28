@@ -280,7 +280,7 @@ int checkSmiCRC(char *dataBuffer, int bufferSize) {
 //		printf("(%02X) ",tmpChkSum);
 //		printf("\nCheckSMI: %02x->%02x",tmpChkSum,dataBuffer[bufferSize-1]);
 		if (dataBuffer[bufferSize-1]==tmpChkSum) {
-			return (int) tmpChksum;
+			return (int) tmpChkSum;
 		} else {
 			return -1;
 		}
