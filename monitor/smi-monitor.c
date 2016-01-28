@@ -277,7 +277,7 @@ int checkSmiCRC(char *dataBuffer, int bufferSize) {
 		/* create checksum */
 		char tmpChkSum=0;
 		int i;
-		for (i = 0; i < bufferSize-2; i++) {
+		for (i = 0; i < bufferSize-1; i++) {
 			tmpChkSum+=dataBuffer[i];
 			printf("|%02x->%02x|",dataBuffer[i],tmpChkSum);
 		}
