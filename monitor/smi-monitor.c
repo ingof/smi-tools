@@ -185,7 +185,7 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				c = bufferSwb[bufferSwbCount];
-				if (checkSmiCRC(bufferSwb,bufferSwbCount)<0) printf("\033[31m-\033[4m-");
+				if (checkSmiCRC(bufferSwb,bufferSwbCount)>=0) printf("\033[31m-\033[4m-");
 					printf("%02X ",c);
 				printf("\033[m");
 				bufferSwbCount=0;
