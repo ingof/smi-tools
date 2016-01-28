@@ -8,8 +8,8 @@ default: all
 all:
 	$(CC) $(OPT) -o hex-monitor hex-monitor.c
 	$(CC) $(OPT) -o smi-monitor smi-monitor.c
-  
+	$(CC) $(OPT) -o crc crc.c
+
 # removes all object, temporary and executable files
 clean:
 	$(RM) count *.o *~
-  

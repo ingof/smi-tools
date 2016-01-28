@@ -33,6 +33,7 @@ int main( int argc, char* argv[] ) {
 	int bytesSmi=0;
 	char bufferSmi[50];
 	int bufferSmiCount=0;
+
 	/* first parameter is serialSwb0Port*/
 	if (argc > 1) {
 		serialSwbPort=argv[1];
@@ -197,9 +198,11 @@ int main( int argc, char* argv[] ) {
 			if (actualSmiTimeout>0) actualSmiTimeout--;
 		}
 		if (IOReturn==0) {
+			/* no data -< */
 			if ((serialBytes==0)&&(actualSmiTimeout>0)) {
 				actualSmiTimeout--;
 			}
+			/* copy received data to buffer */
 			if (serialBytes>0) {
 				if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
 					/* start receiving and reset timeout */
@@ -271,23 +274,19 @@ int checkSwbCRC(char *dataBuffer, int bufferSize) {
 }
 
 int checkSmiCRC(char *dataBuffer, int bufferSize) {
-	if (bufferSize<=2) return -2;
-//	if ((dataBuffer[0]<0x20) || (dataBuffer[0]>=0x80)) {
-//		return 0;
-//	} else {
-		/* create checksum */
-		char tmpChkSum=0;
-		int i;
-		for (i = 0; i < bufferSize-1; i++) {
-			tmpChkSum+=dataBuffer[i];
-		}
-		tmpChkSum=(~tmpChkSum)+1;
-		if (dataBuffer[bufferSize-1]==tmpChkSum) {
-			return 0;
-		} else {
-			return -1;
-		}
-//	}
+	if (bufferSize<=2) {
+		return -2;
+	}
+	/* create checksum */
+	char tmpChkSum=0;
+	int i;
+	for (i = 0; i < bufferSize-1; i++) {
+		tmpChkSum+=dataBuffer[i];
+	}
+	tmpChkSum=(~tmpChkSum)+1;
+	if (dataBuffer[bufferSize-1]!=tmpChkSum) {
+		return -1;
+	}
 	return 0;
 }
 
