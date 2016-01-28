@@ -53,30 +53,32 @@ int main(void)
 
     buffer[0]= 0xf0;
     buffer[1]= 0x24;
-    buffer[2]= 0xd3;
+    buffer[2]= 0xdf;
     buffer[3]= 0x01;
+    buffer[4]= 0x12;
 
-    num = ~checkSum(buffer,4);
+    num = ~checkSum(buffer,5);
 
-    buffer[4]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
-    buffer[5]= (uint8_t) (num>>8); // Highbyte
+    buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
+    buffer[6]= (uint8_t) (num>>8); // Highbyte
 
   printf("\nMsg2: ");
-  for(i=0;i<6;i++)
+  for(i=0;i<7;i++)
     printf("%02x, ", buffer[i]);
 
     buffer[0]= 0xf0;
     buffer[1]= 0x24;
-    buffer[2]= 0xdf;
-    buffer[3]= 0x81;
+    buffer[2]= 0xd3;
+    buffer[3]= 0x01;
+    buffer[4]= 0x00;
 
-    num = ~checkSum(buffer,4);
+    num = ~checkSum(buffer,5);
 
-    buffer[4]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
-    buffer[5]= (uint8_t) (num>>8); // Highbyte
+    buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
+    buffer[6]= (uint8_t) (num>>8); // Highbyte
 
   printf("\nMsg3: ");
-  for(i=0;i<6;i++)
+  for(i=0;i<7;i++)
     printf("%02x, ", buffer[i]);
   return  0;
 }
