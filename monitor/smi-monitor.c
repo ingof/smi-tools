@@ -21,17 +21,17 @@ int main( int argc, char* argv[] ) {
 
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
+	int serialBytes;
 	int x;
 	int loop;
-	int bytesSmi=0;
-	int bytesSwb=0;
 	char c;
-	int serialBytes;
-	char bufferSwb[50];
-	char bufferSmi[50];
-	int bufferSwbCount=0;
-	int bufferSmiCount=0;
 
+	int bytesSwb=0;
+	char bufferSwb[50];
+	int bufferSwbCount=0;
+	int bytesSmi=0;
+	char bufferSmi[50];
+	int bufferSmiCount=0;
 	/* first parameter is serialSwb0Port*/
 	if (argc > 1) {
 		serialSwbPort=argv[1];
@@ -235,6 +235,7 @@ int main( int argc, char* argv[] ) {
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
 		}
+
 		/* wait 0,5ms */
 		usleep(500);
 	}
@@ -248,12 +249,31 @@ int main( int argc, char* argv[] ) {
 
 }
 
-int checkSwbCRC(void) {
+int checkSwbCRC(int dataBuffer, int bufferSize) {
 	return 0;
 }
 
-int checkSmiCRC(void) {
-	return 0;
+int checkSmiCRC(int dataBuffer, int bufferSize) {
+	if (bufferSize<=3) return 0;
+	if ((dataBuffer[0]<0x20) || (dataBuffer[0]>=0x80)) {
+		return 0;
+	} else {
+		/* create checksum */
+		int tmpChkSum=0;
+		for (size_t i = 0; i < bufferSize-2; i++) {
+			tmpChkSum+=dataBuffer[i];
+		}
+		tmpChksum=(~tmpChecksum)+1;
+		printf("\nCheckSMI: %d->%d",tmpChksum,dataBuffer[bufferSize-1]);
+		tmpChkSumif (dataBuffer[bufferSize-1]==tmpChecksum) {
+			/* code */
+			return 0;
+		} else {
+			/* code */
+			return -1;
+		}
+	}
+//	return -1;
 }
 
 int open_port(void) {
