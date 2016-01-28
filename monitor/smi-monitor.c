@@ -232,10 +232,11 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				c = bufferSmi[bufferSmiCount];
-				if (checkSmiCRC(bufferSmi,bufferSmiCount)<0) {
+				if (checkSmiCRC(bufferSmi,bufferSmiCount)==-1) {
 					/* crc not ok -> red */
 					printf("\033[31m");
-				} else {
+				}
+				if (checkSmiCRC(bufferSmi,bufferSmiCount)>=0) {
 					/* crc is ok -> green */
 					printf("\033[32m");
 				}
@@ -264,7 +265,7 @@ int checkSwbCRC(char *dataBuffer, int bufferSize) {
 }
 
 int checkSmiCRC(char *dataBuffer, int bufferSize) {
-	if (bufferSize<=3) return 0;
+	if (bufferSize<=3) return -2;
 	if ((dataBuffer[0]<0x20) || (dataBuffer[0]>=0x80)) {
 		return 0;
 	} else {
