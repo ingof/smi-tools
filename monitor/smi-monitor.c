@@ -232,15 +232,16 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				c = bufferSmi[bufferSmiCount];
-				if (checkSmiCRC(bufferSmi,bufferSmiCount)==-1) {
+				int result=checkSmiCRC(bufferSmi,bufferSmiCount);
+				if (result==-1) {
 					/* crc not ok -> red */
 					printf("\033[31m");
 				}
-				if (checkSmiCRC(bufferSmi,bufferSmiCount)>=0) {
+				if (result>=0) {
 					/* crc is ok -> green */
 					printf("\033[32m");
 				}
-					printf("%02X ",c);
+					printf("%02X (%02x)",c,result);
 				printf("\033[m");
 				bufferSmiCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
@@ -276,9 +277,11 @@ int checkSmiCRC(char *dataBuffer, int bufferSize) {
 			tmpChkSum+=dataBuffer[i];
 		}
 		tmpChkSum=(~tmpChkSum)+1;
-		printf("(%02X) ",tmpChkSum);
+//		printf("(%02X) ",tmpChkSum);
 //		printf("\nCheckSMI: %02x->%02x",tmpChkSum,dataBuffer[bufferSize-1]);
-		if (dataBuffer[bufferSize-1]!=tmpChkSum) {
+		if (dataBuffer[bufferSize-1]==tmpChkSum) {
+			return (int) tmpChksum;
+		} else {
 			return -1;
 		}
 	}
