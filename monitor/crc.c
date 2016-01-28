@@ -62,7 +62,7 @@ int main(void)
     buffer[5]= (uint8_t) (num>>8); // Highbyte
 
   printf("\nMsg2: ");
-  for(i=0;i<7;i++)
+  for(i=0;i<6;i++)
     printf("%02x, ", buffer[i]);
 
     buffer[0]= 0xf0;
@@ -76,7 +76,7 @@ int main(void)
     buffer[5]= (uint8_t) (num>>8); // Highbyte
 
   printf("\nMsg3: ");
-  for(i=0;i<7;i++)
+  for(i=0;i<6;i++)
     printf("%02x, ", buffer[i]);
   return  0;
 }
