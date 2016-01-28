@@ -6,7 +6,7 @@
 #include <termios.h>		/* POSIX terminal control definitions */
 #include <stdlib.h>			/* converting functions */
 #include <sys/ioctl.h>		/* ioctl() */
-#include <smi-monitor.h>	/* own funcions */
+#include "smi-monitor.h"	/* own funcions */
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
