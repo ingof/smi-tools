@@ -226,7 +226,6 @@ int main( int argc, char* argv[] ) {
 			/* stop receiving and print message */
 			if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
 				printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
-				checkSmiCRC(bufferSmi,bufferSmiCount);
 				for (x = 0; x < (bufferSmiCount-1) ; x++)
 				{
 					c = bufferSmi[x];
@@ -234,13 +233,13 @@ int main( int argc, char* argv[] ) {
 				}
 				c = bufferSmi[bufferSmiCount];
 				if (checkSmiCRC(bufferSmi,bufferSmiCount)<0) {
-					/* crc not ok */
+					/* crc not ok -> red */
 					printf("\033[31m");
 				} else {
-					/* crc is ok */
+					/* crc is ok -> green */
 					printf("\033[32m");
 				}
-					printf("[%02X] ",c);
+					printf("%02X ",c);
 				printf("\033[m");
 				bufferSmiCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
@@ -276,7 +275,7 @@ int checkSmiCRC(char *dataBuffer, int bufferSize) {
 			tmpChkSum+=dataBuffer[i];
 		}
 		tmpChkSum=(~tmpChkSum)+1;
-		printf("\nCheckSMI: %02x->%02x",tmpChkSum,dataBuffer[bufferSize-1]);
+//		printf("\nCheckSMI: %02x->%02x",tmpChkSum,dataBuffer[bufferSize-1]);
 		if (dataBuffer[bufferSize-1]!=tmpChkSum) {
 			return -1;
 		}
