@@ -241,8 +241,8 @@ int main( int argc, char* argv[] ) {
 					/* crc is ok -> green */
 					printf("\033[32m");
 				}
-					printf("%02X (%02x)",c,result);
-				printf("\033[m");
+					c = bufferSmi[bufferSmiCount];
+					printf("%02X \033[m",c);
 				bufferSmiCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
