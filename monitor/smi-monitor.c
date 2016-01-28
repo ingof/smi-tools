@@ -249,11 +249,11 @@ int main( int argc, char* argv[] ) {
 }
 
 int checkSwbCRC(void) {
-	return 0
+	return 0;
 }
 
 int checkSmiCRC(void) {
-	return 0
+	return 0;
 }
 
 int open_port(void) {
