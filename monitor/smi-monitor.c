@@ -139,7 +139,7 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 tcsetattr(fdSmi, TCSANOW, &options);
 
 for (loop=0; loop < 10000;loop+=123) {
-	printf("%6d\%2000 -> %03d SMI: ",loop,loop%2000);
+	printf("%6d mod 2000 -> %03d   / 2000 -> %d ",loop,loop%2000,loop/2000);
 }
 
 
