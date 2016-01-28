@@ -225,6 +225,7 @@ int main( int argc, char* argv[] ) {
 			/* stop receiving and print message */
 			if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
 				printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
+				checkSmiCRC(bufferSmi,bufferSmiCount);
 				for (x = 0; x < (bufferSmiCount) ; x++)
 				{
 					c = bufferSmi[x];
