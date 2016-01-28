@@ -266,15 +266,11 @@ int checkSmiCRC(int *dataBuffer, int bufferSize) {
 		}
 		tmpChkSum=(~tmpChkSum)+1;
 		printf("\nCheckSMI: %d->%d",tmpChkSum,dataBuffer[bufferSize-1]);
-		if (dataBuffer[bufferSize-1]==tmpCheckSum) {
-			/* code */
-			return 0;
-		} else {
-			/* code */
+		if (dataBuffer[bufferSize-1]!=tmpChkSum) {
 			return -1;
 		}
 	}
-//	return -1;
+	return 0;
 }
 
 int open_port(void) {
