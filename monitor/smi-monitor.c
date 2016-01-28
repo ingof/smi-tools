@@ -234,7 +234,7 @@ int main( int argc, char* argv[] ) {
 				c = bufferSmi[bufferSmiCount];
 				int result=checkSmiCRC(bufferSmi,bufferSmiCount);
 				if (result==-2) {
-					/* frame without CRC */
+					/* frame without CRC -> yellow */
 					printf("\033[1m");
 				}
 				if (result==-1) {
@@ -282,7 +282,7 @@ int checkSmiCRC(char *dataBuffer, int bufferSize) {
 		}
 		tmpChkSum=(~tmpChkSum)+1;
 		printf("(%02X) ",tmpChkSum);
-//		printf("\nCheckSMI: %02x->%02x",tmpChkSum,dataBuffer[bufferSize-1]);
+		printf(" *CheckSMI: %02x->%02x* ",tmpChkSum,dataBuffer[bufferSize-1]);
 		if (dataBuffer[bufferSize-1]==tmpChkSum) {
 			return 0;
 		} else {
