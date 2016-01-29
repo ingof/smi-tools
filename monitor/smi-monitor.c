@@ -38,9 +38,10 @@ int main( int argc, char* argv[] ) {
 	int bytesSmi=0;
 	char bufferSmi[50];
 	int bufferSmiCount=0;
-	
+
 	// temporary test use:
 	char tmp2Buf[50];
+	int tmp2Siz;
 
 
 	/* first parameter is serialSwb0Port*/
@@ -195,6 +196,7 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
+				tmp2Siz=bufferSwbCount;
 				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
 						/* crc 2 not ok -> yellow */
@@ -218,7 +220,7 @@ int main( int argc, char* argv[] ) {
 				bufferSwbCount=0;
 
 				// #############################
-				createSwbAck(tmp2Buf,(bufferSwbCount));
+				createSwbAck(tmp2Buf,tmp2Siz);
 				// #############################
 
 				fflush(stdout); // Will now print everything in the stdout buffer
