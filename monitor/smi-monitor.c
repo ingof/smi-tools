@@ -313,17 +313,17 @@ int  checkSwbCRC(char *dataBuffer, int bufferSize)
 		}
 //		printf("\nbyte: %d",i);
 	}
-	printf("\n[CRC: %04x %04x]",crc,(~crc&0xffff));
+	// printf("\n[CRC: %04x %04x]",crc,(~crc&0xffff));
 	if (dataBuffer[bufferSize-2]!=(uint8_t) ~crc) {
-		printf("!1: %02x %02x", dataBuffer[bufferSize-2], (uint8_t) ~crc);
+		// printf("!1: %02x %02x", dataBuffer[bufferSize-2], (uint8_t) ~crc);
 		return -1;
 	}
 	if (dataBuffer[bufferSize-1]!=(uint8_t) (~crc>>8)) {
-		printf("!2: %02x %02x", dataBuffer[bufferSize-1], (uint8_t) ~crc);
+		// printf("!2: %02x %02x", dataBuffer[bufferSize-1], (uint8_t) ~crc);
 		return -1;
 	}
-	printf("-1: %02x %02x", dataBuffer[bufferSize-2], (uint8_t) ~crc);
-	printf("-2: %02x %02x", dataBuffer[bufferSize-1], (uint8_t) ~crc);
+	// printf("-1: %02x %02x", dataBuffer[bufferSize-2], (uint8_t) ~crc);
+	// printf("-2: %02x %02x", dataBuffer[bufferSize-1], (uint8_t) ~crc);
 	return 0;
 //return crc;
 }
