@@ -328,7 +328,7 @@ void printBuffer(char *buffer, int size) {
 }
 
 /* add the crc to an existing message */
-int addSwbSmi(char *buffer, int size) {
+int addSwbCrc(char *buffer, int size) {
 	printBuffer(buffer, size);
 	int crc=createSwbCRC(buffer, size-2);
 	buffer[size-2]=(uint8_t) crc;
