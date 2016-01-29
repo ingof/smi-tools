@@ -221,6 +221,7 @@ int main( int argc, char* argv[] ) {
 
 				// #############################
 				createSwbAck(tmp2Buf,tmp2Siz);
+				write(fdSwb,&tmp2Buf,tmp2Siz);
 				// #############################
 
 				fflush(stdout); // Will now print everything in the stdout buffer
