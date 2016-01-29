@@ -1,3 +1,6 @@
+typedef unsigned char uint8_t;
+typedef unsigned int  uint16_t;
+
 void printBuffer(char *buffer, int size);
 int addSwbSmi(char *buffer, int size);
 uint16_t  createSwbCRC(char *buffer, int size);
