@@ -13,15 +13,16 @@ uint16_t  checkSum(uint8_t *input, uint8_t length)
 
   int i,j;
 
-  for (i=0 ; i<length ; i++){
-    crc = crc ^input[i];
-    for (j=0 ; j<8 ; j++){
+  for (i=0; i < length; i++){
+    crc = crc ^ input[i];
+    for (j=0; j<8; j++){
       if((crc & 0x01) == 0){
         crc = crc >> 1;
       }
       else{
         crc = crc >> 1;
         crc = crc ^ CRC;
+        printf("\ncrc:%04x",crc);
       }
     }
   }
