@@ -8,6 +8,9 @@
 #include <sys/ioctl.h>		/* ioctl() */
 #include "smi-monitor.h"	/* own funcions */
 
+typedef unsigned char uint8_t;
+typedef unsigned int  uint16_t;
+
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
 	char * serialSwbPort="/dev/ttySWB0";
@@ -269,9 +272,34 @@ int main( int argc, char* argv[] ) {
 
 }
 
-int checkSwbCRC(char *dataBuffer, int bufferSize) {
+
+/* check SwitchBus crc-16 */
+int  checkSwbCRC(char *dataBuffer, int bufferSize)
+{
+	uint16_t crc = 0xffff;    // CRC Vorbelegung
+	uint16_t CRC = 0x8408;    // für reverse Berechnung CRC-16-CCITT
+	int i,j;
+
+	for (i=0; i < bufferSize-2; i++){
+		crc = crc ^ dataBuffer[i];
+		for (j=0; j<8; j++){
+			if((crc & 0x01) == 0){
+				crc = crc >> 1;
+			} else {
+				crc = crc >> 1;
+				crc = crc ^ CRC;
+			}
+//			printf("\ncrc(%d):\t%04x\t%04x",j,crc,~crc);
+		}
+//		printf("\nbyte: %d",i);
+	}
+	printf("\n[CRC: %04x %04x]",crc,~crc);
+	if (dataBuffer[buffersize-2]!=(uint8_t)) crc return -1;
+	if (dataBuffer[buffersize-1]!=(uint8_t) (crc>>8)) return -1;
 	return 0;
+//return crc;
 }
+
 
 int checkSmiCRC(char *dataBuffer, int bufferSize) {
 	if (bufferSize<=2) {
