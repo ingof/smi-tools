@@ -236,10 +236,10 @@ int main( int argc, char* argv[] ) {
 					} else {
 						printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
 						tmp2Err=0;
+						createSwbAck(tmp2Buf,tmp2Siz);
+						// write(fdSwb,&tmp2Buf,tmp2Siz);
+						write(fdSwb,&tmp2Buf,7);
 					}
-					createSwbAck(tmp2Buf,tmp2Siz);
-					// write(fdSwb,&tmp2Buf,tmp2Siz);
-					write(fdSwb,&tmp2Buf,7);
 				}
 				// #############################
 
