@@ -190,8 +190,8 @@ int main( int argc, char* argv[] ) {
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
-				// addSwbCRC(bufferSwb,(bufferSwbCount-2));
-				// addSwbCRC(bufferSwb,(bufferSwbCount-3));
+				addSwbCrc(bufferSwb,(bufferSwbCount-2));
+				addSwbCrc(bufferSwb,(bufferSwbCount-3));
 				switch (checkSwbCRC(bufferSwb,bufferSwbCount)) {
 					case -2:
 						/* crc 2 not ok -> yellow */
@@ -214,8 +214,6 @@ int main( int argc, char* argv[] ) {
 				printf("\033[m");
 				bufferSwbCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
-				int tmp2Int=0;
-				tmp2Int=addSwbCrc(bufferSwb,bufferSwbCount);
 			}
 		}
 
@@ -332,13 +330,13 @@ void printBuffer(char *buffer, int size) {
 }
 
 /* add the crc to an existing message */
-int addSwbCrc(char *dataBuffer, int bufferSize) {
-	// printBuffer(buffer, size);
-	// int crc=createSwbCRC(buffer, size-2);
-	// buffer[size-2]=(uint8_t) crc;
-	// buffer[size-1]=(uint8_t) (crc>>8);
-	// printBuffer(buffer, size);
-	return 0;
+void addSwbCrc(char *dataBuffer, int bufferSize) {
+	printBuffer(buffer, size);
+	int crc=createSwbCRC(buffer, size-2);
+	buffer[size-2]=(uint8_t) crc;
+	buffer[size-1]=(uint8_t) (crc>>8);
+	printBuffer(buffer, size);
+	// return 0;
 }
 
 /* check SwitchBus crc-16 */
