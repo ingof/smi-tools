@@ -183,11 +183,31 @@ int main( int argc, char* argv[] ) {
 			/* stop receiving and print message */
 			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
 				printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
-				for (x = 0; x < (bufferSwbCount) ; x++)
+				for (x = 0; x < (bufferSwbCount-2) ; x++)
 				{
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
+
+				switch (checkSmiCRC(bufferSwb,bufferSwbCount)) {
+					// case -2:
+					// 	/* frame without CRC -> yellow */
+					// 	printf("\033[1m");
+					// 	break;
+					case -1:
+						/* crc not ok -> red */
+						printf("\033[31m");
+						break;
+					default:
+						/* crc is ok -> green */
+						printf("\033[32m");
+						break;
+				}
+				c = bufferSmi[bufferSmiCount-2];
+				printf("%02X ",c);
+				c = bufferSmi[bufferSmiCount-1];
+				printf("%02X ",c);
+
 				printf("\033[m");
 				bufferSwbCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
@@ -237,7 +257,7 @@ int main( int argc, char* argv[] ) {
 					c = bufferSmi[x];
 					printf("%02X ",c);
 				}
-				c = bufferSmi[bufferSmiCount];
+				// c = bufferSmi[bufferSmiCount];
 				switch (checkSmiCRC(bufferSmi,bufferSmiCount)) {
 					case -2:
 						/* frame without CRC -> yellow */
@@ -276,8 +296,8 @@ int main( int argc, char* argv[] ) {
 /* check SwitchBus crc-16 */
 int  checkSwbCRC(char *dataBuffer, int bufferSize)
 {
-	uint16_t crc = 0xffff;    // CRC Vorbelegung
-	uint16_t CRC = 0x8408;    // für reverse Berechnung CRC-16-CCITT
+	uint16_t crc = 0xffff;    // preset CRC
+	uint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
 	int i,j;
 
 	for (i=0; i < bufferSize-2; i++){
