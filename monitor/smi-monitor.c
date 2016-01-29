@@ -190,6 +190,7 @@ int main( int argc, char* argv[] ) {
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
+				void addSwbCrc(char *buffer, int size);
 				addSwbCRC(bufferSwb,bufferSwbCount);
 				addSwbCRC(bufferSwb,(bufferSwbCount-2));
 				addSwbCRC(bufferSwb,(bufferSwbCount-3));
