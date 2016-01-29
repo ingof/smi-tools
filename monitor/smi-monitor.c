@@ -241,7 +241,7 @@ int main( int argc, char* argv[] ) {
 				// 		// write(fdSwb,&tmp2Buf,7);
 				// 	}
 				// }
-				// // #############################
+				//// // #############################
 
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
