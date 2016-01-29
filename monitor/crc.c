@@ -23,9 +23,9 @@ uint16_t  checkSum(uint8_t *input, uint8_t length)
         crc = crc >> 1;
         crc = crc ^ CRC;
       }
-      printf("\ncrc(%d):\t%04x",j,crc);
+      printf("\ncrc(%d):\t%04x\t%04x",j,crc,~crc);
     }
-    printf("\nbyte: %d\t%04X",i,crc);
+    printf("\nbyte: %d",i);
   }
 return crc;
 }
