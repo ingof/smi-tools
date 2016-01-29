@@ -230,6 +230,9 @@ int main( int argc, char* argv[] ) {
 					write(fdSwb,&tmp2Buf,7);
 				} else {
 					printf("\033[31m   *  N A C K  *\033[m");
+					createSwbAck(tmp2Buf,tmp2Siz);
+					// write(fdSwb,&tmp2Buf,tmp2Siz);
+					write(fdSwb,&tmp2Buf,7);
 				}
 				// #############################
 
