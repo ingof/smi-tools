@@ -214,7 +214,8 @@ int main( int argc, char* argv[] ) {
 				printf("\033[m");
 				bufferSwbCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
-				int tmp2Int=addSwbCRC(bufferSwb,bufferSwbCount);
+				int tmp2Int=0;
+				tmp2Int=addSwbCrc(bufferSwb,bufferSwbCount);
 			}
 		}
 
