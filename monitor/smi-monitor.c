@@ -221,7 +221,8 @@ int main( int argc, char* argv[] ) {
 
 				// #############################
 				createSwbAck(tmp2Buf,tmp2Siz);
-				write(fdSwb,&tmp2Buf,tmp2Siz);
+				// write(fdSwb,&tmp2Buf,tmp2Siz);
+				write(fdSwb,&tmp2Buf,7);
 				// #############################
 
 				fflush(stdout); // Will now print everything in the stdout buffer
@@ -343,6 +344,8 @@ void printBuffer(char *buffer, int size) {
 
 /* create response of received message */
 void createSwbAck(char *buffer, int size) {
+	// fix for short messages:
+	if (size==6) size++;
 	// clear switch-byte
 	buffer[size-3]=0;
 	// clear old crc
