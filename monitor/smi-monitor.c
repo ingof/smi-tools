@@ -317,6 +317,7 @@ uint16_t  createSwbCRC(char *buffer, int size)
 
 void printBuffer(char *buffer, int size) {
 	printf("\nBuffer(%d) :",size);
+	int x;
 	for (x = 0; x < (size) ; x++)
 	{
 		c = buffer[x];
