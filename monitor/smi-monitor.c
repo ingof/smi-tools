@@ -43,6 +43,7 @@ int main( int argc, char* argv[] ) {
 	char tmp2Buf[50];
 	int tmp2Siz;
 	int tmp2Ret;
+	int tmp2Err=0;
 
 
 	/* first parameter is serialSwb0Port*/
@@ -229,7 +230,13 @@ int main( int argc, char* argv[] ) {
 					// write(fdSwb,&tmp2Buf,tmp2Siz);
 					write(fdSwb,&tmp2Buf,7);
 				} else {
-					printf("\033[31m   *  N A C K  *\033[m");
+					tmp2Err++;
+					if (tmp2Err<=20) {
+						printf("\033[31m   *  N A C K  *\033[m");
+					} else {
+						printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
+						tmp2Err=0;
+					}
 					createSwbAck(tmp2Buf,tmp2Siz);
 					// write(fdSwb,&tmp2Buf,tmp2Siz);
 					write(fdSwb,&tmp2Buf,7);
