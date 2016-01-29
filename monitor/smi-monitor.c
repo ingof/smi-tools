@@ -190,8 +190,9 @@ int main( int argc, char* argv[] ) {
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
-				addSwbCrc(bufferSwb,(bufferSwbCount-2));
-				addSwbCrc(bufferSwb,(bufferSwbCount-3));
+				char tmp2Buf[50];
+				memmove(tmp2Buf,bufferSwb,bufferSwbCount);
+				addSwbCrc(tmp2Buf,(bufferSwbCount));
 				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
 						/* crc 2 not ok -> yellow */
