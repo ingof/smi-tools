@@ -189,7 +189,7 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 
-				switch (checkSmiCRC(bufferSwb,bufferSwbCount)) {
+				switch (checkSwbCRC(bufferSwb,bufferSwbCount)) {
 					// case -2:
 					// 	/* frame without CRC -> yellow */
 					// 	printf("\033[1m");
@@ -203,9 +203,9 @@ int main( int argc, char* argv[] ) {
 						printf("\033[32m");
 						break;
 				}
-				c = bufferSmi[bufferSmiCount-2];
+				c = bufferSwb[bufferSwbCount-2];
 				printf("%02X ",c);
-				c = bufferSmi[bufferSmiCount-1];
+				c = bufferSwb[bufferSwbCount-1];
 				printf("%02X ",c);
 
 				printf("\033[m");
