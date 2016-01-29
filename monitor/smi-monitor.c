@@ -313,9 +313,9 @@ int  checkSwbCRC(char *dataBuffer, int bufferSize)
 		}
 //		printf("\nbyte: %d",i);
 	}
-	printf("\n[CRC: %04x %04x]",crc,~crc);
-	if (dataBuffer[bufferSize-2]!=(uint8_t) crc) return -1;
-	if (dataBuffer[bufferSize-1]!=(uint8_t) (crc>>8)) return -1;
+	printf("\n[CRC: %04x %04x]",crc,(~crc&0xffff));
+	if (dataBuffer[bufferSize-1]!=(uint8_t) crc) return -1;
+	if (dataBuffer[bufferSize-2]!=(uint8_t) (crc>>8)) return -1;
 	return 0;
 //return crc;
 }
