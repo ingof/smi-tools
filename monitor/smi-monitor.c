@@ -344,7 +344,7 @@ int  checkSwbCRC(char *dataBuffer, int bufferSize)
 		printf("(-2:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 		return -2;
 	}
-	printf("( :%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
+	printf("( 0:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 	return 0;
 //return crc;
 }
