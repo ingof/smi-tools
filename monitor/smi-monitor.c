@@ -42,6 +42,7 @@ int main( int argc, char* argv[] ) {
 	// temporary test use:
 	char tmp2Buf[50];
 	int tmp2Siz;
+	int tmp2Ret;
 
 
 	/* first parameter is serialSwb0Port*/
@@ -201,14 +202,17 @@ int main( int argc, char* argv[] ) {
 					case -2:
 						/* crc 2 not ok -> yellow */
 						printf("\033[1m");
+						tmp2Ret=-2;
 						break;
 					case -1:
 						/* crc 1 not ok -> red */
 						printf("\033[31m");
+						tmp2Ret=-1;
 						break;
 					default:
 						/* crc is ok -> green */
 						printf("\033[32m");
+						tmp2Ret=0;
 						break;
 				}
 				c = bufferSwb[bufferSwbCount-2];
@@ -220,9 +224,13 @@ int main( int argc, char* argv[] ) {
 				bufferSwbCount=0;
 
 				// #############################
-				createSwbAck(tmp2Buf,tmp2Siz);
-				// write(fdSwb,&tmp2Buf,tmp2Siz);
-				write(fdSwb,&tmp2Buf,7);
+				if (tmp2Ret==0) {
+					createSwbAck(tmp2Buf,tmp2Siz);
+					// write(fdSwb,&tmp2Buf,tmp2Siz);
+					write(fdSwb,&tmp2Buf,7);
+				} else {
+					printf("\033[31m   *  N A C K  *\033[m");
+				}
 				// #############################
 
 				fflush(stdout); // Will now print everything in the stdout buffer
