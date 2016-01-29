@@ -323,7 +323,7 @@ uint16_t  createSwbCrc(char *buffer, int size)
 
 
 void printBuffer(char *buffer, int size) {
-	printf("(%d",size);
+	printf("  (%d",size);
 	int x;
 	char c2;
 	for (x = 0; x < (size) ; x++)
