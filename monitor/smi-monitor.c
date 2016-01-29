@@ -190,12 +190,12 @@ int main( int argc, char* argv[] ) {
 				}
 
 				switch (checkSwbCRC(bufferSwb,bufferSwbCount)) {
-					// case -2:
-					// 	/* frame without CRC -> yellow */
-					// 	printf("\033[1m");
-					// 	break;
+					case -2:
+						/* crc 2 not ok -> yellow */
+						printf("\033[1m");
+						break;
 					case -1:
-						/* crc not ok -> red */
+						/* crc 1 not ok -> red */
 						printf("\033[31m");
 						break;
 					default:
@@ -315,12 +315,12 @@ int  checkSwbCRC(char *dataBuffer, int bufferSize)
 	}
 	printf("\n[CRC: %04x %04x]",crc,(~crc&0xffff));
 	if (dataBuffer[bufferSize-2]!=(uint8_t) crc) {
-		return -1;
 		printf("!1: %02x %02x", dataBuffer[bufferSize-2], (uint8_t) crc);
+		return -1;
 	}
 	if (dataBuffer[bufferSize-1]!=(uint8_t) (crc>>8)) {
-		return -1;
 		printf("!2: %02x %02x", dataBuffer[bufferSize-1], (uint8_t) crc);
+		return -1;
 	}
 	printf("-1: %02x %02x", dataBuffer[bufferSize-2], (uint8_t) crc);
 	printf("-2: %02x %02x", dataBuffer[bufferSize-1], (uint8_t) crc);
