@@ -331,13 +331,13 @@ void printBuffer(char *buffer, int size) {
 }
 
 /* add the crc to an existing message */
-void addSwbCrc(char *buffer, int size) {
-	printBuffer(buffer, size);
-	int crc=createSwbCRC(buffer, size-2);
-	buffer[size-2]=(uint8_t) crc;
-	buffer[size-1]=(uint8_t) (crc>>8);
-	printBuffer(buffer, size);
-
+int addSwbCrc(char *dataBuffer, int bufferSize) {
+	// printBuffer(buffer, size);
+	// int crc=createSwbCRC(buffer, size-2);
+	// buffer[size-2]=(uint8_t) crc;
+	// buffer[size-1]=(uint8_t) (crc>>8);
+	// printBuffer(buffer, size);
+	return 0;
 }
 
 /* check SwitchBus crc-16 */
