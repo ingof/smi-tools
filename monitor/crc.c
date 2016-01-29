@@ -23,9 +23,9 @@ uint16_t  checkSum(uint8_t *input, uint8_t length)
         crc = crc >> 1;
         crc = crc ^ CRC;
       }
-      printf("\ncrc(%d):\t%04x\t%04x",j,crc,~crc);
+    //   printf("\ncrc(%d):\t%04x\t%04x",j,crc,~crc);
     }
-    printf("\nbyte: %d",i);
+    // printf("\nbyte: %d",i);
   }
 return crc;
 }
@@ -51,8 +51,9 @@ int main(void) {
 
       printf("\nMsg: ");
       for(i=0;i<7;i++)
-        printf("%02x, ", buffer[i]);
+        printf("%02X ", buffer[i]);
       printf(" - 00 58");
+      if ((buffer[5]==0)&&(buffer[6]==0x58)) printf("#############################################");
     }
   return  0;
 }
