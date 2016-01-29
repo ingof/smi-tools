@@ -191,7 +191,7 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				char tmp2Buf[50];
-				memmove(tmp2Buf,bufferSwb,bufferSwbCount);
+				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
 				addSwbCrc(tmp2Buf,(bufferSwbCount));
 				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
