@@ -191,7 +191,7 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				char tmp2Buf[50];
-				memmove(tmp2Buf,bufferSwb,bufferSwbCount);
+				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
 				addSwbCrc(tmp2Buf,(bufferSwbCount));
 				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
@@ -332,13 +332,13 @@ void printBuffer(char *buffer, int size) {
 
 /* add the crc to an existing message */
 void addSwbCrc(char *buffer, int size) {
-	buffer[size-1]=0;
-	buffer[size-2]=0;
-	printBuffer(buffer, size);
+	buffer[size]=0;
+	buffer[size+1]=0;
+	printBuffer(buffer, size+2);
 	int crc=createSwbCrc(buffer, size);
-	buffer[size-2]=(uint8_t) crc;
-	buffer[size-1]=(uint8_t) (crc>>8);
-	printBuffer(buffer, size);
+	buffer[size]=(uint8_t) crc;
+	buffer[size+1]=(uint8_t) (crc>>8);
+	printBuffer(buffer, size+2);
 	// return 0;
 }
 
