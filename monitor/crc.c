@@ -33,27 +33,63 @@ return crc;
 
 
 int main(void) {
-    char j;
-    for ( j = 0; j <= 255; j++) {
-        uint8_t buffer[10];
-        uint16_t i, num;
+   int j;
+   for ( j = 0; j <= 255; j++) {
+       uint8_t buffer[10];
+       uint16_t i, num;
 
-        buffer[0]= 0xf0;
-        buffer[1]= 0x24;
-        buffer[2]= 0xd3;
-        buffer[3]= 0x81;
-        buffer[4]= j;
+       buffer[0]= 0xf0;
+       buffer[1]= 0x24;
+       buffer[2]= 0xd3;
+       buffer[3]= 0x81;
+       buffer[4]= j;
 
-        num = ~checkSum(buffer,5);    // Komplement der CRC
+       num = ~checkSum(buffer,5);    // Komplement der CRC
 
-        buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
-        buffer[6]= (uint8_t) (num>>8); // Highbyte
+       buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
+       buffer[6]= (uint8_t) (num>>8); // Highbyte
 
-      printf("\nMsg: ");
-      for(i=0;i<7;i++)
-        printf("%02X ", buffer[i]);
-      printf(" - 00 58");
-      if ((buffer[5]==0)&&(buffer[6]==0x58)) printf("#############################################");
-    }
+     printf("\nMsg: ");
+     for(i=0;i<7;i++)
+       printf("%02X ", buffer[i]);
+   }
+   for ( j = 0; j <= 255; j++) {
+       uint8_t buffer[10];
+       uint16_t i, num;
+
+       buffer[0]= 0xf0;
+       buffer[1]= 0x24;
+       buffer[2]= 0xd3;
+       buffer[3]= 0x81;
+       buffer[4]= j;
+
+       num = ~checkSum(buffer,5);    // Komplement der CRC
+
+       buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
+       buffer[6]= (uint8_t) (num>>8); // Highbyte
+
+     printf("\nMsg: ");
+     for(i=0;i<7;i++)
+       printf("%02X ", buffer[i]);
+   }
+   for ( j = 0; j <= 255; j++) {
+       uint8_t buffer[10];
+       uint16_t i, num;
+
+       buffer[0]= 0xf0;
+       buffer[1]= 0x24;
+       buffer[2]= 0xd3;
+       buffer[3]= 0x81;
+       buffer[4]= j;
+
+       num = ~checkSum(buffer,5);    // Komplement der CRC
+
+       buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
+       buffer[6]= (uint8_t) (num>>8); // Highbyte
+
+     printf("\nMsg: ");
+     for(i=0;i<7;i++)
+       printf("%02X ", buffer[i]);
+   }
   return  0;
 }
