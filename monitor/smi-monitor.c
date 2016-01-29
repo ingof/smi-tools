@@ -8,10 +8,10 @@
 #include <sys/ioctl.h>		/* ioctl() */
 #include "smi-monitor.h"	/* own funcions */
 
-typedef unsigned char uint8_t;
-typedef unsigned int  uint16_t;
-
-void addSwbCrc(char *buffer, int size);
+// typedef unsigned char uint8_t;
+// typedef unsigned int  uint16_t;
+//
+// void addSwbCrc(char *buffer, int size);
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
@@ -190,7 +190,7 @@ int main( int argc, char* argv[] ) {
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
-				// addSwbCRC(bufferSwb,bufferSwbCount);
+				addSwbCRC(bufferSwb,bufferSwbCount);
 				// addSwbCRC(bufferSwb,(bufferSwbCount-2));
 				// addSwbCRC(bufferSwb,(bufferSwbCount-3));
 				switch (checkSwbCRC(bufferSwb,bufferSwbCount)) {
