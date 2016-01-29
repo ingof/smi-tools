@@ -11,7 +11,7 @@
 typedef unsigned char uint8_t;
 typedef unsigned int  uint16_t;
 
-int addSwbCrc(char *buffer, int size);
+addSwbCrc(char *buffer, int size);
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
