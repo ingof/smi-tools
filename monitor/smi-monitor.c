@@ -81,7 +81,7 @@ int main( int argc, char* argv[] ) {
 	tcgetattr(fdSwb, &options);
 
 	/* Set the baud rates to 19200... */
-	printf("SWB: 19.200c (%dms)\n",serialSwbWait);
+	printf("SWB: 19.200e (%dms)\n",serialSwbWait);
 	cfsetispeed(&options, B19200);
 	cfsetospeed(&options, B19200);
 
@@ -313,29 +313,29 @@ uint16_t  createSwbCRC(char *buffer, int size)
  return ~crc;
 }
 
-/* check SwitchBus crc-16 */
-int  checkSwbCRC(char *dataBuffer, int bufferSize)
-{
-// 	uint16_t crc = 0xffff;    // preset CRC
-// 	uint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
-// 	int i,j;
-//
-// 	for (i=0; i < bufferSize-2; i++){
-// 		crc = crc ^ dataBuffer[i];
-// 		for (j=0; j<8; j++){
-// 			if((crc & 0x01) == 0){
-// 				crc = crc >> 1;
-// 			} else {
-// 				crc = crc >> 1;
-// 				crc = crc ^ CRC;
-// 			}
-// //			printf("\ncrc(%d):\t%04x\t%04x",j,crc,~crc);
-// 		}
-// //		printf("\nbyte: %d",i);
-// 	}
-	int crc=createSwbCRC(dataBuffer, bufferSize);
 
-	// printf("\n[CRC: %04x %04x]",crc,(~crc&0xffff));
+void printBuffer(char *buffer, int size) {
+	printf("\nBuffer(%d) :",size);
+	for (x = 0; x < (size) ; x++)
+	{
+		c = buffer[x];
+		printf("%02X ",c);
+	}
+	fflush(stdout); // Will now print everything in the stdout buffer
+}
+
+/* add the crc to an existing message */
+int addSwbSmi(char *buffer, int size) {
+	printBuffer(buffer, size);
+	int crc=createSwbCRC(buffer, size-2);
+	buffer[size-2]=(uint8_t) crc;
+	buffer[size-1]=(uint8_t) (crc>>8);
+	printBuffer(buffer, size);
+}
+
+/* check SwitchBus crc-16 */
+int  checkSwbCRC(char *dataBuffer, int bufferSize) {
+	int crc=createSwbCRC(dataBuffer, bufferSize);
 	if (dataBuffer[bufferSize-2]!=(uint8_t) crc) {
 		printf("(-1:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 		return -1;
@@ -346,7 +346,6 @@ int  checkSwbCRC(char *dataBuffer, int bufferSize)
 	}
 	printf("( 0:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 	return 0;
-//return crc;
 }
 
 
