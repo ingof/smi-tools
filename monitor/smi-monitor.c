@@ -190,10 +190,6 @@ int main( int argc, char* argv[] ) {
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
-				char tmp2Buf[50];
-				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				// addSwbCrc(tmp2Buf,(bufferSwbCount));
-				createSwbAck(tmp2Buf,(bufferSwbCount));
 				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
 						/* crc 2 not ok -> yellow */
@@ -215,6 +211,13 @@ int main( int argc, char* argv[] ) {
 
 				printf("\033[m");
 				bufferSwbCount=0;
+
+				// #############################
+				char tmp2Buf[50];
+				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
+				createSwbAck(tmp2Buf,(bufferSwbCount));
+				// #############################
+
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
 		}
@@ -320,14 +323,15 @@ uint16_t  createSwbCrc(char *buffer, int size)
 
 
 void printBuffer(char *buffer, int size) {
-	printf("\n    Buffer(%d) :",size);
+	printf("(%d",size);
 	int x;
 	char c2;
 	for (x = 0; x < (size) ; x++)
 	{
 		c2 = buffer[x];
-		printf("%02X ",c2);
+		printf("%02X.",c2);
 	}
+	printf(")");
 	fflush(stdout); // Will now print everything in the stdout buffer
 }
 
@@ -339,14 +343,11 @@ void createSwbAck(char *buffer, int size) {
 	buffer[size-2]=0;
 	buffer[size-1]=0;
 	// display old message
-	printf("------------------");
-	printBuffer(buffer, size);
 	int crc=createSwbCrc(buffer, size);
 	buffer[size-2]=(uint8_t) crc;
 	buffer[size-1]=(uint8_t) (crc>>8);
 	// display generated acknolegde
 	printBuffer(buffer, size);
-	printf("^^^^^^^^^^^^^^^^^^");
 }
 
 /* add the crc to an existing message */
