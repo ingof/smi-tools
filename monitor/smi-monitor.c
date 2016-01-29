@@ -192,7 +192,8 @@ int main( int argc, char* argv[] ) {
 				}
 				char tmp2Buf[50];
 				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				addSwbCrc(tmp2Buf,(bufferSwbCount));
+				// addSwbCrc(tmp2Buf,(bufferSwbCount));
+				createSwbAck(tmp2Buf,(bufferSwbCount));
 				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
 						/* crc 2 not ok -> yellow */
@@ -330,16 +331,33 @@ void printBuffer(char *buffer, int size) {
 	fflush(stdout); // Will now print everything in the stdout buffer
 }
 
+/* create response of received message */
+void createSwbAck(char *buffer, int size) {
+	// clear switch-byte
+	buffer[size-3]=0;
+	// clear old crc
+	buffer[size-2]=0;
+	buffer[size-1]=0;
+	// display old message
+	printf("------------------");
+	printBuffer(buffer, size);
+	int crc=createSwbCrc(buffer, size);
+	buffer[size-2]=(uint8_t) crc;
+	buffer[size-1]=(uint8_t) (crc>>8);
+	// display generated acknolegde
+	printBuffer(buffer, size);
+	printf("^^^^^^^^^^^^^^^^^^");
+}
+
 /* add the crc to an existing message */
 void addSwbCrc(char *buffer, int size) {
 	buffer[size]=0;
 	buffer[size+1]=0;
-	printBuffer(buffer, size+2);
+	// printBuffer(buffer, size);
 	int crc=createSwbCrc(buffer, size);
 	buffer[size]=(uint8_t) crc;
 	buffer[size+1]=(uint8_t) (crc>>8);
-	printBuffer(buffer, size+2);
-	// return 0;
+	// printBuffer(buffer, size+2);
 }
 
 /* check SwitchBus crc-16 */
