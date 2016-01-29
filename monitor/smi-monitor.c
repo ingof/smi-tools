@@ -81,7 +81,7 @@ int main( int argc, char* argv[] ) {
 	tcgetattr(fdSwb, &options);
 
 	/* Set the baud rates to 19200... */
-	printf("SWB: 19.200b (%dms)\n",serialSwbWait);
+	printf("SWB: 19.200c (%dms)\n",serialSwbWait);
 	cfsetispeed(&options, B19200);
 	cfsetospeed(&options, B19200);
 
