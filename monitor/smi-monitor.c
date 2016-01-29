@@ -190,7 +190,6 @@ int main( int argc, char* argv[] ) {
 					c = bufferSwb[x];
 					printf("%02X ",c);
 				}
-				addSwbCRC(bufferSwb,bufferSwbCount);
 				// addSwbCRC(bufferSwb,(bufferSwbCount-2));
 				// addSwbCRC(bufferSwb,(bufferSwbCount-3));
 				switch (checkSwbCRC(bufferSwb,bufferSwbCount)) {
@@ -215,6 +214,7 @@ int main( int argc, char* argv[] ) {
 				printf("\033[m");
 				bufferSwbCount=0;
 				fflush(stdout); // Will now print everything in the stdout buffer
+				addSwbCRC(bufferSwb,bufferSwbCount);
 			}
 		}
 
