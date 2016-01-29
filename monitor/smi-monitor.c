@@ -318,10 +318,11 @@ uint16_t  createSwbCRC(char *buffer, int size)
 void printBuffer(char *buffer, int size) {
 	printf("\nBuffer(%d) :",size);
 	int x;
+	char c2;
 	for (x = 0; x < (size) ; x++)
 	{
-		c = buffer[x];
-		printf("%02X ",c);
+		c2 = buffer[x];
+		printf("%02X ",c2);
 	}
 	fflush(stdout); // Will now print everything in the stdout buffer
 }
