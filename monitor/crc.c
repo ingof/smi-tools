@@ -22,8 +22,8 @@ uint16_t  checkSum(uint8_t *input, uint8_t length)
       else{
         crc = crc >> 1;
         crc = crc ^ CRC;
-        printf("\ncrc:%04x",crc);
       }
+      printf("\ncrc:%04x",crc);
     }
   }
 return crc;
