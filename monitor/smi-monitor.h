@@ -1,8 +1,8 @@
 typedef unsigned char uint8_t;
 typedef unsigned int  uint16_t;
 
-int checkSwbCRC(char *dataBuffer, int bufferSize);
-int checkSmiCRC(char *dataBuffer, int bufferSize);
+int checkSwbCrc(char *buffer, int size);
+int checkSmiCrc(char *buffer, int size);
 
 void addSwbCrc(char *buffer, int size);
 

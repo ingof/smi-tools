@@ -192,7 +192,7 @@ int main( int argc, char* argv[] ) {
 				}
 				addSwbCrc(bufferSwb,(bufferSwbCount-2));
 				addSwbCrc(bufferSwb,(bufferSwbCount-3));
-				switch (checkSwbCRC(bufferSwb,bufferSwbCount)) {
+				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
 						/* crc 2 not ok -> yellow */
 						printf("\033[1m");
@@ -261,7 +261,7 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				// c = bufferSmi[bufferSmiCount];
-				switch (checkSmiCRC(bufferSmi,bufferSmiCount)) {
+				switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
 					case -2:
 						/* frame without CRC -> yellow */
 						printf("\033[1m");
@@ -296,7 +296,7 @@ int main( int argc, char* argv[] ) {
 }
 
 
-uint16_t  createSwbCRC(char *buffer, int size)
+uint16_t  createSwbCrc(char *buffer, int size)
 {
 	uint16_t crc = 0xffff;    // preset CRC
 	uint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
@@ -330,9 +330,9 @@ void printBuffer(char *buffer, int size) {
 }
 
 /* add the crc to an existing message */
-void addSwbCrc(char *dataBuffer, int bufferSize) {
+void addSwbCrc(char *buffer, int size) {
 	printBuffer(buffer, size);
-	int crc=createSwbCRC(buffer, size-2);
+	int crc=createSwbCrc(buffer, size-2);
 	buffer[size-2]=(uint8_t) crc;
 	buffer[size-1]=(uint8_t) (crc>>8);
 	printBuffer(buffer, size);
@@ -340,13 +340,13 @@ void addSwbCrc(char *dataBuffer, int bufferSize) {
 }
 
 /* check SwitchBus crc-16 */
-int  checkSwbCRC(char *dataBuffer, int bufferSize) {
-	int crc=createSwbCRC(dataBuffer, bufferSize);
-	if (dataBuffer[bufferSize-2]!=(uint8_t) crc) {
+int  checkSwbCrc(char *buffer, int size) {
+	int crc=createSwbCrc(buffer, size);
+	if (buffer[size-2]!=(uint8_t) crc) {
 		printf("(-1:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 		return -1;
 	}
-	if (dataBuffer[bufferSize-1]!=(uint8_t) (crc>>8)) {
+	if (buffer[size-1]!=(uint8_t) (crc>>8)) {
 		printf("(-2:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 		return -2;
 	}
@@ -355,18 +355,18 @@ int  checkSwbCRC(char *dataBuffer, int bufferSize) {
 }
 
 
-int checkSmiCRC(char *dataBuffer, int bufferSize) {
-	if (bufferSize<=2) {
+int checkSmiCrc(char *buffer, int size) {
+	if (size<=2) {
 		return -2;
 	}
 	/* create checksum */
 	char tmpChkSum=0;
 	int i;
-	for (i = 0; i < bufferSize-1; i++) {
-		tmpChkSum+=dataBuffer[i];
+	for (i = 0; i < size-1; i++) {
+		tmpChkSum+=buffer[i];
 	}
 	tmpChkSum=(~tmpChkSum)+1;
-	if (dataBuffer[bufferSize-1]!=tmpChkSum) {
+	if (buffer[size-1]!=tmpChkSum) {
 		return -1;
 	}
 	return 0;
