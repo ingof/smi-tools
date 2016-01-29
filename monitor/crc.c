@@ -32,53 +32,27 @@ return crc;
 
 
 
-int main(void)
-{
-    uint8_t buffer[10];
-    uint16_t i, num;
+int main(void) {
+    char j;
+    for ( j = 0; j <= 255; j++) {
+        uint8_t buffer[10];
+        uint16_t i, num;
 
-    buffer[0]= 0xf0;
-    buffer[1]= 0x24;
-    buffer[2]= 0xaa;
-    buffer[3]= 0x01;
-    buffer[4]= 0x12;
+        buffer[0]= 0xf0;
+        buffer[1]= 0x24;
+        buffer[2]= 0xd3;
+        buffer[3]= 0x81;
+        buffer[4]= j;
 
-    num = ~checkSum(buffer,5);    // Komplement der CRC
+        num = ~checkSum(buffer,5);    // Komplement der CRC
 
-    buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
-    buffer[6]= (uint8_t) (num>>8); // Highbyte
+        buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
+        buffer[6]= (uint8_t) (num>>8); // Highbyte
 
-  printf("\nMsg1: ");
-  for(i=0;i<7;i++)
-    printf("%02x, ", buffer[i]);
-
-    buffer[0]= 0xf0;
-    buffer[1]= 0x24;
-    buffer[2]= 0xd3;
-    buffer[3]= 0x01;
-    buffer[4]= 0x00;
-
-    num = ~checkSum(buffer,5);
-
-    buffer[5]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
-    buffer[6]= (uint8_t) (num>>8); // Highbyte
-
-  printf("\nMsg2: ");
-  for(i=0;i<7;i++)
-    printf("%02x, ", buffer[i]);
-
-    buffer[0]= 0xf0;
-    buffer[1]= 0x24;
-    buffer[2]= 0xd3;
-    buffer[3]= 0x01;
-
-    num = ~checkSum(buffer,4);
-
-    buffer[4]= (uint8_t) num; //(Lowbyte. uint8_t oder char typcasten)
-    buffer[5]= (uint8_t) (num>>8); // Highbyte
-
-  printf("\nMsg3: ");
-  for(i=0;i<6;i++)
-    printf("%02x, ", buffer[i]);
+      printf("\nMsg: ");
+      for(i=0;i<7;i++)
+        printf("%02x, ", buffer[i]);
+      printf(" - 00 58");
+    }
   return  0;
 }
