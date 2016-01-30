@@ -114,14 +114,16 @@ int main( int argc, char* argv[] ) {
 	ioctl(fdSwb, TIOCGSERIAL, &ser);
 	//ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
 	/* divisor for 25000 kBit/s (alias 38400) */
-	ser.custom_divisor=1300;
+	// ser.custom_divisor=1300;
 	ioctl(fdSwb, TIOCSSERIAL, &ser);
 
 	/* Get the current options for the SWB-port... */
 	tcgetattr(fdSwb, &options);
 
-	cfsetispeed(&options, B38400);
-	cfsetospeed(&options, B38400);
+	// cfsetispeed(&options, B38400);
+	// cfsetospeed(&options, B38400);
+	cfsetispeed(&options, B19200);
+	cfsetospeed(&options, B19200);
 
 	printf("SWB: 25.000 (%dms)\n",serialSwbWait);
 
