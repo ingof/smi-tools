@@ -65,7 +65,7 @@ int main( int argc, char* argv[] ) {
 
 	// temporary test use:
 	char tmp2Buf[50];
-	char tmp3Buf[50];
+	// char tmp3Buf[50];
 	int tmp2Siz;
 	int tmp2Ret;
 	int tmp2Err=0;
@@ -197,14 +197,14 @@ int main( int argc, char* argv[] ) {
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
 
-		tmp3Buf[0]=0xf0;
-		tmp3Buf[1]=0xaa;
-		tmp3Buf[2]=0xaa;
-		tmp3Buf[3]=0xaa;
-		tmp3Buf[4]=0xaa;
-		tmp3Buf[5]=0xaa;
-		tmp3Buf[6]=0xaa;
-
+		// tmp3Buf[0]=0xf0;
+		// tmp3Buf[1]=0xaa;
+		// tmp3Buf[2]=0xaa;
+		// tmp3Buf[3]=0xaa;
+		// tmp3Buf[4]=0xaa;
+		// tmp3Buf[5]=0xaa;
+		// tmp3Buf[6]=0xaa;
+		//
 		// write(fdSwb,&tmp3Buf,7);
 
 
