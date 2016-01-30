@@ -7,16 +7,12 @@
 #include <stdlib.h>			/* converting functions */
 #include <sys/ioctl.h>		/* ioctl() */
 #include "smi-monitor.h"	/* own funcions */
-
-#include <sys/types.h>
-#include <sys/stat.h>
-// #include <sys/ioctl.h>
-#include <sys/time.h>//#include <serial.h>
-#include <linux/serial.h> /* custom divisor */
+#include <sys/types.h>		/* ?? */
+#include <sys/stat.h>		/* ?? */
+#include <sys/time.h>		/* ?? */
+#include <linux/serial.h>	/* custom divisor */
 // typedef unsigned char uint8_t;
 // typedef unsigned int  uint16_t;
-//
-// void addSwbCrc(char *buffer, int size);
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
@@ -24,14 +20,15 @@ int main( int argc, char* argv[] ) {
 	char serialSwb0Port[]="/dev/ttySWB0";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
-	int serialSwbWait=3; //1,5ms; 15ms
-	int serialSmiWait=10; //5ms ; 40ms
+	int serialSwbWait=3;					//1,5ms; 15ms
+	int serialSmiWait=10;					//5ms ; 40ms
+
 	int actualSwbTimeout=0;
 	int actualSmiTimeout=0;
 	int IOReturn;
-	int serialSwb0Speed=1200;
-	int fdSwb; /* File descriptor for the SWB-port */
-	int fdSmi; /* File descriptor for the SMI-port */
+	int serialSwbDivisor=0;
+	int fdSwb;						/* File descriptor for the SWB-port */
+	int fdSmi;						/* File descriptor for the SMI-port */
 	int serialBytes;
 	int x;
 	int loop;
@@ -54,39 +51,34 @@ int main( int argc, char* argv[] ) {
 
 	/* first parameter is serialSwb0Port*/
 	if (argc > 1) {
-		serialSwb0Speed=atoi(argv[1]);
+		serialSwbPort=argv[1];
 	} else {
-		serialSwb0Speed=1200;
-	}
-	// /* first parameter is serialSwb0Port*/
-	// if (argc > 1) {
-	// 	serialSwbPort=argv[1];
-	// } else {
 		serialSwbPort=serialSwb0Port;
-	// }
+	}
 	/* second parameter is serialSwbWait in ms*/
 	if (argc > 2) {
 		serialSwbWait=atoi(argv[2]);
-	} else {
-		serialSwbWait=3;
 	}
-	/* second parameter is serialSmi0Port*/
+	/* third parameter is serialSwbDivisor*/
 	if (argc > 3) {
+		serialSwbDivisor=atoi(argv[1]);
+	}
+	/* fourth parameter is serialSmi0Port*/
+	if (argc > 4) {
 		serialSmiPort=argv[3];
 	} else {
 		serialSmiPort=serialSmi0Port;
 	}
-	/* fourth parameter is serialSmiWait in ms*/
-	if (argc > 4) {
+	/* fifth parameter is serialSmiWait in ms*/
+	if (argc > 5) {
 		serialSmiWait=atoi(argv[4]);
-		} else {
-		serialSmiWait=10;
 	}
 	/*
 	* 'open_port()' - Open serial port 1.
 	* Returns the file descriptor on success or -1 on error.
 	*/
 
+	/* open port to Switch-bus (SWB) */
 	fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
 	if (fdSwb == -1) {
 		/* Could not open the port. */
@@ -97,47 +89,45 @@ int main( int argc, char* argv[] ) {
 	}
 
 	struct termios options;
-
 	struct serial_struct ser;
 
 	/* Get the current options for the SWB-port... */
 	if (tcgetattr(fdSwb, &options)<0) perror("tcGetattr");
 
-	cfsetispeed(&options, B38400);
-	cfsetospeed(&options, B38400);
-	// cfsetispeed(&options, B19200);
-	// cfsetospeed(&options, B19200);
-
-	/* Set the baud rates to 25000... */
-	if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
-	// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-	ser.flags |= ASYNC_SPD_CUST;
-	/* divisor for 25000 kBit/s (alias 38400) */
-	ser.custom_divisor=serialSwb0Speed;
-	if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
-
-	printf("SWB: %d (%dms, div:%d)\n",(30000000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
+	if (serialSwbDivisor==0) {
+		cfsetispeed(&options, B19200);
+		cfsetospeed(&options, B19200);
+		printf("SWB: 19.200 (%dms)\n",serialSwbWait);
+	} else if (serialSwbDivisor>=0){
+		if (serialSwbDivisor>65536) serialSwbDivisor=65536;
+		cfsetispeed(&options, B38400);
+		cfsetospeed(&options, B38400);
+		/* Set the custom_divisor for special baudrates */
+		if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
+		ser.flags |= ASYNC_SPD_CUST;
+		ser.custom_divisor=serialSwbDivisor;
+		if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
+		printf("SWB: Custom (%dms, div:%d)\n",serialSwbWait,serialSwbDivisor);
+	}
 
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
-
 	/* Setting Character Size */
 	options.c_cflag &= ~CSIZE; /* Mask the character size bits */
 	options.c_cflag |= CS8;    /* Select 8 data bits */
-
 	/* Setting 8N1 */
 	options.c_cflag &= ~PARENB;
-	options.c_cflag &= ~CSTOPB;
+	// options.c_cflag &= ~CSTOPB;		/* one stop bit */
+	options.c_cflag |= CSTOPB;		/* two stop bits */
 	options.c_cflag &= ~CSIZE;
 	options.c_cflag |= CS8;
-
 	/* choosing RAW-Input */
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
-
 	/* Set the new options for the port... */
 	if (tcsetattr(fdSwb, TCSANOW, &options)<0) perror("tcsetattr");
 
 
+	/* open port to SMI-bus */
 	fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
 	if (fdSmi == -1) {
 		/* Could not open the port. */
@@ -150,28 +140,22 @@ int main( int argc, char* argv[] ) {
 
 	/* Get the current options for the SMI-port... */
 	tcgetattr(fdSmi, &options);
-
 	/* Set the baud rates to 2400... */
 	printf("SMI:  2.400 (%dms)\n",serialSmiWait);
 	cfsetispeed(&options, B2400);
 	cfsetospeed(&options, B2400);
-
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
-
 	/* Setting Character Size */
 	options.c_cflag &= ~CSIZE; /* Mask the character size bits */
 	options.c_cflag |= CS8;    /* Select 8 data bits */
-
 	/* Setting 8N1 */
 	options.c_cflag &= ~PARENB;
 	options.c_cflag &= ~CSTOPB;
 	options.c_cflag &= ~CSIZE;
 	options.c_cflag |= CS8;
-
 	/* choosing RAW-Input */
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
-
 	/* Set the new options for the port... */
 	tcsetattr(fdSmi, TCSANOW, &options);
 
@@ -276,14 +260,14 @@ int main( int argc, char* argv[] ) {
 				// 	// 	//write(fdSwb,&tmp2Buf,7);
 				// 	// }
 				// }
-				printf("\033[31m   *  N A C K  *\033[m");
-				if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
-				// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-				ser.flags |= ASYNC_SPD_CUST;
-				/* divisor for 25000 kBit/s (alias 38400) */
-				ser.custom_divisor=serialSwb0Speed++;
-				if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
-				printf("  *%d*  ",serialSwb0Speed);
+
+				// printf("\033[31m   *  N A C K  *\033[m");
+				// if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
+				// ser.flags |= ASYNC_SPD_CUST;
+				// /* divisor for 25000 kBit/s (alias 38400) */
+				// ser.custom_divisor=serialSwbDivisor++;
+				// if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
+				// printf("  *%d*  ",serialSwbDivisor);
 
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
