@@ -7,7 +7,7 @@
 #include <stdlib.h>			/* converting functions */
 #include <sys/ioctl.h>		/* ioctl() */
 #include "smi-monitor.h"	/* own funcions */
-#include <serial.h>
+//#include <serial.h>
 // typedef unsigned char uint8_t;
 // typedef unsigned int  uint16_t;
 //
