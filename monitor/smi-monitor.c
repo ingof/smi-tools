@@ -111,7 +111,7 @@ int main( int argc, char* argv[] ) {
 	/* Set the baud rates to 25000... */
 	if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
 	// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-	new_serdrvinfo.flags |= ASYNC_SPD_CUST;
+	ser.flags |= ASYNC_SPD_CUST;
 	/* divisor for 25000 kBit/s (alias 38400) */
 	ser.custom_divisor=serialSwb0Speed;
 	if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
