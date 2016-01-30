@@ -65,6 +65,9 @@ int main( int argc, char* argv[] ) {
 
 	// temporary test use:
 	char tmp2Buf[50];
+	int tmp2Ret;
+	int tmp2Siz;
+	int tmp2Err;
 	// char tmp3Buf[50];
 
 
