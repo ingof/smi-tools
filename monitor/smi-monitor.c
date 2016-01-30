@@ -61,17 +61,17 @@ int main( int argc, char* argv[] ) {
 	}
 	/* third parameter is serialSwbDivisor*/
 	if (argc > 3) {
-		serialSwbDivisor=atoi(argv[1]);
+		serialSwbDivisor=atoi(argv[3]);
 	}
 	/* fourth parameter is serialSmi0Port*/
 	if (argc > 4) {
-		serialSmiPort=argv[3];
+		serialSmiPort=argv[4];
 	} else {
 		serialSmiPort=serialSmi0Port;
 	}
 	/* fifth parameter is serialSmiWait in ms*/
 	if (argc > 5) {
-		serialSmiWait=atoi(argv[4]);
+		serialSmiWait=atoi(argv[5]);
 	}
 	/*
 	* 'open_port()' - Open serial port 1.
