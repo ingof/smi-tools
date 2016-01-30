@@ -17,26 +17,6 @@
 // typedef unsigned int  uint16_t;
 //
 // void addSwbCrc(char *buffer, int size);
-// struct serial_struct {
-// 	int type;
-// 	int line;
-// 	unsigned int port;
-// 	int irq;
-// 	int flags;
-// 	int xmit_fifo_size;
-// 	int custom_divisor;
-// 	int baud_base;
-// 	unsigned short close_delay;
-// 	char io_type;
-// 	char reserved_char[1];
-// 	int hub6;
-// 	unsigned short closing_wait; /* time to wait before closing */
-// 	unsigned short closing_wait2; /* no longer used... */
-// 	unsigned char *iomem_base;
-// 	unsigned short iomem_reg_shift;
-// 	unsigned int port_high;
-// 	unsigned long iomap_base; /* cookie passed into ioremap */
-// };
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
@@ -119,12 +99,6 @@ int main( int argc, char* argv[] ) {
 	struct termios options;
 
 	struct serial_struct ser;
-	/* Set the baud rates to 25000... */
-	if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
-	// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-	/* divisor for 25000 kBit/s (alias 38400) */
-	ser.custom_divisor=serialSwb0Speed;
-	if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
 
 	/* Get the current options for the SWB-port... */
 	if (tcgetattr(fdSwb, &options)<0) perror("tcGetattr");
@@ -133,6 +107,14 @@ int main( int argc, char* argv[] ) {
 	// cfsetospeed(&options, B38400);
 	cfsetispeed(&options, B19200);
 	cfsetospeed(&options, B19200);
+
+	/* Set the baud rates to 25000... */
+	if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
+	// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
+	new_serdrvinfo.flags |= ASYNC_SPD_CUST;
+	/* divisor for 25000 kBit/s (alias 38400) */
+	ser.custom_divisor=serialSwb0Speed;
+	if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
 
 	printf("SWB: %d (%dms, div:%d)\n",(23040000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
 
