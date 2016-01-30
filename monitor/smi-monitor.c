@@ -116,7 +116,7 @@ int main( int argc, char* argv[] ) {
 	ser.custom_divisor=serialSwb0Speed;
 	if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
 
-	printf("SWB: %d (%dms, div:%d)\n",(23040000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
+	printf("SWB: %d (%dms, div:%d)\n",(30000000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
 
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
@@ -267,14 +267,14 @@ int main( int argc, char* argv[] ) {
 					// write(fdSwb,&tmp2Buf,7);
 				} else {
 					tmp2Err++;
-					if (tmp2Err<=20) {
+					if (tmp2Err<=10) {
 						printf("\033[31m   *  N A C K  *\033[m");
-						// ioctl(fdSwb, TIOCGSERIAL, &ser);
-						// // ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-						// /* divisor for 25000 kBit/s (alias 38400) */
-						// ser.custom_divisor=serialSwb0Speed++;
-						// printf("  **%d**  ",serialSwb0Speed);
-						// ioctl(fdSwb, TIOCSSERIAL, &ser);
+						if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
+						// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
+						ser.flags |= ASYNC_SPD_CUST;
+						/* divisor for 25000 kBit/s (alias 38400) */
+						ser.custom_divisor=serialSwb0Speed++;
+						if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
 					} else {
 						printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
 						tmp2Err=0;
