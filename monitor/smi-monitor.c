@@ -133,7 +133,7 @@ int main( int argc, char* argv[] ) {
 	// cfsetispeed(&options, B19200);
 	// cfsetospeed(&options, B19200);
 
-	printf("SWB: %d (%dms, div:%d)\n",(30000000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
+	printf("SWB: %d (%dms, div:%d)\n",(2304000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
 
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
