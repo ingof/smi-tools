@@ -109,12 +109,12 @@ int main( int argc, char* argv[] ) {
 	}
 
 	struct termios options;
-	struct serial_struct ser;
+	//struct serial_struct ser;
 	/* Set the baud rates to 25000... */
 	ioctl(fdSwb, TIOCGSERIAL, &ser);
-	//ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
+	// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
 	/* divisor for 25000 kBit/s (alias 38400) */
-	// ser.custom_divisor=1300;
+	ser.custom_divisor=1200;
 	ioctl(fdSwb, TIOCSSERIAL, &ser);
 
 	/* Get the current options for the SWB-port... */
@@ -125,7 +125,7 @@ int main( int argc, char* argv[] ) {
 	cfsetispeed(&options, B19200);
 	cfsetospeed(&options, B19200);
 
-	printf("SWB: 25.000 (%dms)\n",serialSwbWait);
+	printf("SWB: 26.000 (%dms)\n",serialSwbWait);
 
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
