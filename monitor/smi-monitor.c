@@ -112,7 +112,7 @@ int main( int argc, char* argv[] ) {
 	struct serial_struct ser;
 	/* Set the baud rates to 25000... */
 	ioctl(fdSwb, TIOCGSERIAL, &ser);
-	ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
+	//ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
 	/* divisor for 25000 kBit/s (alias 38400) */
 	ser.custom_divisor=120;
 	ioctl(fdSwb, TIOCSSERIAL, &ser);
