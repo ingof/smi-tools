@@ -7,7 +7,7 @@
 #include <stdlib.h>			/* converting functions */
 #include <sys/ioctl.h>		/* ioctl() */
 #include "smi-monitor.h"	/* own funcions */
-
+#include <serial.h>
 // typedef unsigned char uint8_t;
 // typedef unsigned int  uint16_t;
 //
@@ -85,13 +85,13 @@ int main( int argc, char* argv[] ) {
 	}
 
 	struct termios options;
-
+	struct serial_struct ser;
 	/* Set the baud rates to 25000... */
-	ioctl(fd, TIOCGSERIAL, &ser);
+	ioctl(fdSwb, TIOCGSERIAL, &ser);
 	ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
 	/* divisor for 25000 kBit/s (alias 38400) */
 	ser.custom_divisor=120;
-	ioctl(fd, TIOCSSERIAL, &ser);
+	ioctl(fdSwb, TIOCSSERIAL, &ser);
 
 	/* Get the current options for the SWB-port... */
 	tcgetattr(fdSwb, &options);
