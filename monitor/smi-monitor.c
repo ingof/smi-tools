@@ -128,10 +128,10 @@ int main( int argc, char* argv[] ) {
 	/* Get the current options for the SWB-port... */
 	if (tcgetattr(fdSwb, &options)<0) perror("tcGetattr");
 
-	// cfsetispeed(&options, B38400);
-	// cfsetospeed(&options, B38400);
-	cfsetispeed(&options, B19200);
-	cfsetospeed(&options, B19200);
+	cfsetispeed(&options, B38400);
+	cfsetospeed(&options, B38400);
+	// cfsetispeed(&options, B19200);
+	// cfsetospeed(&options, B19200);
 
 	printf("SWB: %d (%dms, div:%d)\n",(23040000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
 
