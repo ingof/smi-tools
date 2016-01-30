@@ -287,12 +287,12 @@ int main( int argc, char* argv[] ) {
 					tmp2Err++;
 					if (tmp2Err<=20) {
 						printf("\033[31m   *  N A C K  *\033[m");
-						ioctl(fdSwb, TIOCGSERIAL, &ser);
-						// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-						/* divisor for 25000 kBit/s (alias 38400) */
-						ser.custom_divisor=serialSwb0Speed++;
-						printf("  **%d**  ",serialSwb0Speed);
-						ioctl(fdSwb, TIOCSSERIAL, &ser);
+						// ioctl(fdSwb, TIOCGSERIAL, &ser);
+						// // ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
+						// /* divisor for 25000 kBit/s (alias 38400) */
+						// ser.custom_divisor=serialSwb0Speed++;
+						// printf("  **%d**  ",serialSwb0Speed);
+						// ioctl(fdSwb, TIOCSSERIAL, &ser);
 					} else {
 						printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
 						tmp2Err=0;
