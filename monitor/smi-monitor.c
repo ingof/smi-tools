@@ -89,10 +89,17 @@ int main( int argc, char* argv[] ) {
 	/* Get the current options for the SWB-port... */
 	tcgetattr(fdSwb, &options);
 
-	/* Set the baud rates to 19200... */
-	printf("SWB: 19.200f (%dms)\n",serialSwbWait);
-	cfsetispeed(&options, B19200);
-	cfsetospeed(&options, B19200);
+	/* Set the baud rates to 25000... */
+	printf("SWB: 25.000 (%dms)\n",serialSwbWait);
+	/* first set custom baudrate
+	 * sudo apt-get install setserial
+	 * sudo setserial /dev/ttySWB0 spd_cust
+	 * sudo setserial /dev/ttySWB0 divisor 120
+	 * this commands set the alias-baudrate 38400 to 25000 kBit/s
+	 */
+	cfsetispeed(&options, B38400);
+	cfsetospeed(&options, B38400);
+
 
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
