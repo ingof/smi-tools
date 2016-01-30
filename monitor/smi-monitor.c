@@ -48,7 +48,7 @@ int main( int argc, char* argv[] ) {
 	int actualSwbTimeout=0;
 	int actualSmiTimeout=0;
 	int IOReturn;
-
+	int serialSwb0Speed=1200;
 	int fdSwb; /* File descriptor for the SWB-port */
 	int fdSmi; /* File descriptor for the SMI-port */
 	int serialBytes;
@@ -72,10 +72,16 @@ int main( int argc, char* argv[] ) {
 
 	/* first parameter is serialSwb0Port*/
 	if (argc > 1) {
-		serialSwbPort=argv[1];
+		serialSwb0Speed=atoi(argv[1]);
 	} else {
-		serialSwbPort=serialSwb0Port;
+		serialSwb0Speed=1200;
 	}
+	// /* first parameter is serialSwb0Port*/
+	// if (argc > 1) {
+	// 	serialSwbPort=argv[1];
+	// } else {
+		serialSwbPort=serialSwb0Port;
+	// }
 	/* second parameter is serialSwbWait in ms*/
 	if (argc > 2) {
 		serialSwbWait=atoi(argv[2]);
@@ -110,23 +116,23 @@ int main( int argc, char* argv[] ) {
 
 	struct termios options;
 
-	// struct serial_struct ser;
-	// /* Set the baud rates to 25000... */
-	// ioctl(fdSwb, TIOCGSERIAL, &ser);
-	// // ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-	// /* divisor for 25000 kBit/s (alias 38400) */
-	// ser.custom_divisor=1200;
-	// ioctl(fdSwb, TIOCSSERIAL, &ser);
+	struct serial_struct ser;
+	/* Set the baud rates to 25000... */
+	ioctl(fdSwb, TIOCGSERIAL, &ser);
+	// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
+	/* divisor for 25000 kBit/s (alias 38400) */
+	ser.custom_divisor=serialSwb0Speed;
+	ioctl(fdSwb, TIOCSSERIAL, &ser);
 
 	/* Get the current options for the SWB-port... */
 	tcgetattr(fdSwb, &options);
 
-	// cfsetispeed(&options, B38400);
-	// cfsetospeed(&options, B38400);
-	cfsetispeed(&options, B19200);
-	cfsetospeed(&options, B19200);
+	cfsetispeed(&options, B38400);
+	cfsetospeed(&options, B38400);
+	// cfsetispeed(&options, B19200);
+	// cfsetospeed(&options, B19200);
 
-	printf("SWB: 26.000 (%dms)\n",serialSwbWait);
+	printf("SWB: %d (%dms, div:%d)\n",(30000000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
 
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
