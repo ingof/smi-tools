@@ -261,29 +261,30 @@ int main( int argc, char* argv[] ) {
 				printf("\033[m");
 				bufferSwbCount=0;
 
-				if (tmp2Ret==0) {
-					createSwbAck(tmp2Buf,tmp2Siz);
-					// write(fdSwb,&tmp2Buf,tmp2Siz);
-					// write(fdSwb,&tmp2Buf,7);
-				} else {
-					tmp2Err++;
-					if (tmp2Err<=10) {
-						printf("\033[31m   *  N A C K  *\033[m");
-						if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
-						// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-						ser.flags |= ASYNC_SPD_CUST;
-						/* divisor for 25000 kBit/s (alias 38400) */
-						ser.custom_divisor=serialSwb0Speed++;
-						if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
-						printf("  *%d*  ",serialSwb0Speed);
-					} else {
-						printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
-						tmp2Err=0;
-						// createSwbAck(tmp2Buf,tmp2Siz);
-						// write(fdSwb,&tmp2Buf,tmp2Siz);
-						//write(fdSwb,&tmp2Buf,7);
-					}
-				}
+				// if (tmp2Ret==0) {
+				// 	// createSwbAck(tmp2Buf,tmp2Siz);
+				// 	// write(fdSwb,&tmp2Buf,tmp2Siz);
+				// 	// write(fdSwb,&tmp2Buf,7);
+				// } else {
+				// 	// tmp2Err++;
+				// 	// if (tmp2Err<=10) {
+				// 	// } else {
+				// 	// 	printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
+				// 	// 	tmp2Err=0;
+				// 	// 	// createSwbAck(tmp2Buf,tmp2Siz);
+				// 	// 	// write(fdSwb,&tmp2Buf,tmp2Siz);
+				// 	// 	//write(fdSwb,&tmp2Buf,7);
+				// 	// }
+				// }
+				printf("\033[31m   *  N A C K  *\033[m");
+				if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
+				// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
+				ser.flags |= ASYNC_SPD_CUST;
+				/* divisor for 25000 kBit/s (alias 38400) */
+				ser.custom_divisor=serialSwb0Speed++;
+				if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
+				printf("  *%d*  ",serialSwb0Speed);
+
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
 		}
