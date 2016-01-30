@@ -275,6 +275,7 @@ int main( int argc, char* argv[] ) {
 						/* divisor for 25000 kBit/s (alias 38400) */
 						ser.custom_divisor=serialSwb0Speed++;
 						if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
+						printf("  *%d*  ",serialSwb0Speed);
 					} else {
 						printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
 						tmp2Err=0;
