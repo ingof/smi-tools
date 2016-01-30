@@ -117,8 +117,8 @@ int main( int argc, char* argv[] ) {
 	options.c_cflag |= CS8;    /* Select 8 data bits */
 	/* Setting 8N1 */
 	options.c_cflag &= ~PARENB;
-	// options.c_cflag &= ~CSTOPB;		/* one stop bit */
-	options.c_cflag |= CSTOPB;		/* two stop bits */
+	options.c_cflag &= ~CSTOPB;		/* one stop bit */
+	// options.c_cflag |= CSTOPB;		/* two stop bits */
 	options.c_cflag &= ~CSIZE;
 	options.c_cflag |= CS8;
 	/* choosing RAW-Input */
