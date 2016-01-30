@@ -298,15 +298,9 @@ int main( int argc, char* argv[] ) {
 						tmp2Err=0;
 						createSwbAck(tmp2Buf,tmp2Siz);
 						// write(fdSwb,&tmp2Buf,tmp2Siz);
-						write(fdSwb,&tmp2Buf,7);
+						//write(fdSwb,&tmp2Buf,7);
 					}
 				}
-				ioctl(fdSwb, TIOCGSERIAL, &ser);
-				// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
-				/* divisor for 25000 kBit/s (alias 38400) */
-				ser.custom_divisor=serialSwb0Speed;
-				printf("  **%d**  ",serialSwb0Speed;)
-				ioctl(fdSwb, TIOCSSERIAL, &ser);
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
 		}
