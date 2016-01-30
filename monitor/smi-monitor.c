@@ -43,8 +43,8 @@ int main( int argc, char* argv[] ) {
 
 	// temporary test use:
 	char tmp2Buf[50];
-	int tmp2Ret;
-	int tmp2Siz;
+	// int tmp2Ret;
+	// int tmp2Siz;
 	// int tmp2Err;
 	// char tmp3Buf[50];
 
@@ -219,22 +219,22 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				tmp2Siz=bufferSwbCount;
+				// tmp2Siz=bufferSwbCount;
 				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
 						/* crc 2 not ok -> yellow */
 						printf("\033[1m");
-						tmp2Ret=-2;
+						// tmp2Ret=-2;
 						break;
 					case -1:
 						/* crc 1 not ok -> red */
 						printf("\033[31m");
-						tmp2Ret=-1;
+						// tmp2Ret=-1;
 						break;
 					default:
 						/* crc is ok -> green */
 						printf("\033[32m");
-						tmp2Ret=0;
+						// tmp2Ret=0;
 						break;
 				}
 				c = bufferSwb[bufferSwbCount-2];
