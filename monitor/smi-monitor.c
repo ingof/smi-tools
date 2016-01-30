@@ -205,13 +205,13 @@ int main( int argc, char* argv[] ) {
 		tmp3Buf[5]=0xaa;
 		tmp3Buf[6]=0xaa;
 
-		write(fdSwb,&tmp3Buf,7);
+		// write(fdSwb,&tmp3Buf,7);
 
 
 
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-		IOReturn=0;
+		// IOReturn=0;
 		if (IOReturn<0) {
 			perror("ioctl(swb)");
 			if (actualSwbTimeout>0) actualSwbTimeout--;
@@ -303,7 +303,7 @@ int main( int argc, char* argv[] ) {
 
 		/* SMI-Bus */
 		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-		IOReturn=0;
+		// IOReturn=0;
 		if (IOReturn<0) {
 			perror("ioctl(smi)");
 			if (actualSmiTimeout>0) actualSmiTimeout--;
