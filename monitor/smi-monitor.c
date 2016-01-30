@@ -114,7 +114,7 @@ int main( int argc, char* argv[] ) {
 	ioctl(fdSwb, TIOCGSERIAL, &ser);
 	//ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
 	/* divisor for 25000 kBit/s (alias 38400) */
-	ser.custom_divisor=1100;
+	ser.custom_divisor=1300;
 	ioctl(fdSwb, TIOCSSERIAL, &ser);
 
 	/* Get the current options for the SWB-port... */
