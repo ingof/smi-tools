@@ -119,14 +119,14 @@ int main( int argc, char* argv[] ) {
 
 	struct serial_struct ser;
 	/* Set the baud rates to 25000... */
-	ioctl(fdSwb, TIOCGSERIAL, &ser);
+	if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
 	// ser.flags=(ser.flags&(~ASYNC_SPD_MASK));
 	/* divisor for 25000 kBit/s (alias 38400) */
 	ser.custom_divisor=serialSwb0Speed;
-	ioctl(fdSwb, TIOCSSERIAL, &ser);
+	if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
 
 	/* Get the current options for the SWB-port... */
-	tcgetattr(fdSwb, &options);
+	if (tcgetattr(fdSwb, &options)<0) perror("tcGetattr");
 
 	// cfsetispeed(&options, B38400);
 	// cfsetospeed(&options, B38400);
@@ -152,7 +152,7 @@ int main( int argc, char* argv[] ) {
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 
 	/* Set the new options for the port... */
-	tcsetattr(fdSwb, TCSANOW, &options);
+	if (tcsetattr(fdSwb, TCSANOW, &options)<0) perror("tcsetattr");
 
 
 	fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
