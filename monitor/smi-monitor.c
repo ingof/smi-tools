@@ -103,10 +103,10 @@ int main( int argc, char* argv[] ) {
 	/* Get the current options for the SWB-port... */
 	if (tcgetattr(fdSwb, &options)<0) perror("tcGetattr");
 
-	// cfsetispeed(&options, B38400);
-	// cfsetospeed(&options, B38400);
-	cfsetispeed(&options, B19200);
-	cfsetospeed(&options, B19200);
+	cfsetispeed(&options, B38400);
+	cfsetospeed(&options, B38400);
+	// cfsetispeed(&options, B19200);
+	// cfsetospeed(&options, B19200);
 
 	/* Set the baud rates to 25000... */
 	if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
@@ -116,7 +116,7 @@ int main( int argc, char* argv[] ) {
 	ser.custom_divisor=serialSwb0Speed;
 	if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
 
-	printf("SWB: %d (%dms, div:%d)\n",(23040000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
+	printf("SWB: %d (%dms, div:%d)\n",(23040000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);o
 
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
