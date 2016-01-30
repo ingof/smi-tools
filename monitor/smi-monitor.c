@@ -66,9 +66,9 @@ int main( int argc, char* argv[] ) {
 	// temporary test use:
 	char tmp2Buf[50];
 	// char tmp3Buf[50];
-	int tmp2Siz;
-	int tmp2Ret;
-	int tmp2Err=0;
+	// int tmp2Siz;
+	// int tmp2Ret;
+	// int tmp2Err=0;
 
 
 	/* first parameter is serialSwb0Port*/
