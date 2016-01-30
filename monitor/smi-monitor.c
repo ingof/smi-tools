@@ -282,7 +282,7 @@ int main( int argc, char* argv[] ) {
 				if (tmp2Ret==0) {
 					createSwbAck(tmp2Buf,tmp2Siz);
 					// write(fdSwb,&tmp2Buf,tmp2Siz);
-					write(fdSwb,&tmp2Buf,7);
+					// write(fdSwb,&tmp2Buf,7);
 				} else {
 					tmp2Err++;
 					if (tmp2Err<=20) {
