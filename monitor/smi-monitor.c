@@ -116,7 +116,7 @@ int main( int argc, char* argv[] ) {
 	ser.custom_divisor=serialSwb0Speed;
 	if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
 
-	printf("SWB: %d (%dms, div:%d)\n",(23040000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);o
+	printf("SWB: %d (%dms, div:%d)\n",(23040000/serialSwb0Speed),serialSwbWait,serialSwb0Speed);
 
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
