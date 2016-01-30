@@ -12,7 +12,7 @@
 #include <sys/stat.h>
 // #include <sys/ioctl.h>
 #include <sys/time.h>//#include <serial.h>
-#include <linux/serial.h> /* custom divisor
+#include <linux/serial.h> /* custom divisor */
 // typedef unsigned char uint8_t;
 // typedef unsigned int  uint16_t;
 //
