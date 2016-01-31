@@ -120,7 +120,7 @@ int main( int argc, char* argv[] ) {
 	options.c_cflag &= ~CSIZE; /* Mask the character size bits */
 	/* Setting 8N2 */
 	options.c_cflag |= CS8;    /* Select 8 data bits */
-	options.c_cflag &= ~PARENB; /* deactivate Parity
+	options.c_cflag &= ~PARENB; /* deactivate Parity */
 	// options.c_cflag &= ~CSTOPB;		/* one stop bit */
 	options.c_cflag |= CSTOPB;		/* two stop bits */
 	options.c_cflag &= ~CSIZE;
