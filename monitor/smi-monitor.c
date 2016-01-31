@@ -117,22 +117,19 @@ int main( int argc, char* argv[] ) {
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
 	/* Setting Character Size */
-	options.c_cflag &= ~CSIZE; /* Mask the character size bits */
+	options.c_cflag &= ~CSIZE; 		/* Mask the character size bits */
 	/* Setting 8N2 */
-	options.c_cflag |= CS8;    /* Select 8 data bits */
-	options.c_cflag &= ~PARENB; /* deactivate Parity */
-	// options.c_cflag &= ~CSTOPB;		/* one stop bit */
-	options.c_cflag |= CSTOPB;	/* two stop bits */
+	options.c_cflag |= CS8;    		/* Select 8 data bits */
+	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
+	options.c_cflag |= CSTOPB;		/* two stop bits */
 	options.c_cflag &= ~CSIZE;
 	options.c_cflag |= CS8;
-
-	options.c_iflag &= ~IXON;	/* deactivate XON */
-	options.c_iflag &= ~IXOFF;	/* deactivate XOFF */
-	options.c_iflag &= ~IGNCR;	/* do NOT ignore CR */
-	options.c_iflag &= ~ICRNL;	/* do NOT replace CR with NL */
-	options.c_iflag &= ~INLCR;	/* do NOT replace NL with CL */
-	// options.c_iflag &= ~IGNBRK;		/* Do NOT ignore break condition */
-	options.c_iflag |= IGNBRK;		/* ignore break condition */
+	options.c_iflag &= ~IXON;		/* deactivate XON */
+	options.c_iflag &= ~IXOFF;		/* deactivate XOFF */
+	options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
+	options.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
+	options.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
+	options.c_iflag |= IGNBRK;		/* ignore break condition (SWB) */
 	/* choosing RAW-Input */
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	/* Set the new options for the port... */
@@ -158,14 +155,19 @@ int main( int argc, char* argv[] ) {
 	cfsetospeed(&options, B2400);
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
-	/* Setting Character Size */
-	options.c_cflag &= ~CSIZE; /* Mask the character size bits */
-	options.c_cflag |= CS8;    /* Select 8 data bits */
 	/* Setting 8N1 */
-	options.c_cflag &= ~PARENB;
-	options.c_cflag &= ~CSTOPB;
-	options.c_cflag &= ~CSIZE;
-	options.c_cflag |= CS8;
+	options.c_cflag &= ~CSIZE; 		/* Mask the character size bits */
+	options.c_cflag |= CS8;    		/* Select 8 data bits */
+	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
+	options.c_cflag |= CSTOPB;		/* two stop bits */
+	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
+	options.c_cflag &= ~CSTOPB;		/* one stop bit */
+	options.c_iflag &= ~IXON;		/* deactivate XON */
+	options.c_iflag &= ~IXOFF;		/* deactivate XOFF */
+	options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
+	options.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
+	options.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
+	options.c_iflag &= ~IGNBRK;		/* do NOT ignore break condition (SMI) */
 	/* choosing RAW-Input */
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	/* Set the new options for the port... */
@@ -176,21 +178,8 @@ int main( int argc, char* argv[] ) {
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
 
-		// tmp3Buf[0]=0xf0;
-		// tmp3Buf[1]=0xaa;
-		// tmp3Buf[2]=0xaa;
-		// tmp3Buf[3]=0xaa;
-		// tmp3Buf[4]=0xaa;
-		// tmp3Buf[5]=0xaa;
-		// tmp3Buf[6]=0xaa;
-		//
-		// write(fdSwb,&tmp3Buf,7);
-
-
-
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-		// IOReturn=0;
 		if (IOReturn<0) {
 			perror("ioctl(swb)");
 			if (actualSwbTimeout>0) actualSwbTimeout--;
@@ -282,7 +271,6 @@ int main( int argc, char* argv[] ) {
 
 		/* SMI-Bus */
 		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-		// IOReturn=0;
 		if (IOReturn<0) {
 			perror("ioctl(smi)");
 			if (actualSmiTimeout>0) actualSmiTimeout--;
@@ -324,7 +312,6 @@ int main( int argc, char* argv[] ) {
 					c = bufferSmi[x];
 					printf("%02X ",c);
 				}
-				// c = bufferSmi[bufferSmiCount];
 				switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
 					case -2:
 						/* frame without CRC -> yellow */
@@ -348,7 +335,6 @@ int main( int argc, char* argv[] ) {
 
 		/* wait 0,5ms */
 		usleep(500);
-
 	}
 
 	/* Close Ports */
