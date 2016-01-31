@@ -78,12 +78,16 @@ int main( int argc, char* argv[] ) {
 	}
 
 	struct termios options;
-	struct serial_struct ser;
 
 	fdSwb=openSwbPort(serialSwbPort, serialSwbDivisor);
 	if (fdSwb==-1) {
 		perror("Unable to open serial SWB-port ");
+	} else {
+		printf("SWB: Custom (%dms /%d",serialSwbWait,serialSwbDivisor);
+		if (serialSwbAck==1) printf(" Ack");
+		printf(")\n");
 	}
+
 // /* open port to Switch-bus (SWB) */
 	// fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
 	// if (fdSwb == -1) {
@@ -452,11 +456,13 @@ int openSmiPort (char *port) {
 
 /* open port to Switch-bus (SWB) */
 int openSwbPort (char *port) {
-	return (openSwbPort(port, 0));
+	int fd;
+	fd=openSwbPortDiv(port, 0);
+	return fd;
 }
 
 /* open port to Switch-bus (SWB) */
-int openSwbPort (char *port, int divisor) {
+int openSwbPortDiv (char *port, int divisor) {
 	int fd; /* File descriptor for the port */
 	fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
 	if (fd == -1) {
@@ -475,7 +481,6 @@ int openSwbPort (char *port, int divisor) {
 	if (divisor==0) {
 		cfsetispeed(&options, B19200);
 		cfsetospeed(&options, B19200);
-		printf("%s (SWB): 19.200 (%dms ",serialSwbWait);
 	} else if (serialSwbDivisor>=0) {
 		if (serialSwbDivisor>65536) serialSwbDivisor=65536;
 		cfsetispeed(&options, B38400);
@@ -485,10 +490,7 @@ int openSwbPort (char *port, int divisor) {
 		ser.flags |= ASYNC_SPD_CUST;
 		ser.custom_divisor=serialSwbDivisor;
 		if (ioctl(fd, TIOCSSERIAL, &ser)<0) perror("tioSserial");
-		printf("SWB: Custom (%dms /%d",serialSwbWait,serialSwbDivisor);
 	}
-	if (serialSwbAck==1) printf(" Ack");
-	printf(")\n");
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
 	/* Setting Character Size */
