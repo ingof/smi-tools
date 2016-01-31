@@ -8,7 +8,7 @@ int open_port(void);
 void printBuffer(char *buffer, int size);
 
 /* open ports to Switch-bus (SWB) */
-int openSwbPort (char *port, int divisor);
+int openSwbPortDiv (char *port, int divisor);
 int openSwbPort (char *port);
 /* open port to smi-bus */
 int openSmiPort (char *port);
