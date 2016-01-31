@@ -11,8 +11,6 @@
 #include <sys/stat.h>		/* ?? */
 #include <sys/time.h>		/* ?? */
 #include <linux/serial.h>	/* custom divisor */
-// typedef unsigned char uint8_t;
-// typedef unsigned int  uint16_t;
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
@@ -27,6 +25,7 @@ int main( int argc, char* argv[] ) {
 	int actualSmiTimeout=0;
 	int IOReturn;
 	int serialSwbDivisor=0;
+	int serialSwbAck=0;
 	int fdSwb;						/* File descriptor for the SWB-port */
 	int fdSmi;						/* File descriptor for the SMI-port */
 	int serialBytes;
@@ -43,9 +42,9 @@ int main( int argc, char* argv[] ) {
 
 	// temporary test use:
 	char tmp2Buf[50];
-	// int tmp2Ret;
-	// int tmp2Siz;
-	// int tmp2Err;
+	int tmp2Ret;
+	int tmp2Siz;
+	int tmp2Err;
 	// char tmp3Buf[50];
 
 
@@ -65,13 +64,17 @@ int main( int argc, char* argv[] ) {
 	}
 	/* fourth parameter is serialSmi0Port*/
 	if (argc > 4) {
-		serialSmiPort=argv[4];
+		serialSwbAck=atoi(argv[4]);
+	}
+	/* fifth parameter is serialSmi0Port*/
+	if (argc > 5) {
+		serialSmiPort=argv[5];
 	} else {
 		serialSmiPort=serialSmi0Port;
 	}
-	/* fifth parameter is serialSmiWait in ms*/
-	if (argc > 5) {
-		serialSmiWait=atoi(argv[5]);
+	/* sixt parameter is serialSmiWait in ms*/
+	if (argc > 6) {
+		serialSmiWait=atoi(argv[6]);
 	}
 	/*
 	* 'open_port()' - Open serial port 1.
@@ -97,7 +100,7 @@ int main( int argc, char* argv[] ) {
 	if (serialSwbDivisor==0) {
 		cfsetispeed(&options, B19200);
 		cfsetospeed(&options, B19200);
-		printf("SWB: 19.200 (%dms)\n",serialSwbWait);
+		printf("SWB: 19.200 (%dms) ",serialSwbWait);
 	} else if (serialSwbDivisor>=0){
 		if (serialSwbDivisor>65536) serialSwbDivisor=65536;
 		cfsetispeed(&options, B38400);
@@ -107,18 +110,19 @@ int main( int argc, char* argv[] ) {
 		ser.flags |= ASYNC_SPD_CUST;
 		ser.custom_divisor=serialSwbDivisor;
 		if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
-		printf("SWB: Custom (%dms, div:%d)\n",serialSwbWait,serialSwbDivisor);
+		printf("SWB: Custom (%dms, div:%d) ",serialSwbWait,serialSwbDivisor);
 	}
-
+	if (serialSwbAck==1) printf(" Ack");
+	printf("\n");
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
 	/* Setting Character Size */
 	options.c_cflag &= ~CSIZE; /* Mask the character size bits */
+	/* Setting 8N2 */
 	options.c_cflag |= CS8;    /* Select 8 data bits */
-	/* Setting 8N1 */
-	options.c_cflag &= ~PARENB;
-	options.c_cflag &= ~CSTOPB;		/* one stop bit */
-	// options.c_cflag |= CSTOPB;		/* two stop bits */
+	options.c_cflag &= ~PARENB; /* deactivate Parity
+	// options.c_cflag &= ~CSTOPB;		/* one stop bit */
+	options.c_cflag |= CSTOPB;		/* two stop bits */
 	options.c_cflag &= ~CSIZE;
 	options.c_cflag |= CS8;
 	/* choosing RAW-Input */
@@ -219,22 +223,22 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				// tmp2Siz=bufferSwbCount;
+				tmp2Siz=bufferSwbCount;
 				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
 					case -2:
 						/* crc 2 not ok -> yellow */
 						printf("\033[1m");
-						// tmp2Ret=-2;
+						tmp2Ret=-2;
 						break;
 					case -1:
 						/* crc 1 not ok -> red */
 						printf("\033[31m");
-						// tmp2Ret=-1;
+						tmp2Ret=-1;
 						break;
 					default:
 						/* crc is ok -> green */
 						printf("\033[32m");
-						// tmp2Ret=0;
+						tmp2Ret=0;
 						break;
 				}
 				c = bufferSwb[bufferSwbCount-2];
@@ -245,29 +249,33 @@ int main( int argc, char* argv[] ) {
 				printf("\033[m");
 				bufferSwbCount=0;
 
-				// if (tmp2Ret==0) {
-				// 	// createSwbAck(tmp2Buf,tmp2Siz);
-				// 	// write(fdSwb,&tmp2Buf,tmp2Siz);
-				// 	// write(fdSwb,&tmp2Buf,7);
-				// } else {
-				// 	// tmp2Err++;
-				// 	// if (tmp2Err<=10) {
-				// 	// } else {
-				// 	// 	printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
-				// 	// 	tmp2Err=0;
-				// 	// 	// createSwbAck(tmp2Buf,tmp2Siz);
-				// 	// 	// write(fdSwb,&tmp2Buf,tmp2Siz);
-				// 	// 	//write(fdSwb,&tmp2Buf,7);
-				// 	// }
-				// }
+				if (tmp2Ret==0) {
+					if (serialSwbAck==1) {
+						createSwbAck(tmp2Buf,tmp2Siz);
+						// write(fdSwb,&tmp2Buf,tmp2Siz);
+						write(fdSwb,&tmp2Buf,7);
+					}
+				} else {
+					tmp2Err++;
+					if (tmp2Err<=3) {
+					} else {
+						tmp2Err=0;
+						if (serialSwbAck==1) {
+							printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
+							createSwbAck(tmp2Buf,tmp2Siz);
+							// write(fdSwb,&tmp2Buf,tmp2Siz);
+							write(fdSwb,&tmp2Buf,7);
+						}
+					}
+				}
 
-				// printf("\033[31m   *  N A C K  *\033[m");
-				// if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
-				// ser.flags |= ASYNC_SPD_CUST;
-				// /* divisor for 25000 kBit/s (alias 38400) */
-				// ser.custom_divisor=serialSwbDivisor++;
-				// if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
-				// printf("  *%d*  ",serialSwbDivisor);
+				printf("\033[31m   *  N A C K  *\033[m");
+				if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
+				ser.flags |= ASYNC_SPD_CUST;
+				/* divisor for 25000 kBit/s (alias 38400) */
+				ser.custom_divisor=serialSwbDivisor++;
+				if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
+				printf("  *%d*  ",serialSwbDivisor);
 
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}

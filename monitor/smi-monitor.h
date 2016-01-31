@@ -9,3 +9,6 @@ void createSwbAck(char *buffer, int size);
 
 void printBuffer(char *buffer, int size);
 uint16_t createSwbCRC(char *buffer, int size);
+
+/* not used at the moment */
+int open_port(void);
