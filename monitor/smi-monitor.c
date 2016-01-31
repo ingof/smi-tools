@@ -126,14 +126,13 @@ int main( int argc, char* argv[] ) {
 	options.c_cflag &= ~CSIZE;
 	options.c_cflag |= CS8;
 
-	options.c_iflag &= ~IXON;	/* deactivate XON */
-	options.c_iflag &= ~IXOFF;	/* deactivate XOFF */
-	options.c_iflag &= ~IGNCR;	/* do NOT ignore CR */
-	options.c_iflag &= ~ICRNL;	/* do NOT replace CR with NL */
-	options.c_iflag &= ~INLCR;	/* do NOT replace NL with CL */
-	// options.c_iflag &= ~IGNBRK;		/* Do NOT ignore break condition */
-	options.c_iflag |= IGNBRK;		/* ignore break condition */
-	options.c_iflag |
+	// options.c_iflag &= ~IXON;	/* deactivate XON */
+	// options.c_iflag &= ~IXOFF;	/* deactivate XOFF */
+	// options.c_iflag &= ~IGNCR;	/* do NOT ignore CR */
+	// options.c_iflag &= ~ICRNL;	/* do NOT replace CR with NL */
+	// options.c_iflag &= ~INLCR;	/* do NOT replace NL with CL */
+	// // options.c_iflag &= ~IGNBRK;		/* Do NOT ignore break condition */
+	// options.c_iflag |= IGNBRK;		/* ignore break condition */
 	/* choosing RAW-Input */
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	/* Set the new options for the port... */
