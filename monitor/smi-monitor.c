@@ -110,10 +110,10 @@ int main( int argc, char* argv[] ) {
 		ser.flags |= ASYNC_SPD_CUST;
 		ser.custom_divisor=serialSwbDivisor;
 		if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
-		printf("SWB: Custom (%dms, div:%d) ",serialSwbWait,serialSwbDivisor);
+		printf("SWB: Custom (%dms /%d",serialSwbWait,serialSwbDivisor);
 	}
 	if (serialSwbAck==1) printf(" Ack");
-	printf("\n");
+	printf(")\n");
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
 	/* Setting Character Size */
