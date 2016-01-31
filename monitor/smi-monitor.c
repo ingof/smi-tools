@@ -268,15 +268,6 @@ int main( int argc, char* argv[] ) {
 						}
 					}
 				}
-
-				printf("\033[31m   *  N A C K  *\033[m");
-				if (ioctl(fdSwb, TIOCGSERIAL, &ser)<0) perror("tioGserial");
-				ser.flags |= ASYNC_SPD_CUST;
-				/* divisor for 25000 kBit/s (alias 38400) */
-				ser.custom_divisor=serialSwbDivisor++;
-				if (ioctl(fdSwb, TIOCSSERIAL, &ser)<0) perror("tioSserial");
-				printf("  *%d*  ",serialSwbDivisor);
-
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
 		}
