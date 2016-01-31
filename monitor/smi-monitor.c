@@ -413,14 +413,14 @@ void addSwbCrc(char *buffer, int size) {
 int  checkSwbCrc(char *buffer, int size) {
 	int crc=createSwbCrc(buffer, size);
 	if (buffer[size-2]!=(uint8_t) crc) {
-		printf("(-1:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
+		// printf("(-1:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 		return -1;
 	}
 	if (buffer[size-1]!=(uint8_t) (crc>>8)) {
-		printf("(-2:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
+		// printf("(-2:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 		return -2;
 	}
-	printf("( 0:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
+	// printf("( 0:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 	return 0;
 }
 
