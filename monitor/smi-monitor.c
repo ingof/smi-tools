@@ -126,7 +126,7 @@ int main( int argc, char* argv[] ) {
 	options.c_cflag &= ~CSIZE;
 	options.c_cflag |= CS8;
 	/* choosing RAW-Input */
-	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+	options.c_cflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	/* Set the new options for the port... */
 	if (tcsetattr(fdSwb, TCSANOW, &options)<0) perror("tcsetattr");
 
