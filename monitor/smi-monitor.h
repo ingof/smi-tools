@@ -13,7 +13,7 @@ int openSwbPort (char *port);
 /* open port to smi-bus */
 int openSmiPort (char *port);
 
-/* check crc */
+/* check crc and checksum */
 int checkSwbCrc(char *buffer, int size);
 int checkSmiCrc(char *buffer, int size);
 
