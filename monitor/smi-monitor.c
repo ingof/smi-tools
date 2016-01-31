@@ -79,7 +79,7 @@ int main( int argc, char* argv[] ) {
 
 	struct termios options;
 
-	fdSwb=openSwbPort(serialSwbPort, serialSwbDivisor);
+	fdSwb=openSwbPortDiv(serialSwbPort, serialSwbDivisor);
 	if (fdSwb==-1) {
 		perror("Unable to open serial SWB-port ");
 	} else {
@@ -481,14 +481,14 @@ int openSwbPortDiv (char *port, int divisor) {
 	if (divisor==0) {
 		cfsetispeed(&options, B19200);
 		cfsetospeed(&options, B19200);
-	} else if (serialSwbDivisor>=0) {
-		if (serialSwbDivisor>65536) serialSwbDivisor=65536;
+	} else if (divisor>=0) {
+		if (divisor>65536) divisor=65536;
 		cfsetispeed(&options, B38400);
 		cfsetospeed(&options, B38400);
 		/* Set the custom_divisor for special baudrates */
 		if (ioctl(fd, TIOCGSERIAL, &ser)<0) perror("tioGserial");
 		ser.flags |= ASYNC_SPD_CUST;
-		ser.custom_divisor=serialSwbDivisor;
+		ser.custom_divisor=divisor;
 		if (ioctl(fd, TIOCSSERIAL, &ser)<0) perror("tioSserial");
 	}
 	/* Enable the receiver and set local mode... */
