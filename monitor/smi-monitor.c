@@ -76,14 +76,13 @@ int main( int argc, char* argv[] ) {
 	if (argc > 6) {
 		serialSmiWait=atoi(argv[6]);
 	}
-	/*
-	* 'open_port()' - Open serial port 1.
-	* Returns the file descriptor on success or -1 on error.
-	*/
+
+	struct termios options;
+	struct serial_struct ser;
 
 	fdSwb=openSwbPort(serialSwbPort, serialSwbDivisor);
 	if (fdSwb==-1) {
-		perror("Unable to open serial SWB-port \"%s\"",port);
+		perror("Unable to open serial SWB-port ");
 	}
 // /* open port to Switch-bus (SWB) */
 	// fdSwb = open(serialSwbPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
@@ -445,13 +444,19 @@ int checkSmiCrc(char *buffer, int size) {
 	}
 	return 0;
 }
-/* open port to Switch-bus (SWB) */
-int openSwbPort (char *port) {
-	return openSwbPort(port, 0);
+
+/* open port to smi-bus */
+int openSmiPort (char *port) {
+	return -1;
 }
 
 /* open port to Switch-bus (SWB) */
-int openSmiPort (char *port, int divisor) {
+int openSwbPort (char *port) {
+	return (openSwbPort(port, 0));
+}
+
+/* open port to Switch-bus (SWB) */
+int openSwbPort (char *port, int divisor) {
 	int fd; /* File descriptor for the port */
 	fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
 	if (fd == -1) {
