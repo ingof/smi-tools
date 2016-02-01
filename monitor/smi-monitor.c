@@ -95,7 +95,7 @@ int main( int argc, char* argv[] ) {
 		perror("Unable to open serial SMI-port ");
 	} else {
 		printf("SMI:  2.400 8N1 (%dms)\n",serialSmiWait);
-	}p
+	}
 
 
 	/* endless-loop */
