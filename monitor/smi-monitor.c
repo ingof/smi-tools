@@ -77,8 +77,6 @@ int main( int argc, char* argv[] ) {
 		serialSmiWait=atoi(argv[6]);
 	}
 
-	struct termios options;
-
 	fdSwb=openSwbPortDiv(serialSwbPort, serialSwbDivisor);
 	if (fdSwb==-1) {
 		perror("Unable to open serial SWB-port ");
@@ -92,7 +90,7 @@ int main( int argc, char* argv[] ) {
 		printf(")\n");
 	}
 
-	fdSwb=openSmiPort(serialSmiPort);
+	fdSmi=openSmiPort(serialSmiPort);
 	if (fdSmi==-1) {
 		perror("Unable to open serial SMI-port ");
 			printf("SWB:  2.400 8N1 (%dms)\n",serialSmiWait);
@@ -374,7 +372,6 @@ int openSmiPort (char *port) {
 	}
 
 	struct termios options;
-	struct serial_struct ser;
 
 	/* Get the current options for the SMI-port... */
 	tcgetattr(fd, &options);
