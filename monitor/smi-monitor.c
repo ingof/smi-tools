@@ -86,14 +86,15 @@ int main( int argc, char* argv[] ) {
 		} else  {
 			printf("SWB: 19.200 8N2 (%dms",serialSwbWait);
 		}
-		if (serialSwbAck==1) printf(" Ack");
-		printf(")\n");
+			if (serialSwbAck==1) printf(" Ack");
+			printf(")\n");
 	}
 
 	fdSmi=openSmiPort(serialSmiPort);
 	if (fdSmi==-1) {
 		perror("Unable to open serial SMI-port ");
-			printf("SWB:  2.400 8N1 (%dms)\n",serialSmiWait);
+	} else {
+		printf("SMI:  2.400 8N1 (%dms)\n",serialSmiWait);
 	}
 
 
@@ -397,7 +398,7 @@ int openSmiPort (char *port) {
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	/* Set the new options for the port... */
 	tcsetattr(fd, TCSANOW, &options);
-	return 0;
+	return fd;
 }
 
 /* open port to Switch-bus (SWB) */
