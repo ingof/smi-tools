@@ -84,49 +84,19 @@ int main( int argc, char* argv[] ) {
 		perror("Unable to open serial SWB-port ");
 	} else {
 		if (serialSwbDivisor>0) {
-			printf("SWB: Custom (%dms /%d",serialSwbWait,serialSwbDivisor);
+			printf("SWB: Custom 8N2 (%dms /%d",serialSwbWait,serialSwbDivisor);
 		} else  {
-			printf("SWB: 19.200 (%dms",serialSwbWait);
+			printf("SWB: 19.200 8N2 (%dms",serialSwbWait);
 		}
 		if (serialSwbAck==1) printf(" Ack");
 		printf(")\n");
 	}
 
-
-	/* open port to SMI-bus */
-	fdSmi = open(serialSmiPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
-	if (fdSmi == -1) {
-		/* Could not open the port. */
-		perror("Unable to open serial SMI-port");
-		return(-1);
-	} else {
-		fcntl(fdSmi, F_SETFL, 0);
+	fdSwb=openSmiPort(serialSmiPort);
+	if (fdSmi==-1) {
+		perror("Unable to open serial SMI-port ");
+			printf("SWB:  2.400 8N1 (%dms)\n",serialSmiWait);
 	}
-	/* Get the current options for the SMI-port... */
-	tcgetattr(fdSmi, &options);
-	/* Set the baud rates to 2400... */
-	printf("SMI:  2.400 (%dms)\n",serialSmiWait);
-	cfsetispeed(&options, B2400);
-	cfsetospeed(&options, B2400);
-	/* Enable the receiver and set local mode... */
-	options.c_cflag |= (CLOCAL | CREAD);
-	/* Setting 8N1 */
-	options.c_cflag &= ~CSIZE; 		/* Mask the character size bits */
-	options.c_cflag |= CS8;    		/* Select 8 data bits */
-	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
-	options.c_cflag |= CSTOPB;		/* two stop bits */
-	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
-	options.c_cflag &= ~CSTOPB;		/* one stop bit */
-	options.c_iflag &= ~IXON;		/* deactivate XON */
-	options.c_iflag &= ~IXOFF;		/* deactivate XOFF */
-	options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
-	options.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
-	options.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
-	options.c_iflag &= ~IGNBRK;		/* do NOT ignore break condition (SMI) */
-	/* choosing RAW-Input */
-	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
-	/* Set the new options for the port... */
-	tcsetattr(fdSmi, TCSANOW, &options);
 
 
 	/* endless-loop */
@@ -301,7 +271,7 @@ int main( int argc, char* argv[] ) {
 
 }
 
-
+/* creates SWB crc16 */
 uint16_t  createSwbCrc(char *buffer, int size) {
 	uint16_t crc = 0xffff;    // preset CRC
 	uint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
@@ -321,6 +291,7 @@ uint16_t  createSwbCrc(char *buffer, int size) {
  return ~crc;
 }
 
+/* display buffer in hex-format to stdout */
 void printBuffer(char *buffer, int size) {
 	printf("  (%d",size);
 	int x;
@@ -366,14 +337,11 @@ void addSwbCrc(char *buffer, int size) {
 int  checkSwbCrc(char *buffer, int size) {
 	int crc=createSwbCrc(buffer, size);
 	if (buffer[size-2]!=(uint8_t) crc) {
-		// printf("(-1:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 		return -1;
 	}
 	if (buffer[size-1]!=(uint8_t) (crc>>8)) {
-		// printf("(-2:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 		return -2;
 	}
-	// printf("( 0:%02x%02x) ",  (uint8_t) crc, (uint8_t) (crc>>8));
 	return 0;
 }
 
@@ -397,7 +365,42 @@ int checkSmiCrc(char *buffer, int size) {
 
 /* open port to smi-bus */
 int openSmiPort (char *port) {
-	return -1;
+	int fd;
+	fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
+	if (fd == -1) {
+		return(-1);
+	} else {
+		fcntl(fd, F_SETFL, 0);
+	}
+
+	struct termios options;
+	struct serial_struct ser;
+
+	/* Get the current options for the SMI-port... */
+	tcgetattr(fd, &options);
+	/* Set the baud rates to 2400... */
+	cfsetispeed(&options, B2400);
+	cfsetospeed(&options, B2400);
+	/* Enable the receiver and set local mode... */
+	options.c_cflag |= (CLOCAL | CREAD);
+	/* Setting 8N1 */
+	options.c_cflag &= ~CSIZE; 		/* Mask the character size bits */
+	options.c_cflag |= CS8;    		/* Select 8 data bits */
+	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
+	options.c_cflag |= CSTOPB;		/* two stop bits */
+	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
+	options.c_cflag &= ~CSTOPB;		/* one stop bit */
+	options.c_iflag &= ~IXON;		/* deactivate XON */
+	options.c_iflag &= ~IXOFF;		/* deactivate XOFF */
+	options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
+	options.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
+	options.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
+	options.c_iflag &= ~IGNBRK;		/* do NOT ignore break condition (SMI) */
+	/* choosing RAW-Input */
+	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+	/* Set the new options for the port... */
+	tcsetattr(fd, TCSANOW, &options);
+	return 0;
 }
 
 /* open port to Switch-bus (SWB) */
@@ -458,16 +461,4 @@ int openSwbPortDiv (char *port, int divisor) {
 	/* Set the new options for the port... */
 	if (tcsetattr(fd, TCSANOW, &options)<0) perror("tcsetattr");
 	return fd;
-}
-
-int open_port(void) {
-	int fd; /* File descriptor for the port */
-	fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
-	if (fd == -1) {
-		/* Could not open the port. */
-		perror("Unable to open /dev/ttyUSB0 - ");
-	} else {
-		fcntl(fd, F_SETFL, FNDELAY);
-	}
-	return (fd);
 }
