@@ -371,9 +371,7 @@ int openSmiPort (char *port) {
 	} else {
 		fcntl(fd, F_SETFL, 0);
 	}
-
 	struct termios options;
-
 	/* Get the current options for the SMI-port... */
 	tcgetattr(fd, &options);
 	/* Set the baud rates to 2400... */
@@ -393,7 +391,7 @@ int openSmiPort (char *port) {
 	options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
 	options.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
 	options.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
-	options.c_iflag &= ~IGNBRK;		/* do NOT ignore break condition (SMI) */
+	options.c_iflag |= IGNBRK;		/* ignore break condition (SMI) */
 	/* choosing RAW-Input */
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	/* Set the new options for the port... */
@@ -412,19 +410,10 @@ int openSwbPort (char *port) {
 int openSwbPortDiv (char *port, int divisor) {
 	int fd; /* File descriptor for the port */
 	fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
-	if (fd == -1) {
-		/* Could not open the port. */
-		return(-1);
-	} else {
-		fcntl(fd, F_SETFL, 0);
-	}
-
 	struct termios options;
 	struct serial_struct ser;
-
 	/* Get the current options for the SWB-port... */
 	if (tcgetattr(fd, &options)<0) perror("tcGetattr");
-
 	if (divisor==0) {
 		cfsetispeed(&options, B19200);
 		cfsetospeed(&options, B19200);
