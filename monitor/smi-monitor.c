@@ -375,8 +375,8 @@ int openSmiPort (char *port) {
 	/* Get the current options for the SMI-port... */
 	tcgetattr(fd2, &options2);
 	/* Set the baud rates to 2400... */
-	cfsetispeed(&options, B2400);
-	cfsetospeed(&options, B2400);
+	cfsetispeed(&options2, B2400);
+	cfsetospeed(&options2, B2400);
 	/* Enable the receiver and set local mode... */
 	options2.c_cflag |= (CLOCAL | CREAD);
 	/* Setting 8N1 */
