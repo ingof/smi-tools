@@ -80,22 +80,23 @@ int main( int argc, char* argv[] ) {
 	fdSwb=openSwbPortDiv(serialSwbPort, serialSwbDivisor);
 	printf(serialSwbPort);
 	if (fdSwb==-1) {
-		perror("Unable to open serial SWB-port ");
+		perror("\tUnable to open serial SWB-port ");
 	} else {
 		if (serialSwbDivisor>0) {
-			printf("SWB: Custom 8N2 (%dms /%d",serialSwbWait,serialSwbDivisor);
+			printf("\tSWB: Custom 8N2 (%dms /%d",serialSwbWait,serialSwbDivisor);
 		} else  {
-			printf("SWB: 19.200 8N2 (%dms",serialSwbWait);
+			printf("\tSWB: 19.200 8N2 (%dms",serialSwbWait);
 		}
 			if (serialSwbAck==1) printf(" Ack");
 			printf(")\n");
 	}
 
 	fdSmi=openSmiPort(serialSmiPort);
+	printf(serialSmiPort);
 	if (fdSmi==-1) {
-		perror("Unable to open serial SMI-port ");
+		perror("\tUnable to open serial SMI-port ");
 	} else {
-		printf("SMI:  2.400 8N1 (%dms)\n",serialSmiWait);
+		printf("\tSMI:  2.400 8N1 (%dms)\n",serialSmiWait);
 	}
 
 
