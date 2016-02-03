@@ -78,7 +78,7 @@ int main( int argc, char* argv[] ) {
 	}
 
 	fdSwb=openSwbPortDiv(serialSwbPort, serialSwbDivisor);
-	printf(serialSwbPort"\n");
+	printf(serialSwbPort);
 	if (fdSwb==-1) {
 		perror("Unable to open serial SWB-port ");
 	} else {
