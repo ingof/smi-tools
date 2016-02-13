@@ -152,164 +152,164 @@ int main( int argc, char* argv[] ) {
 		printf("%s\n", buffer);
 		write(new_socket, "hello client\n", 12);
 		close(new_socket);
-
-		/* SWB-Bus */
-		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-		if (IOReturn<0) {
-			perror("ioctl(swb)");
-			if (actualSwbTimeout>0) actualSwbTimeout--;
-		}
-		if (IOReturn==0) {
-			if ((serialBytes==0)&&(actualSwbTimeout>0)) {
-				actualSwbTimeout--;
-			}
-			if (serialBytes>0) {
-				if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
-					/* start receiving and reset timeout */
-					actualSwbTimeout=serialSwbWait;
-				}
-				if ((actualSwbTimeout>=0)&&(bufferSwbCount>=0)) {
-					/* start receiving and reset timeout */
-					actualSwbTimeout=serialSwbWait;
-				}
-				/* create temporary buffer for received Bytes */
-				int tmpBuffer[serialBytes];
-				bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
-				if (bytesSwb<0) {
-					perror("read(Swb)");
-				}
-				if (bytesSwb<=0) {
-					actualSwbTimeout--;
-				}
-				if (bytesSwb>0) {
-					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
-					bufferSwbCount+=bytesSwb;
-				}
-			}
-			/* stop receiving and print message */
-			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-				printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
-				for (x = 0; x < (bufferSwbCount-2) ; x++)
-				{
-					c = bufferSwb[x];
-					printf("%02X ",c);
-				}
-				memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				tmp2Siz=bufferSwbCount;
-				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
-					case -2:
-						/* crc 2 not ok -> yellow */
-						printf("\033[1m");
-						tmp2Ret=-2;
-						break;
-					case -1:
-						/* crc 1 not ok -> red */
-						printf("\033[31m");
-						tmp2Ret=-1;
-						break;
-					default:
-						/* crc is ok -> green */
-						printf("\033[32m");
-						tmp2Ret=0;
-						break;
-				}
-				c = bufferSwb[bufferSwbCount-2];
-				printf("%02X ",c);
-				c = bufferSwb[bufferSwbCount-1];
-				printf("%02X ",c);
-
-				printf("\033[m");
-				bufferSwbCount=0;
-
-				if (tmp2Ret==0) {
-					if (serialSwbAck==1) {
-						createSwbAck(tmp2Buf,tmp2Siz);
-						// write(fdSwb,&tmp2Buf,tmp2Siz);
-						write(fdSwb,&tmp2Buf,7);
-					}
-				} else {
-					tmp2Err++;
-					if (tmp2Err<=3) {
-					} else {
-						tmp2Err=0;
-						if (serialSwbAck==1) {
-							printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
-							createSwbAck(tmp2Buf,tmp2Siz);
-							// write(fdSwb,&tmp2Buf,tmp2Siz);
-							write(fdSwb,&tmp2Buf,7);
-						}
-					}
-				}
-				fflush(stdout); // Will now print everything in the stdout buffer
-			}
-		}
-
-		/* SMI-Bus */
-		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-		if (IOReturn<0) {
-			perror("ioctl(smi)");
-			if (actualSmiTimeout>0) actualSmiTimeout--;
-		}
-		if (IOReturn==0) {
-			/* no data -< */
-			if ((serialBytes==0)&&(actualSmiTimeout>0)) {
-				actualSmiTimeout--;
-			}
-			/* copy received data to buffer */
-			if (serialBytes>0) {
-				if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
-					/* start receiving and reset timeout */
-					actualSmiTimeout=serialSmiWait;
-				}
-				if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
-					/* start receiving and reset timeout */
-					actualSmiTimeout=serialSmiWait;
-				}
-				/* create temporary buffer for received Bytes */
-				int tmpBuffer[serialBytes];
-				bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
-				if (bytesSmi<0) {
-					perror("read(Smi)");
-				}
-				if (bytesSmi<=0) {
-					actualSmiTimeout--;
-				}
-				if (bytesSmi>0) {
-					memmove(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
-					bufferSmiCount+=bytesSmi;
-				}
-			}
-			/* stop receiving and print message */
-			if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-				printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
-				for (x = 0; x < (bufferSmiCount-1) ; x++)
-				{
-					c = bufferSmi[x];
-					printf("%02X ",c);
-				}
-				switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
-					case -2:
-						/* frame without CRC -> yellow */
-						printf("\033[1m");
-						break;
-					case -1:
-						/* crc not ok -> red */
-						printf("\033[31m");
-						break;
-					default:
-						/* crc is ok -> green */
-						printf("\033[32m");
-						break;
-				}
-				c = bufferSmi[bufferSmiCount-1];
-				printf("%02X \033[m",c);
-				bufferSmiCount=0;
-				fflush(stdout); // Will now print everything in the stdout buffer
-			}
-		}
-
-		/* wait 0,5ms */
-		usleep(500);
+		//
+		// /* SWB-Bus */
+		// IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+		// if (IOReturn<0) {
+		// 	perror("ioctl(swb)");
+		// 	if (actualSwbTimeout>0) actualSwbTimeout--;
+		// }
+		// if (IOReturn==0) {
+		// 	if ((serialBytes==0)&&(actualSwbTimeout>0)) {
+		// 		actualSwbTimeout--;
+		// 	}
+		// 	if (serialBytes>0) {
+		// 		if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
+		// 			/* start receiving and reset timeout */
+		// 			actualSwbTimeout=serialSwbWait;
+		// 		}
+		// 		if ((actualSwbTimeout>=0)&&(bufferSwbCount>=0)) {
+		// 			/* start receiving and reset timeout */
+		// 			actualSwbTimeout=serialSwbWait;
+		// 		}
+		// 		/* create temporary buffer for received Bytes */
+		// 		int tmpBuffer[serialBytes];
+		// 		bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
+		// 		if (bytesSwb<0) {
+		// 			perror("read(Swb)");
+		// 		}
+		// 		if (bytesSwb<=0) {
+		// 			actualSwbTimeout--;
+		// 		}
+		// 		if (bytesSwb>0) {
+		// 			memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+		// 			bufferSwbCount+=bytesSwb;
+		// 		}
+		// 	}
+		// 	/* stop receiving and print message */
+		// 	if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
+		// 		printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
+		// 		for (x = 0; x < (bufferSwbCount-2) ; x++)
+		// 		{
+		// 			c = bufferSwb[x];
+		// 			printf("%02X ",c);
+		// 		}
+		// 		memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
+		// 		tmp2Siz=bufferSwbCount;
+		// 		switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
+		// 			case -2:
+		// 				/* crc 2 not ok -> yellow */
+		// 				printf("\033[1m");
+		// 				tmp2Ret=-2;
+		// 				break;
+		// 			case -1:
+		// 				/* crc 1 not ok -> red */
+		// 				printf("\033[31m");
+		// 				tmp2Ret=-1;
+		// 				break;
+		// 			default:
+		// 				/* crc is ok -> green */
+		// 				printf("\033[32m");
+		// 				tmp2Ret=0;
+		// 				break;
+		// 		}
+		// 		c = bufferSwb[bufferSwbCount-2];
+		// 		printf("%02X ",c);
+		// 		c = bufferSwb[bufferSwbCount-1];
+		// 		printf("%02X ",c);
+		//
+		// 		printf("\033[m");
+		// 		bufferSwbCount=0;
+		//
+		// 		if (tmp2Ret==0) {
+		// 			if (serialSwbAck==1) {
+		// 				createSwbAck(tmp2Buf,tmp2Siz);
+		// 				// write(fdSwb,&tmp2Buf,tmp2Siz);
+		// 				write(fdSwb,&tmp2Buf,7);
+		// 			}
+		// 		} else {
+		// 			tmp2Err++;
+		// 			if (tmp2Err<=3) {
+		// 			} else {
+		// 				tmp2Err=0;
+		// 				if (serialSwbAck==1) {
+		// 					printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
+		// 					createSwbAck(tmp2Buf,tmp2Siz);
+		// 					// write(fdSwb,&tmp2Buf,tmp2Siz);
+		// 					write(fdSwb,&tmp2Buf,7);
+		// 				}
+		// 			}
+		// 		}
+		// 		fflush(stdout); // Will now print everything in the stdout buffer
+		// 	}
+		// }
+		//
+		// /* SMI-Bus */
+		// IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
+		// if (IOReturn<0) {
+		// 	perror("ioctl(smi)");
+		// 	if (actualSmiTimeout>0) actualSmiTimeout--;
+		// }
+		// if (IOReturn==0) {
+		// 	/* no data -< */
+		// 	if ((serialBytes==0)&&(actualSmiTimeout>0)) {
+		// 		actualSmiTimeout--;
+		// 	}
+		// 	/* copy received data to buffer */
+		// 	if (serialBytes>0) {
+		// 		if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
+		// 			/* start receiving and reset timeout */
+		// 			actualSmiTimeout=serialSmiWait;
+		// 		}
+		// 		if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
+		// 			/* start receiving and reset timeout */
+		// 			actualSmiTimeout=serialSmiWait;
+		// 		}
+		// 		/* create temporary buffer for received Bytes */
+		// 		int tmpBuffer[serialBytes];
+		// 		bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
+		// 		if (bytesSmi<0) {
+		// 			perror("read(Smi)");
+		// 		}
+		// 		if (bytesSmi<=0) {
+		// 			actualSmiTimeout--;
+		// 		}
+		// 		if (bytesSmi>0) {
+		// 			memmove(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+		// 			bufferSmiCount+=bytesSmi;
+		// 		}
+		// 	}
+		// 	/* stop receiving and print message */
+		// 	if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
+		// 		printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
+		// 		for (x = 0; x < (bufferSmiCount-1) ; x++)
+		// 		{
+		// 			c = bufferSmi[x];
+		// 			printf("%02X ",c);
+		// 		}
+		// 		switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
+		// 			case -2:
+		// 				/* frame without CRC -> yellow */
+		// 				printf("\033[1m");
+		// 				break;
+		// 			case -1:
+		// 				/* crc not ok -> red */
+		// 				printf("\033[31m");
+		// 				break;
+		// 			default:
+		// 				/* crc is ok -> green */
+		// 				printf("\033[32m");
+		// 				break;
+		// 		}
+		// 		c = bufferSmi[bufferSmiCount-1];
+		// 		printf("%02X \033[m",c);
+		// 		bufferSmiCount=0;
+		// 		fflush(stdout); // Will now print everything in the stdout buffer
+		// 	}
+		// }
+		//
+		// /* wait 0,5ms */
+		// usleep(500);
 	}
 
 	/* Close Ports */
