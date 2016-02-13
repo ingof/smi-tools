@@ -60,7 +60,7 @@ int main( int argc, char* argv[] ) {
 	socklen_t addrlen;
 	int bufsize = 1024;
 	char *buffer = malloc(bufsize);
-	struct sockAddr_in address;
+	struct sockaddr_in address;
 
 	/* first parameter is serialSwb0Port*/
 	if (argc > 1) {
@@ -115,9 +115,9 @@ int main( int argc, char* argv[] ) {
 
 	/* webserver */
 	if ((mySocket = socket(AF_INET, SOCK_STREAM, 0)) > 0){
-		printf("The socket was created %d:\n",mySsocket);
+		printf("The socket was created %d:\n",mySocket);
 	} else {
-		printf("NO socket was created: %d:\n",mySsocket);
+		printf("NO socket was created: %d:\n",mySocket);
 	}
 
 	address.sin_family = AF_INET;
