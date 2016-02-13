@@ -324,9 +324,9 @@ int main( int argc, char* argv[] ) {
 }
 
 /* creates SWB crc16 */
-uint16_t  createSwbCrc(char *buffer, int size) {
-	uint16_t crc = 0xffff;    // preset CRC
-	uint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
+unint16_t  createSwbCrc(char *buffer, int size) {
+	unint16_t crc = 0xffff;    // preset CRC
+	unint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
 	int i,j;
 
 	for (i=0; i < size-2; i++){
