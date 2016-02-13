@@ -57,7 +57,7 @@ int main( int argc, char* argv[] ) {
 
 	/* for webserver */
 	int mySocket, new_socket;
-	socklen_t addrlen;    
+	socklen_t addrlen;
 	int bufsize = 1024;
 	char *buffer = malloc(bufsize);
 	struct sockAddr_in address;
@@ -115,12 +115,14 @@ int main( int argc, char* argv[] ) {
 
 	/* webserver */
 	if ((mySocket = socket(AF_INET, SOCK_STREAM, 0)) > 0){
-		printf("The socket was created\n");
+		printf("The socket was created %d:\n",mySsocket);
+	} else {
+		printf("NO socket was created: %d:\n",mySsocket);
 	}
 
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(15000);
+	address.sin_port = htons(80);
 
 	if (bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0){
 		printf("Binding Socket\n");
