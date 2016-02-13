@@ -115,14 +115,12 @@ int main( int argc, char* argv[] ) {
 
 	/* webserver */
 	if ((mySocket = socket(AF_INET, SOCK_STREAM, 0)) > 0){
-		printf("The socket was created %d:\n",mySocket);
-	} else {
-		printf("NO socket was created: %d:\n",mySocket);
+		printf("The socket was created:\n");
 	}
 
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(80);
+	address.sin_port = htons(15000);
 
 	if (bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0){
 		printf("Binding Socket\n");
@@ -137,16 +135,16 @@ int main( int argc, char* argv[] ) {
 		if (listen(mySocket, 10) < 0) {
 			perror("Server: listen");
 			exit(1);
-		}else{printf("l");fflush(stdout);}
+		}
 
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 			perror("Server: accept");
 			exit(1);
-		}else{printf("a");fflush(stdout);}
+		}
 
 		if (new_socket > 0){
 			printf("The client is connected...\n");
-		}else{printf(">");fflush(stdout);}
+		}
 
 
 		recv(new_socket, buffer, bufsize, 0);
@@ -160,6 +158,7 @@ int main( int argc, char* argv[] ) {
 			perror("ioctl(swb)");
 			if (actualSwbTimeout>0) actualSwbTimeout--;
 		}
+		serialBytes=0;
 		if (IOReturn==0) {
 			if ((serialBytes==0)&&(actualSwbTimeout>0)) {
 				actualSwbTimeout--;
@@ -251,6 +250,7 @@ int main( int argc, char* argv[] ) {
 			perror("ioctl(smi)");
 			if (actualSmiTimeout>0) actualSmiTimeout--;
 		}
+		serialBytes=0;
 		if (IOReturn==0) {
 			/* no data -< */
 			if ((serialBytes==0)&&(actualSmiTimeout>0)) {
@@ -310,7 +310,7 @@ int main( int argc, char* argv[] ) {
 		}
 
 		/* wait 0,5ms */
-		usleep(500);
+		// usleep(500);
 	}
 
 	/* Close Ports */
