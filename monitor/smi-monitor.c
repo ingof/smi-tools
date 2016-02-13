@@ -137,16 +137,17 @@ int main( int argc, char* argv[] ) {
 		if (listen(mySocket, 10) < 0) {
 			perror("Server: listen");
 			exit(1);
-		}
+		}else{printf("l");fflush(stdout);}
 
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 			perror("Server: accept");
 			exit(1);
-		}
+		}else{printf("a");fflush(stdout);}
 
 		if (new_socket > 0){
 			printf("The client is connected...\n");
-		}
+		}else{printf(">");fflush(stdout);}
+
 
 		recv(new_socket, buffer, bufsize, 0);
 		printf("%s\n", buffer);
