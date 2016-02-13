@@ -12,7 +12,7 @@
 #include <sys/time.h>		/* ?? */
 #include <linux/serial.h>	/* custom divisor */
 
-/* seb server */
+/* web server */
 #include<netinet/in.h>
 #include<sys/socket.h>
 #include<sys/stat.h>
