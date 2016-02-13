@@ -143,12 +143,12 @@ int main( int argc, char* argv[] ) {
 		}
 
 		if (new_socket > 0){
-			printf("The client is connected...\n");
+			//printf("The client is connected...\n");
 		}
 
 
 		recv(new_socket, buffer, bufsize, 0);
-		printf("%s\n", buffer);
+		//printf("%s\n", buffer);
 		write(new_socket, "hello client\n", 12);
 		close(new_socket);
 
@@ -310,7 +310,7 @@ int main( int argc, char* argv[] ) {
 		}
 
 		/* wait 0,5ms */
-		// usleep(500);
+		usleep(500);
 	}
 
 	/* Close Ports */
