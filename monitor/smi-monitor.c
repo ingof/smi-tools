@@ -152,7 +152,6 @@ int main( int argc, char* argv[] ) {
 		printf("%s\n", buffer);
 		write(new_socket, "hello client\n", 12);
 		close(new_socket);
-	}
 
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
