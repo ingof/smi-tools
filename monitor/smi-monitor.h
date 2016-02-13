@@ -18,4 +18,4 @@ void addSwbCrc(char *buffer, int size);
 /* create response of received message */
 void createSwbAck(char *buffer, int size);
 /* creates SWB crc16 */
-uint16_t createSwbCRC(char *buffer, int size);
+unint16_t createSwbCRC(char *buffer, int size);
