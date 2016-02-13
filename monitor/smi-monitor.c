@@ -12,6 +12,14 @@
 #include <sys/time.h>		/* ?? */
 #include <linux/serial.h>	/* custom divisor */
 
+/* seb server */
+#include<netinet/in.h>
+#include<sys/socket.h>
+#include<sys/stat.h>
+#include<sys/types.h>
+#include<unistd.h>
+
+
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
 	char * serialSwbPort="/dev/ttySWB0";
@@ -47,6 +55,12 @@ int main( int argc, char* argv[] ) {
 	int tmp2Err;
 	// char tmp3Buf[50];
 
+	/* for webserver */
+	int mySocket, new_socket;
+	socklen_t addrlen;    
+	int bufsize = 1024;
+	char *buffer = malloc(bufsize);
+	struct sockAddr_in address;
 
 	/* first parameter is serialSwb0Port*/
 	if (argc > 1) {
@@ -99,10 +113,44 @@ int main( int argc, char* argv[] ) {
 		printf("\tSMI:  2.400 8N1 (%dms)\n",serialSmiWait);
 	}
 
+	/* webserver */
+	if ((mySocket = socket(AF_INET, SOCK_STREAM, 0)) > 0){
+		printf("The socket was created\n");
+	}
+
+	address.sin_family = AF_INET;
+	address.sin_addr.s_addr = INADDR_ANY;
+	address.sin_port = htons(15000);
+
+	if (bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0){
+		printf("Binding Socket\n");
+	}
 
 	/* endless-loop */
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
+
+
+		/* web server */
+		if (listen(mySocket, 10) < 0) {
+			perror("Server: listen");
+			exit(1);
+		}
+
+		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
+			perror("Server: accept");
+			exit(1);
+		}
+
+		if (new_socket > 0){
+			printf("The client is connected...\n");
+		}
+
+		recv(new_socket, buffer, bufsize, 0);
+		printf("%s\n", buffer);
+		write(new_socket, "hello client\n", 12);
+		close(new_socket);
+	}
 
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
@@ -268,6 +316,7 @@ int main( int argc, char* argv[] ) {
 	printf("<serial Swb port closed!\n");
 	close(fdSmi);
 	printf("<serial Swb port closed!\n");
+	close(mySocket);
 	return (0);
 
 }
