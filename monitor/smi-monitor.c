@@ -150,9 +150,13 @@ int main( int argc, char* argv[] ) {
 
 		// setNonblocking(mySocket);
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
-			perror("webserver accept");
-			printf("%d ",new_socket);
-			exit(1);
+			if (errno == EAGAIN) {
+				printf("!");
+			} else {
+				perror("webserver accept");
+				printf("%d ",new_socket);
+				exit(1);
+			}
 		}
 		printf("A%d ",new_socket);
 		fflush(stdout);
