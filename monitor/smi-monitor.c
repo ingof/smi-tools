@@ -122,10 +122,10 @@ int main( int argc, char* argv[] ) {
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(80);
 
-	if (bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0){
+	(bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0){
 		printf("Binding Socket\n");
-	} else printf("b");
-	printf(":\n");
+	} else perror("b:");
+
 	/* endless-loop */
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
@@ -135,19 +135,16 @@ int main( int argc, char* argv[] ) {
 		if (listen(mySocket, 10) < 0) {
 			perror("Server: listen");
 			exit(1);
-		} else {printf("l");}
-		printf(":\n");
+		} else {printf("l:");}
 
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 			perror("Server: accept");
 			exit(1);
-		} else {printf("a");}
-		printf(":\n");
+		} else {printf("n:");}
 
 		if (new_socket > 0){
 			printf("client is connected...\n");
-		} else {printf("n");}
-		printf(":\n");
+		} else {perror("c:");}
 
 
 		recv(new_socket, buffer, bufsize, 0);
