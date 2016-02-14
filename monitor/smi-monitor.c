@@ -148,7 +148,7 @@ int main( int argc, char* argv[] ) {
 		printf("L");
 		fflush(stdout);
 
-		setNonblocking(mSocket);
+		setNonblocking(mySocket);
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 			perror("webserver accept:");
 			exit(1);
