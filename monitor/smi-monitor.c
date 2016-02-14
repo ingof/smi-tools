@@ -137,7 +137,9 @@ int main( int argc, char* argv[] ) {
 
 
 		/* web server */
+		printf("[");
 		tmpListen=listen(mySocket, 10);
+		printf("]");
 		if (tmpListen < 0) {
 			perror("webserver listen:");
 			exit(1);
