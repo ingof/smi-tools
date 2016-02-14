@@ -160,10 +160,13 @@ int main( int argc, char* argv[] ) {
 		printf("<");
 		recv(new_socket, buffer, bufsize, 0);
 		printf("|");
+		fflush(stdout);
 		printf("%s\n", buffer);
 		printf(".");
+		fflush(stdout);
 		write(new_socket, "HTTP/1.1 200 OK\n", 16);
 		printf(",");
+		fflush(stdout);
 		write(new_socket, "Content-length: 46\n", 19);
 		printf(",");
 		write(new_socket, "Content-Type: text/html\n\n", 25);
