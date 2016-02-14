@@ -124,8 +124,8 @@ int main( int argc, char* argv[] ) {
 
 	if (bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0){
 		printf("Binding Socket\n");
-	}
-
+	} else printf("b");
+	printf(":\n");
 	/* endless-loop */
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
@@ -135,16 +135,19 @@ int main( int argc, char* argv[] ) {
 		if (listen(mySocket, 10) < 0) {
 			perror("Server: listen");
 			exit(1);
-		}
+		} else {printf("l");}
+		printf(":\n");
 
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 			perror("Server: accept");
 			exit(1);
-		}
+		} else {printf("a");}
+		printf(":\n");
 
 		if (new_socket > 0){
 			printf("client is connected...\n");
-		}
+		} else {printf("n");}
+		printf(":\n");
 
 
 		recv(new_socket, buffer, bufsize, 0);
@@ -154,11 +157,12 @@ int main( int argc, char* argv[] ) {
 
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+		IOReturn=0;
+		serialBytes=0;
 		if (IOReturn<0) {
 			perror("ioctl(swb)");
 			if (actualSwbTimeout>0) actualSwbTimeout--;
 		}
-		serialBytes=0;
 		if (IOReturn==0) {
 			if ((serialBytes==0)&&(actualSwbTimeout>0)) {
 				actualSwbTimeout--;
@@ -246,11 +250,12 @@ int main( int argc, char* argv[] ) {
 
 		/* SMI-Bus */
 		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
+		IOReturn=0;
+		serialBytes=0;
 		if (IOReturn<0) {
 			perror("ioctl(smi)");
 			if (actualSmiTimeout>0) actualSmiTimeout--;
 		}
-		serialBytes=0;
 		if (IOReturn==0) {
 			/* no data -< */
 			if ((serialBytes==0)&&(actualSmiTimeout>0)) {
