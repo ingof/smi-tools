@@ -157,7 +157,7 @@ int main( int argc, char* argv[] ) {
 				perror("webserver connect:");
 			}
 			recv(new_socket, buffer, bufsize, 0);
-			printf("%s\n", buffer);
+			printf("%s", buffer);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 46\n", 19);
 			write(new_socket, "Content-Type: text/html\n\n", 25);
