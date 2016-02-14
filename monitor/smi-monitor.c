@@ -159,7 +159,7 @@ int main( int argc, char* argv[] ) {
 
 		printf("<");
 		recv(new_socket, buffer, bufsize, 0);
-		prinft("|");
+		printf("|");
 		printf("%s\n", buffer);
 		printf(".");
 		write(new_socket, "HTTP/1.1 200 OK\n", 16);
