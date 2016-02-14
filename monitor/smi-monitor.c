@@ -64,7 +64,6 @@ int main( int argc, char* argv[] ) {
 
 	int tmpListen;
 	int tmpBind;
-	int tmpAccept;
 
 	/* first parameter is serialSwb0Port*/
 	if (argc > 1) {
