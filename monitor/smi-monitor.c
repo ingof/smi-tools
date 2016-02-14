@@ -137,9 +137,7 @@ int main( int argc, char* argv[] ) {
 
 
 		/* web server */
-		printf("<");
-				tmpListen=listen(mySocket, 10);
-		printf(">");
+		tmpListen=listen(mySocket, 10);
 		if (tmpListen < 0) {
 			perror("webserver listen:");
 			exit(1);
@@ -158,6 +156,7 @@ int main( int argc, char* argv[] ) {
 		printf("N");
 
 
+		printf("<");
 		recv(new_socket, buffer, bufsize, 0);
 		printf("%s\n", buffer);
 		write(new_socket, "HTTP/1.1 200 OK\n", 16);
@@ -165,6 +164,7 @@ int main( int argc, char* argv[] ) {
 		write(new_socket, "Content-Type: text/html\n\n", 25);
 		write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
 		close(new_socket);
+		printf(">");
 
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
