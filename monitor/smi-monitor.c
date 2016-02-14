@@ -310,7 +310,7 @@ int main( int argc, char* argv[] ) {
 		}
 
 		/* wait 0,5ms */
-		usleep(500);
+		//usleep(500);
 	}
 
 	/* Close Ports */
