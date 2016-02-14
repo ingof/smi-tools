@@ -137,13 +137,15 @@ int main( int argc, char* argv[] ) {
 
 
 		/* web server */
-		tmpListen=listen(mySocket, 10);
+		printf("<");
+				tmpListen=listen(mySocket, 10);
+		printf(">");
 		if (tmpListen < 0) {
 			perror("webserver listen:");
 			exit(1);
 		} else {printf("l:%d",tmpListen);}
 		printf("L");
-		
+
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 			perror("webserver accept:");
 			exit(1);
