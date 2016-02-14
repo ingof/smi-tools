@@ -128,7 +128,7 @@ int main( int argc, char* argv[] ) {
 	tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
 	if (tmpBind== 0) {
 		printf("Binding Socket %d\n",tmpBind);
-	} else perror("webserver bind:");
+	} else perror("webserver bind");
 
 	/* endless-loop */
 	for (loop=0; ;loop++) {
@@ -142,7 +142,7 @@ int main( int argc, char* argv[] ) {
 		printf("]");
 		fflush(stdout);
 		if (tmpListen < 0) {
-			perror("webserver listen:");
+			perror("webserver listen");
 			exit(1);
 		} else {printf("l:%d",tmpListen);}
 		printf("L");
@@ -150,7 +150,8 @@ int main( int argc, char* argv[] ) {
 
 		setNonblocking(mySocket);
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
-			perror("webserver accept:");
+			perror("webserver accept");
+			printf("%d ",new_socket);
 			exit(1);
 		}
 		printf("A%d ",new_socket);
