@@ -157,26 +157,26 @@ int main( int argc, char* argv[] ) {
 				printf("%d ",new_socket);
 				exit(1);
 			}
+		} else { // data available
+			printf("A%d ",new_socket);
+			fflush(stdout);
+
+			if (new_socket > 0){
+				printf("client is connected...\n");
+			} else {perror("webserver connect:");}
+			printf("N");
+			fflush(stdout);
+
+
+			recv(new_socket, buffer, bufsize, 0);
+			printf("%s\n", buffer);
+			write(new_socket, "HTTP/1.1 200 OK\n", 16);
+			write(new_socket, "Content-length: 46\n", 19);
+			write(new_socket, "Content-Type: text/html\n\n", 25);
+			write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
+			close(new_socket);
+			fflush(stdout);
 		}
-		printf("A%d ",new_socket);
-		fflush(stdout);
-
-		if (new_socket > 0){
-			printf("client is connected...\n");
-		} else {perror("webserver connect:");}
-		printf("N");
-		fflush(stdout);
-
-
-		recv(new_socket, buffer, bufsize, 0);
-		printf("%s\n", buffer);
-		write(new_socket, "HTTP/1.1 200 OK\n", 16);
-		write(new_socket, "Content-length: 46\n", 19);
-		write(new_socket, "Content-Type: text/html\n\n", 25);
-		write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
-		close(new_socket);
-		fflush(stdout);
-
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
 		// IOReturn=0;
