@@ -136,38 +136,26 @@ int main( int argc, char* argv[] ) {
 
 
 		/* web server */
-		printf("[");
-		fflush(stdout);
 		tmpListen=listen(mySocket, 10);
-		printf("]");
-		fflush(stdout);
 		if (tmpListen < 0) {
 			perror("webserver listen");
 			exit(1);
-		} else {printf("l:%d",tmpListen);}
-		printf("L");
-		fflush(stdout);
+		}
 
 		setNonblocking(mySocket);
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
-			if (errno == EAGAIN) {
-				printf("!");
+			if (errno == EAGAIN) { // no data available
 			} else {
 				perror("webserver accept");
 				printf("%d ",new_socket);
 				exit(1);
 			}
 		} else { // data available
-			printf("A%d ",new_socket);
-			fflush(stdout);
-
 			if (new_socket > 0){
 				printf("client is connected...\n");
-			} else {perror("webserver connect:");}
-			printf("N");
-			fflush(stdout);
-
-
+			} else {
+				perror("webserver connect:");
+			}
 			recv(new_socket, buffer, bufsize, 0);
 			printf("%s\n", buffer);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
@@ -175,7 +163,6 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "Content-Type: text/html\n\n", 25);
 			write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
 			close(new_socket);
-			fflush(stdout);
 		}
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
