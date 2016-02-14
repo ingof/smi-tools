@@ -158,13 +158,13 @@ int main( int argc, char* argv[] ) {
 
 		printf("<");
 		recv(new_socket, buffer, bufsize, 0);
+		printf(">");
 		printf("%s\n", buffer);
 		write(new_socket, "HTTP/1.1 200 OK\n", 16);
 		write(new_socket, "Content-length: 46\n", 19);
 		write(new_socket, "Content-Type: text/html\n\n", 25);
 		write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
 		close(new_socket);
-		printf(">");
 
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
