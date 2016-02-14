@@ -153,7 +153,7 @@ int main( int argc, char* argv[] ) {
 			perror("webserver accept:");
 			exit(1);
 		}
-		printf("A");
+		printf("A%d ",new_socket);
 		fflush(stdout);
 
 		if (new_socket > 0){
@@ -163,28 +163,13 @@ int main( int argc, char* argv[] ) {
 		fflush(stdout);
 
 
-		printf("<");
 		recv(new_socket, buffer, bufsize, 0);
-		printf("|");
-		fflush(stdout);
 		printf("%s\n", buffer);
-		fflush(stdout);
-		printf(".");
-		fflush(stdout);
 		write(new_socket, "HTTP/1.1 200 OK\n", 16);
-		printf(",");
-		fflush(stdout);
 		write(new_socket, "Content-length: 46\n", 19);
-		printf(",");
-		fflush(stdout);
 		write(new_socket, "Content-Type: text/html\n\n", 25);
-		printf(",");
-		fflush(stdout);
 		write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
-		printf(",");
-		fflush(stdout);
 		close(new_socket);
-		printf(">");
 		fflush(stdout);
 
 		/* SWB-Bus */
