@@ -114,7 +114,7 @@ int main( int argc, char* argv[] ) {
 	}
 
 	/* webserver */
-	if ((mySocket = socket(AF_INET, SOCK_STREAM, 0)) > 0){
+	if ((mySocket = socket(AF_INET, SOCK_STREAM, 0)) > 0) {
 		printf("The socket was created:\n");
 	}
 
@@ -122,7 +122,7 @@ int main( int argc, char* argv[] ) {
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(80);
 
-	(bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0){
+	if (bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0) {
 		printf("Binding Socket\n");
 	} else perror("b:");
 
