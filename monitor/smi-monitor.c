@@ -124,7 +124,7 @@ int main( int argc, char* argv[] ) {
 
 	if (bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0) {
 		printf("Binding Socket\n");
-	} else perror("b:");
+	} else perror("webserver bind:");
 
 	/* endless-loop */
 	for (loop=0; ;loop++) {
@@ -133,23 +133,26 @@ int main( int argc, char* argv[] ) {
 
 		/* web server */
 		if (listen(mySocket, 10) < 0) {
-			perror("Server: listen");
+			perror("webserver listen:");
 			exit(1);
 		} else {printf("l:");}
 
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
-			perror("Server: accept");
+			perror("webserver accept:");
 			exit(1);
-		} else {printf("n:");}
+		}
 
 		if (new_socket > 0){
 			printf("client is connected...\n");
-		} else {perror("c:");}
+		} else {perror("webserver connect:");}
 
 
 		recv(new_socket, buffer, bufsize, 0);
 		printf("%s\n", buffer);
-		write(new_socket, "hello client\n", 13);
+		write(new_socket, "HTTP/1.1 200 OK\n", 16);
+		write(new_socket, "Content-length: 46\n", 19);
+		write(new_socket, "Content-Type: text/html\n\n", 25);
+		write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
 		close(new_socket);
 
 		/* SWB-Bus */
@@ -312,7 +315,7 @@ int main( int argc, char* argv[] ) {
 		}
 
 		/* wait 0,5ms */
-		//usleep(500);
+		usleep(500);
 	}
 
 	/* Close Ports */
