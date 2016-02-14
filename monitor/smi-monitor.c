@@ -148,7 +148,7 @@ int main( int argc, char* argv[] ) {
 
 
 		recv(new_socket, buffer, bufsize, 0);
-		//printf("%s\n", buffer);
+		printf("%s\n", buffer);
 		write(new_socket, "hello client\n", 13);
 		close(new_socket);
 
