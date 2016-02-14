@@ -7,6 +7,10 @@ void printBuffer(char *buffer, int size);
 int openSwbPortDiv (char *port, int divisor);
 /* display buffer in hex-format to stdout */
 int openSwbPort (char *port);
+
+/* nonblocking fpr network socket */
+int setNonblocking(int fd);
+
 /* open port to smi-bus */
 int openSmiPort (char *port);
 /* check swb crc */
