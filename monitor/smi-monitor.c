@@ -62,6 +62,10 @@ int main( int argc, char* argv[] ) {
 	char *buffer = malloc(bufsize);
 	struct sockaddr_in address;
 
+	int tmpListen;
+	int tmpBind;
+	int tmpAccept;
+
 	/* first parameter is serialSwb0Port*/
 	if (argc > 1) {
 		serialSwbPort=argv[1];
@@ -122,8 +126,9 @@ int main( int argc, char* argv[] ) {
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(80);
 
-	if (bind(mySocket, (struct sockaddr *) &address, sizeof(address)) == 0) {
-		printf("Binding Socket\n");
+	tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
+	if (tmpBind== 0) {
+		printf("Binding Socket %d\n",tmpBind);
 	} else perror("webserver bind:");
 
 	/* endless-loop */
@@ -132,19 +137,23 @@ int main( int argc, char* argv[] ) {
 
 
 		/* web server */
-		if (listen(mySocket, 10) < 0) {
+		tmpListen=listen(mySocket, 10);
+		if (tmpListen < 0) {
 			perror("webserver listen:");
 			exit(1);
-		} else {printf("l:");}
-
+		} else {printf("l:%d",tmpListen);}
+		printf("L");
+		
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 			perror("webserver accept:");
 			exit(1);
 		}
+		printf("A");
 
 		if (new_socket > 0){
 			printf("client is connected...\n");
 		} else {perror("webserver connect:");}
+		printf("N");
 
 
 		recv(new_socket, buffer, bufsize, 0);
