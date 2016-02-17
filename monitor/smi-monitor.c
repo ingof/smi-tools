@@ -162,9 +162,9 @@ int main( int argc, char* argv[] ) {
 			for ( x = 0; x < 1024; x++) {
 				c = bufferHTTP[x];
 				if (x % 32 == 0) {
-					printf("\n%04x:  ");
+					printf("\n%04x:  ",x);
 				}
-				printf("%02X ",x,c);
+				printf("%02X ",c);
 			}
 			printf("%s", bufferHTTP);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
