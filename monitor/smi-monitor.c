@@ -59,7 +59,7 @@ int main( int argc, char* argv[] ) {
 	int mySocket, new_socket;
 	socklen_t addrlen;
 	int bufsize = 1024;
-	char *bufferHTTP = malloc(bufsizeHttp);
+	char *bufferHTTP = malloc(bufsizeHTTP);
 	struct sockaddr_in address;
 
 	int tmpListen;
