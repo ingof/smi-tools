@@ -160,6 +160,15 @@ int main( int argc, char* argv[] ) {
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			bufferHTTP[500]=0x0d;
 			bufferHTTP[501]=0x0a;
+			bufferHTTP[50]=0x0d;
+			bufferHTTP[100]=0x0d;
+			bufferHTTP[150]=0x0d;
+			bufferHTTP[200]=0x0d;
+			bufferHTTP[250]=0x0d;
+			bufferHTTP[300]=0x0d;
+			bufferHTTP[350]=0x0d;
+			bufferHTTP[400]=0x0d;
+			bufferHTTP[450]=0x0d;
 
 			printf("%s", bufferHTTP);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
