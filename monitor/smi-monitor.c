@@ -58,8 +58,8 @@ int main( int argc, char* argv[] ) {
 	/* for webserver */
 	int mySocket, new_socket;
 	socklen_t addrlen;
-	int bufsizeHTTP = 1024;
-	char *bufferHTTP = malloc(bufsizeHTTP);
+	int bufsize = 1024;
+	char *bufferHTTP = malloc(bufsize);
 	struct sockaddr_in address;
 
 	int tmpListen;
@@ -156,8 +156,8 @@ int main( int argc, char* argv[] ) {
 			} else {
 				perror("webserver connect:");
 			}
-			memset(bufferHTTP, 0, bufsizeHTTP);
-			recv(new_socket, bufferHTTP, bufsizeHTTP, 0);
+			memset(bufferHTTP, 0, bufsize);
+			recv(new_socket, bufferHTTP, bufsize, 0);
 			printf("%s", bufferHTTP);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 46\n", 19);
