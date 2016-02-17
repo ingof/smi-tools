@@ -158,18 +158,11 @@ int main( int argc, char* argv[] ) {
 			}
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
-			bufferHTTP[500]=0x0d;
-			bufferHTTP[501]=0x0a;
-			bufferHTTP[50]=0x0d;
-			bufferHTTP[100]=0x0d;
-			bufferHTTP[150]=0x0d;
-			bufferHTTP[200]=0x0d;
-			bufferHTTP[250]=0x0d;
-			bufferHTTP[300]=0x0d;
-			bufferHTTP[350]=0x0d;
-			bufferHTTP[400]=0x0d;
-			bufferHTTP[450]=0x0d;
 
+			for ( x = 0; x < 1024; x++) {
+				c = bufferHTTP[x];
+				printf("%4x: %2x %s",x,c,c);
+			}
 			printf("%s", bufferHTTP);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 46\n", 19);
