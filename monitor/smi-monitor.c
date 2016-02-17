@@ -161,7 +161,7 @@ int main( int argc, char* argv[] ) {
 
 			for ( x = 0; x < 1024; x++) {
 				c = bufferHTTP[x];
-				printf("%4x: %2x %s",x,c,c);
+				printf("%4x: %2x",x,c);
 			}
 			printf("%s", bufferHTTP);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
