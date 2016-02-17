@@ -158,6 +158,7 @@ int main( int argc, char* argv[] ) {
 			}
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
+			bufferHTTP[500]="\n";
 			printf("%s", bufferHTTP);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 46\n", 19);
