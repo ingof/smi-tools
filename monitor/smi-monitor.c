@@ -171,6 +171,18 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "Content-length: 46\n", 19);
 			write(new_socket, "Content-Type: text/html\n\n", 25);
 			write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
+
+			recv(new_socket, bufferHTTP, bufsize, 0);
+
+			for ( x = 0; x < 1024; x++) {
+				c = bufferHTTP[x];
+				if (x % 32 == 0) {
+					printf("\n%04x:  ",x);
+				}
+				printf("%02X ",c);
+			}
+			printf("%s", bufferHTTP);
+
 			close(new_socket);
 		}
 		/* SWB-Bus */
