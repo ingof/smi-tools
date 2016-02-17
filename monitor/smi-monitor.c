@@ -162,9 +162,9 @@ int main( int argc, char* argv[] ) {
 			printf("%s", bufferHTTP);
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
-			write(new_socket, "Content-length: 7\n", 19);
+			write(new_socket, "Content-length: 7\n", 18);
 			write(new_socket, "Content-Type: text/html\n\n", 25);
-			write(new_socket, "200 OK\n",46);
+			write(new_socket, "200 OK\n",7);
 			/* receive posted data */
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
