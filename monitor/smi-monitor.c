@@ -156,33 +156,20 @@ int main( int argc, char* argv[] ) {
 			} else {
 				perror("webserver connect:");
 			}
+			/* receive headder */
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
-
-			for ( x = 0; x < 1024; x++) {
-				c = bufferHTTP[x];
-				if (x % 32 == 0) {
-					printf("\n%04x:  ",x);
-				}
-				printf("%02X ",c);
-			}
 			printf("%s", bufferHTTP);
+			/* receive posted data */
+			memset(bufferHTTP, 0, bufsize);
+			recv(new_socket, bufferHTTP, bufsize, 0);
+			printf("%s", bufferHTTP);
+			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 46\n", 19);
 			write(new_socket, "Content-Type: text/html\n\n", 25);
 			write(new_socket, "<html><body><H1>Hello world</H1></body></html>",46);
-
-			recv(new_socket, bufferHTTP, bufsize, 0);
-
-			for ( x = 0; x < 1024; x++) {
-				c = bufferHTTP[x];
-				if (x % 32 == 0) {
-					printf("\n%04x:  ",x);
-				}
-				printf("%02X ",c);
-			}
-			printf("%s", bufferHTTP);
-
+			/* close this socket */
 			close(new_socket);
 		}
 		/* SWB-Bus */
