@@ -161,10 +161,10 @@ int main( int argc, char* argv[] ) {
 
 			for ( x = 0; x < 1024; x++) {
 				c = bufferHTTP[x];
-				printf("%04x: %02X",x,c);
-				if (x%10 == 0) {
-					printf("\n");
+				if (x % 32 == 0) {
+					printf("\n%04x:  ");
 				}
+				printf("%02X ",x,c);
 			}
 			printf("%s", bufferHTTP);
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
