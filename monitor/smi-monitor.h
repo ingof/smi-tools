@@ -23,3 +23,6 @@ void addSwbCrc(char *buffer, int size);
 void createSwbAck(char *buffer, int size);
 /* creates SWB crc16 */
 unint16_t createSwbCRC(char *buffer, int size);
+
+/* extract post data */
+int getPostData(char *buffer, int size);
