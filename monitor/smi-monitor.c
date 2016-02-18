@@ -154,7 +154,7 @@ int main( int argc, char* argv[] ) {
 			if (new_socket > 0){
 				printf("client is connected...\n");
 			} else {
-				perror("webserver connect:");.
+				perror("webserver connect:");
 			}
 			/* receive headder */
 			memset(bufferHTTP, 0, bufsize);
