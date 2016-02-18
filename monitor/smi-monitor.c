@@ -170,6 +170,7 @@ int main( int argc, char* argv[] ) {
 			/* receive posted data */
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
+			getPostData(bufferHttp,bufsize);
 			printf("%s\n", bufferHTTP);
 			fflush(stdout);
 			/* close this socket */
@@ -455,6 +456,14 @@ int setNonblocking(int fd)
     flags = 1;
     return ioctl(fd, FIOBIO, &flags);
 #endif
+}
+
+int getPostData(char *buffer, int size) {
+	char *token;
+	while ((token=strsep(&buffer,"&")) != NULL) {
+		printf("%s\n",token);
+	}
+	return 0;
 }
 
 /* open port to smi-bus */
