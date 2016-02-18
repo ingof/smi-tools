@@ -154,13 +154,16 @@ int main( int argc, char* argv[] ) {
 			if (new_socket > 0){
 				printf("client is connected...\n");
 			} else {
-				perror("webserver connect:");
+				perror("webserver connect:");.
 			}
 			/* receive headder */
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			//printf("%s", bufferHTTP);
-			printf(" \b"); /* ignore header */
+			printf(" \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b"); /* ignore header */
+			printf(" \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b"); /* ignore header */
+			printf(" \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b"); /* ignore header */
+			printf(" \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b"); /* ignore header */
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 7\n", 18);
