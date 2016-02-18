@@ -159,11 +159,9 @@ int main( int argc, char* argv[] ) {
 			/* receive headder */
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
-			//printf("%s", bufferHTTP);
-			printf(" \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b"); /* ignore header */
-			printf(" \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b"); /* ignore header */
-			printf(" \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b"); /* ignore header */
-			printf(" \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b"); /* ignore header */
+			// printf("%s", bufferHTTP);
+			printf(" \b"); /* ignore header */
+			fflush(stdout);
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 7\n", 18);
