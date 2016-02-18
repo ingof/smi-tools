@@ -170,8 +170,8 @@ int main( int argc, char* argv[] ) {
 			/* receive posted data */
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
-			getPostData(bufferHTTP,bufsize);
 			printf("%s\n", bufferHTTP);
+			getPostData(bufferHTTP,bufsize);
 			fflush(stdout);
 			/* close this socket */
 			close(new_socket);
@@ -463,6 +463,7 @@ int getPostData(char *buffer, int size) {
 	while ((token=strsep(&buffer,"&")) != NULL) {
 		printf("%s\n",token);
 	}
+	printf("%s\n",token);
 	return 0;
 }
 
