@@ -462,7 +462,7 @@ int addSmiCrc(char *buffer, int size) {
 	/* create checksum */
 	char tmpChkSum=0;
 	int i;
-	for (i = 0; i < size-1; i++) {
+	for (i = 0; i < size; i++) {
 		tmpChkSum+=buffer[i];
 	}
 	tmpChkSum=(~tmpChkSum)+1;
