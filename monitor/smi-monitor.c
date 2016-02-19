@@ -169,7 +169,7 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "200 OK\n",7);
 			/* receive posted data */
 			memset(bufferHTTP, 0, bufsize);
-			recv(new_socket, bufferHTTP, bufsize, 0);
+			recv(new_socket, bufferHTTP, bufsize, 0);.
 			printBuffer(bufferHTTP,bufsize);
 			printf("%s\n", bufferHTTP);
 			printBuffer(bufferHTTP,bufsize);
@@ -373,7 +373,7 @@ unint16_t  createSwbCrc(char *buffer, int size) {
 
 /* display buffer in hex-format to stdout */
 void printBuffer(char *buffer, int size) {
-	printf("  (%d",size);
+	printf("  (%d ",size);
 	int x;
 	char c2;
 	for (x = 0; x < (size) ; x++)
@@ -467,14 +467,12 @@ int getPostData(char *buffer, int size) {
 	// }
 	int loop;
 	for (loop = 0; loop < size; loop++) {
-		token=&buffer[loop];
-
+		token=*buffer[loop];
 		if (token!=0) {
 			printf("%s.%d\n",token,(int)token);
 		} else {
 				break;
 		}
-
 	}
 	return 0;
 }
