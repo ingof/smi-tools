@@ -20,6 +20,9 @@
 #include<unistd.h>
 
 
+int id=0;
+int cmd=0;
+
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
 	char * serialSwbPort="/dev/ttySWB0";
@@ -28,8 +31,6 @@ int main( int argc, char* argv[] ) {
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=3;					//1,5ms; 15ms
 	int serialSmiWait=10;					//5ms ; 40ms
-	int id=0;
-	int cmd=0;
 
 	int actualSwbTimeout=0;
 	int actualSmiTimeout=0;
