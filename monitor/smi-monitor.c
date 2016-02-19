@@ -476,7 +476,7 @@ int getPostData(char *buffer, int size) {
 			//		printf("\n*%s*",token1);
 			}
 			if((token2=strsep(&token,"=")) != NULL) {
-					printf("\n%s ist %s.\n",token1,token2);
+					printf("%s ist %s.\n",token1,token2);
 			}
 
 	}
