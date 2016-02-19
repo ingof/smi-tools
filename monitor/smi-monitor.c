@@ -162,8 +162,6 @@ int main( int argc, char* argv[] ) {
 			// printf("%s*ENDE*", bufferHTTP);
 			getPostData(bufferHTTP,bufsize);
 			// printBuffer(bufferHTTP,bufsize);
-			// printf(" \b"); /* ignore header */
-			// fflush(stdout);
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 7\n", 18);
@@ -469,7 +467,7 @@ int getPostData(char *buffer, int size) {
 
 	postStart = strstr(buffer,word);
 	// printf("PostStart:{%s}\n",&postStart[4]);
-	printf("\nTOKENS:");
+	// printf("\nTOKENS:");
 	token=strsep(&postStart,"\n");
 	token=strsep(&postStart,"\n");
 	while ((token=strsep(&postStart,"&")) != NULL) {
@@ -478,21 +476,11 @@ int getPostData(char *buffer, int size) {
 			//		printf("\n*%s*",token1);
 			}
 			if((token2=strsep(&token,"=")) != NULL) {
-					printf("\n1:*%s*\n2:*%s*",token1,token2);
+					printf("\n%s ist %s.\n",token1,token2);
 			}
 
 	}
 	fflush(stdout);
-	// char token2;
-	// int loop;
-	// for (loop = 0; loop < size; loop++) {
-	// 	token2=buffer[loop];
-	// 	if (token!=0) {
-	// 		printf(".%d\n",(int)token2);
-	// 	} else {
-	// 			break;
-	// 	}
-	// }
 	return 0;
 }
 
