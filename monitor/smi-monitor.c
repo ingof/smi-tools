@@ -481,8 +481,8 @@ int getPostData(char *buffer, int size) {
 
 	/* extract posted data pairs */
 	while ((token=strsep(&postStart,"&")) != NULL) {
-			(tokenName=strsep(&token,"=")
-			(tokenValue=strsep(&token,"=")
+			(tokenName=strsep(&token,"=");
+			(tokenValue=strsep(&token,"=");
 			cmd=0;
 			id=0;
 			if ((tokenName != NULL) && (tokenValue != NULL)) {
@@ -494,8 +494,8 @@ int getPostData(char *buffer, int size) {
 					}
 					if (strcmp(tokenName,"id")==0) {
 						id=atoi(tokenValue);
-						if (id>16) cmd=16;
-						if (id<0) cmd=0;
+						if (id>16) id=16;
+						if (id<0) id=0;
 					}
 			}
 			printf("cmd: %02X id: %02X\n",cmd,id);
