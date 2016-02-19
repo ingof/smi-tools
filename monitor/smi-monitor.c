@@ -462,11 +462,11 @@ int setNonblocking(int fd)
 
 int getPostData(char *buffer, int size) {
 	char *token;
-	char token2;
 	while ((token=strsep(&buffer,"&")) != NULL) {
 		printf("\n%s",token);
 	}
 	fflush(stdout);
+	// char token2;
 	// int loop;
 	// for (loop = 0; loop < size; loop++) {
 	// 	token2=buffer[loop];
