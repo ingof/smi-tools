@@ -499,7 +499,7 @@ int getPostData(char *buffer, int size) {
 			if
 		}
 	}
-	printf("id:%02X cmd:%02X\n",id,cmd);
+	printf("id:%02X cmd:%02X\n",smiId,smiCmd);
 	fflush(stdout);
 	return 0;
 }
