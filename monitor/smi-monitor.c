@@ -51,6 +51,10 @@ int main( int argc, char* argv[] ) {
 	char bufferSmi[50];
 	int bufferSmiCount=0;
 
+	//smi transmit
+	char smiTxBuffer[50];
+	char smiTxSize=0;
+
 	// temporary test use:
 	char tmp2Buf[50];
 	int tmp2Ret;
@@ -82,7 +86,7 @@ int main( int argc, char* argv[] ) {
 	if (argc > 3) {
 		serialSwbDivisor=atoi(argv[3]);
 	}
-	/* fourth parameter is serialSmi0Port*/
+	/* fourth parameter is serialSwbAck*/
 	if (argc > 4) {
 		serialSwbAck=atoi(argv[4]);
 	}
@@ -179,6 +183,11 @@ int main( int argc, char* argv[] ) {
 			// fflush(stdout);
 			/* close this socket */
 			close(new_socket);
+			smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
+			smiTxBuffer[1]= smiID & 0x0f;
+			smiTxSize=2;
+			smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
+			write(fdSmi,&smiTxBuffer,smiTxSize);
 		}
 		/* SWB-Bus */
 		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
@@ -443,6 +452,20 @@ int checkSmiCrc(char *buffer, int size) {
 		return -1;
 	}
 	return 0;
+}
+
+/* add the cheksum byte to the buffer and returns number of cheksum bytes */
+int addSmiCrc(char *buffer, int size) {
+	/* create checksum */
+	char tmpChkSum=0;
+	int i;
+	for (i = 0; i < size-1; i++) {
+		tmpChkSum+=buffer[i];
+	}
+	tmpChkSum=(~tmpChkSum)+1;
+	buffer[size]=tmpChkSum;
+	//TODO "return 0" in error case
+	return 1;
 }
 
 int setNonblocking(int fd)

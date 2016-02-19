@@ -17,6 +17,8 @@ int openSmiPort (char *port);
 int checkSwbCrc(char *buffer, int size);
 /* check smi checksum */
 int checkSmiCrc(char *buffer, int size);
+/* add the cheksum byte to the buffer and returns number of cheksum bytes */
+int addSmiCrc(char *buffer, int size);
 /* add the crc to an existing message */
 void addSwbCrc(char *buffer, int size);
 /* create response of received message */
