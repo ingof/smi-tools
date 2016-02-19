@@ -470,7 +470,7 @@ int getPostData(char *buffer, int size) {
 	// token1 = &token[postStart];
 	printf("PostStart:{%s}\n",&postStart[4]);
 	printf("\nTOKENS:");
-	while ((token=strsep(&buffer,"&")) != NULL) {
+	while ((token=strsep(&postStart[4],"&")) != NULL) {
 			printf("\n%s",token);
 	}
 	fflush(stdout);
