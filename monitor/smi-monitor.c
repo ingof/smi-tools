@@ -465,7 +465,7 @@ int getPostData(char *buffer, int size) {
 	// char *token1;
 	char *word="\r\n\r\n";
 	char *postStart;
-	postStart = strstr(buffer,pword);
+	postStart = strstr(buffer,word);
 	// token1 = &token[postStart];
 	printf("%s,%s",postStart,token);
 	while ((token=strsep(&buffer,"&")) != NULL) {
