@@ -19,9 +19,8 @@
 #include<sys/types.h>
 #include<unistd.h>
 
-
-int id=0;
-int cmd=0;
+int smiCmd=0;
+int smiId=0;
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
@@ -469,6 +468,8 @@ int getPostData(char *buffer, int size) {
 	char *word="\r\n\r\n";
 	char *postStart;
 
+	//TODO check header
+
 	/* find end of header */
 	postStart = strstr(buffer,word);
 	// printf("PostStart:{%s}\n",&postStart[4]);
@@ -479,25 +480,26 @@ int getPostData(char *buffer, int size) {
 	token=strsep(&postStart,"\n");
 
 	/* extract each posted data pair */
-	cmd=0;
-	id=0;
+	smiCmd=0;
+	smiId=0;
 	while ((token=strsep(&postStart,"&")) != NULL) {
 		tokenName=strsep(&token,"=");
 		tokenValue=strsep(&token,"=");
 		if ((tokenName != NULL) && (tokenValue != NULL)) {
 			if (strcmp(tokenName,"cmd")==0) {
-				cmd=atoi(tokenValue);
-				if (cmd>16) cmd=16;
-				if (cmd<0) cmd=0;
+				smiCmd=atoi(tokenValue);
+				if (smiCmd>16) smiCmd=16;
+				if (smiCmd<0) smiCmd=0;
 			}
 			if (strcmp(tokenName,"id")==0) {
-				id=atoi(tokenValue);
-				if (id>16) id=16;
-				if (id<0) id=0;
+				smiId=atoi(tokenValue);
+				if (smiId>16) smiId=16;
+				if (smiId<0) smiId=0;
 			}
+			if
 		}
 	}
-	printf("cmd: %02X id: %02X\n",cmd,id);
+	printf("id:%02X cmd:%02X\n",id,cmd);
 	fflush(stdout);
 	return 0;
 }
