@@ -169,7 +169,7 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "200 OK\n",7);
 			/* receive posted data */
 			memset(bufferHTTP, 0, bufsize);
-			recv(new_socket, bufferHTTP, bufsize, 0);.
+			recv(new_socket, bufferHTTP, bufsize, 0);
 			printBuffer(bufferHTTP,bufsize);
 			printf("%s\n", bufferHTTP);
 			printBuffer(bufferHTTP,bufsize);
@@ -462,9 +462,9 @@ int setNonblocking(int fd)
 
 int getPostData(char *buffer, int size) {
 	char *token;
-	// while ((token=strsep(&buffer,"&")) != NULL) {
-	// 	printf("%s\n",token);
-	// }
+	while ((token=strsep(buffer,"&")) != NULL) {
+		printf("%s\n",token);
+	}
 	int loop;
 	for (loop = 0; loop < size; loop++) {
 		token=*buffer[loop];
