@@ -498,7 +498,7 @@ int getPostData(char *buffer, int size) {
 						if (id<0) cmd=0;
 					}
 			}
-			printf("cmd: %02X id: %02X\n);
+			printf("cmd: %02X id: %02X\n",cmd,id);
 
 	}
 	fflush(stdout);
