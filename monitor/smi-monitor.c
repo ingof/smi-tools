@@ -28,6 +28,8 @@ int main( int argc, char* argv[] ) {
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=3;					//1,5ms; 15ms
 	int serialSmiWait=10;					//5ms ; 40ms
+	int id=0;
+	int cmd=0;
 
 	int actualSwbTimeout=0;
 	int actualSmiTimeout=0;
@@ -167,6 +169,9 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "Content-length: 7\n", 18);
 			write(new_socket, "Content-Type: text/html\n\n", 25);
 			write(new_socket, "200 OK\n",7);
+			/* TODO: in PHP post-data will be send only after
+			receiving the 200-OK-Header. Add or use the second buffer only!
+			*/
 			// /* receive posted data */
 			// memset(bufferHTTP, 0, bufsize);
 			// recv(new_socket, bufferHTTP, bufsize, 0);
@@ -460,24 +465,40 @@ int setNonblocking(int fd)
 
 int getPostData(char *buffer, int size) {
 	char *token;
-	char *token1;
-	char *token2;
+	char *tokenName;
+	char *tokenValue;
 	char *word="\r\n\r\n";
 	char *postStart;
 
+	/* find end of header */
 	postStart = strstr(buffer,word);
 	// printf("PostStart:{%s}\n",&postStart[4]);
 	// printf("\nTOKENS:");
+
+	/* remove "end of header" marker */
 	token=strsep(&postStart,"\n");
 	token=strsep(&postStart,"\n");
+
+	/* extract posted data pairs */
 	while ((token=strsep(&postStart,"&")) != NULL) {
-			// printf("\n#%s#",token);
-			if((token1=strsep(&token,"=")) != NULL) {
-			//		printf("\n*%s*",token1);
+			(tokenName=strsep(&token,"=")
+			(tokenValue=strsep(&token,"=")
+			cmd=0;
+			id=0;
+			if ((tokenName != NULL) && (tokenValue != NULL)) {
+					printf("%s ist %d.\n",tokenName,atoi(tokenValue));
+					if (strcmp(tokenName,"cmd")==0) {
+						cmd=atoi(tokenValue);
+						if (cmd>16) cmd=16;
+						if (cmd<0) cmd=0;
+					}
+					if (strcmp(tokenName,"id")==0) {
+						id=atoi(tokenValue);
+						if (id>16) cmd=16;
+						if (id<0) cmd=0;
+					}
 			}
-			if((token2=strsep(&token,"=")) != NULL) {
-					printf("%s ist %d.\n",token1,atoi(token2));
-			}
+			printf("cmd: %02X id: %02X\n);
 
 	}
 	fflush(stdout);
