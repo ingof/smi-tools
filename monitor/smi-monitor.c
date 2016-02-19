@@ -467,7 +467,7 @@ int getPostData(char *buffer, int size) {
 	}
 	int loop;
 	for (loop = 0; loop < size; loop++) {
-		token=*buffer[loop];
+		token=buffer[loop];
 		if (token!=0) {
 			printf("%s.%d\n",token,(int)token);
 		} else {
