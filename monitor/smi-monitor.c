@@ -160,6 +160,7 @@ int main( int argc, char* argv[] ) {
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			printf("%s*ENDE*", bufferHTTP);
+			getPostData(bufferHTTP,bufsize);
 			// printBuffer(bufferHTTP,bufsize);
 			// printf(" \b"); /* ignore header */
 			// fflush(stdout);
@@ -168,13 +169,12 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "Content-length: 7\n", 18);
 			write(new_socket, "Content-Type: text/html\n\n", 25);
 			write(new_socket, "200 OK\n",7);
-			/* receive posted data */
-			memset(bufferHTTP, 0, bufsize);
-			recv(new_socket, bufferHTTP, bufsize, 0);
-			printf("%s*ENDE*\n", bufferHTTP);
+			// /* receive posted data */
+			// memset(bufferHTTP, 0, bufsize);
+			// recv(new_socket, bufferHTTP, bufsize, 0);
+			// printf("%s*ENDE*\n", bufferHTTP);
 			// printBuffer(bufferHTTP,bufsize);
-			getPostData(bufferHTTP,bufsize);
-			fflush(stdout);
+			// fflush(stdout);
 			/* close this socket */
 			close(new_socket);
 		}
@@ -462,8 +462,11 @@ int setNonblocking(int fd)
 
 int getPostData(char *buffer, int size) {
 	char *token;
-	while ((token=strsep(&buffer,"&")) != NULL) {
-		printf("\n%s",token);
+	if ((token=strsep(&buffer,"\r\n\r\n")) != NULL) {
+		printf("\nHEADER:\n%s\n\nPOST:",token);
+		while ((token=strsep(&buffer,"&")) != NULL) {
+			printf("\n%s",token);
+		}
 	}
 	fflush(stdout);
 	// char token2;
