@@ -21,6 +21,7 @@
 
 int smiCmd=0;
 int smiId=0;
+int smiGrp=0;
 
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
@@ -472,16 +473,19 @@ int getPostData(char *buffer, int size) {
 
 	/* find end of header */
 	postStart = strstr(buffer,word);
-	// printf("PostStart:{%s}\n",&postStart[4]);
-	// printf("\nTOKENS:");
 
 	/* remove "end of header" marker */
 	token=strsep(&postStart,"\n");
 	token=strsep(&postStart,"\n");
+	// printf("\nTOKENS:");
+	// printf("PostStart:{%s}\n",&postStart[4]);
 
-	/* extract each posted data pair */
+	/* clear old values */
 	smiCmd=0;
 	smiId=0;
+	smiGrp=0;
+
+	/* extract each posted data pair */
 	while ((token=strsep(&postStart,"&")) != NULL) {
 		tokenName=strsep(&token,"=");
 		tokenValue=strsep(&token,"=");
@@ -496,10 +500,14 @@ int getPostData(char *buffer, int size) {
 				if (smiId>16) smiId=16;
 				if (smiId<0) smiId=0;
 			}
-			if
+			if (strcmp(tokenName,"grp")==0) {
+				smiId=atoi(tokenValue);
+				smiGrp &=0xffff;
+				if (smiGrp<0) smiGrp=0;
+			}
 		}
 	}
-	printf("id:%02X cmd:%02X\n",smiId,smiCmd);
+	printf("id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
 	fflush(stdout);
 	return 0;
 }
