@@ -462,13 +462,13 @@ int setNonblocking(int fd)
 
 int getPostData(char *buffer, int size) {
 	char *token;
-	char *token1;
+	// char *token1;
 	char *word="\r\n\r\n";
 	char *postStart;
 	printf("getPostData():\n");
 	postStart = strstr(buffer,word);
-	token1=&postStart;
-	printf("PostStart:{%s}\n",&token1[4]);
+	// token1=&postStart;
+	printf("PostStart:{%s}\n",&postStart[4]);
 	printf("\nTOKENS:");
 	while ((token=strsep(&postStart,"&")) != NULL) {
 			printf("\n#%s#",token);
