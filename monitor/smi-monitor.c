@@ -481,8 +481,8 @@ int getPostData(char *buffer, int size) {
 
 	/* extract posted data pairs */
 	while ((token=strsep(&postStart,"&")) != NULL) {
-			(tokenName=strsep(&token,"=");
-			(tokenValue=strsep(&token,"=");
+			tokenName=strsep(&token,"=");
+			tokenValue=strsep(&token,"=");
 			cmd=0;
 			id=0;
 			if ((tokenName != NULL) && (tokenValue != NULL)) {
