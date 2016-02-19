@@ -160,7 +160,7 @@ int main( int argc, char* argv[] ) {
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			printf("%s*ENDE*", bufferHTTP);
-			printBuffer(bufferHTTP,bufsize);
+			// printBuffer(bufferHTTP,bufsize);
 			// printf(" \b"); /* ignore header */
 			// fflush(stdout);
 			/* send response */
@@ -172,7 +172,7 @@ int main( int argc, char* argv[] ) {
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			printf("%s*ENDE*\n", bufferHTTP);
-			printBuffer(bufferHTTP,bufsize);
+			// printBuffer(bufferHTTP,bufsize);
 			getPostData(bufferHTTP,bufsize);
 			fflush(stdout);
 			/* close this socket */
@@ -464,17 +464,18 @@ int getPostData(char *buffer, int size) {
 	char *token;
 	char token2;
 	while ((token=strsep(&buffer,"&")) != NULL) {
-		printf("%s\n",token);
+		printf("\n%s",token);
 	}
-	int loop;
-	for (loop = 0; loop < size; loop++) {
-		token2=buffer[loop];
-		if (token!=0) {
-			printf(".%d\n",(int)token2);
-		} else {
-				break;
-		}
-	}
+	fflush(stdout);
+	// int loop;
+	// for (loop = 0; loop < size; loop++) {
+	// 	token2=buffer[loop];
+	// 	if (token!=0) {
+	// 		printf(".%d\n",(int)token2);
+	// 	} else {
+	// 			break;
+	// 	}
+	// }
 	return 0;
 }
 
