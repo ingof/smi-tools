@@ -160,6 +160,7 @@ int main( int argc, char* argv[] ) {
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			printf("%s*ENDE*", bufferHTTP);
+			printBuffer(bufferHTTP,bufsize);
 			// printf(" \b"); /* ignore header */
 			// fflush(stdout);
 			/* send response */
@@ -170,7 +171,6 @@ int main( int argc, char* argv[] ) {
 			/* receive posted data */
 			memset(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
-			printBuffer(bufferHTTP,bufsize);
 			printf("%s*ENDE*\n", bufferHTTP);
 			printBuffer(bufferHTTP,bufsize);
 			getPostData(bufferHTTP,bufsize);
