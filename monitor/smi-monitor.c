@@ -473,7 +473,7 @@ int getPostData(char *buffer, int size) {
 	token=strsep(&postStart,"\n");
 	token=strsep(&postStart,"\n");
 	while ((token=strsep(&postStart,"&")) != NULL) {
-			printf("\n#%s#",token);
+			// printf("\n#%s#",token);
 			if((token1=strsep(&token,"=")) != NULL) {
 			//		printf("\n*%s*",token1);
 			}
