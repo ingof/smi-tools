@@ -17,7 +17,7 @@ int main( int argc, char* argv[] ) {
 	int x;
 	int bytes;
 	char c;
-	char buffer[12];
+	unsigned char buffer[12];
    //char *bufptr;
     
    /* dirst paramter is driveID */
