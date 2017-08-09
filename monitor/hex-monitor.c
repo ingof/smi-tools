@@ -18,7 +18,7 @@ int main( int argc, char* argv[] ) {
 	int loop;
 	int bytes;
 	int c;
-	char buffer[20];
+	unsigned char buffer[20];
    //char *bufptr;
     
    /* first parameter is serialSpeed*/
