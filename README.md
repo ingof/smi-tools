@@ -44,7 +44,7 @@ default is 40 (ms)
 **example:**<br>
 log on /dev/ttyUSB0 at 19.200Bit/s and wait 5ms for whole telegramm
 ```
-smi-monitor 19200 /dev/ttyUSB0 5
+hex-monitor 19200 /dev/ttyUSB0 5
 ```
 now can see the all received data as hexdata
 
