@@ -17,7 +17,7 @@ int main( int argc, char* argv[] ) {
 	int x;
 	int loop;
 	int bytes;
-	char c;
+	int c;
 	char buffer[20];
    //char *bufptr;
     
@@ -135,7 +135,7 @@ for (loop=0; ; loop++)
 	{
 		for (x = 0; x < bytes ; x++)
 		{
-			c = buffer[x];
+			c = (buffer[x] & 0xff);
 			printf("%02X ",c);
 		}
 	printf("\n");
