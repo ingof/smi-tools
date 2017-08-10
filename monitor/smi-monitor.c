@@ -130,7 +130,7 @@ int main( int argc, char* argv[] ) {
 
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(80);
+	address.sin_port = htons(8080);
 
 	tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
 	if (tmpBind== 0) {
