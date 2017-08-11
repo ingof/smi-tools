@@ -29,8 +29,8 @@ int main( int argc, char* argv[] ) {
 	char serialSwb0Port[]="/dev/ttySWB0";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
-	int serialSwbWait=3;					//1,5ms; 15ms
-	int serialSmiWait=10;					//5ms ; 40ms
+	int serialSwbWait=5;					//3ms; 1,5ms; 15ms
+	int serialSmiWait=42;					//10ms; 5ms ; 40ms
 
 	int actualSwbTimeout=0;
 	int actualSmiTimeout=0;
@@ -130,7 +130,7 @@ int main( int argc, char* argv[] ) {
 
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(8081);
+	address.sin_port = htons(8082);
 
 	tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
 	if (tmpBind== 0) {
