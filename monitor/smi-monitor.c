@@ -288,7 +288,7 @@ int main( int argc, char* argv[] ) {
 				}
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
-		// }
+		}
 		//
 		// /* SMI-Bus */
 		// IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
