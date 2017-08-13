@@ -194,14 +194,14 @@ int main( int argc, char* argv[] ) {
 		// 	write(fdSmi,&smiTxBuffer,smiTxSize);
 		// 	printf("\n SMI command sent\n");
 		// }
-		// /* SWB-Bus */
-		// IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-		// // IOReturn=0;
-		// // serialBytes=0;
-		// if (IOReturn<0) {
-		// 	perror("ioctl(swb)");
-		// 	if (actualSwbTimeout>0) actualSwbTimeout--;
-		// }
+		/* SWB-Bus */
+		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+		// IOReturn=0;
+		// serialBytes=0;
+		if (IOReturn<0) {
+			perror("ioctl(swb)");
+			if (actualSwbTimeout>0) actualSwbTimeout--;
+		}
 		// if (IOReturn==0) {
 		// 	if ((serialBytes==0)&&(actualSwbTimeout>0)) {
 		// 		actualSwbTimeout--;
