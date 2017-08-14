@@ -231,13 +231,13 @@ int main( int argc, char* argv[] ) {
 					actualSwbTimeout--;
 				}
 				if (bytesSwb>0) {
-					printf("\n\nbufferSwb : %d\n", sizeof(bufferSwb) / sizeof(char));
-					printf("bufferSwbCount : %d\n", bufferSwbCount);
-					printf("tmpBuffer : %d/%d\n", sizeof(tmpBuffer) / sizeof(char), sizeof(char));
-					printf("bytesSwb : %d\n", bytesSwb);
+					// printf("\n\nbufferSwb : %d\n", sizeof(bufferSwb) / sizeof(char));
+					// printf("bufferSwbCount : %d\n", bufferSwbCount);
+					// printf("tmpBuffer : %d/%d\n", sizeof(tmpBuffer) / sizeof(char), sizeof(char));
+					// printf("bytesSwb : %d\n", bytesSwb);
 					// memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					for (loop2=0;loop2<bytesSwb;loop2++) {
-						printf("\t\t\t\t\tloop2: %02x (%d) -> %02x (%d)\n", tmpBuffer[loop2], loop2, (bufferSwb[bufferSwbCount+loop2]), (bufferSwbCount+loop2));
+						printf("\t\t\tRX: %02X (%d)\n", tmpBuffer[loop2], (bufferSwbCount+loop2));
 						bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
 					}
 					bufferSwbCount+=bytesSwb;
@@ -245,48 +245,53 @@ int main( int argc, char* argv[] ) {
 			}
 			/* stop receiving and print message */
 			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-				// printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
-				// for (x = 0; x < (bufferSwbCount-2) ; x++)
-				// {
-				// 	c = bufferSwb[x];
-				// 	printf("%02X ",c);
-				// }
+				printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
+				for (x = 0; x < (bufferSwbCount-2) ; x++)
+				{
+					c = bufferSwb[x];
+					printf("%02X ",c);
+				}
 				// memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				// tmp2Siz=bufferSwbCount;
-				// switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
-				// 	case -2:
-				// 		/* crc 2 not ok -> yellow */
-				// 		printf("\033[1m");
-				// 		tmp2Ret=-2;
-				// 		break;
-				// 	case -1:
-				// 		/* crc 1 not ok -> red */
-				// 		printf("\033[31m");
-				// 		tmp2Ret=-1;
-				// 		break;
-				// 	default:
-				// 		/* crc is ok -> green */
-				// 		printf("\033[32m");
-				// 		tmp2Ret=0;
-				// 		break;
-				// }
-				// c = bufferSwb[bufferSwbCount-2];
-				// printf("%02X ",c);
-				// c = bufferSwb[bufferSwbCount-1];
-				// printf("%02X ",c);
-				//
-				// printf("\033[m");
-				// bufferSwbCount=0;
-				//
-				// if (tmp2Ret==0) { if (serialSwbAck==1) {
-				// createSwbAck(tmp2Buf,tmp2Siz); //
-				// write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7); } }
-				// else { tmp2Err++; if (tmp2Err<=3) { } else { tmp2Err=0; if
-				// (serialSwbAck==1) { printf("\007\033[m\033[41m\033[1m   !  S
-				// T O P  !\033[40m\033[m"); createSwbAck(tmp2Buf,tmp2Siz); //
-				// write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7); } } }
-				// fflush(stdout); // Will now print everything in the stdout
-				// buffer
+				for (loop2=0;loop2<bufferSwbCount-2;loop2++) {
+					tmp2Buf[loop2]=bufferSWB[loop2];
+				}
+
+
+				tmp2Siz=bufferSwbCount;
+				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
+					case -2:
+						/* crc 2 not ok -> yellow */
+						printf("\033[1m");
+						tmp2Ret=-2;
+						break;
+					case -1:
+						/* crc 1 not ok -> red */
+						printf("\033[31m");
+						tmp2Ret=-1;
+						break;
+					default:
+						/* crc is ok -> green */
+						printf("\033[32m");
+						tmp2Ret=0;
+						break;
+				}
+				c = bufferSwb[bufferSwbCount-2];
+				printf("%02X ",c);
+				c = bufferSwb[bufferSwbCount-1];
+				printf("%02X ",c);
+
+				printf("\033[m");
+				bufferSwbCount=0;
+
+				if (tmp2Ret==0) { if (serialSwbAck==1) {
+				createSwbAck(tmp2Buf,tmp2Siz); //
+				write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7); } }
+				else { tmp2Err++; if (tmp2Err<=3) { } else { tmp2Err=0; if
+				(serialSwbAck==1) { printf("\007\033[m\033[41m\033[1m   !  S
+				T O P  !\033[40m\033[m"); createSwbAck(tmp2Buf,tmp2Siz); //
+				write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7); } } }
+				fflush(stdout); // Will now print everything in the stdout
+				buffer
 			}
 		}
 		//
