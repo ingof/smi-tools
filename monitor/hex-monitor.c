@@ -12,7 +12,7 @@ int main( int argc, char* argv[] ) {
 	char serialPort2[]="/dev/ttyUSB0";
 	int serialSpeed=2400;
 	int serialWait=40;
-	
+
 	int fd; /* File descriptor for the port */
 	int x;
 	int loop;
@@ -20,7 +20,7 @@ int main( int argc, char* argv[] ) {
 	int c;
 	unsigned char buffer[20];
    //char *bufptr;
-    
+
    /* first parameter is serialSpeed*/
    if (argc > 1)
    {
@@ -54,7 +54,7 @@ int main( int argc, char* argv[] ) {
   	/* Could not open the port. */
   	perror("Unable to open serial-port");
   	return(-1);
-  } 
+  }
   else
   {
   	fcntl(fd, F_SETFL, 0);
@@ -146,7 +146,7 @@ for (loop=0; ; loop++)
    close(fd);
    printf("<serial port closed!\n");
    return (0);
-   
+
 }
 
 
@@ -158,7 +158,7 @@ int open_port(void)
 	{
 		/* Could not open the port. */
 		perror("Unable to open /dev/ttyUSB0 - ");
-		
+
 	}
 	else
 	{
