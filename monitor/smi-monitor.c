@@ -228,10 +228,8 @@ int main( int argc, char* argv[] ) {
 					actualSwbTimeout--;
 				}
 				if (bytesSwb>0) {
-					bufferSwb malloc(100);
 					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					bufferSwbCount+=bytesSwb;
-					free(bufferSwb);
 				}
 			}
 			/* stop receiving and print message */
