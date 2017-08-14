@@ -219,9 +219,9 @@ int main( int argc, char* argv[] ) {
 					/* start receiving and reset timeout */
 					actualSwbTimeout=serialSwbWait;
 				}
-				/* create temporary buffer for received Bytes */
-				// int tmpBuffer[serialBytes];
-				// bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
+				/* create temporary buffer for received Bytes */ // int
+				// tmpBuffer[serialBytes]; // bytesSwb = read(fdSwb, &tmpBuffer,
+				// sizeof(tmpBuffer));
 				bytesSwb = read(fdSwb, &tmpBuffer, serialBytes);
 				if (bytesSwb<0) {
 					perror("read(Swb)");
@@ -234,7 +234,7 @@ int main( int argc, char* argv[] ) {
 					printf("bufferSwbCount : %d\n", bufferSwbCount);
 					printf("tmpBuffer : %d\n", sizeof(tmpBuffer) / sizeof(char));
 					printf("bytesSwb : %d\n", bytesSwb);
-					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+					memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					bufferSwbCount+=bytesSwb;
 				}
 			}
