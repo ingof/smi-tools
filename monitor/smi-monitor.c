@@ -218,19 +218,19 @@ int main( int argc, char* argv[] ) {
 					/* start receiving and reset timeout */
 					actualSwbTimeout=serialSwbWait;
 				}
-				// /* create temporary buffer for received Bytes */
-				// int tmpBuffer[serialBytes];
-				// bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
-				// if (bytesSwb<0) {
-				// 	perror("read(Swb)");
-				// }
-				// if (bytesSwb<=0) {
-				// 	actualSwbTimeout--;
-				// }
-				// if (bytesSwb>0) {
-				// 	memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
-				// 	bufferSwbCount+=bytesSwb;
-				// }
+				/* create temporary buffer for received Bytes */
+				int tmpBuffer[serialBytes];
+				bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
+				if (bytesSwb<0) {
+					perror("read(Swb)");
+				}
+				if (bytesSwb<=0) {
+					actualSwbTimeout--;
+				}
+				if (bytesSwb>0) {
+					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+					bufferSwbCount+=bytesSwb;
+				}
 			}
 			/* stop receiving and print message */
 			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
@@ -267,26 +267,15 @@ int main( int argc, char* argv[] ) {
 				// printf("\033[m");
 				// bufferSwbCount=0;
 				//
-				// if (tmp2Ret==0) {
-				// 	if (serialSwbAck==1) {
-				// 		createSwbAck(tmp2Buf,tmp2Siz);
-				// 		// write(fdSwb,&tmp2Buf,tmp2Siz);
-				// 		write(fdSwb,&tmp2Buf,7);
-				// 	}
-				// } else {
-				// 	tmp2Err++;
-				// 	if (tmp2Err<=3) {
-				// 	} else {
-				// 		tmp2Err=0;
-				// 		if (serialSwbAck==1) {
-				// 			printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m");
-				// 			createSwbAck(tmp2Buf,tmp2Siz);
-				// 			// write(fdSwb,&tmp2Buf,tmp2Siz);
-				// 			write(fdSwb,&tmp2Buf,7);
-				// 		}
-				// 	}
-				// }
-				// fflush(stdout); // Will now print everything in the stdout buffer
+				// if (tmp2Ret==0) { if (serialSwbAck==1) {
+				// createSwbAck(tmp2Buf,tmp2Siz); //
+				// write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7); } }
+				// else { tmp2Err++; if (tmp2Err<=3) { } else { tmp2Err=0; if
+				// (serialSwbAck==1) { printf("\007\033[m\033[41m\033[1m   !  S
+				// T O P  !\033[40m\033[m"); createSwbAck(tmp2Buf,tmp2Siz); //
+				// write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7); } } }
+				// fflush(stdout); // Will now print everything in the stdout
+				// buffer
 			}
 		}
 		//
