@@ -228,6 +228,10 @@ int main( int argc, char* argv[] ) {
 					actualSwbTimeout--;
 				}
 				if (bytesSwb>0) {
+					printf("bufferSwb : %d\n", sizeof(bufferSwb) / sizeof(char));
+					printf("bufferSwbCount : %d\n", bufferSwbCount);
+					printf("tmpBuffer : %d\n", sizeof(tmpBuffer) / sizeof(char));
+					printf("bytesSwb : %d\n", bytesSwb);
 					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					bufferSwbCount+=bytesSwb;
 				}
