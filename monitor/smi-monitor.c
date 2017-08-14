@@ -42,6 +42,7 @@ int main( int argc, char* argv[] ) {
 	int serialBytes;
 	int x;
 	int loop;
+	int loop2;
 	char c;
 
 	int bytesSwb=0;
@@ -235,6 +236,10 @@ int main( int argc, char* argv[] ) {
 					printf("tmpBuffer : %d/%d\n", sizeof(tmpBuffer) / sizeof(char), sizeof(char));
 					printf("bytesSwb : %d\n", bytesSwb);
 					memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+					for (loop2=0;loop2<=bytesSwb;loop2++) {
+						printf("loop2: %d () -> %d (%d)", tmpBuffer[loop2], loop2, bufferSwb[bufferSwbCount+loop2], bufferSwbCount+loop2)
+						bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
+					}
 					bufferSwbCount+=bytesSwb;
 				}
 			}
