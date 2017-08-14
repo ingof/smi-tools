@@ -43,7 +43,7 @@ int main( int argc, char* argv[] ) {
 	int x;
 	int loop;
 	int loop2;
-	char c;
+	int c;
 
 	int bytesSwb=0;
 	char bufferSwb[200];
@@ -245,7 +245,7 @@ int main( int argc, char* argv[] ) {
 			}
 			/* stop receiving and print message */
 			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-				printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
+				// printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
 				for (x = 0; x < (bufferSwbCount-2) ; x++)
 				{
 					c = bufferSwb[x];
@@ -286,7 +286,8 @@ int main( int argc, char* argv[] ) {
 					if (tmp2Ret==0) {
 						if (serialSwbAck==1) {
 							createSwbAck(tmp2Buf,tmp2Siz); //
-							write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7);
+							write(fdSwb,&tmp2Buf,tmp2Siz);
+							write(fdSwb,&tmp2Buf,7);
 						}
 					}
 					else {
@@ -296,7 +297,8 @@ int main( int argc, char* argv[] ) {
 							tmp2Err=0;
 							if (serialSwbAck==1) {
 								printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m"); createSwbAck(tmp2Buf,tmp2Siz); //
-								write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7);
+								write(fdSwb,&tmp2Buf,tmp2Siz);
+								write(fdSwb,&tmp2Buf,7);
 						}
 					}
 				}
