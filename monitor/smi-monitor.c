@@ -252,7 +252,7 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				// memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				for (loop2=0;loop2<bufferSwbCount-2;loop2++) {
+				for (loop2=0;loop2<(bufferSwbCount-2);loop2++) {
 					tmp2Buf[loop2]=bufferSwb[loop2];
 				}
 
@@ -286,8 +286,8 @@ int main( int argc, char* argv[] ) {
 				if (tmp2Ret==0) { if (serialSwbAck==1) {
 				createSwbAck(tmp2Buf,tmp2Siz); //
 				write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7); } }
-				else { tmp2Err++; if (tmp2Err<=3) { } else { tmp2Err=0; if
-				(serialSwbAck==1) { printf("\007\033[m\033[41m\033[1m   !  S
+				else { tmp2Err++; if (tmp2Err<=3) { } else { tmp2Err=0;
+					if (serialSwbAck==1) { printf("\007\033[m\033[41m\033[1m   !  S
 				T O P  !\033[40m\033[m"); createSwbAck(tmp2Buf,tmp2Siz); //
 				write(fdSwb,&tmp2Buf,tmp2Siz); write(fdSwb,&tmp2Buf,7); } } }
 				fflush(stdout); // Will now print everything in the stdout
