@@ -45,11 +45,12 @@ int main( int argc, char* argv[] ) {
 	char c;
 
 	int bytesSwb=0;
-	char bufferSwb[20000];
+	char bufferSwb[200];
 	int bufferSwbCount=0;
 	int bytesSmi=0;
 	char bufferSmi[200];
 	int bufferSmiCount=0;
+	int tmpBuffer[200];
 
 	//smi transmit
 	char smiTxBuffer[200];
@@ -219,8 +220,9 @@ int main( int argc, char* argv[] ) {
 					actualSwbTimeout=serialSwbWait;
 				}
 				/* create temporary buffer for received Bytes */
-				int tmpBuffer[serialBytes];
-				bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
+				// int tmpBuffer[serialBytes];
+				// bytesSwb = read(fdSwb, &tmpBuffer, sizeof(tmpBuffer));
+				bytesSwb = read(fdSwb, &tmpBuffer, serialBytes);
 				if (bytesSwb<0) {
 					perror("read(Swb)");
 				}
@@ -232,8 +234,7 @@ int main( int argc, char* argv[] ) {
 					printf("bufferSwbCount : %d\n", bufferSwbCount);
 					printf("tmpBuffer : %d\n", sizeof(tmpBuffer) / sizeof(char));
 					printf("bytesSwb : %d\n", bytesSwb);
-					// memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
-					memmove(bufferSwb, tmpBuffer, bytesSwb);
+					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					bufferSwbCount+=bytesSwb;
 				}
 			}
