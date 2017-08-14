@@ -46,7 +46,7 @@ int main( int argc, char* argv[] ) {
 	int c;
 
 	int bytesSwb=0;
-	char bufferSwb[200];
+	unsigned char bufferSwb[200];
 	int bufferSwbCount=0;
 	int bytesSmi=0;
 	char bufferSmi[200];
@@ -58,7 +58,7 @@ int main( int argc, char* argv[] ) {
 	char smiTxSize=0;
 
 	// temporary test use:
-	char tmp2Buf[200];
+	unsigned char tmp2Buf[200];
 	int tmp2Ret;
 	int tmp2Siz;
 	int tmp2Err;
