@@ -45,18 +45,18 @@ int main( int argc, char* argv[] ) {
 	char c;
 
 	int bytesSwb=0;
-	char bufferSwb[50000];
+	char bufferSwb[500000000000];
 	int bufferSwbCount=0;
 	int bytesSmi=0;
-	char bufferSmi[50000];
+	char bufferSmi[500000000000];
 	int bufferSmiCount=0;
 
 	//smi transmit
-	char smiTxBuffer[50000];
+	char smiTxBuffer[500000000000];
 	char smiTxSize=0;
 
 	// temporary test use:
-	char tmp2Buf[50000];
+	char tmp2Buf[500000000000];
 	int tmp2Ret;
 	int tmp2Siz;
 	int tmp2Err;
