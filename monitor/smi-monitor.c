@@ -228,7 +228,7 @@ int main( int argc, char* argv[] ) {
 					actualSwbTimeout--;
 				}
 				if (bytesSwb>0) {
-					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+					// memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					bufferSwbCount+=bytesSwb;
 				}
 			}
