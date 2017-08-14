@@ -232,7 +232,8 @@ int main( int argc, char* argv[] ) {
 					printf("bufferSwbCount : %d\n", bufferSwbCount);
 					printf("tmpBuffer : %d\n", sizeof(tmpBuffer) / sizeof(char));
 					printf("bytesSwb : %d\n", bytesSwb);
-					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+					// memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+					memmove(bufferSwb, tmpBuffer, bytesSwb);
 					bufferSwbCount+=bytesSwb;
 				}
 			}
