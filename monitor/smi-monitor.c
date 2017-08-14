@@ -45,7 +45,7 @@ int main( int argc, char* argv[] ) {
 	char c;
 
 	int bytesSwb=0;
-	char bufferSwb[2000000000];
+	char bufferSwb[20000];
 	int bufferSwbCount=0;
 	int bytesSmi=0;
 	char bufferSmi[200];
