@@ -232,7 +232,7 @@ int main( int argc, char* argv[] ) {
 				if (bytesSwb>0) {
 					printf("bufferSwb : %d\n", sizeof(bufferSwb) / sizeof(char));
 					printf("bufferSwbCount : %d\n", bufferSwbCount);
-					printf("tmpBuffer : %d\n", sizeof(tmpBuffer) / sizeof(char));
+					printf("tmpBuffer : %d/%d\n", sizeof(tmpBuffer) / sizeof(char), sizeof(char));
 					printf("bytesSwb : %d\n", bytesSwb);
 					memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					bufferSwbCount+=bytesSwb;
