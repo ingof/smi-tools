@@ -300,8 +300,7 @@ int main( int argc, char* argv[] ) {
 						}
 					}
 				}
-				fflush(stdout); // Will now print everything in the stdout
-				buffer
+				fflush(stdout); // Will now print everything in the stdout buffer
 			}
 		}
 		//
