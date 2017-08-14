@@ -137,7 +137,7 @@ int main( int argc, char* argv[] ) {
 		printf("Binding Socket %d\n",tmpBind);
 	} else perror("webserver bind");
 
-	// perror(".");
+	perror(".");
 	/* endless-loop */
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
@@ -203,7 +203,7 @@ int main( int argc, char* argv[] ) {
 			perror("ioctl(swb)");
 			if (actualSwbTimeout>0) actualSwbTimeout--;
 		}
-		perror("es geht immer weiter\n");
+		// perror("es geht immer weiter\n");
 
 		if (IOReturn==0) {
 			if ((serialBytes==0)&&(actualSwbTimeout>0)) {
