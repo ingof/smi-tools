@@ -50,7 +50,7 @@ int main( int argc, char* argv[] ) {
 	int bytesSmi=0;
 	char bufferSmi[200];
 	int bufferSmiCount=0;
-	int tmpBuffer[200];
+	int tmpBuffer[40];
 
 	//smi transmit
 	char smiTxBuffer[200];
