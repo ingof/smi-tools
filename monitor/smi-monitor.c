@@ -45,14 +45,14 @@ int main( int argc, char* argv[] ) {
 	char c;
 
 	int bytesSwb=0;
-	char bufferSwb[50];
+	char bufferSwb[500];
 	int bufferSwbCount=0;
 	int bytesSmi=0;
-	char bufferSmi[50];
+	char bufferSmi[500];
 	int bufferSmiCount=0;
 
 	//smi transmit
-	char smiTxBuffer[50];
+	char smiTxBuffer[500];
 	char smiTxSize=0;
 
 	// temporary test use:
@@ -228,8 +228,10 @@ int main( int argc, char* argv[] ) {
 					actualSwbTimeout--;
 				}
 				if (bytesSwb>0) {
-					// memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+					bufferSwb malloc(100);
+					memmove(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					bufferSwbCount+=bytesSwb;
+					free(bufferSwb);
 				}
 			}
 			/* stop receiving and print message */
