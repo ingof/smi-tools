@@ -137,7 +137,7 @@ int main( int argc, char* argv[] ) {
 		printf("Binding Socket %d\n",tmpBind);
 	} else perror("webserver bind");
 
-	perror("es geht immer weiter\n");
+	// perror(".");
 	/* endless-loop */
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
