@@ -253,7 +253,7 @@ int main( int argc, char* argv[] ) {
 				}
 				// memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
 				for (loop2=0;loop2<bufferSwbCount-2;loop2++) {
-					tmp2Buf[loop2]=bufferSWB[loop2];
+					tmp2Buf[loop2]=bufferSwb[loop2];
 				}
 
 
