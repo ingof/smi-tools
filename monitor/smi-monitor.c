@@ -160,7 +160,7 @@ int main( int argc, char* argv[] ) {
 
 		setNonblocking(mySocket);
 		// addrlen = sizeof(address);
-		clientaddrlen = sizeof( (struct sockaddr *) &clientaddr);
+		clientaddrlen = sizeof( (struct sockaddr *) &clientaddress);
 		// address.sin_family = AF_INET;
 		// address.sin_addr.s_addr = INADDR_ANY;
 		// address.sin_port = htons(8081);
