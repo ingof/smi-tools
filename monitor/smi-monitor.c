@@ -207,7 +207,6 @@ int main( int argc, char* argv[] ) {
 			perror("ioctl(swb)");
 			if (actualSwbTimeout>0) actualSwbTimeout--;
 		}
-		// perror("es geht immer weiter\n");
 
 		if (IOReturn==0) {
 			if ((serialBytes==0)&&(actualSwbTimeout>0)) {
@@ -222,9 +221,7 @@ int main( int argc, char* argv[] ) {
 					/* start receiving and reset timeout */
 					actualSwbTimeout=serialSwbWait;
 				}
-				/* create temporary buffer for received Bytes */ // int
-				// tmpBuffer[serialBytes]; // bytesSwb = read(fdSwb, &tmpBuffer,
-				// sizeof(tmpBuffer));
+				/* create temporary buffer for received Bytes */
 				bytesSwb = read(fdSwb, &tmpBuffer, serialBytes);
 				if (bytesSwb<0) {
 					perror("read(Swb)");
@@ -233,15 +230,13 @@ int main( int argc, char* argv[] ) {
 					actualSwbTimeout--;
 				}
 				if (bytesSwb>0) {
-					// printf("\n\nbufferSwb : %d\n", sizeof(bufferSwb) / sizeof(char));
-					// printf("bufferSwbCount : %d\n", bufferSwbCount);
-					// printf("tmpBuffer : %d/%d\n", sizeof(tmpBuffer) / sizeof(char), sizeof(char));
-					// printf("bytesSwb : %d\n", bytesSwb);
 					// memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
-					for (loop2=0;loop2<bytesSwb;loop2++) {
-						bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
-						// printf("\t\t\tRX: %02X (%d)\n", bufferSwb[bufferSwbCount+loop2], (bufferSwbCount+loop2));
-					}
+
+					strncpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+
+					// for (loop2=0;loop2<bytesSwb;loop2++) {
+					// 	bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
+					// }
 					bufferSwbCount+=bytesSwb;
 				}
 			}
