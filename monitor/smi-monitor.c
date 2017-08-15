@@ -145,58 +145,59 @@ int main( int argc, char* argv[] ) {
 	/* endless-loop */
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
-
-
-		/* web server */
-		tmpListen=listen(mySocket, 10);
-		if (tmpListen < 0) {
-			perror("webserver listen");
-			exit(1);
-		}
-
-		setNonblocking(mySocket);
-		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
-			if (errno == EAGAIN) { // no data available
-			} else {
-				perror("webserver accept");
-				printf("%d ",new_socket);
-				exit(1);
-			}
-		} else { // data available
-			if (new_socket <= 0){
-				perror("webserver connect:");
-			}
-			/* receive headder */
-			memset(bufferHTTP, 0, bufsize);
-			recv(new_socket, bufferHTTP, bufsize, 0);
-			// printf("%s*ENDE*", bufferHTTP);
-			getPostData(bufferHTTP,bufsize);
-			// printBuffer(bufferHTTP,bufsize);
-			/* send response */
-			write(new_socket, "HTTP/1.1 200 OK\n", 16);
-			write(new_socket, "Content-length: 7\n", 18);
-			write(new_socket, "Content-Type: text/html\n\n", 25);
-			write(new_socket, "200 OK\n",7);
-			/* TODO: in PHP post-data will be send only after
-			receiving the 200-OK-Header. Add or use the second buffer only!
-			*/
-			// /* receive posted data */
-			// memset(bufferHTTP, 0, bufsize);
-			// recv(new_socket, bufferHTTP, bufsize, 0);
-			// printf("%s*ENDE*\n", bufferHTTP);
-			// printBuffer(bufferHTTP,bufsize);
-			// fflush(stdout);
-			/* close this socket */
-			close(new_socket);
-			smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
-			smiTxBuffer[1]= smiCmd & 0x0f;
-			smiTxSize=2;
-			printBuffer(smiTxBuffer,smiTxSize);
-			smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
-			printBuffer(smiTxBuffer,smiTxSize);
-			write(fdSmi,&smiTxBuffer,smiTxSize);
-			printf("\n SMI command sent\n");
-		}
+		//
+		//
+		// /* web server */
+		// tmpListen=listen(mySocket, 10);
+		// if (tmpListen < 0) {
+		// 	perror("webserver listen");
+		// 	exit(1);
+		// }
+		//
+		// setNonblocking(mySocket);
+		// if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
+		// 	if (errno == EAGAIN) { // no data available
+		// 	} else {
+		// 		perror("webserver accept");
+		// 		printf("%d ",new_socket);
+		// 		exit(1);
+		// 	}
+		// } else { // data available
+		// 	if (new_socket <= 0){
+		// 		perror("webserver connect:");
+		// 	}
+		// 	/* receive headder */
+		// 	// memset(bufferHTTP, 0, bufsize);
+		// 	fil_n(bufferHTTP, 0, bufsize);
+		// 	recv(new_socket, bufferHTTP, bufsize, 0);
+		// 	// printf("%s*ENDE*", bufferHTTP);
+		// 	getPostData(bufferHTTP,bufsize);
+		// 	// printBuffer(bufferHTTP,bufsize);
+		// 	/* send response */
+		// 	write(new_socket, "HTTP/1.1 200 OK\n", 16);
+		// 	write(new_socket, "Content-length: 7\n", 18);
+		// 	write(new_socket, "Content-Type: text/html\n\n", 25);
+		// 	write(new_socket, "200 OK\n",7);
+		// 	/* TODO: in PHP post-data will be send only after
+		// 	receiving the 200-OK-Header. Add or use the second buffer only!
+		// 	*/
+		// 	// /* receive posted data */
+		// 	// memset(bufferHTTP, 0, bufsize);
+		// 	// recv(new_socket, bufferHTTP, bufsize, 0);
+		// 	// printf("%s*ENDE*\n", bufferHTTP);
+		// 	// printBuffer(bufferHTTP,bufsize);
+		// 	// fflush(stdout);
+		// 	/* close this socket */
+		// 	close(new_socket);
+		// 	smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
+		// 	smiTxBuffer[1]= smiCmd & 0x0f;
+		// 	smiTxSize=2;
+		// 	printBuffer(smiTxBuffer,smiTxSize);
+		// 	smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
+		// 	printBuffer(smiTxBuffer,smiTxSize);
+		// 	write(fdSmi,&smiTxBuffer,smiTxSize);
+		// 	printf("\n SMI command sent\n");
+		// }
 
 
 		/* SWB-Bus */
