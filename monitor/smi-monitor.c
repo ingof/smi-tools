@@ -464,7 +464,7 @@ int  checkSwbCrc(unsigned char *buffer, int size) {
 	return 0;
 }
 
-/* check SwitchBus checksum */
+/* check SMI-Bus checksum */
 int checkSmiCrc(unsigned char *buffer, int size) {
 	if (size<=2) {
 		return -2;
@@ -485,7 +485,7 @@ int checkSmiCrc(unsigned char *buffer, int size) {
 /* add the cheksum byte to the buffer and returns number of cheksum bytes */
 int addSmiCrc(unsigned char *buffer, int size) {
 	/* create checksum */
-	char tmpChkSum=0;
+	unsigned char tmpChkSum=0;
 	int i;
 	for (i = 0; i < size; i++) {
 		tmpChkSum+=buffer[i];
