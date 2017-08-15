@@ -188,7 +188,7 @@ int main( int argc, char* argv[] ) {
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			// printf("%s*ENDE*", bufferHTTP);
 			getPostData(bufferHTTP,bufsize);
-			printBuffer(bufferHTTP,bufsize);
+			// printBuffer(bufferHTTP,bufsize);
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\r\n", 17);
 			write(new_socket, "Content-length: 99\r\n", 21);
@@ -197,7 +197,7 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "<html>\r\n",8);
 			write(new_socket, " <body>\r\n",9);
 			write(new_socket, "  <h1>Found</h1>\r\n",18);
-			write(new_socket, "  <p>The requested URL was found on this server.</p>\r\n",45);
+			write(new_socket, "  <p>The requested URL was found on this server.</p>\r\n",55);
 			write(new_socket, " </body>\r\n",10);
 			write(new_socket, "</html>\r\n",9);
 
