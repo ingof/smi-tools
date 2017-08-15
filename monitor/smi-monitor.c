@@ -305,29 +305,29 @@ int main( int argc, char* argv[] ) {
 			}
 		}
 
-		/* SMI-Bus */
-		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-		// IOReturn=0;
-		// serialBytes=0;
-		if (IOReturn<0) {
-			perror("ioctl(smi)");
-			if (actualSmiTimeout>0) actualSmiTimeout--;
-		}
-		if (IOReturn==0) {
-			/* no data -< */
-			if ((serialBytes==0)&&(actualSmiTimeout>0)) {
-				actualSmiTimeout--;
-			}
-			/* copy received data to buffer */
-			if (serialBytes>0) {
-				if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
-					/* start receiving and reset timeout */
-					actualSmiTimeout=serialSmiWait;
-				}
-				if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
-					/* start receiving and reset timeout */
-					actualSmiTimeout=serialSmiWait;
-				}
+		// /* SMI-Bus */
+		// IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
+		// // IOReturn=0;
+		// // serialBytes=0;
+		// if (IOReturn<0) {
+		// 	perror("ioctl(smi)");
+		// 	if (actualSmiTimeout>0) actualSmiTimeout--;
+		// }
+		// if (IOReturn==0) {
+		// 	/* no data -< */
+		// 	if ((serialBytes==0)&&(actualSmiTimeout>0)) {
+		// 		actualSmiTimeout--;
+		// 	}
+		// 	/* copy received data to buffer */
+		// 	if (serialBytes>0) {
+		// 		if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
+		// 			/* start receiving and reset timeout */
+		// 			actualSmiTimeout=serialSmiWait;
+		// 		}
+		// 		if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
+		// 			/* start receiving and reset timeout */
+		// 			actualSmiTimeout=serialSmiWait;
+		// 		}
 				// /* create temporary buffer for received Bytes */
 				// int tmpBuffer[serialBytes];
 				// bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
