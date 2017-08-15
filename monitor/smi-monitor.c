@@ -157,8 +157,8 @@ int main( int argc, char* argv[] ) {
 		}
 
 		setNonblocking(mySocket);
-		addrlen = sizeof(address);
-		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, addrlen)) < 0) {
+		// addrlen = sizeof(address);
+		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, sizeof(address))) < 0) {
 				if (errno == EAGAIN) { // no data available
 				} else {
 					perror("webserver accept");
