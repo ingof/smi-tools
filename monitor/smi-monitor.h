@@ -14,17 +14,18 @@ int setNonblocking(int fd);
 /* open port to smi-bus */
 int openSmiPort (char *port);
 /* check swb crc */
-int checkSwbCrc(char *buffer, int size);
+int checkSwbCrc(unsigned char *buffer, int size);
 /* check smi checksum */
 int checkSmiCrc(char *buffer, int size);
 /* add the cheksum byte to the buffer and returns number of cheksum bytes */
 int addSmiCrc(char *buffer, int size);
 /* add the crc to an existing message */
-void addSwbCrc(char *buffer, int size);
+
+void addSwbCrc(unsigned char *buffer, int size);
 /* create response of received message */
-void createSwbAck(char *buffer, int size);
+void createSwbAck(unsigned char *buffer, int size);
 /* creates SWB crc16 */
-unint16_t createSwbCRC(char *buffer, int size);
+unint16_t createSwbCRC(unsigned char *buffer, int size);
 
 /* extract post data */
 int getPostData(char *buffer, int size);
