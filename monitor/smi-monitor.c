@@ -158,9 +158,10 @@ int main( int argc, char* argv[] ) {
 
 		setNonblocking(mySocket);
 		addrlen = sizeof(address);
-		address.sin_family = AF_INET;
-		address.sin_addr.s_addr = INADDR_ANY;
-		address.sin_port = htons(8081);
+		// address.sin_family = AF_INET;
+		// address.sin_addr.s_addr = INADDR_ANY;
+		// address.sin_port = htons(8081);
+
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 				if (errno == EAGAIN) { // no data available
 				} else {
@@ -490,7 +491,7 @@ int checkSmiCrc(unsigned char *buffer, int size) {
 	return 0;
 }
 
-/* add the cheksum byte to the buffer and returns number of cheksum bytes */
+/* add the checksum byte to the buffer and returns number of checksum bytes */
 int addSmiCrc(unsigned char *buffer, int size) {
 	/* create checksum */
 	unsigned char tmpChkSum=0;
