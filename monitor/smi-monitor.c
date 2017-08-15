@@ -157,7 +157,7 @@ int main( int argc, char* argv[] ) {
 		setNonblocking(mySocket);
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 			if (errno == EAGAIN) { // no data available
-			} else {
+			// } else {
 				perror("webserver accept");
 				printf("%d ",new_socket);
 				exit(1);
@@ -473,12 +473,9 @@ int checkSmiCrc(unsigned char *buffer, int size) {
 	unsigned char tmpChkSum=0;
 	int i;
 	for (i = 0; i < size-1; i++) {
-		printf("\n\t %d %02x + %02x",i , tmpChkSum, buffer[i] );
 		tmpChkSum+=  buffer[i];
-		printf(" = %02X\n", tmpChkSum);
 	}
 	tmpChkSum=(~tmpChkSum)+1;
-	printf("\t\t\t => %02X\n", tmpChkSum);
 	if (buffer[size-1]!=tmpChkSum) {
 		return -1;
 	}
