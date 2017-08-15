@@ -194,6 +194,13 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "Content-length: 7\n", 18);
 			write(new_socket, "Content-Type: text/html\n\n", 25);
 			write(new_socket, "200 OK\n",7);
+			write(new_socket, "<html>\n",7);
+			write(new_socket, " <body>\n",8);
+			write(new_socket, "  <h1>Not Found</h1>\n",21);
+			write(new_socket, "  <p>The requested URL was found on this server.</p>\n",44);
+			write(new_socket, " </body>\n",9);
+			write(new_socket, "</html>\n",8);
+
 			/* TODO: in PHP post-data will be send only after
 			receiving the 200-OK-Header. Add or use the second buffer only!
 			*/
