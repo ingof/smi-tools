@@ -328,48 +328,48 @@ int main( int argc, char* argv[] ) {
 		// 			/* start receiving and reset timeout */
 		// 			actualSmiTimeout=serialSmiWait;
 		// 		}
-				// /* create temporary buffer for received Bytes */
-				// int tmpBuffer[serialBytes];
-				// bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
-				// if (bytesSmi<0) {
-				// 	perror("read(Smi)");
-				// }
-				// if (bytesSmi<=0) {
-				// 	actualSmiTimeout--;
-				// }
-				// if (bytesSmi>0) {
-				// 	// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
-				// 	bufferSmiCount+=bytesSmi;
-				// }
-			}
-			// /* stop receiving and print message */
-			// if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-			// 	printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
-			// 	for (x = 0; x < (bufferSmiCount-1) ; x++)
-			// 	{
-			// 		c = bufferSmi[x];
-			// 		printf("%02X ",c);
-			// 	}
-			// 	switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
-			// 		case -2:
-			// 			/* frame without CRC -> yellow */
-			// 			printf("\033[1m");
-			// 			break;
-			// 		case -1:
-			// 			/* crc not ok -> red */
-			// 			printf("\033[31m");
-			// 			break;
-			// 		default:
-			// 			/* crc is ok -> green */
-			// 			printf("\033[32m");
-			// 			break;
-			// 	}
-			// 	c = bufferSmi[bufferSmiCount-1];
-			// 	printf("%02X \033[m",c);
-			// 	bufferSmiCount=0;
-			// 	fflush(stdout); // Will now print everything in the stdout buffer
-			// }
-		}
+		// 		/* create temporary buffer for received Bytes */
+		// 		int tmpBuffer[serialBytes];
+		// 		bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
+		// 		if (bytesSmi<0) {
+		// 			perror("read(Smi)");
+		// 		}
+		// 		if (bytesSmi<=0) {
+		// 			actualSmiTimeout--;
+		// 		}
+		// 		if (bytesSmi>0) {
+		// 			// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+		// 			bufferSmiCount+=bytesSmi;
+		// 		}
+		// 	}
+		// 	// /* stop receiving and print message */
+		// 	// if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
+		// 	// 	printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
+		// 	// 	for (x = 0; x < (bufferSmiCount-1) ; x++)
+		// 	// 	{
+		// 	// 		c = bufferSmi[x];
+		// 	// 		printf("%02X ",c);
+		// 	// 	}
+		// 	// 	switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
+		// 	// 		case -2:
+		// 	// 			/* frame without CRC -> yellow */
+		// 	// 			printf("\033[1m");
+		// 	// 			break;
+		// 	// 		case -1:
+		// 	// 			/* crc not ok -> red */
+		// 	// 			printf("\033[31m");
+		// 	// 			break;
+		// 	// 		default:
+		// 	// 			/* crc is ok -> green */
+		// 	// 			printf("\033[32m");
+		// 	// 			break;
+		// 	// 	}
+		// 	// 	c = bufferSmi[bufferSmiCount-1];
+		// 	// 	printf("%02X \033[m",c);
+		// 	// 	bufferSmiCount=0;
+		// 	// 	fflush(stdout); // Will now print everything in the stdout buffer
+		// 	// }
+		// }
 
 		/* wait 0,5ms */
 		usleep(500);
