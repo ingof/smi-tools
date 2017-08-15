@@ -46,12 +46,14 @@ int main( int argc, char* argv[] ) {
 	int c;
 
 	int bytesSwb=0;
-	unsigned char bufferSwb[200];
 	int bufferSwbCount=0;
+	unsigned char bufferSwb[200];
+
 	int bytesSmi=0;
-	char bufferSmi[200];
 	int bufferSmiCount=0;
-	int tmpBuffer[40];
+	unsigned char bufferSmi[200];
+
+	unsigned char tmpBuffer[40];
 
 	//smi transmit
 	char smiTxBuffer[200];
@@ -212,10 +214,10 @@ int main( int argc, char* argv[] ) {
 				actualSwbTimeout--;
 			}
 			if (serialBytes>0) {
-				if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
-					/* start receiving and reset timeout */
-					actualSwbTimeout=serialSwbWait;
-				}
+				// if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
+				// 	/* start receiving and reset timeout */
+				// 	actualSwbTimeout=serialSwbWait;
+				// }
 				if ((actualSwbTimeout>=0)&&(bufferSwbCount>=0)) {
 					/* start receiving and reset timeout */
 					actualSwbTimeout=serialSwbWait;
@@ -237,8 +239,8 @@ int main( int argc, char* argv[] ) {
 					// printf("bytesSwb : %d\n", bytesSwb);
 					// memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					for (loop2=0;loop2<bytesSwb;loop2++) {
-						printf("\t\t\tRX: %02X (%d)\n", tmpBuffer[loop2], (bufferSwbCount+loop2));
 						bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
+						printf("\t\t\tRX: %02X (%d)\n", bufferSwb[bufferSwbCount+loop2], (bufferSwbCount+loop2));
 					}
 					bufferSwbCount+=bytesSwb;
 				}
