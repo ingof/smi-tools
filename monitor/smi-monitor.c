@@ -328,19 +328,19 @@ int main( int argc, char* argv[] ) {
 					/* start receiving and reset timeout */
 					actualSmiTimeout=serialSmiWait;
 				}
-				/* create temporary buffer for received Bytes */
-				int tmpBuffer[serialBytes];
-				bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
-				if (bytesSmi<0) {
-					perror("read(Smi)");
-				}
-				if (bytesSmi<=0) {
-					actualSmiTimeout--;
-				}
-				if (bytesSmi>0) {
-					// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
-					bufferSmiCount+=bytesSmi;
-				}
+				// /* create temporary buffer for received Bytes */
+				// int tmpBuffer[serialBytes];
+				// bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
+				// if (bytesSmi<0) {
+				// 	perror("read(Smi)");
+				// }
+				// if (bytesSmi<=0) {
+				// 	actualSmiTimeout--;
+				// }
+				// if (bytesSmi>0) {
+				// 	// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+				// 	bufferSmiCount+=bytesSmi;
+				// }
 			}
 			// /* stop receiving and print message */
 			// if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
