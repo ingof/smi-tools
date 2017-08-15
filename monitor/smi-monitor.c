@@ -72,7 +72,7 @@ int main( int argc, char* argv[] ) {
 	socklen_t addrlen;
 	int bufsize = 1024;
 	char *bufferHTTP = malloc(bufsize);
-	struct sockaddr_in address clientaddr;
+	struct sockaddr_in address, clientaddr;
 
 	int tmpListen;
 	int tmpBind;
