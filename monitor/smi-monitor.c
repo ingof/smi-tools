@@ -215,9 +215,9 @@ int main( int argc, char* argv[] ) {
 			smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
 			smiTxBuffer[1]= smiCmd & 0x0f;
 			smiTxSize=2;
-			printBuffer(smiTxBuffer,smiTxSize);
+			// printBuffer(smiTxBuffer,smiTxSize);
 			smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
-			printBuffer(smiTxBuffer,smiTxSize);
+			// printBuffer(smiTxBuffer,smiTxSize);
 			write(fdSmi,&smiTxBuffer,smiTxSize);
 			printf("\n SMI command sent\n");
 		}
