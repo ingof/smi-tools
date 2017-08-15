@@ -240,14 +240,14 @@ int main( int argc, char* argv[] ) {
 					// memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 					for (loop2=0;loop2<bytesSwb;loop2++) {
 						bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
-						printf("\t\t\tRX: %02X (%d)\n", bufferSwb[bufferSwbCount+loop2], (bufferSwbCount+loop2));
+						// printf("\t\t\tRX: %02X (%d)\n", bufferSwb[bufferSwbCount+loop2], (bufferSwbCount+loop2));
 					}
 					bufferSwbCount+=bytesSwb;
 				}
 			}
 			/* stop receiving and print message */
 			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-				// printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
+				printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
 				for (x = 0; x < (bufferSwbCount-2) ; x++)
 				{
 					c = bufferSwb[x];
@@ -521,7 +521,7 @@ int getPostData(unsigned char *buffer, int size) {
 	//TODO check header
 
 	/* find end of header */
-	postStart = strstr((unsigned char) buffer,word);
+	postStart = strstr(buffer,word);
 
 	/* remove "end of header" marker */
 	token=strsep(&postStart,"\n");
