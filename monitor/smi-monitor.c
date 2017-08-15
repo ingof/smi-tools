@@ -29,8 +29,8 @@ int main( int argc, char* argv[] ) {
 	char serialSwb0Port[]="/dev/ttySWB0";
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
-	int serialSwbWait=5;					//3ms; 1,5ms; 15ms
-	int serialSmiWait=42;					//10ms; 5ms ; 40ms
+	int serialSwbWait=3;					//3ms; 1,5ms; 15ms
+	int serialSmiWait=40;					//10ms; 5ms ; 40ms
 
 	int actualSwbTimeout=0;
 	int actualSmiTimeout=0;
