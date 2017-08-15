@@ -157,11 +157,11 @@ int main( int argc, char* argv[] ) {
 		}
 
 		setNonblocking(mySocket);
-		// addrlen = sizeof(address);
+		addrlen = sizeof(address);
 		address.sin_family = AF_INET;
 		address.sin_addr.s_addr = INADDR_ANY;
 		address.sin_port = htons(8081);
-		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, sizeof(address))) < 0) {
+		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
 				if (errno == EAGAIN) { // no data available
 				} else {
 					perror("webserver accept");
