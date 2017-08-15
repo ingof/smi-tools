@@ -478,6 +478,7 @@ int checkSmiCrc(unsigned char *buffer, int size) {
 		printf(" = %02X\n", tmpChkSum);
 	}
 	tmpChkSum=(~tmpChkSum)+1;
+	printf("\t\t\t => %02X\n", tmpChkSum);
 	if (buffer[size-1]!=tmpChkSum) {
 		return -1;
 	}
