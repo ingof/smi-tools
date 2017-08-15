@@ -521,7 +521,7 @@ int getPostData(unsigned char *buffer, int size) {
 	//TODO check header
 
 	/* find end of header */
-	postStart = strstr(unsigned char buffer,word);
+	postStart = strstr((unsigned char) buffer,word);
 
 	/* remove "end of header" marker */
 	token=strsep(&postStart,"\n");
