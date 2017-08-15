@@ -191,7 +191,7 @@ int main( int argc, char* argv[] ) {
 			// printBuffer(bufferHTTP,bufsize);
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\r\n", 17);
-			write(new_socket, "Content-length: 99\r\n", 21);
+			write(new_socket, "Content-length: 108\r\n", 21);
 			write(new_socket, "Content-Type: text/html\r\n\r\n", 27);
 			// write(new_socket, "200 OK\r\n",8);
 			write(new_socket, "<html>\r\n",8);
