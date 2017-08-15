@@ -30,7 +30,7 @@ int main( int argc, char* argv[] ) {
 	char * serialSmiPort="/dev/ttySMI0";
 	char serialSmi0Port[]="/dev/ttySMI0";
 	int serialSwbWait=3;					//3ms; 1,5ms; 15ms
-	int serialSmiWait=40;					//10ms; 5ms ; 40ms
+	int serialSmiWait=10;					//10ms; 5ms ; 40ms
 
 	int actualSwbTimeout=0;
 	int actualSmiTimeout=0;
@@ -181,12 +181,12 @@ int main( int argc, char* argv[] ) {
 			/* TODO: in PHP post-data will be send only after
 			receiving the 200-OK-Header. Add or use the second buffer only!
 			*/
-			/* receive posted data */
-			memset(bufferHTTP, 0, bufsize);
-			recv(new_socket, bufferHTTP, bufsize, 0);
-			printf("%s*ENDE*\n", bufferHTTP);
-			printBuffer(bufferHTTP,bufsize);
-			fflush(stdout);
+			// /* receive posted data */
+			// memset(bufferHTTP, 0, bufsize);
+			// recv(new_socket, bufferHTTP, bufsize, 0);
+			// printf("%s*ENDE*\n", bufferHTTP);
+			// printBuffer(bufferHTTP,bufsize);
+			// fflush(stdout);
 			/* close this socket */
 			close(new_socket);
 			smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
