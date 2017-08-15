@@ -338,7 +338,7 @@ int main( int argc, char* argv[] ) {
 					actualSmiTimeout--;
 				}
 				if (bytesSmi>0) {
-					strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+					// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
 					bufferSmiCount+=bytesSmi;
 				}
 			}
