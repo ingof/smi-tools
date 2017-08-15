@@ -156,12 +156,12 @@ int main( int argc, char* argv[] ) {
 
 		setNonblocking(mySocket);
 		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
-			if (errno == EAGAIN) { // no data available
-			// } else {
-				perror("webserver accept");
-				printf("%d ",new_socket);
-				exit(1);
-			}
+				if (errno == EAGAIN) { // no data available
+				} else {
+					perror("webserver accept");
+					printf("%2x/%d: %d ", errno, errno, new_socket);
+					exit(1);
+				}
 			} else { // data available
 			if (new_socket <= 0){
 				perror("webserver connect:");
