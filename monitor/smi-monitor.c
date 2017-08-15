@@ -165,13 +165,13 @@ int main( int argc, char* argv[] ) {
 		// address.sin_addr.s_addr = INADDR_ANY;
 		// address.sin_port = htons(8081);
 
-		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
+		if ((new_socket = accept(mySocket, (struct sockaddr *) &clientaddress, &clientaddrlen)) < 0) {
 				if (errno == EAGAIN) { // no data available
 				} else {
 					perror("webserver accept");
 					printf("%d \n",new_socket);
-					printf("addrlen: %d", addrlen);
-					printf("address: %d", address);
+					printf("addrlen: %d", clientaddrlen);
+					printf("address: %d", clientaddress);
 					exit(1);
 				}
 			} else { // data available
