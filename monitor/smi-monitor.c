@@ -180,7 +180,7 @@ int main( int argc, char* argv[] ) {
 			}
 			/* receive headder */
 			// memset(bufferHTTP, 0, bufsize);
-			// fill_n(bufferHTTP, 0, bufsize);
+			fill_n(bufferHTTP, 0, bufsize);
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			// printf("%s*ENDE*", bufferHTTP);
 			getPostData(bufferHTTP,bufsize);
