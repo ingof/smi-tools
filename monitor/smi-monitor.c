@@ -389,7 +389,7 @@ int main( int argc, char* argv[] ) {
 }
 
 /* creates SWB crc16 */
-unint16_t  createSwbCrc(char *buffer, int size) {
+unint16_t  createSwbCrc(unsigned char *buffer, int size) {
 	unint16_t crc = 0xffff;    // preset CRC
 	unint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
 	int i,j;
@@ -409,7 +409,7 @@ unint16_t  createSwbCrc(char *buffer, int size) {
 }
 
 /* display buffer in hex-format to stdout */
-void printBuffer(char *buffer, int size) {
+void printBuffer(unsigned char *buffer, int size) {
 	printf("  (%d ",size);
 	int x;
 	char c2;
@@ -440,7 +440,7 @@ void createSwbAck(unsigned char *buffer, int size) {
 }
 
 /* add the crc to an existing message */
-void addSwbCrc(char *buffer, int size) {
+void addSwbCrc(unsigned char *buffer, int size) {
 	buffer[size]=0;
 	buffer[size+1]=0;
 	// printBuffer(buffer, size);
@@ -463,7 +463,7 @@ int  checkSwbCrc(unsigned char *buffer, int size) {
 }
 
 /* check SwitchBus checksum */
-int checkSmiCrc(char *buffer, int size) {
+int checkSmiCrc(unsigned char *buffer, int size) {
 	if (size<=2) {
 		return -2;
 	}
@@ -481,7 +481,7 @@ int checkSmiCrc(char *buffer, int size) {
 }
 
 /* add the cheksum byte to the buffer and returns number of cheksum bytes */
-int addSmiCrc(char *buffer, int size) {
+int addSmiCrc(unsigned char *buffer, int size) {
 	/* create checksum */
 	char tmpChkSum=0;
 	int i;
@@ -511,7 +511,7 @@ int setNonblocking(int fd)
 #endif
 }
 
-int getPostData(char *buffer, int size) {
+int getPostData(unsigned char *buffer, int size) {
 	char *token;
 	char *tokenName;
 	char *tokenValue;
