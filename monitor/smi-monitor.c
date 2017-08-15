@@ -181,7 +181,7 @@ int main( int argc, char* argv[] ) {
 			/* receive headder */
 			// memset(bufferHTTP, 0, bufsize);
 			// fill_n(bufferHTTP, 0, bufsize);
-			for (loop2=0;loop2<buffersize;loop2++) {
+			for (loop2=0;loop2<bufsize;loop2++) {
 				bufferHTTP[loop2]=0;
 			}
 
