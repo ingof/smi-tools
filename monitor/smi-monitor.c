@@ -233,11 +233,11 @@ int main( int argc, char* argv[] ) {
 				if (bytesSwb>0) {
 					// memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 
-					strncpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+					// strncpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
 
-					// for (loop2=0;loop2<bytesSwb;loop2++) {
-					// 	bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
-					// }
+					for (loop2=0;loop2<bytesSwb;loop2++) {
+						bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
+					}
 					bufferSwbCount+=bytesSwb;
 				}
 			}
@@ -250,10 +250,12 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				// memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				strncpy(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				// for (loop2=0;loop2<(bufferSwbCount-2);loop2++) {
-				// 	tmp2Buf[loop2]=bufferSwb[loop2];
-				// }
+
+				// strncpy(tmp2Buf,bufferSwb,bufferSwbCount-2);
+
+				for (loop2=0;loop2<(bufferSwbCount-2);loop2++) {
+					tmp2Buf[loop2]=bufferSwb[loop2];
+				}
 
 
 				tmp2Siz=bufferSwbCount;
