@@ -162,7 +162,7 @@ int main( int argc, char* argv[] ) {
 				printf("%d ",new_socket);
 				exit(1);
 			}
-		} else { // data available
+			} else { // data available
 			if (new_socket <= 0){
 				perror("webserver connect:");
 			}
@@ -181,12 +181,12 @@ int main( int argc, char* argv[] ) {
 			/* TODO: in PHP post-data will be send only after
 			receiving the 200-OK-Header. Add or use the second buffer only!
 			*/
-			// /* receive posted data */
-			// memset(bufferHTTP, 0, bufsize);
-			// recv(new_socket, bufferHTTP, bufsize, 0);
-			// printf("%s*ENDE*\n", bufferHTTP);
-			// printBuffer(bufferHTTP,bufsize);
-			// fflush(stdout);
+			/* receive posted data */
+			memset(bufferHTTP, 0, bufsize);
+			recv(new_socket, bufferHTTP, bufsize, 0);
+			printf("%s*ENDE*\n", bufferHTTP);
+			printBuffer(bufferHTTP,bufsize);
+			fflush(stdout);
 			/* close this socket */
 			close(new_socket);
 			smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
