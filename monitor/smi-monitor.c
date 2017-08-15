@@ -68,6 +68,7 @@ int main( int argc, char* argv[] ) {
 
 	/* for webserver */
 	int mySocket, new_socket;
+	int clientaddrlen;
 	socklen_t addrlen;
 	int bufsize = 1024;
 	char *bufferHTTP = malloc(bufsize);
@@ -159,6 +160,7 @@ int main( int argc, char* argv[] ) {
 
 		setNonblocking(mySocket);
 		// addrlen = sizeof(address);
+		clientaddrlen = sizeof( (struct sockaddr *) &clientaddr);
 		// address.sin_family = AF_INET;
 		// address.sin_addr.s_addr = INADDR_ANY;
 		// address.sin_port = htons(8081);
