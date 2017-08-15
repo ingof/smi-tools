@@ -145,58 +145,58 @@ int main( int argc, char* argv[] ) {
 	/* endless-loop */
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
-		//
-		//
-		// /* web server */
-		// tmpListen=listen(mySocket, 10);
-		// if (tmpListen < 0) {
-		// 	perror("webserver listen");
-		// 	exit(1);
-		// }
-		//
-		// setNonblocking(mySocket);
-		// if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
-		// 	if (errno == EAGAIN) { // no data available
-		// 	} else {
-		// 		perror("webserver accept");
-		// 		printf("%d ",new_socket);
-		// 		exit(1);
-		// 	}
-		// } else { // data available
-		// 	if (new_socket <= 0){
-		// 		perror("webserver connect:");
-		// 	}
-		// 	/* receive headder */
-		// 	memset(bufferHTTP, 0, bufsize);
-		// 	recv(new_socket, bufferHTTP, bufsize, 0);
-		// 	// printf("%s*ENDE*", bufferHTTP);
-		// 	getPostData(bufferHTTP,bufsize);
-		// 	// printBuffer(bufferHTTP,bufsize);
-		// 	/* send response */
-		// 	write(new_socket, "HTTP/1.1 200 OK\n", 16);
-		// 	write(new_socket, "Content-length: 7\n", 18);
-		// 	write(new_socket, "Content-Type: text/html\n\n", 25);
-		// 	write(new_socket, "200 OK\n",7);
-		// 	/* TODO: in PHP post-data will be send only after
-		// 	receiving the 200-OK-Header. Add or use the second buffer only!
-		// 	*/
-		// 	// /* receive posted data */
-		// 	// memset(bufferHTTP, 0, bufsize);
-		// 	// recv(new_socket, bufferHTTP, bufsize, 0);
-		// 	// printf("%s*ENDE*\n", bufferHTTP);
-		// 	// printBuffer(bufferHTTP,bufsize);
-		// 	// fflush(stdout);
-		// 	/* close this socket */
-		// 	close(new_socket);
-		// 	smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
-		// 	smiTxBuffer[1]= smiCmd & 0x0f;
-		// 	smiTxSize=2;
-		// 	printBuffer(smiTxBuffer,smiTxSize);
-		// 	smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
-		// 	printBuffer(smiTxBuffer,smiTxSize);
-		// 	write(fdSmi,&smiTxBuffer,smiTxSize);
-		// 	printf("\n SMI command sent\n");
-		// }
+
+
+		/* web server */
+		tmpListen=listen(mySocket, 10);
+		if (tmpListen < 0) {
+			perror("webserver listen");
+			exit(1);
+		}
+
+		setNonblocking(mySocket);
+		if ((new_socket = accept(mySocket, (struct sockaddr *) &address, &addrlen)) < 0) {
+			if (errno == EAGAIN) { // no data available
+			} else {
+				perror("webserver accept");
+				printf("%d ",new_socket);
+				exit(1);
+			}
+		} else { // data available
+			if (new_socket <= 0){
+				perror("webserver connect:");
+			}
+			/* receive headder */
+			memset(bufferHTTP, 0, bufsize);
+			recv(new_socket, bufferHTTP, bufsize, 0);
+			// printf("%s*ENDE*", bufferHTTP);
+			getPostData(bufferHTTP,bufsize);
+			// printBuffer(bufferHTTP,bufsize);
+			/* send response */
+			write(new_socket, "HTTP/1.1 200 OK\n", 16);
+			write(new_socket, "Content-length: 7\n", 18);
+			write(new_socket, "Content-Type: text/html\n\n", 25);
+			write(new_socket, "200 OK\n",7);
+			/* TODO: in PHP post-data will be send only after
+			receiving the 200-OK-Header. Add or use the second buffer only!
+			*/
+			// /* receive posted data */
+			// memset(bufferHTTP, 0, bufsize);
+			// recv(new_socket, bufferHTTP, bufsize, 0);
+			// printf("%s*ENDE*\n", bufferHTTP);
+			// printBuffer(bufferHTTP,bufsize);
+			// fflush(stdout);
+			/* close this socket */
+			close(new_socket);
+			smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
+			smiTxBuffer[1]= smiCmd & 0x0f;
+			smiTxSize=2;
+			printBuffer(smiTxBuffer,smiTxSize);
+			smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
+			printBuffer(smiTxBuffer,smiTxSize);
+			write(fdSmi,&smiTxBuffer,smiTxSize);
+			printf("\n SMI command sent\n");
+		}
 
 
 		/* SWB-Bus */
@@ -249,9 +249,10 @@ int main( int argc, char* argv[] ) {
 					printf("%02X ",c);
 				}
 				// memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				for (loop2=0;loop2<(bufferSwbCount-2);loop2++) {
-					tmp2Buf[loop2]=bufferSwb[loop2];
-				}
+				strncpy(tmp2Buf,bufferSwb,bufferSwbCount-2);
+				// for (loop2=0;loop2<(bufferSwbCount-2);loop2++) {
+				// 	tmp2Buf[loop2]=bufferSwb[loop2];
+				// }
 
 
 				tmp2Siz=bufferSwbCount;
@@ -302,72 +303,72 @@ int main( int argc, char* argv[] ) {
 				fflush(stdout); // Will now print everything in the stdout buffer
 			}
 		}
-		//
-		// /* SMI-Bus */
-		// IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-		// // IOReturn=0;
-		// // serialBytes=0;
-		// if (IOReturn<0) {
-		// 	perror("ioctl(smi)");
-		// 	if (actualSmiTimeout>0) actualSmiTimeout--;
-		// }
-		// if (IOReturn==0) {
-		// 	/* no data -< */
-		// 	if ((serialBytes==0)&&(actualSmiTimeout>0)) {
-		// 		actualSmiTimeout--;
-		// 	}
-		// 	/* copy received data to buffer */
-		// 	if (serialBytes>0) {
-		// 		if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
-		// 			/* start receiving and reset timeout */
-		// 			actualSmiTimeout=serialSmiWait;
-		// 		}
-		// 		if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
-		// 			/* start receiving and reset timeout */
-		// 			actualSmiTimeout=serialSmiWait;
-		// 		}
-		// 		/* create temporary buffer for received Bytes */
-		// 		int tmpBuffer[serialBytes];
-		// 		bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
-		// 		if (bytesSmi<0) {
-		// 			perror("read(Smi)");
-		// 		}
-		// 		if (bytesSmi<=0) {
-		// 			actualSmiTimeout--;
-		// 		}
-		// 		if (bytesSmi>0) {
-		// 			memmove(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
-		// 			bufferSmiCount+=bytesSmi;
-		// 		}
-		// 	}
-		// 	/* stop receiving and print message */
-		// 	if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-		// 		printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
-		// 		for (x = 0; x < (bufferSmiCount-1) ; x++)
-		// 		{
-		// 			c = bufferSmi[x];
-		// 			printf("%02X ",c);
-		// 		}
-		// 		switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
-		// 			case -2:
-		// 				/* frame without CRC -> yellow */
-		// 				printf("\033[1m");
-		// 				break;
-		// 			case -1:
-		// 				/* crc not ok -> red */
-		// 				printf("\033[31m");
-		// 				break;
-		// 			default:
-		// 				/* crc is ok -> green */
-		// 				printf("\033[32m");
-		// 				break;
-		// 		}
-		// 		c = bufferSmi[bufferSmiCount-1];
-		// 		printf("%02X \033[m",c);
-		// 		bufferSmiCount=0;
-		// 		fflush(stdout); // Will now print everything in the stdout buffer
-		// 	}
-		// }
+
+		/* SMI-Bus */
+		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
+		// IOReturn=0;
+		// serialBytes=0;
+		if (IOReturn<0) {
+			perror("ioctl(smi)");
+			if (actualSmiTimeout>0) actualSmiTimeout--;
+		}
+		if (IOReturn==0) {
+			/* no data -< */
+			if ((serialBytes==0)&&(actualSmiTimeout>0)) {
+				actualSmiTimeout--;
+			}
+			/* copy received data to buffer */
+			if (serialBytes>0) {
+				if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
+					/* start receiving and reset timeout */
+					actualSmiTimeout=serialSmiWait;
+				}
+				if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
+					/* start receiving and reset timeout */
+					actualSmiTimeout=serialSmiWait;
+				}
+				/* create temporary buffer for received Bytes */
+				int tmpBuffer[serialBytes];
+				bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
+				if (bytesSmi<0) {
+					perror("read(Smi)");
+				}
+				if (bytesSmi<=0) {
+					actualSmiTimeout--;
+				}
+				if (bytesSmi>0) {
+					strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+					bufferSmiCount+=bytesSmi;
+				}
+			}
+			/* stop receiving and print message */
+			if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
+				printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
+				for (x = 0; x < (bufferSmiCount-1) ; x++)
+				{
+					c = bufferSmi[x];
+					printf("%02X ",c);
+				}
+				switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
+					case -2:
+						/* frame without CRC -> yellow */
+						printf("\033[1m");
+						break;
+					case -1:
+						/* crc not ok -> red */
+						printf("\033[31m");
+						break;
+					default:
+						/* crc is ok -> green */
+						printf("\033[32m");
+						break;
+				}
+				c = bufferSmi[bufferSmiCount-1];
+				printf("%02X \033[m",c);
+				bufferSmiCount=0;
+				fflush(stdout); // Will now print everything in the stdout buffer
+			}
+		}
 
 		/* wait 0,5ms */
 		usleep(500);
