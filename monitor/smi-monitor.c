@@ -138,8 +138,8 @@ int main( int argc, char* argv[] ) {
 
 	tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
 	if (tmpBind== 0) {
-		printf("addrlen; %d", addrlen);
-		printf("address; %d", address);
+		printf("addrlen; %d\n", addrlen);
+		printf("address; %d\n", address);
 		printf("Binding Socket %d\n",tmpBind);
 	} else perror("webserver bind");
 
@@ -152,10 +152,10 @@ int main( int argc, char* argv[] ) {
 		/* web server */
 		tmpListen=listen(mySocket, 10);
 		if (tmpListen < 0) {
-			perror("webserver listen");
+			perror("webserver listen: %d\n",tmpListen);
 			exit(1);
 		} else {
-			printf("listen: %d",tmpListen);
+			printf("listen: %d\n",tmpListen);
 		}
 
 		setNonblocking(mySocket);
