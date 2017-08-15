@@ -172,7 +172,7 @@ int main( int argc, char* argv[] ) {
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			// printf("%s*ENDE*", bufferHTTP);
 			getPostData(bufferHTTP,bufsize);
-			// printBuffer(bufferHTTP,bufsize);
+			printBuffer(bufferHTTP,bufsize);
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\n", 16);
 			write(new_socket, "Content-length: 7\n", 18);
@@ -307,71 +307,74 @@ int main( int argc, char* argv[] ) {
 			}
 		}
 
-		// /* SMI-Bus */
-		// IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-		// // IOReturn=0;
-		// // serialBytes=0;
-		// if (IOReturn<0) {
-		// 	perror("ioctl(smi)");
-		// 	if (actualSmiTimeout>0) actualSmiTimeout--;
-		// }
-		// if (IOReturn==0) {
-		// 	/* no data -< */
-		// 	if ((serialBytes==0)&&(actualSmiTimeout>0)) {
-		// 		actualSmiTimeout--;
-		// 	}
-		// 	/* copy received data to buffer */
-		// 	if (serialBytes>0) {
-		// 		if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
-		// 			/* start receiving and reset timeout */
-		// 			actualSmiTimeout=serialSmiWait;
-		// 		}
-		// 		if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
-		// 			/* start receiving and reset timeout */
-		// 			actualSmiTimeout=serialSmiWait;
-		// 		}
-		// 		/* create temporary buffer for received Bytes */
-		// 		int tmpBuffer[serialBytes];
-		// 		bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
-		// 		if (bytesSmi<0) {
-		// 			perror("read(Smi)");
-		// 		}
-		// 		if (bytesSmi<=0) {
-		// 			actualSmiTimeout--;
-		// 		}
-		// 		if (bytesSmi>0) {
-		// 			// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
-		// 			bufferSmiCount+=bytesSmi;
-		// 		}
-		// 	}
-		// 	// /* stop receiving and print message */
-		// 	// if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-		// 	// 	printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
-		// 	// 	for (x = 0; x < (bufferSmiCount-1) ; x++)
-		// 	// 	{
-		// 	// 		c = bufferSmi[x];
-		// 	// 		printf("%02X ",c);
-		// 	// 	}
-		// 	// 	switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
-		// 	// 		case -2:
-		// 	// 			/* frame without CRC -> yellow */
-		// 	// 			printf("\033[1m");
-		// 	// 			break;
-		// 	// 		case -1:
-		// 	// 			/* crc not ok -> red */
-		// 	// 			printf("\033[31m");
-		// 	// 			break;
-		// 	// 		default:
-		// 	// 			/* crc is ok -> green */
-		// 	// 			printf("\033[32m");
-		// 	// 			break;
-		// 	// 	}
-		// 	// 	c = bufferSmi[bufferSmiCount-1];
-		// 	// 	printf("%02X \033[m",c);
-		// 	// 	bufferSmiCount=0;
-		// 	// 	fflush(stdout); // Will now print everything in the stdout buffer
-		// 	// }
-		// }
+		/* SMI-Bus */
+		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
+		// IOReturn=0;
+		// serialBytes=0;
+		if (IOReturn<0) {
+			perror("ioctl(smi)");
+			if (actualSmiTimeout>0) actualSmiTimeout--;
+		}
+		if (IOReturn==0) {
+			/* no data -< */
+			if ((serialBytes==0)&&(actualSmiTimeout>0)) {
+				actualSmiTimeout--;
+			}
+			/* copy received data to buffer */
+			if (serialBytes>0) {
+				if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
+					/* start receiving and reset timeout */
+					actualSmiTimeout=serialSmiWait;
+				}
+				if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
+					/* start receiving and reset timeout */
+					actualSmiTimeout=serialSmiWait;
+				}
+				/* create temporary buffer for received Bytes */
+				int tmpBuffer[serialBytes];
+				bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
+				if (bytesSmi<0) {
+					perror("read(Smi)");
+				}
+				if (bytesSmi<=0) {
+					actualSmiTimeout--;
+				}
+				if (bytesSmi>0) {
+					// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+					for (loop2=0;loop2<bytesSmi;loop2++) {
+						bufferSmi[bufferSmiCount+loop2]=tmpBuffer[loop2];
+					}
+					bufferSmiCount+=bytesSmi;
+				}
+			}
+			/* stop receiving and print message */
+			if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
+				printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
+				for (x = 0; x < (bufferSmiCount-1) ; x++)
+				{
+					c = bufferSmi[x];
+					printf("%02X ",c);
+				}
+				switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
+					case -2:
+						/* frame without CRC -> yellow */
+						printf("\033[1m");
+						break;
+					case -1:
+						/* crc not ok -> red */
+						printf("\033[31m");
+						break;
+					default:
+						/* crc is ok -> green */
+						printf("\033[32m");
+						break;
+				}
+				c = bufferSmi[bufferSmiCount-1];
+				printf("%02X \033[m",c);
+				bufferSmiCount=0;
+				fflush(stdout); // Will now print everything in the stdout buffer
+			}
+		}
 
 		/* wait 0,5ms */
 		usleep(500);
