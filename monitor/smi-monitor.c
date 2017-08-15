@@ -473,9 +473,9 @@ int checkSmiCrc(char *buffer, int size) {
 	char tmpChkSum=0;
 	int i;
 	for (i = 0; i < size-1; i++) {
-		printf("%d %02x + %02x",i , tmpChkSum, buffer[i] );
+		printf("\n\t%d %02x + %02x",i , tmpChkSum, buffer[i] );
 		tmpChkSum+=buffer[i];
-		printf(" = %02X", tmpChkSum);
+		printf(" = %02X\n", tmpChkSum);
 	}
 	tmpChkSum=(~tmpChkSum)+1;
 	if (buffer[size-1]!=tmpChkSum) {
