@@ -423,7 +423,7 @@ void printBuffer(char *buffer, int size) {
 }
 
 /* create response of received message */
-void createSwbAck(char *buffer, int size) {
+void createSwbAck(unsigned char *buffer, int size) {
 	// fix for short messages:
 	if (size==6) size++;
 	// clear switch-byte
@@ -451,7 +451,7 @@ void addSwbCrc(char *buffer, int size) {
 }
 
 /* check SwitchBus crc-16 */
-int  checkSwbCrc(char *buffer, int size) {
+int  checkSwbCrc(unsigned char *buffer, int size) {
 	int crc=createSwbCrc(buffer, size);
 	if (buffer[size-2]!=(uint8_t) crc) {
 		return -1;
