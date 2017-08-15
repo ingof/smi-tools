@@ -197,7 +197,7 @@ int main( int argc, char* argv[] ) {
 			write(new_socket, "<html>\r\n",8);
 			write(new_socket, " <body>\r\n",9);
 			write(new_socket, "  <h1>Found</h1>\r\n",18);
-			write(new_socket, "  <p>The requested URL was found on this server.</p>\r\n",55);
+			write(new_socket, "  <p>The requested URL was found on this server.</p>\r\n",54);
 			write(new_socket, " </body>\r\n",10);
 			write(new_socket, "</html>\r\n",9);
 
