@@ -470,11 +470,11 @@ int checkSmiCrc(unsigned char *buffer, int size) {
 		return -2;
 	}
 	/* create checksum */
-	char tmpChkSum=0;
+	unsigned char tmpChkSum=0;
 	int i;
 	for (i = 0; i < size-1; i++) {
 		printf("\n\t %d %02x + %02x",i , tmpChkSum, buffer[i] );
-		tmpChkSum+= (signed char) buffer[i];
+		tmpChkSum+=  buffer[i];
 		printf(" = %02X\n", tmpChkSum);
 	}
 	tmpChkSum=(~tmpChkSum)+1;
