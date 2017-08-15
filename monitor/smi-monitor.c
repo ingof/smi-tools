@@ -465,7 +465,7 @@ int  checkSwbCrc(unsigned char *buffer, int size) {
 }
 
 /* check SMI-Bus checksum */
-int checkSmiCrc(char *buffer, int size) {
+int checkSmiCrc(unsigned char *buffer, int size) {
 	if (size<=2) {
 		return -2;
 	}
