@@ -154,6 +154,8 @@ int main( int argc, char* argv[] ) {
 		if (tmpListen < 0) {
 			perror("webserver listen");
 			exit(1);
+		} else {
+			printf("listen: %d",tmpListen);
 		}
 
 		setNonblocking(mySocket);
