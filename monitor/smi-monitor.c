@@ -159,7 +159,9 @@ int main( int argc, char* argv[] ) {
 				if (errno == EAGAIN) { // no data available
 				} else {
 					perror("webserver accept");
-					printf("%2x/%d: %d ", errno, errno, new_socket);
+					printf("%d \n",new_socket);
+					printf("addrlen: %d", addrlen);
+					printf("address: %d", address);
 					exit(1);
 				}
 			} else { // data available
