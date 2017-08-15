@@ -138,9 +138,9 @@ int main( int argc, char* argv[] ) {
 
 	tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
 	if (tmpBind== 0) {
+		printf("addrlen; %d", addrlen);
+		printf("address; %d", address);
 		printf("Binding Socket %d\n",tmpBind);
-		printf("addrlen: %d", addrlen);
-		printf("address: %d", address);
 	} else perror("webserver bind");
 
 	perror(".");
