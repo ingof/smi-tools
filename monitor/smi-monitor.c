@@ -24,7 +24,6 @@
 
 
 
-
 int smiCmd=0;
 int smiId=0;
 int smiGrp=0;
