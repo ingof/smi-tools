@@ -3,13 +3,14 @@ SMI-tools
 
 This is a small smi commandline tool.
 
-you need a USB to SMI interface or a serial to SMI interface wich is connected to the usb-port.
+You need a USB to SMI interface or a serial to SMI interface wich is connected to the usb-port.
+For smi-monitor you should have an extra usb-RS485-adapter for the Switch-Bus.
 The tool only supports installed drives with a given id.
-try the tool at your own risk.
+Try the tool at your own risk.
 
-the smi-tools will work on "Synology Diskstation" and on "Raspberry Pi 2"
+The smi-tools are testet on "Synology Diskstation DSM6.1" and on "Raspberry Pi 2"
 
-at the moment there is no check of the commandline-parameters.
+At the moment there is no check of the commandline-parameters.
 
 Send command to smi drive:
 --------------------------
@@ -24,8 +25,8 @@ default is /dev/ttyUSB1
 * **optional:** serialWait<br>
 default is 60 (ms)
 
-**example:**<br>
-smi drive should go up and is connected via /dev/ttyS0 and is waiting 60ms for Answer
+**Example:**<br>
+Smi drive should go up and is connected via /dev/ttyS0 and is waiting 60ms for Answer
 ```
 smi 12 up /dev/ttyS0 60
 ```
@@ -41,7 +42,7 @@ default is /dev/ttyUSB0
 default is 40 (ms)
 
 
-**example:**<br>
+**Example:**<br>
 log on /dev/ttyUSB0 at 19.200Bit/s and wait 5ms for whole telegramm
 ```
 hex-monitor 19200 /dev/ttyUSB0 5
@@ -49,14 +50,14 @@ hex-monitor 19200 /dev/ttyUSB0 5
 now can see the all received data as hexdata
 
 
-monitor data on the smi-bus and swb-bus:
-----------------------------------------
+Monitor the data on the smi-bus and swb-bus:
+--------------------------------------------
 **Syntax:** smi-monitor [serialSwbPort0] [serialSwbWait] [serialSwbDivisor] [serialSwbAck] [serialSmi-port0] [serialSmiWait]<br>
 * **optional:** serialSwbPort0<br>
 This is the serial-port for the SwitchBus (19200 Bit/s)
 default is /dev/ttySWB0
 * **optional:** serialSwbWait<br>
-the time to receive a whole SWB telegram
+The time to receive a whole SWB telegram
 default is 3 (ms)
 * **optional:** serialSwbDivisor<br>
 This is the divisor for special Baudrates
@@ -71,12 +72,12 @@ The serial-port for the SMI-Bus (2400 Bit/s)
 default is 10 (ms)
 
 
-**example:**<br>
+**Example:**<br>
 log on /dev/ttyUSB0 (3ms wait, 19200Bit/s, master) and on /dev/ttyUSB1 (13ms wait)
 ```
 smi-monitor /dev/ttyUSB0 3 0 1 /dev/ttyUSB1 40
 ```
-now can see the all received data as hexdata
+Now can see the all received data as hexdata
 
 
 Clone git repository compile and install
