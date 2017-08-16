@@ -1,9 +1,10 @@
-/* file swb-serial.h */
+/* swb-serial.h */
 #ifndef SWB_SERIAL_H
 #define SWB_SERIAL_H
 
-typedef unsigned char uint8_t;
-typedef unsigned int  unint16_t;
+#import "types.h"
+// typedef unsigned char uint8_t;
+// typedef unsigned int  unint16_t;
 
 // /* print buffer to stdio */
 // void printSwbBuffer(unsigned char *buffer, int size);
@@ -23,4 +24,4 @@ typedef unsigned int  unint16_t;
 /* creates SWB crc16 */
 unint16_t createSwbCRC(unsigned char *buffer, int size);
 
-#endif /* file swb-serial.h */
+#endif /* swb-serial.h */

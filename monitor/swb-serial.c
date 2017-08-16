@@ -12,7 +12,7 @@
 // #include <sys/time.h>		/* ?? */
 // #include <linux/serial.h>	/* custom divisor */
 
-
+#include "types.h"				/* type definitions */
 
 /* creates SWB crc16 */
 unint16_t  createSwbCrc(unsigned char *buffer, int size) {

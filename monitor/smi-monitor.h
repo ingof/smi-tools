@@ -1,5 +1,5 @@
-typedef unsigned char uint8_t;
-typedef unsigned int  unint16_t;
+// typedef unsigned char uint8_t;
+// typedef unsigned int  unint16_t;
 
 /* print buffer to stdio */
 void printBuffer(unsigned char *buffer, int size);
@@ -24,8 +24,8 @@ int addSmiCrc(unsigned char *buffer, int size);
 void addSwbCrc(unsigned char *buffer, int size);
 /* create response of received message */
 void createSwbAck(unsigned char *buffer, int size);
-/* creates SWB crc16 */
-unint16_t createSwbCRC(unsigned char *buffer, int size);
+// /* creates SWB crc16 */
+// unint16_t createSwbCRC(unsigned char *buffer, int size);
 
 /* extract post data */
 int getPostData(unsigned char *buffer, int size);

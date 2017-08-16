@@ -416,25 +416,25 @@ int main( int argc, char* argv[] ) {
 
 }
 
-/* creates SWB crc16 */
-unint16_t  createSwbCrc(unsigned char *buffer, int size) {
-	unint16_t crc = 0xffff;    // preset CRC
-	unint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
-	int i,j;
-
-	for (i=0; i < size-2; i++){
-		crc = crc ^ buffer[i];
-		for (j=0; j<8; j++){
-			if((crc & 0x01) == 0){
-				crc = crc >> 1;
-			} else {
-				crc = crc >> 1;
-				crc = crc ^ CRC;
-			}
-		}
-	}
- return ~crc;
-}
+// /* creates SWB crc16 */
+// unint16_t  createSwbCrc(unsigned char *buffer, int size) {
+// 	unint16_t crc = 0xffff;    // preset CRC
+// 	unint16_t CRC = 0x8408;    // for reverse calculation of CRC-16-CCITT
+// 	int i,j;
+//
+// 	for (i=0; i < size-2; i++){
+// 		crc = crc ^ buffer[i];
+// 		for (j=0; j<8; j++){
+// 			if((crc & 0x01) == 0){
+// 				crc = crc >> 1;
+// 			} else {
+// 				crc = crc >> 1;
+// 				crc = crc ^ CRC;
+// 			}
+// 		}
+// 	}
+//  return ~crc;
+// }
 
 /* display buffer in hex-format to stdout */
 void printBuffer(unsigned char *buffer, int size) {
