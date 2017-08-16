@@ -10,7 +10,7 @@
 // #include <sys/types.h>		/* ?? */
 // #include <sys/stat.h>		/* ?? */
 // #include <sys/time.h>		/* ?? */
-// #include <linux/serial.h>	/* custom divisor */
+#include <linux/serial.h>	/* custom divisor */
 
 #include "types.h"				/* type definitions */
 #include "swb-serial.h"			/* own functions */
