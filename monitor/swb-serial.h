@@ -7,7 +7,7 @@
 // typedef unsigned int  unint16_t;
 
 /* print buffer to stdio */
-// void printSwbBuffer(unsigned char *buffer, int size);
+void printSwbBuffer(unsigned char *buffer, int size);
 // /* open ports to Switch-bus (SWB) */
 // int openSwbPortDiv (char *port, int divisor);
 // /* display buffer in hex-format to stdout */
