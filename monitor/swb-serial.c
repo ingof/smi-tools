@@ -33,21 +33,21 @@ unint16_t  createSwbCrc(unsigned char *buffer, int size) {
 	}
  return ~crc;
 }
-//
-// /* display swbBuffer in hex-format to stdout */
-// void printSwbBuffer(unsigned char *buffer, int size) {
-// 	printf("  (%d ",size);
-// 	int x;
-// 	char c2;
-// 	for (x = 0; x < (size) ; x++)
-// 	{
-// 		c2 = buffer[x];
-// 		printf("%02X.",c2);
-// 	}
-// 	printf(")");
-// 	fflush(stdout); // Will now print everything in the stdout buffer
-// }
-//
+
+/* display swbBuffer in hex-format to stdout */
+void printSwbBuffer(unsigned char *buffer, int size) {
+	printf("  (%d ",size);
+	int x;
+	char c2;
+	for (x = 0; x < (size) ; x++)
+	{
+		c2 = buffer[x];
+		printf("%02X.",c2);
+	}
+	printf(")");
+	fflush(stdout); // Will now print everything in the stdout buffer
+}
+
 // /* create response of received message */
 // void createSwbAck(unsigned char *buffer, int size) {
 // 	// fix for short messages:
@@ -64,18 +64,18 @@ unint16_t  createSwbCrc(unsigned char *buffer, int size) {
 // 	// display generated acknolegde
 // 	printSwbBuffer(buffer, size);
 // }
-//
-// /* add the crc to an existing message */
-// void addSwbCrc(unsigned char *buffer, int size) {
-// 	buffer[size]=0;
-// 	buffer[size+1]=0;
-// 	// printBuffer(buffer, size);
-// 	int crc=createSwbCrc(buffer, size);
-// 	buffer[size]=(uint8_t) crc;
-// 	buffer[size+1]=(uint8_t) (crc>>8);
-// 	// printBuffer(buffer, size+2);
-// }
-//
+
+/* add the crc to an existing message */
+void addSwbCrc(unsigned char *buffer, int size) {
+	buffer[size]=0;
+	buffer[size+1]=0;
+	// printBuffer(buffer, size);
+	int crc=createSwbCrc(buffer, size);
+	buffer[size]=(uint8_t) crc;
+	buffer[size+1]=(uint8_t) (crc>>8);
+	// printBuffer(buffer, size+2);
+}
+
 // /* check SwitchBus crc-16 */
 // int  checkSwbCrc(unsigned char *buffer, int size) {
 // 	int crc=createSwbCrc(buffer, size);

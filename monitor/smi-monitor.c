@@ -470,16 +470,16 @@ void createSwbAck(unsigned char *buffer, int size) {
 	printBuffer(buffer, size);
 }
 
-/* add the crc to an existing message */
-void addSwbCrc(unsigned char *buffer, int size) {
-	buffer[size]=0;
-	buffer[size+1]=0;
-	// printBuffer(buffer, size);
-	int crc=createSwbCrc(buffer, size);
-	buffer[size]=(uint8_t) crc;
-	buffer[size+1]=(uint8_t) (crc>>8);
-	// printBuffer(buffer, size+2);
-}
+// /* add the crc to an existing message */
+// void addSwbCrc(unsigned char *buffer, int size) {
+// 	buffer[size]=0;
+// 	buffer[size+1]=0;
+// 	// printBuffer(buffer, size);
+// 	int crc=createSwbCrc(buffer, size);
+// 	buffer[size]=(uint8_t) crc;
+// 	buffer[size+1]=(uint8_t) (crc>>8);
+// 	// printBuffer(buffer, size+2);
+// }
 
 /* check SwitchBus crc-16 */
 int  checkSwbCrc(unsigned char *buffer, int size) {

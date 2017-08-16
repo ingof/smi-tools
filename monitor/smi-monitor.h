@@ -21,8 +21,8 @@ int checkSmiCrc(unsigned char *buffer, int size);
 int addSmiCrc(unsigned char *buffer, int size);
 /* add the crc to an existing message */
 
-void addSwbCrc(unsigned char *buffer, int size);
-/* create response of received message */
+// void addSwbCrc(unsigned char *buffer, int size);
+// /* create response of received message */
 void createSwbAck(unsigned char *buffer, int size);
 // /* creates SWB crc16 */
 // unint16_t createSwbCRC(unsigned char *buffer, int size);
