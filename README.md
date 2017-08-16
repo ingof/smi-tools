@@ -49,6 +49,36 @@ hex-monitor 19200 /dev/ttyUSB0 5
 now can see the all received data as hexdata
 
 
+monitor data on the smi-bus and swb-bus:
+----------------------------------------
+**Syntax:** smi-monitor [serialSwbPort0] [serialSwbWait] [serialSwbDivisor] [serialSwbAck] [serialSmi-port0] [serialSmiWait]<br>
+* **optional:** serialSwbPort0<br>
+This is the serial-port for the SwitchBus (19200 Bit/s)
+default is /dev/ttySWB0
+* **optional:** serialSwbWait<br>
+the time to receive a whole SWB telegram
+default is 3 (ms)
+* **optional:** serialSwbDivisor<br>
+This is the divisor for special Baudrates
+default is 0
+* **optional:** serialSwbAck<br>
+If set to 1 SWB-telegrams will automatically achnowlegded. Must set if smi-monitor will be the Busmaster.
+default is 0
+* **optional:** serialSmi-port0<br>
+default is /dev/ttySMI0
+The serial-port for the SMI-Bus (2400 Bit/s)
+* **optional:** serialSmiWait<br>
+default is 10 (ms)
+
+
+**example:**<br>
+log on /dev/ttyUSB0 (3ms wait, 19200Bit/s, master) and on /dev/ttyUSB1 (13ms wait)
+```
+smi-monitor /dev/ttyUSB0 3 0 1 /dev/ttyUSB1 40
+```
+now can see the all received data as hexdata
+
+
 Clone git repository compile and install
 ----------------------------------------
 ```
