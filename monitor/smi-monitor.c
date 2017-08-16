@@ -12,9 +12,10 @@
 #include <linux/serial.h>	/* custom divisor */
 
 #include "types.h"			/* type definitions */
+#include "swb-serial.h"		/* swb-bus functions */
+
 #include "smi-monitor.h"	/* own funcions */
 
-#include "swb-serial.h"		/* swb-bus functions */
 
 #include<netinet/in.h>		/* web server */
 #include<sys/socket.h>		/* web server */
