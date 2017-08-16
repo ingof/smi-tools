@@ -1,15 +1,7 @@
 #include <stdio.h>			/* Standard input/output definitions */
-// #include <string.h>			/* String function definitions */
-// #include <unistd.h>			/* UNIX standard function definitions */
 #include <fcntl.h>			/* File control definitions */
-// #include <errno.h>			/* Error number definitions */
 #include <termios.h>		/* POSIX terminal control definitions */
-// #include <stdlib.h>			/* converting functions */
 #include <sys/ioctl.h>		/* ioctl() */
-// #include "smi-monitor.h"	/* own funcions */
-// #include <sys/types.h>		/* ?? */
-// #include <sys/stat.h>		/* ?? */
-// #include <sys/time.h>		/* ?? */
 #include <linux/serial.h>	/* custom divisor */
 
 #include "types.h"				/* type definitions */
@@ -88,7 +80,6 @@ int  checkSwbCrc(unsigned char *buffer, int size) {
 	}
 	return 0;
 }
-
 
 /* open port to Switch-bus (SWB) */
 int openSwbPort (char *port) {
