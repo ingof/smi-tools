@@ -48,22 +48,22 @@ void printSwbBuffer(unsigned char *buffer, int size) {
 	fflush(stdout); // Will now print everything in the stdout buffer
 }
 
-// /* create response of received message */
-// void createSwbAck(unsigned char *buffer, int size) {
-// 	// fix for short messages:
-// 	if (size==6) size++;
-// 	// clear switch-byte
-// 	buffer[size-3]=0;
-// 	// clear old crc
-// 	buffer[size-2]=0;
-// 	buffer[size-1]=0;
-// 	// display old message
-// 	int crc=createSwbCrc(buffer, size);
-// 	buffer[size-2]=(uint8_t) crc;
-// 	buffer[size-1]=(uint8_t) (crc>>8);
-// 	// display generated acknolegde
-// 	printSwbBuffer(buffer, size);
-// }
+/* create response of received message */
+void createSwbAck(unsigned char *buffer, int size) {
+	// fix for short messages:
+	if (size==6) size++;
+	// clear switch-byte
+	buffer[size-3]=0;
+	// clear old crc
+	buffer[size-2]=0;
+	buffer[size-1]=0;
+	// display old message
+	int crc=createSwbCrc(buffer, size);
+	buffer[size-2]=(uint8_t) crc;
+	buffer[size-1]=(uint8_t) (crc>>8);
+	// display generated acknolegde
+	printSwbBuffer(buffer, size);
+}
 
 /* add the crc to an existing message */
 void addSwbCrc(unsigned char *buffer, int size) {

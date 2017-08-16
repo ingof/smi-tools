@@ -18,8 +18,8 @@ void printSwbBuffer(unsigned char *buffer, int size);
 
 void addSwbCrc(unsigned char *buffer, int size);
 
-// /* create response of received message */
-// void createSwbAck(unsigned char *buffer, int size);
+/* create response of received message */
+void createSwbAck(unsigned char *buffer, int size);
 
 /* creates SWB crc16 */
 unint16_t createSwbCRC(unsigned char *buffer, int size);
