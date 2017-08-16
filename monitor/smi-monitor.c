@@ -22,6 +22,9 @@
 #include<sys/types.h>		/* web server */
 #include<unistd.h>			/* web server */
 
+#include "smi-monitor.c"	/* own funcions */
+
+
 
 int smiCmd=0;
 int smiId=0;
