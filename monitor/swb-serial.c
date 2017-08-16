@@ -34,19 +34,19 @@ unint16_t  createSwbCrc(unsigned char *buffer, int size) {
  return ~crc;
 }
 
-/* display swbBuffer in hex-format to stdout */
-void printSwbBuffer(unsigned char *buffer, int size) {
-	printf("  (%d ",size);
-	int x;
-	char c2;
-	for (x = 0; x < (size) ; x++)
-	{
-		c2 = buffer[x];
-		printf("%02X.",c2);
-	}
-	printf(")");
-	fflush(stdout); // Will now print everything in the stdout buffer
-}
+// /* display swbBuffer in hex-format to stdout */
+// void printSwbBuffer(unsigned char *buffer, int size) {
+// 	printf("  (%d ",size);
+// 	int x;
+// 	char c2;
+// 	for (x = 0; x < (size) ; x++)
+// 	{
+// 		c2 = buffer[x];
+// 		printf("%02X.",c2);
+// 	}
+// 	printf(")");
+// 	fflush(stdout); // Will now print everything in the stdout buffer
+// }
 
 // /* create response of received message */
 // void createSwbAck(unsigned char *buffer, int size) {
