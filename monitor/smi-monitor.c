@@ -6,18 +6,21 @@
 #include <termios.h>		/* POSIX terminal control definitions */
 #include <stdlib.h>			/* converting functions */
 #include <sys/ioctl.h>		/* ioctl() */
-#include "smi-monitor.h"	/* own funcions */
 #include <sys/types.h>		/* ?? */
 #include <sys/stat.h>		/* ?? */
 #include <sys/time.h>		/* ?? */
 #include <linux/serial.h>	/* custom divisor */
 
-/* web server */
-#include<netinet/in.h>
-#include<sys/socket.h>
-#include<sys/stat.h>
-#include<sys/types.h>
-#include<unistd.h>
+#include "types.h"			/* type definitions */
+#include "smi-monitor.h"	/* own funcions */
+
+#include "swb-serial.h"		/* swb-bus functions */
+
+#include<netinet/in.h>		/* web server */
+#include<sys/socket.h>		/* web server */
+#include<sys/stat.h>		/* web server */
+#include<sys/types.h>		/* web server */
+#include<unistd.h>			/* web server */
 
 int smiCmd=0;
 int smiId=0;
