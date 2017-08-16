@@ -3,10 +3,10 @@
 
 /* print buffer to stdio */
 void printBuffer(unsigned char *buffer, int size);
-/* open ports to Switch-bus (SWB) */
-int openSwbPortDiv (char *port, int divisor);
-/* display buffer in hex-format to stdout */
-int openSwbPort (char *port);
+// /* open ports to Switch-bus (SWB) */
+// int openSwbPortDiv (char *port, int divisor);
+// /* display buffer in hex-format to stdout */
+// int openSwbPort (char *port);
 
 /* nonblocking for network socket */
 int setNonblocking(int fd);
