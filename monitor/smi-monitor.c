@@ -22,7 +22,6 @@
 #include<sys/types.h>		/* web server */
 #include<unistd.h>			/* web server */
 
-#include "swb-monitor.c"
 
 int smiCmd=0;
 int smiId=0;
