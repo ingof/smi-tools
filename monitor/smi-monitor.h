@@ -13,8 +13,8 @@ int setNonblocking(int fd);
 
 /* open port to smi-bus */
 int openSmiPort (char *port);
-/* check swb crc */
-int checkSwbCrc(unsigned char *buffer, int size);
+// /* check swb crc */
+// int checkSwbCrc(unsigned char *buffer, int size);
 /* check smi checksum */
 int checkSmiCrc(unsigned char *buffer, int size);
 /* add the cheksum byte to the buffer and returns number of cheksum bytes */

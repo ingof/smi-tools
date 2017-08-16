@@ -480,18 +480,18 @@ void printBuffer(unsigned char *buffer, int size) {
 // 	buffer[size+1]=(uint8_t) (crc>>8);
 // 	// printBuffer(buffer, size+2);
 // }
-
-/* check SwitchBus crc-16 */
-int  checkSwbCrc(unsigned char *buffer, int size) {
-	int crc=createSwbCrc(buffer, size);
-	if (buffer[size-2]!=(uint8_t) crc) {
-		return -1;
-	}
-	if (buffer[size-1]!=(uint8_t) (crc>>8)) {
-		return -2;
-	}
-	return 0;
-}
+// 
+// /* check SwitchBus crc-16 */
+// int  checkSwbCrc(unsigned char *buffer, int size) {
+// 	int crc=createSwbCrc(buffer, size);
+// 	if (buffer[size-2]!=(uint8_t) crc) {
+// 		return -1;
+// 	}
+// 	if (buffer[size-1]!=(uint8_t) (crc>>8)) {
+// 		return -2;
+// 	}
+// 	return 0;
+// }
 
 /* check SMI-Bus checksum */
 int checkSmiCrc(unsigned char *buffer, int size) {

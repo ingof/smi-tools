@@ -14,6 +14,7 @@
 
 #include "types.h"				/* type definitions */
 #include "swb-serial.h"			/* own functions */
+
 /* creates SWB crc16 */
 unint16_t  createSwbCrc(unsigned char *buffer, int size) {
 	unint16_t crc = 0xffff;    // preset CRC
@@ -76,18 +77,18 @@ void addSwbCrc(unsigned char *buffer, int size) {
 	// printBuffer(buffer, size+2);
 }
 
-// /* check SwitchBus crc-16 */
-// int  checkSwbCrc(unsigned char *buffer, int size) {
-// 	int crc=createSwbCrc(buffer, size);
-// 	if (buffer[size-2]!=(uint8_t) crc) {
-// 		return -1;
-// 	}
-// 	if (buffer[size-1]!=(uint8_t) (crc>>8)) {
-// 		return -2;
-// 	}
-// 	return 0;
-// }
-//
+/* check SwitchBus crc-16 */
+int  checkSwbCrc(unsigned char *buffer, int size) {
+	int crc=createSwbCrc(buffer, size);
+	if (buffer[size-2]!=(uint8_t) crc) {
+		return -1;
+	}
+	if (buffer[size-1]!=(uint8_t) (crc>>8)) {
+		return -2;
+	}
+	return 0;
+}
+
 //
 // /* open port to Switch-bus (SWB) */
 // int openSwbPort (char *port) {
