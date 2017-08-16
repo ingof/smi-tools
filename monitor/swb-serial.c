@@ -5,7 +5,7 @@
 // #include <errno.h>			/* Error number definitions */
 #include <termios.h>		/* POSIX terminal control definitions */
 // #include <stdlib.h>			/* converting functions */
-// #include <sys/ioctl.h>		/* ioctl() */
+#include <sys/ioctl.h>		/* ioctl() */
 // #include "smi-monitor.h"	/* own funcions */
 // #include <sys/types.h>		/* ?? */
 // #include <sys/stat.h>		/* ?? */
