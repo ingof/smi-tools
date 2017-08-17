@@ -467,14 +467,14 @@ int getPostData(unsigned char *buffer, int size) {
 	char *tokenName;
 	char *tokenValue;
 	// char *word="\r\n\r\n";
-	unsigned char *word="Referer:";
+	char *word="Referer:";
 	char *postStart;
 	printBuffer(buffer, size);
 	printBufferAscii(buffer, size);
 	//TODO check header
 
 	/* find end of header */
-	postStart = strstr(buffer,word);
+	postStart = strstr(buffer,*(uint8_t*)&word);
 
 	/* remove "end of header" marker */
 	token=strsep(&postStart,"\n");
