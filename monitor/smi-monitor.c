@@ -492,6 +492,7 @@ int getPostData(unsigned char *buffer, int size) {
 		tokenName=strsep(&token,"=");
 		tokenValue=strsep(&token,"=");
 		printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
+		printf(".");
 		if ((tokenName != NULL) && (tokenValue != NULL)) {
 			printf("\n1");
 			if (strcmp(tokenName,"cmd")==0) {
