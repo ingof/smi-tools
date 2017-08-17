@@ -79,7 +79,7 @@ int main(void) {
        buffer[0]= 0xf0;
        buffer[1]= 0x24;
        buffer[2]= 0xd3;
-       buffer[3]= 0x81;
+       buffer[3]= 0x01;
        buffer[4]= j;
 
        num = ~checkSum(buffer,5);    // Komplement der CRC
