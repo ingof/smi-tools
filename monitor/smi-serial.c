@@ -12,6 +12,12 @@
 // #include <sys/time.h>		/* ?? */
 // #include <linux/serial.h>	/* custom divisor */
 
+#include <fcntl.h>			/* File control definitions */
+#include <termios.h>		/* POSIX terminal control definitions */
+//#include <sys/ioctl.h>		/* ioctl() */
+#include <linux/serial.h>	/* custom divisor */
+
+
 #include "smi-serial.h"		/* own functions */
 
 
