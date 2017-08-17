@@ -565,7 +565,7 @@ int getPostData(unsigned char *buffer, int size, int count) {
 			perror("no token found");
 		}
 	}
-	printf("\n\033[36m%6d.%03d WWW: ID:%02X GR:%02X CM:%02X",count/2000,(count/2)%1000,smiId,smiGrp,smiCmd);
+	printf("\n\033[36m%6d.%03d WWW: ID:%02X GR:%02X CM:%02X\033[36m",count/2000,(count/2)%1000,smiId,smiGrp,smiCmd);
 	// printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
 	fflush(stdout);
 	return 0;
