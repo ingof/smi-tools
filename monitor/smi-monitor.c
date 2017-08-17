@@ -505,13 +505,13 @@ int getPostData(unsigned char *buffer, int size) {
 	printBuffer(buffer, size);
 	printBufferAscii(buffer, size);
 	//TODO check header
-	printf(".");
-	char string[] = {"Ein Teststring mit Worten"};
-	printf(".");
-	printf("%s\n",strchr(string, (int)'W'));
-	printf(".");
-	printf("%s\n",strchr(string, (int)'T'));
-	printf(".");
+	// printf(".");
+	// char string[] = {"Ein Teststring mit Worten"};
+	// printf(".");
+	// printf("%s\n",strchr(string, (int)'W'));
+	// printf(".");
+	// printf("%s\n",strchr(string, (int)'T'));
+	// printf(".");
 
 
 	/* find end of header */
@@ -534,7 +534,7 @@ int getPostData(unsigned char *buffer, int size) {
 		tokenValue=strsep(&token,"=");
 		printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
 		printf(".");
-		// if ((tokenName != NULL) && (tokenValue != NULL)) {
+		if ((tokenName != NULL) && (tokenValue != NULL)) {
 		// if ((tokenName != "") && (tokenValue != "")) {
 			printf("\n1");
 			if (strcmp(tokenName,"cmd")==0) {
@@ -559,9 +559,9 @@ int getPostData(unsigned char *buffer, int size) {
 				if (smiGrp<0) smiGrp=0;
 			}
 			printf("\n4\n\n");
-		// } else {
-		// 	perror("no token found");
-		// }
+		} else {
+			perror("no token found");
+		}
 	}
 	printf("id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
 	fflush(stdout);
