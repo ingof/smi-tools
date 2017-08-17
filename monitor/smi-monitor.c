@@ -520,8 +520,8 @@ int getPostData(unsigned char *buffer, int size) {
 	/* remove "end of header" marker */
 	// token=strsep(&postStart,"\n");
 	// token=strsep(&postStart,"\n");
-	printf("\nTOKENS:");
-	printf("Size: (%d) PostStart:{%s}\n",size,&postStart[0]);
+	// printf("\nTOKENS:");
+	// printf("Size: (%d) PostStart:{%s}\n",size,&postStart[0]);
 
 	/* clear old values */
 	smiCmd=0;
