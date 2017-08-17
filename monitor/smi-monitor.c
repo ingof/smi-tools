@@ -147,7 +147,7 @@ int main( int argc, char* argv[] ) {
 	tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
 	if (tmpBind== 0) {
 		printf("addrlen; %d\n", addrlen);
-		printf("address; %d\n", address);
+		printf("address; %d\n", (int)address);
 		printf("Binding Socket %d\n",tmpBind);
 	} else perror("webserver bind");
 
@@ -178,7 +178,7 @@ int main( int argc, char* argv[] ) {
 					perror("webserver accept");
 					printf("%d \n",new_socket);
 					printf("addrlen: %d", clientaddrlen);
-					printf("address: %d", clientaddress);
+					printf("address: %d", (int) clientaddress);
 					exit(1);
 				}
 			} else { // data available
