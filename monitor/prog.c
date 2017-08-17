@@ -30,5 +30,5 @@ int main( int argc, char* argv[] ) {
 	printf(".");
 	printf("%s\n",strchr(string, (int)'T'));
 	printf(".");
-
+	return 0;
 }
