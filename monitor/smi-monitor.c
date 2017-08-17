@@ -187,7 +187,7 @@ int main( int argc, char* argv[] ) {
 
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			// printf("%s*ENDE*", bufferHTTP);
-			getPostData((char) bufferHTTP,bufsize);
+			getPostData(bufferHTTP,bufsize);
 			// printBuffer(bufferHTTP,bufsize);
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\r\n", 17);
