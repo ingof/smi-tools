@@ -430,6 +430,20 @@ void printBuffer(unsigned char *buffer, int size) {
 	fflush(stdout); // Will now print everything in the stdout buffer
 }
 
+/* display buffer in ASCII to stdout */
+void printBufferAscii(unsigned char *buffer, int size) {
+	printf("  (%d ",size);
+	int x;
+	char c2;
+	for (x = 0; x < (size) ; x++)
+	{
+		c2 = buffer[x];
+		putchar(c2);
+	}
+	printf(")");
+	fflush(stdout); // Will now print everything in the stdout buffer
+}
+
 
 int setNonblocking(int fd)
 {
@@ -455,6 +469,7 @@ int getPostData(unsigned char *buffer, int size) {
 	char *word="\r\n\r\n";
 	char *postStart;
 	printBuffer(buffer, size);
+	printBufferAscii(buffer, size);
 	//TODO check header
 
 	/* find end of header */
@@ -464,7 +479,7 @@ int getPostData(unsigned char *buffer, int size) {
 	token=strsep(&postStart,"\n");
 	token=strsep(&postStart,"\n");
 	printf("\nTOKENS:");
-	printf("PostStart:{%s}\n",&postStart[4]);
+	printf("Size: (%d) PostStart:{%s}\n",size,&postStart[4]);
 
 	/* clear old values */
 	smiCmd=0;
