@@ -444,6 +444,18 @@ void printBufferAscii(unsigned char *buffer, int size) {
 	fflush(stdout); // Will now print everything in the stdout buffer
 }
 
+// /* display buffer in ASCII to stdout */
+// void printBufferLine(unsigned char *buffer, int size) {
+// 	int x;
+// 	char[] c2;
+// 	for (x = 0; x < (size) ; x++)
+// 	{
+// 		c2[x] = buffer[x];
+// 		putchar(c2);
+// 	}
+// 	printf(")");
+// 	fflush(stdout); // Will now print everything in the stdout buffer
+// }
 
 int setNonblocking(int fd)
 {
@@ -461,6 +473,27 @@ int setNonblocking(int fd)
     return ioctl(fd, FIOBIO, &flags);
 #endif
 }
+
+// void parseFirstLine(string line)
+// {
+//
+//     string key = "";
+//     string value = "";
+//     int  position, lpost;
+//
+//     // Find request type
+//     position = line.find(' ');
+//     printf"Type: %s",line.substr(0, position));
+//     position++; //Skip character ' '
+//
+//     // Find path
+//     position = line.find(' ', lpost);
+//     http_request[ "Path" ] = line.substr(lpost, (position-lpost));
+//     position++; //Skip character ' '
+//
+//     // Find HTTP version
+//     http_request[ "Version" ] = line.substr(position);
+// }
 
 int getPostData(unsigned char *buffer, int size) {
 	char *token;
@@ -489,6 +522,11 @@ int getPostData(unsigned char *buffer, int size) {
 
 	/* extract each posted data pair */
 	while ((token=strsep(&postStart,"&")) != NULL) {
+		char string[] = "Ein Teststring mit Worten";
+		printf("%s\n",strchr(string, (int)'W'));
+		printf("%s\n",strchr(string, (int)'T'));
+
+
 		tokenName=strsep(&token,"=");
 		tokenValue=strsep(&token,"=");
 		printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
