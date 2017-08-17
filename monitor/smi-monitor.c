@@ -83,326 +83,337 @@ int main( int argc, char* argv[] ) {
 	int tmpListen;
 	int tmpBind;
 
-	/* first parameter is serialSwb0Port*/
-	if (argc > 1) {
-		serialSwbPort=argv[1];
-	} else {
-		serialSwbPort=serialSwb0Port;
-	}
-	/* second parameter is serialSwbWait in ms*/
-	if (argc > 2) {
-		serialSwbWait=atoi(argv[2]);
-	}
-	/* third parameter is serialSwbDivisor*/
-	if (argc > 3) {
-		serialSwbDivisor=atoi(argv[3]);
-	}
-	/* fourth parameter is serialSwbAck*/
-	if (argc > 4) {
-		serialSwbAck=atoi(argv[4]);
-	}
-	/* fifth parameter is serialSmi0Port*/
-	if (argc > 5) {
-		serialSmiPort=argv[5];
-	} else {
-		serialSmiPort=serialSmi0Port;
-	}
-	/* sixt parameter is serialSmiWait in ms*/
-	if (argc > 6) {
-		serialSmiWait=atoi(argv[6]);
-	}
-
-	fdSwb=openSwbPortDiv(serialSwbPort, serialSwbDivisor);
-	printf(serialSwbPort);
-	if (fdSwb==-1) {
-		perror("\tUnable to open serial SWB-port ");
-	} else {
-		if (serialSwbDivisor>0) {
-			printf("\tSWB: Custom 8N2 (%dms /%d",serialSwbWait,serialSwbDivisor);
-		} else  {
-			printf("\tSWB: 19.200 8N2 (%dms",serialSwbWait);
+	/* set program parameter */
+	{
+		/* first parameter is serialSwb0Port*/
+		if (argc > 1) {
+			serialSwbPort=argv[1];
+		} else {
+			serialSwbPort=serialSwb0Port;
 		}
-			if (serialSwbAck==1) printf(" Ack");
-			printf(")\n");
-	}
+		/* second parameter is serialSwbWait in ms*/
+		if (argc > 2) {
+			serialSwbWait=atoi(argv[2]);
+		}
+		/* third parameter is serialSwbDivisor*/
+		if (argc > 3) {
+			serialSwbDivisor=atoi(argv[3]);
+		}
+		/* fourth parameter is serialSwbAck*/
+		if (argc > 4) {
+			serialSwbAck=atoi(argv[4]);
+		}
+		/* fifth parameter is serialSmi0Port*/
+		if (argc > 5) {
+			serialSmiPort=argv[5];
+		} else {
+			serialSmiPort=serialSmi0Port;
+		}
+		/* sixt parameter is serialSmiWait in ms*/
+		if (argc > 6) {
+			serialSmiWait=atoi(argv[6]);
+		}
+	} /* set program paramter */
 
-	fdSmi=openSmiPort(serialSmiPort);
-	printf(serialSmiPort);
-	if (fdSmi==-1) {
-		perror("\tUnable to open serial SMI-port ");
-	} else {
-		printf("\tSMI:  2.400 8N1 (%dms)\n",serialSmiWait);
-	}
+	/* open and initialize communications channel */
+	{
+		fdSwb=openSwbPortDiv(serialSwbPort, serialSwbDivisor);
+		printf(serialSwbPort);
+		if (fdSwb==-1) {
+			perror("\tUnable to open serial SWB-port ");
+		} else {
+			if (serialSwbDivisor>0) {
+				printf("\tSWB: Custom 8N2 (%dms /%d",serialSwbWait,serialSwbDivisor);
+			} else  {
+				printf("\tSWB: 19.200 8N2 (%dms",serialSwbWait);
+			}
+				if (serialSwbAck==1) printf(" Ack");
+				printf(")\n");
+		}
 
-	/* webserver */
-	if ((mySocket = socket(AF_INET, SOCK_STREAM, 0)) > 0) {
-		printf("The socket was created:\n");
-	}
+		fdSmi=openSmiPort(serialSmiPort);
+		printf(serialSmiPort);
+		if (fdSmi==-1) {
+			perror("\tUnable to open serial SMI-port ");
+		} else {
+			printf("\tSMI:  2.400 8N1 (%dms)\n",serialSmiWait);
+		}
 
-	address.sin_family = AF_INET;
-	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(8081);
+		/* webserver */
+		if ((mySocket = socket(AF_INET, SOCK_STREAM, 0)) > 0) {
+			printf("The socket was created:\n");
+		}
 
-	tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
-	if (tmpBind== 0) {
-		// printf("addrlen; %d\n", addrlen);
-		// printf("address; %d\n", (int) address);
-		printf("Binding Socket %d\n",tmpBind);
-	} else perror("webserver bind");
+		address.sin_family = AF_INET;
+		address.sin_addr.s_addr = INADDR_ANY;
+		address.sin_port = htons(8081);
 
-	perror(".");
+		tmpBind=bind(mySocket, (struct sockaddr *) &address, sizeof(address)) ;
+		if (tmpBind== 0) {
+			// printf("addrlen; %d\n", addrlen);
+			// printf("address; %d\n", (int) address);
+			printf("Binding Socket %d\n",tmpBind);
+		} else perror("webserver bind");
+	} /* open and initialize communications channel */
+
 	/* endless-loop */
 	for (loop=0; ;loop++) {
 		if (loop>=0x80000000) loop=0;
 
+		/* Web-Server */
+		{
+			tmpListen=listen(mySocket, 10);
+			if (tmpListen < 0) {
+				perror("webserver listen:");
+				printf(" %d\n",tmpListen);
+				exit(1);
+			}
 
-		/* web server */
-		tmpListen=listen(mySocket, 10);
-		if (tmpListen < 0) {
-			perror("webserver listen:");
-			printf(" %d\n",tmpListen);
-			exit(1);
-		}
+			setNonblocking(mySocket);
+			clientaddrlen = sizeof( (struct sockaddr *) &clientaddress);
 
-		setNonblocking(mySocket);
-		clientaddrlen = sizeof( (struct sockaddr *) &clientaddress);
-
-		if ((new_socket = accept(mySocket, (struct sockaddr *) &clientaddress, &clientaddrlen)) < 0) {
-				if (errno == EAGAIN) { // no data available
-				} else {
-					perror("webserver accept");
-					printf("%d \n",new_socket);
-					exit(1);
+			if ((new_socket = accept(mySocket, (struct sockaddr *) &clientaddress, &clientaddrlen)) < 0) {
+					if (errno == EAGAIN) { // no data available
+					} else {
+						perror("webserver accept");
+						printf("%d \n",new_socket);
+						exit(1);
+					}
+				} else { // data available
+				if (new_socket <= 0){
+					perror("webserver connect:");
 				}
-			} else { // data available
-			if (new_socket <= 0){
-				perror("webserver connect:");
+				/* receive headder */
+				// memset(bufferHTTP, 0, bufsize);
+				// fill_n(bufferHTTP, 0, bufsize);
+				for (loop2=0;loop2<bufsize;loop2++) {
+					bufferHTTP[loop2]=0;
+				}
+
+				recv(new_socket, bufferHTTP, bufsize, 0);
+				// printf("%s*ENDE*", bufferHTTP);
+				getPostData(bufferHTTP,bufsize);
+				// printBuffer(bufferHTTP,bufsize);
+				/* send response */
+				write(new_socket, "HTTP/1.1 200 OK\r\n", 17);
+				write(new_socket, "Content-length: 108\r\n", 21);
+				write(new_socket, "Content-Type: text/html\r\n\r\n", 27);
+				// write(new_socket, "200 OK\r\n",8);
+				write(new_socket, "<html>\r\n",8);
+				write(new_socket, " <body>\r\n",9);
+				write(new_socket, "  <h1>Found</h1>\r\n",18);
+				write(new_socket, "  <p>The requested URL was found on this server.</p>\r\n",54);
+				write(new_socket, " </body>\r\n",10);
+				write(new_socket, "</html>\r\n",9);
+
+				/* TODO: in PHP post-data will be send only after
+				receiving the 200-OK-Header. Add or use the second buffer only!
+				*/
+				// /* receive posted data */
+				// memset(bufferHTTP, 0, bufsize);
+				// recv(new_socket, bufferHTTP, bufsize, 0);
+				// printf("%s*ENDE*\n", bufferHTTP);
+				// printBuffer(bufferHTTP,bufsize);
+				// fflush(stdout);
+				/* close this socket */
+				close(new_socket);
+				smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
+				smiTxBuffer[1]= smiCmd & 0x0f;
+				smiTxSize=2;
+				// printBuffer(smiTxBuffer,smiTxSize);
+				smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
+				// printBuffer(smiTxBuffer,smiTxSize);
+				write(fdSmi,&smiTxBuffer,smiTxSize);
+				printf("\n SMI command sent\n");
 			}
-			/* receive headder */
-			// memset(bufferHTTP, 0, bufsize);
-			// fill_n(bufferHTTP, 0, bufsize);
-			for (loop2=0;loop2<bufsize;loop2++) {
-				bufferHTTP[loop2]=0;
-			}
-
-			recv(new_socket, bufferHTTP, bufsize, 0);
-			// printf("%s*ENDE*", bufferHTTP);
-			getPostData(bufferHTTP,bufsize);
-			// printBuffer(bufferHTTP,bufsize);
-			/* send response */
-			write(new_socket, "HTTP/1.1 200 OK\r\n", 17);
-			write(new_socket, "Content-length: 108\r\n", 21);
-			write(new_socket, "Content-Type: text/html\r\n\r\n", 27);
-			// write(new_socket, "200 OK\r\n",8);
-			write(new_socket, "<html>\r\n",8);
-			write(new_socket, " <body>\r\n",9);
-			write(new_socket, "  <h1>Found</h1>\r\n",18);
-			write(new_socket, "  <p>The requested URL was found on this server.</p>\r\n",54);
-			write(new_socket, " </body>\r\n",10);
-			write(new_socket, "</html>\r\n",9);
-
-			/* TODO: in PHP post-data will be send only after
-			receiving the 200-OK-Header. Add or use the second buffer only!
-			*/
-			// /* receive posted data */
-			// memset(bufferHTTP, 0, bufsize);
-			// recv(new_socket, bufferHTTP, bufsize, 0);
-			// printf("%s*ENDE*\n", bufferHTTP);
-			// printBuffer(bufferHTTP,bufsize);
-			// fflush(stdout);
-			/* close this socket */
-			close(new_socket);
-			smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
-			smiTxBuffer[1]= smiCmd & 0x0f;
-			smiTxSize=2;
-			// printBuffer(smiTxBuffer,smiTxSize);
-			smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
-			// printBuffer(smiTxBuffer,smiTxSize);
-			write(fdSmi,&smiTxBuffer,smiTxSize);
-			printf("\n SMI command sent\n");
-		}
-
+		} /* Web-Server */
 
 		/* SWB-Bus */
-		IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
-		if (IOReturn<0) {
-			perror("ioctl(swb)");
-			if (actualSwbTimeout>0) actualSwbTimeout--;
-		}
+		{
 
-		if (IOReturn==0) {
-			if ((serialBytes==0)&&(actualSwbTimeout>0)) {
-				actualSwbTimeout--;
+			IOReturn=ioctl(fdSwb, FIONREAD, &serialBytes);
+			if (IOReturn<0) {
+				perror("ioctl(swb)");
+				if (actualSwbTimeout>0) actualSwbTimeout--;
 			}
-			if (serialBytes>0) {
-				// if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
-				// 	/* start receiving and reset timeout */
-				// 	actualSwbTimeout=serialSwbWait;
-				// }
-				if ((actualSwbTimeout>=0)&&(bufferSwbCount>=0)) {
-					/* start receiving and reset timeout */
-					actualSwbTimeout=serialSwbWait;
-				}
-				/* create temporary buffer for received Bytes */
-				bytesSwb = read(fdSwb, &tmpBuffer, serialBytes);
-				if (bytesSwb<0) {
-					perror("read(Swb)");
-				}
-				if (bytesSwb<=0) {
+
+			if (IOReturn==0) {
+				if ((serialBytes==0)&&(actualSwbTimeout>0)) {
 					actualSwbTimeout--;
 				}
-				if (bytesSwb>0) {
-					// memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
-					// strncpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
-					for (loop2=0;loop2<bytesSwb;loop2++) {
-						bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
+				if (serialBytes>0) {
+					// if ((actualSwbTimeout==0)&&(bufferSwbCount==0)) {
+					// 	/* start receiving and reset timeout */
+					// 	actualSwbTimeout=serialSwbWait;
+					// }
+					if ((actualSwbTimeout>=0)&&(bufferSwbCount>=0)) {
+						/* start receiving and reset timeout */
+						actualSwbTimeout=serialSwbWait;
 					}
-					bufferSwbCount+=bytesSwb;
-				}
-			}
-			/* stop receiving and print message */
-			if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
-				printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
-				for (x = 0; x < (bufferSwbCount-2) ; x++)
-				{
-					c = bufferSwb[x];
-					printf("%02X ",c);
-				}
-				// memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				// strncpy(tmp2Buf,bufferSwb,bufferSwbCount-2);
-				for (loop2=0;loop2<(bufferSwbCount-2);loop2++) {
-					tmp2Buf[loop2]=bufferSwb[loop2];
-				}
-
-
-				tmp2Siz=bufferSwbCount;
-				switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
-					case -2:
-						/* crc 2 not ok -> yellow */
-						printf("\033[1m");
-						tmp2Ret=-2;
-						break;
-					case -1:
-						/* crc 1 not ok -> red */
-						printf("\033[31m");
-						tmp2Ret=-1;
-						break;
-					default:
-						/* crc is ok -> green */
-						printf("\033[32m");
-						tmp2Ret=0;
-						break;
-				}
-				c = bufferSwb[bufferSwbCount-2];
-				printf("%02X ",c);
-				c = bufferSwb[bufferSwbCount-1];
-				printf("%02X ",c);
-
-				printf("\033[m");
-				bufferSwbCount=0;
-
-					if (tmp2Ret==0) {
-						if (serialSwbAck==1) {
-							createSwbAck(tmp2Buf,tmp2Siz); //
-							write(fdSwb,&tmp2Buf,tmp2Siz);
-							write(fdSwb,&tmp2Buf,7);
+					/* create temporary buffer for received Bytes */
+					bytesSwb = read(fdSwb, &tmpBuffer, serialBytes);
+					if (bytesSwb<0) {
+						perror("read(Swb)");
+					}
+					if (bytesSwb<=0) {
+						actualSwbTimeout--;
+					}
+					if (bytesSwb>0) {
+						// memcpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+						// strncpy(bufferSwb+bufferSwbCount, tmpBuffer, bytesSwb);
+						for (loop2=0;loop2<bytesSwb;loop2++) {
+							bufferSwb[bufferSwbCount+loop2]=tmpBuffer[loop2];
 						}
+						bufferSwbCount+=bytesSwb;
 					}
-					else {
-						tmp2Err++;
-						if (tmp2Err<=3) {
-						} else {
-							tmp2Err=0;
+				}
+				/* stop receiving and print message */
+				if ((actualSwbTimeout==0)&&(bufferSwbCount>0)) {
+					printf("\n%6d.%03d SWB: ",loop/2000,(loop/2)%1000);
+					for (x = 0; x < (bufferSwbCount-2) ; x++)
+					{
+						c = bufferSwb[x];
+						printf("%02X ",c);
+					}
+					// memmove(tmp2Buf,bufferSwb,bufferSwbCount-2);
+					// strncpy(tmp2Buf,bufferSwb,bufferSwbCount-2);
+					for (loop2=0;loop2<(bufferSwbCount-2);loop2++) {
+						tmp2Buf[loop2]=bufferSwb[loop2];
+					}
+
+
+					tmp2Siz=bufferSwbCount;
+					switch (checkSwbCrc(bufferSwb,bufferSwbCount)) {
+						case -2:
+							/* crc 2 not ok -> yellow */
+							printf("\033[1m");
+							tmp2Ret=-2;
+							break;
+						case -1:
+							/* crc 1 not ok -> red */
+							printf("\033[31m");
+							tmp2Ret=-1;
+							break;
+						default:
+							/* crc is ok -> green */
+							printf("\033[32m");
+							tmp2Ret=0;
+							break;
+					}
+					c = bufferSwb[bufferSwbCount-2];
+					printf("%02X ",c);
+					c = bufferSwb[bufferSwbCount-1];
+					printf("%02X ",c);
+
+					printf("\033[m");
+					bufferSwbCount=0;
+
+						if (tmp2Ret==0) {
 							if (serialSwbAck==1) {
-								printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m"); createSwbAck(tmp2Buf,tmp2Siz); //
+								createSwbAck(tmp2Buf,tmp2Siz); //
 								write(fdSwb,&tmp2Buf,tmp2Siz);
 								write(fdSwb,&tmp2Buf,7);
+							}
+						}
+						else {
+							tmp2Err++;
+							if (tmp2Err<=3) {
+							} else {
+								tmp2Err=0;
+								if (serialSwbAck==1) {
+									printf("\007\033[m\033[41m\033[1m   !  S T O P  !\033[40m\033[m"); createSwbAck(tmp2Buf,tmp2Siz); //
+									write(fdSwb,&tmp2Buf,tmp2Siz);
+									write(fdSwb,&tmp2Buf,7);
+							}
 						}
 					}
+					fflush(stdout); // Will now print everything in the stdout buffer
 				}
-				fflush(stdout); // Will now print everything in the stdout buffer
 			}
-		}
+		} /* SWB-Bus */
 
 		/* SMI-Bus */
-		IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
-		if (IOReturn<0) {
-			perror("ioctl(smi)");
-			if (actualSmiTimeout>0) actualSmiTimeout--;
-		}
-		if (IOReturn==0) {
-			/* no data -< */
-			if ((serialBytes==0)&&(actualSmiTimeout>0)) {
-				actualSmiTimeout--;
+		{
+			IOReturn=ioctl(fdSmi, FIONREAD, &serialBytes);
+			if (IOReturn<0) {
+				perror("ioctl(smi)");
+				if (actualSmiTimeout>0) actualSmiTimeout--;
 			}
-			/* copy received data to buffer */
-			if (serialBytes>0) {
-				if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
-					/* start receiving and reset timeout */
-					actualSmiTimeout=serialSmiWait;
-				}
-				if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
-					/* start receiving and reset timeout */
-					actualSmiTimeout=serialSmiWait;
-				}
-				/* create temporary buffer for received Bytes */
-				int tmpBuffer[serialBytes];
-				bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
-				if (bytesSmi<0) {
-					perror("read(Smi)");
-				}
-				if (bytesSmi<=0) {
+			if (IOReturn==0) {
+				/* no data -< */
+				if ((serialBytes==0)&&(actualSmiTimeout>0)) {
 					actualSmiTimeout--;
 				}
-				if (bytesSmi>0) {
-					// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
-					for (loop2=0;loop2<bytesSmi;loop2++) {
-						bufferSmi[bufferSmiCount+loop2]=tmpBuffer[loop2];
+				/* copy received data to buffer */
+				if (serialBytes>0) {
+					if ((actualSmiTimeout==0)&&(bufferSmiCount==0)) {
+						/* start receiving and reset timeout */
+						actualSmiTimeout=serialSmiWait;
 					}
-					bufferSmiCount+=bytesSmi;
+					if ((actualSmiTimeout>=0)&&(bufferSmiCount>=0)) {
+						/* start receiving and reset timeout */
+						actualSmiTimeout=serialSmiWait;
+					}
+					/* create temporary buffer for received Bytes */
+					int tmpBuffer[serialBytes];
+					bytesSmi = read(fdSmi, &tmpBuffer, sizeof(tmpBuffer));
+					if (bytesSmi<0) {
+						perror("read(Smi)");
+					}
+					if (bytesSmi<=0) {
+						actualSmiTimeout--;
+					}
+					if (bytesSmi>0) {
+						// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+						for (loop2=0;loop2<bytesSmi;loop2++) {
+							bufferSmi[bufferSmiCount+loop2]=tmpBuffer[loop2];
+						}
+						bufferSmiCount+=bytesSmi;
+					}
+				}
+				/* stop receiving and print message */
+				if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
+					printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
+					for (x = 0; x < (bufferSmiCount-1) ; x++)
+					{
+						c = bufferSmi[x];
+						printf("%02X ",c);
+					}
+					switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
+						case -2:
+							/* frame without CRC -> yellow */
+							printf("\033[1m");
+							break;
+						case -1:
+							/* crc not ok -> red */
+							printf("\033[31m");
+							break;
+						default:
+							/* crc is ok -> green */
+							printf("\033[32m");
+							break;
+					}
+					c = bufferSmi[bufferSmiCount-1];
+					printf("%02X \033[m",c);
+					bufferSmiCount=0;
+					fflush(stdout); // Will now print everything in the stdout buffer
 				}
 			}
-			/* stop receiving and print message */
-			if ((actualSmiTimeout==0)&&(bufferSmiCount>0)) {
-				printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
-				for (x = 0; x < (bufferSmiCount-1) ; x++)
-				{
-					c = bufferSmi[x];
-					printf("%02X ",c);
-				}
-				switch (checkSmiCrc(bufferSmi,bufferSmiCount)) {
-					case -2:
-						/* frame without CRC -> yellow */
-						printf("\033[1m");
-						break;
-					case -1:
-						/* crc not ok -> red */
-						printf("\033[31m");
-						break;
-					default:
-						/* crc is ok -> green */
-						printf("\033[32m");
-						break;
-				}
-				c = bufferSmi[bufferSmiCount-1];
-				printf("%02X \033[m",c);
-				bufferSmiCount=0;
-				fflush(stdout); // Will now print everything in the stdout buffer
-			}
-		}
+		} /* SMI-Bus */
 
 		/* wait 0,5ms */
 		usleep(500);
 	}
 
 	/* Close Ports */
-	close(fdSwb);
-	printf("<serial Swb port closed!\n");
-	close(fdSmi);
-	printf("<serial Swb port closed!\n");
-	close(mySocket);
-	return (0);
-
+	{
+		close(fdSwb);
+		printf("<serial Swb port closed!\n");
+		close(fdSmi);
+		printf("<serial Swb port closed!\n");
+		close(mySocket);
+		return (0);
+	}/* Close Ports */
 }
 
 /* display buffer in hex-format to stdout */
@@ -443,7 +454,7 @@ int getPostData(unsigned char *buffer, int size) {
 	char *tokenValue;
 	char *word="\r\n\r\n";
 	char *postStart;
-
+	printBuffer(buffer, size);
 	//TODO check header
 
 	/* find end of header */
@@ -452,8 +463,8 @@ int getPostData(unsigned char *buffer, int size) {
 	/* remove "end of header" marker */
 	token=strsep(&postStart,"\n");
 	token=strsep(&postStart,"\n");
-	// printf("\nTOKENS:");
-	// printf("PostStart:{%s}\n",&postStart[4]);
+	printf("\nTOKENS:");
+	printf("PostStart:{%s}\n",&postStart[4]);
 
 	/* clear old values */
 	smiCmd=0;
