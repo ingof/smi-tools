@@ -1,5 +1,5 @@
 #include <stdio.h>			/* Standard input/output definitions */
-#include <str.ing.h>			/* String function definitions */
+#include <string.h>			/* String function definitions */
 
 int main( int argc, char* argv[] ) {
 	printf(".");
