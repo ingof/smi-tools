@@ -76,7 +76,6 @@ int main( int argc, char* argv[] ) {
 	/* for webserver */
 	int mySocket, new_socket;
 	socklen_t clientaddrlen;
-	socklen_t addrlen;
 	int bufsize = 1024;
 	unsigned char *bufferHTTP = malloc(bufsize);
 	struct sockaddr_in address, clientaddress;
@@ -188,7 +187,7 @@ int main( int argc, char* argv[] ) {
 
 			recv(new_socket, bufferHTTP, bufsize, 0);
 			// printf("%s*ENDE*", bufferHTTP);
-			getPostData(bufferHTTP,bufsize);
+			getPostData((char) bufferHTTP,bufsize);
 			// printBuffer(bufferHTTP,bufsize);
 			/* send response */
 			write(new_socket, "HTTP/1.1 200 OK\r\n", 17);
@@ -448,7 +447,7 @@ int getPostData(unsigned char *buffer, int size) {
 	//TODO check header
 
 	/* find end of header */
-	postStart = strstr((char) buffer,word);
+	postStart = strstr(buffer,word);
 
 	/* remove "end of header" marker */
 	token=strsep(&postStart,"\n");
