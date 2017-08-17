@@ -493,29 +493,29 @@ int getPostData(unsigned char *buffer, int size) {
 		tokenValue=strsep(&token,"=");
 		printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
 		if ((tokenName != NULL) && (tokenValue != NULL)) {
-			printf"1";
+			printf("\n1");
 			if (strcmp(tokenName,"cmd")==0) {
-				printf".";
+				printf(".");
 				smiCmd=atoi(tokenValue);
-				printf".";
+				printf(".");
 				if (smiCmd>16) smiCmd=16;
-				printf".";
+				printf(".");
 				if (smiCmd<0) smiCmd=0;
-				printf".";
+				printf(".");
 			}
-			printf"2";
+			printf("\n2");
 			if (strcmp(tokenName,"id")==0) {
 				smiId=atoi(tokenValue);
 				if (smiId>16) smiId=16;
 				if (smiId<0) smiId=0;
 			}
-			printf"3";
+			printf("\n3");
 			if (strcmp(tokenName,"grp")==0) {
 				smiId=atoi(tokenValue);
 				smiGrp &=0xffff;
 				if (smiGrp<0) smiGrp=0;
 			}
-			printf"4";
+			printf("\n4\n\n");
 		} else {
 			perror("no token found");
 		}
