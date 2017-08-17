@@ -491,6 +491,8 @@ int getPostData(unsigned char *buffer, int size) {
 	while ((token=strsep(&postStart,"&")) != NULL) {
 		tokenName=strsep(&token,"=");
 		tokenValue=strsep(&token,"=");
+		printf("Name %s\n",tokenName);
+		printf("Name %s\n",tokenValue);
 		if ((tokenName != NULL) && (tokenValue != NULL)) {
 			if (strcmp(tokenName,"cmd")==0) {
 				smiCmd=atoi(tokenValue);
@@ -508,7 +510,7 @@ int getPostData(unsigned char *buffer, int size) {
 				if (smiGrp<0) smiGrp=0;
 			}
 		} else {
-			perror("no token found:\n");
+			perror("no token found");
 		}
 	}
 	printf("id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
