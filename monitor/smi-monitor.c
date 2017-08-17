@@ -480,7 +480,7 @@ int getPostData(unsigned char *buffer, int size) {
 	// token=strsep(&postStart,"\n");
 	// token=strsep(&postStart,"\n");
 	printf("\nTOKENS:");
-	printf("Size: (%d) PostStart:{%s}\n",size,&postStart[4]);
+	printf("Size: (%d) PostStart:{%s}\n",size,&postStart[6]);
 
 	/* clear old values */
 	smiCmd=0;
@@ -491,8 +491,7 @@ int getPostData(unsigned char *buffer, int size) {
 	while ((token=strsep(&postStart,"&")) != NULL) {
 		tokenName=strsep(&token,"=");
 		tokenValue=strsep(&token,"=");
-		printf("Name %s\n",tokenName);
-		printf("Name %s\n",tokenValue);
+		printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
 		if ((tokenName != NULL) && (tokenValue != NULL)) {
 			if (strcmp(tokenName,"cmd")==0) {
 				smiCmd=atoi(tokenValue);
