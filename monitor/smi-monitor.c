@@ -505,9 +505,13 @@ int getPostData(unsigned char *buffer, int size) {
 	printBuffer(buffer, size);
 	printBufferAscii(buffer, size);
 	//TODO check header
+	printf(".");
 	char string[] = "Ein Teststring mit Worten";
+	printf(".");
 	printf("%s\n",strchr(string, (int)'W'));
+	printf(".");
 	printf("%s\n",strchr(string, (int)'T'));
+	printf(".");
 
 
 
