@@ -467,7 +467,7 @@ int getPostData(unsigned char *buffer, int size) {
 	char *tokenName;
 	char *tokenValue;
 	// char *word="\r\n\r\n";
-	char *word="Referer:";
+	unsigned char *word="Referer:";
 	char *postStart;
 	printBuffer(buffer, size);
 	printBufferAscii(buffer, size);
