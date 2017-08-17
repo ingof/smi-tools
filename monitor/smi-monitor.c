@@ -563,7 +563,7 @@ int getPostData(unsigned char *buffer, int size) {
 			perror("no token found");
 		}
 	}
-	printf("           www:   id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
+	printf("           WWW: id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
 	fflush(stdout);
 	return 0;
 }
