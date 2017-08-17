@@ -505,6 +505,11 @@ int getPostData(unsigned char *buffer, int size) {
 	printBuffer(buffer, size);
 	printBufferAscii(buffer, size);
 	//TODO check header
+	char string[] = "Ein Teststring mit Worten";
+	printf("%s\n",strchr(string, (int)'W'));
+	printf("%s\n",strchr(string, (int)'T'));
+
+
 
 	/* find end of header */
 	postStart = strstr((char*) buffer,word)+6;
@@ -522,12 +527,7 @@ int getPostData(unsigned char *buffer, int size) {
 
 	/* extract each posted data pair */
 	while ((token=strsep(&postStart,"&")) != NULL) {
-		char string[] = "Ein Teststring mit Worten";
-		printf("%s\n",strchr(string, (int)'W'));
-		printf("%s\n",strchr(string, (int)'T'));
-
-
-		tokenName=strsep(&token,"=");
+			tokenName=strsep(&token,"=");
 		tokenValue=strsep(&token,"=");
 		printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
 		printf(".");
