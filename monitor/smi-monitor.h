@@ -4,7 +4,8 @@
 
 
 /* print buffer to stdio (HEX)*/
-void printBuffer(unsigned char *buffer, int size);
+// void printBuffer(unsigned char *buffer, int size);
+void printBuffer(unsigned char *buffer, int size, int count);
 /* print buffer to stdio (ASCII)*/
 void printBufferAscii(unsigned char *buffer, int size);
 /* nonblocking for network socket */

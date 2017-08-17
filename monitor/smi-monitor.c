@@ -192,7 +192,8 @@ int main( int argc, char* argv[] ) {
 
 				recv(new_socket, bufferHTTP, bufsize, 0);
 				// printf("%s*ENDE*", bufferHTTP);
-				getPostData(bufferHTTP,bufsize);
+				// getPostData(bufferHTTP,bufsize);
+				getPostData(bufferHTTP,bufsize,loop);
 				// printBuffer(bufferHTTP,bufsize);
 				/* send response */
 				write(new_socket, "HTTP/1.1 200 OK\r\n", 17);
@@ -495,7 +496,8 @@ int setNonblocking(int fd)
 //     http_request[ "Version" ] = line.substr(position);
 // }
 
-int getPostData(unsigned char *buffer, int size) {
+// int getPostData(unsigned char *buffer, int size) {
+int getPostData(unsigned char *buffer, int size, int count) {
 	char *token;
 	char *tokenName;
 	char *tokenValue;
@@ -563,7 +565,7 @@ int getPostData(unsigned char *buffer, int size) {
 			perror("no token found");
 		}
 	}
-	printf("\n    %6d.%03d WWW: ID:%02X GR:%02X CM:%02X",loop/2000,(loop/2)%1000,smiId,smiGrp,smiCmd);
+	printf("\n    %6d.%03d WWW: ID:%02X GR:%02X CM:%02X",count/2000,(count/2)%1000,smiId,smiGrp,smiCmd);
 	// printf("\n\033[1m%6d.%03d SMI: ",loop/2000,(loop/2)%1000);
 	fflush(stdout);
 	return 0;
