@@ -502,8 +502,8 @@ int getPostData(unsigned char *buffer, int size) {
 	// char *word="\r\n\r\n";
 	char *word="GET";
 	char *postStart;
-	printBuffer(buffer, size);
-	printBufferAscii(buffer, size);
+	// printBuffer(buffer, size);
+	// printBufferAscii(buffer, size);
 	//TODO check header
 	// printf(".");
 	// char string[] = {"Ein Teststring mit Worten"};
@@ -532,38 +532,38 @@ int getPostData(unsigned char *buffer, int size) {
 	while ((token=strsep(&postStart,"&")) != NULL) {
 			tokenName=strsep(&token,"=");
 		tokenValue=strsep(&token,"=");
-		printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
-		printf(".");
+		// printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
+		// printf(".");
 		if ((tokenName != NULL) && (tokenValue != NULL)) {
 		// if ((tokenName != "") && (tokenValue != "")) {
-			printf("\n1");
+			// printf("\n1");
 			if (strcmp(tokenName,"cmd")==0) {
-				printf(".");
+				// printf(".");
 				smiCmd=atoi(tokenValue);
-				printf(".");
+				// printf(".");
 				if (smiCmd>16) smiCmd=16;
-				printf(".");
+				// printf(".");
 				if (smiCmd<0) smiCmd=0;
-				printf(".");
+				// printf(".");
 			}
-			printf("\n2");
+			// printf("\n2");
 			if (strcmp(tokenName,"id")==0) {
 				smiId=atoi(tokenValue);
 				if (smiId>16) smiId=16;
 				if (smiId<0) smiId=0;
 			}
-			printf("\n3");
+			// printf("\n3");
 			if (strcmp(tokenName,"grp")==0) {
 				smiGrp=atoi(tokenValue);
 				smiGrp &=0xffff;
 				if (smiGrp<0) smiGrp=0;
 			}
-			printf("\n4\n\n");
+			// printf("\n4\n\n");
 		} else {
 			perror("no token found");
 		}
 	}
-	printf("id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
+	printf("web:   id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
 	fflush(stdout);
 	return 0;
 }
