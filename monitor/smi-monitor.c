@@ -224,7 +224,7 @@ int main( int argc, char* argv[] ) {
 				smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
 				// printBuffer(smiTxBuffer,smiTxSize);
 				write(fdSmi,&smiTxBuffer,smiTxSize);
-				printf("\n SMI command sent\n");
+				// printf("\n SMI command sent\n");
 			}
 		} /* Web-Server */
 
