@@ -3,8 +3,6 @@
 #define SMI_SERIAL_H
 
 
-#import "types.h"
-
 /* open port to smi-bus */
 int openSmiPort (char *port);
 /* check smi checksum */
