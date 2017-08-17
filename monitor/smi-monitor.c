@@ -512,7 +512,6 @@ int getPostData(unsigned char *buffer, int size) {
 	printf(".");
 	printf("%s\n",strchr(string, (int)'T'));
 	printf(".");
-.
 
 
 	/* find end of header */
