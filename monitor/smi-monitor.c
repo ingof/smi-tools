@@ -554,7 +554,7 @@ int getPostData(unsigned char *buffer, int size) {
 			}
 			printf("\n3");
 			if (strcmp(tokenName,"grp")==0) {
-				smiId=atoi(tokenValue);
+				smiGrp=atoi(tokenValue);
 				smiGrp &=0xffff;
 				if (smiGrp<0) smiGrp=0;
 			}
