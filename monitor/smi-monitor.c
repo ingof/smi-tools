@@ -496,7 +496,7 @@ int getPostData(unsigned char *buffer, int size) {
 		// if ((tokenName != NULL) && (tokenValue != NULL)) {
 		// if ((tokenName != "") && (tokenValue != "")) {
 			printf("\n1");
-			if (strcmp(tokenName,"cmd")==0) {
+			// if (strcmp(tokenName,"cmd")==0) {
 				printf(".");
 				smiCmd=atoi(tokenValue);
 				printf(".");
@@ -504,7 +504,7 @@ int getPostData(unsigned char *buffer, int size) {
 				printf(".");
 				if (smiCmd<0) smiCmd=0;
 				printf(".");
-			}
+			// }
 			printf("\n2");
 			if (strcmp(tokenName,"id")==0) {
 				smiId=atoi(tokenValue);
