@@ -477,8 +477,8 @@ int getPostData(unsigned char *buffer, int size) {
 	postStart = strstr((char*) buffer,word);
 
 	/* remove "end of header" marker */
-	token=strsep(&postStart,"\n");
-	token=strsep(&postStart,"\n");
+	// token=strsep(&postStart,"\n");
+	// token=strsep(&postStart,"\n");
 	printf("\nTOKENS:");
 	printf("Size: (%d) PostStart:{%s}\n",size,&postStart[4]);
 
