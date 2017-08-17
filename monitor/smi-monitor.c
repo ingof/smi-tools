@@ -507,6 +507,8 @@ int getPostData(unsigned char *buffer, int size) {
 				smiGrp &=0xffff;
 				if (smiGrp<0) smiGrp=0;
 			}
+		} else {
+			perror("no token found:\n");
 		}
 	}
 	printf("id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
