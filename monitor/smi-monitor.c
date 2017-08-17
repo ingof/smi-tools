@@ -13,6 +13,7 @@
 
 #include "types.h"			/* type definitions */
 #include "swb-serial.h"		/* swb-bus functions */
+#include "smi-serial.h"		/* swb-bus functions */
 
 #include "smi-monitor.h"	/* own funcions */
 
