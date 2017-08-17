@@ -1,5 +1,9 @@
-typedef unsigned char uint8_t;
-typedef unsigned int  unint16_t;
+/* smi-serial.h */
+#ifndef SMI_SERIAL_H
+#define SMI_SERIAL_H
+
+
+#import "types.h"
 
 /* open port to smi-bus */
 int openSmiPort (char *port);
@@ -8,3 +12,6 @@ int checkSmiCrc(unsigned char *buffer, int size);
 /* add the cheksum byte to the buffer and returns number of cheksum bytes */
 int addSmiCrc(unsigned char *buffer, int size);
 /* add the crc to an existing message */
+
+
+#endif /* smi-serial.h */
