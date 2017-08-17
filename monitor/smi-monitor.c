@@ -539,7 +539,7 @@ int getPostData(unsigned char *buffer, int size) {
 			printf("\n1");
 			if (strcmp(tokenName,(char*)"cmd")==0) {
 				printf(".");
-				smiCmd=atoi(&tokenValue);
+				smiCmd=atoi(tokenValue);
 				printf(".");
 				if (smiCmd>16) smiCmd=16;
 				printf(".");
