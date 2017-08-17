@@ -521,7 +521,7 @@ int getPostData(unsigned char *buffer, int size) {
 	// token=strsep(&postStart,"\n");
 	// token=strsep(&postStart,"\n");
 	printf("\nTOKENS:");
-	printf("Size: (%d) PostStart:{%s}\n",size,&postStart[6]);
+	printf("Size: (%d) PostStart:{%s}\n",size,&postStart[0]);
 
 	/* clear old values */
 	smiCmd=0;
