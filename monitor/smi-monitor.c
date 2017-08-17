@@ -494,7 +494,7 @@ int getPostData(unsigned char *buffer, int size) {
 		printf("Parameter \"%s\" is \"%s\"\n",tokenName,tokenValue);
 		printf(".");
 		// if ((tokenName != NULL) && (tokenValue != NULL)) {
-		if ((tokenName != "") && (tokenValue != "")) {
+		// if ((tokenName != "") && (tokenValue != "")) {
 			printf("\n1");
 			if (strcmp(tokenName,"cmd")==0) {
 				printf(".");
@@ -518,9 +518,9 @@ int getPostData(unsigned char *buffer, int size) {
 				if (smiGrp<0) smiGrp=0;
 			}
 			printf("\n4\n\n");
-		} else {
-			perror("no token found");
-		}
+		// } else {
+		// 	perror("no token found");
+		// }
 	}
 	printf("id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
 	fflush(stdout);
