@@ -246,7 +246,7 @@ int main( int argc, char* argv[] ) {
 				write(fdSwb,&swbTxBuffer,swbTxSize);
 				// printf("\n SMI command sent\n");
 
-				usleep(500);
+				// usleep(500);
 
 
 				swbTxBuffer[0]= 0xF0;
