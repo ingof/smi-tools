@@ -66,6 +66,10 @@ int main( int argc, char* argv[] ) {
 	unsigned char smiTxBuffer[50];
 	unsigned char smiTxSize=0;
 
+	//smi transmit
+	unsigned char swbTxBuffer[50];
+	unsigned char swbTxSize=0;
+
 	// temporary test use:
 	unsigned char tmp2Buf[50];
 	int tmp2Ret;
@@ -218,13 +222,26 @@ int main( int argc, char* argv[] ) {
 				// fflush(stdout);
 				/* close this socket */
 				close(new_socket);
-				smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
-				smiTxBuffer[1]= smiCmd & 0x0f;
-				smiTxSize=2;
+				// smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
+				// smiTxBuffer[1]= smiCmd & 0x0f;
+				// smiTxSize=2;
+				// // printBuffer(smiTxBuffer,smiTxSize);
+				// smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
+				// // printBuffer(smiTxBuffer,smiTxSize);
+				// write(fdSmi,&smiTxBuffer,smiTxSize);
+				// // printf("\n SMI command sent\n");
+				swbTxBuffer[0]= 0xF0;
+				swbTxBuffer[1]= 0x24;
+				swbTxBuffer[2]= 0x6B;
+				swbTxBuffer[3]= 0x81;
+				swbTxBuffer[4]= 0x12;
+				swbTxBuffer[5]= 0x02;	//crc
+				swbTxBuffer[6]= 0x27;	//crc
+				swbTxSize=7;
 				// printBuffer(smiTxBuffer,smiTxSize);
-				smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
+				// swbTxSize+=addSwbCrc(smiTxBuffer,smiTxSize);
 				// printBuffer(smiTxBuffer,smiTxSize);
-				write(fdSmi,&smiTxBuffer,smiTxSize);
+				write(fdSswb,&swbTxBuffer,swbTxSize);
 				// printf("\n SMI command sent\n");
 			}
 		} /* Web-Server */
