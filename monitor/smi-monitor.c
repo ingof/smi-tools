@@ -232,7 +232,7 @@ int main( int argc, char* argv[] ) {
 				// // printf("\n SMI command sent\n");
 
 
-				if smiId=0x00 {
+				if (smiId=0x00) {
 					swbTxBuffer[0]= 0xF0;
 					swbTxBuffer[1]= 0x24;
 					swbTxBuffer[2]= 0x6B;
