@@ -222,14 +222,16 @@ int main( int argc, char* argv[] ) {
 				// fflush(stdout);
 				/* close this socket */
 				close(new_socket);
-				// smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
-				// smiTxBuffer[1]= smiCmd & 0x0f;
-				// smiTxSize=2;
+				smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
+				smiTxBuffer[1]= smiCmd & 0x0f;
+				smiTxSize=2;
 				// // printBuffer(smiTxBuffer,smiTxSize);
 				// smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
 				// // printBuffer(smiTxBuffer,smiTxSize);
 				// write(fdSmi,&smiTxBuffer,smiTxSize);
 				// // printf("\n SMI command sent\n");
+
+
 				swbTxBuffer[0]= 0xF0;
 				swbTxBuffer[1]= 0x24;
 				swbTxBuffer[2]= 0x6B;
