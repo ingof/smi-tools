@@ -249,8 +249,16 @@ int main( int argc, char* argv[] ) {
 				// printf("\n SMI command sent\n");
 
 
-				usleep(500);
-				usleep(500);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
 
 
 
