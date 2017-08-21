@@ -243,7 +243,7 @@ int main( int argc, char* argv[] ) {
 				// printBuffer(smiTxBuffer,smiTxSize);
 				// swbTxSize+=addSwbCrc(smiTxBuffer,smiTxSize);
 				// printBuffer(smiTxBuffer,smiTxSize);
-				write(fdSswb,&swbTxBuffer,swbTxSize);
+				write(fdSwb,&swbTxBuffer,swbTxSize);
 				// printf("\n SMI command sent\n");
 			}
 		} /* Web-Server */
