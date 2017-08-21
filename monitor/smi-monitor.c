@@ -232,30 +232,34 @@ int main( int argc, char* argv[] ) {
 				// // printf("\n SMI command sent\n");
 
 
-				swbTxBuffer[0]= 0xF0;
-				swbTxBuffer[1]= 0x24;
-				swbTxBuffer[2]= 0x6B;
-				swbTxBuffer[3]= 0x81;
-				swbTxBuffer[4]= 0x12;
-				swbTxBuffer[5]= 0x02;	//crc
-				swbTxBuffer[6]= 0x27;	//crc
-				swbTxSize=7;
-				// printBuffer(smiTxBuffer,smiTxSize);
-				// swbTxSize+=addSwbCrc(smiTxBuffer,smiTxSize);
-				// printBuffer(smiTxBuffer,smiTxSize);
-				write(fdSwb,&swbTxBuffer,swbTxSize);
+				if smiID=0x00 {
+					swbTxBuffer[0]= 0xF0;
+					swbTxBuffer[1]= 0x24;
+					swbTxBuffer[2]= 0x6B;
+					swbTxBuffer[3]= 0x81;
+					swbTxBuffer[4]= 0x12;
+					swbTxBuffer[5]= 0x02;	//crc
+					swbTxBuffer[6]= 0x27;	//crc
+				} else {
+				// swbTxSize=7;
+				// // printBuffer(smiTxBuffer,smiTxSize);
+				// // swbTxSize+=addSwbCrc(smiTxBuffer,smiTxSize);
+				// // printBuffer(smiTxBuffer,smiTxSize);
+				// write(fdSwb,&swbTxBuffer,swbTxSize);
 				// printf("\n SMI command sent\n");
+
 
 				// usleep(500);
 
 
-				swbTxBuffer[0]= 0xF0;
-				swbTxBuffer[1]= 0x24;
-				swbTxBuffer[2]= 0x6B;
-				swbTxBuffer[3]= 0x81;
-				swbTxBuffer[4]= 0x14;
-				swbTxBuffer[5]= 0xf8;	//crc
-				swbTxBuffer[6]= 0xce;	//crc
+					swbTxBuffer[0]= 0xF0;
+					swbTxBuffer[1]= 0x24;
+					swbTxBuffer[2]= 0x6B;
+					swbTxBuffer[3]= 0x81;
+					swbTxBuffer[4]= 0x14;
+					swbTxBuffer[5]= 0xf8;	//crc
+					swbTxBuffer[6]= 0xce;	//crc
+				}
 				swbTxSize=7;
 				// printBuffer(smiTxBuffer,smiTxSize);
 				// swbTxSize+=addSwbCrc(smiTxBuffer,smiTxSize);
