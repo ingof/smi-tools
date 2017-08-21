@@ -247,29 +247,7 @@ int main( int argc, char* argv[] ) {
 				// printf("\n SMI command sent\n");
 
 				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
-				usleep(500);
+
 
 				swbTxBuffer[0]= 0xF0;
 				swbTxBuffer[1]= 0x24;
