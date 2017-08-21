@@ -62,11 +62,11 @@ int main( int argc, char* argv[] ) {
 
 	unsigned char tmpBuffer[40];
 
-	//smi transmit
-	unsigned char smiTxBuffer[50];
-	unsigned char smiTxSize=0;
+	// //smi transmit
+	// unsigned char smiTxBuffer[50];
+	// unsigned char smiTxSize=0;
 
-	//smi transmit
+	//swb transmit
 	unsigned char swbTxBuffer[50];
 	unsigned char swbTxSize=0;
 
@@ -222,9 +222,9 @@ int main( int argc, char* argv[] ) {
 				// fflush(stdout);
 				/* close this socket */
 				close(new_socket);
-				smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
-				smiTxBuffer[1]= smiCmd & 0x0f;
-				smiTxSize=2;
+				// smiTxBuffer[0]= 0x50 | (smiId & 0x0f);
+				// smiTxBuffer[1]= smiCmd & 0x0f;
+				// smiTxSize=2;
 				// // printBuffer(smiTxBuffer,smiTxSize);
 				// smiTxSize+=addSmiCrc(smiTxBuffer,smiTxSize);
 				// // printBuffer(smiTxBuffer,smiTxSize);
