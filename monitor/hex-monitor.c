@@ -114,19 +114,27 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 tcsetattr(fd, TCSANOW, &options);
 
 /* endless-loop */
-for (loop=0; ; loop+=serialWait) {
+for (loop=0; ; loop+=(serialWait*2)) {
 	if (loop>=0x80000000) {
 		loop=0;
 	}
-	bytes = read(fd, &buffer, sizeof(buffer));
-	printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
-	if (bytes == -1) {
-		perror ("read error:");
-	} else {
-		for (x = 0; x < bytes ; x++)
-		{
-			c = buffer[x];
-			printf("%02X ",c);
+	// bytes = read(fd, &buffer, sizeof(buffer));
+	IOReturn=ioctl(fdSwb, FIONREAD, &bytes);
+	if (IOReturn<0) {
+		perror("ioctl(swb)");
+		// if (actualSwbTimeout>0) actualSwbTimeout--;
+	}
+
+	if (IOReturn==0) {
+		printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
+		if (bytes == -1) {
+			perror ("read error:");
+		} else {
+			for (x = 0; x < bytes ; x++)
+			{
+				c = buffer[x];
+				printf("%02X ",c);
+			}
 		}
 	}
 	/* wait (SerialWait)ms" */
