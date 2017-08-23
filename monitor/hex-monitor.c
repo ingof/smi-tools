@@ -144,20 +144,18 @@ for (loop=0; ; loop+=(serialWait*2)) {
 	}
 	/* wait (SerialWait)ms" */
 	usleep(serialWait*1000);
-	bytes = read(fd, &buffer, sizeof(buffer));
-	if (bytes == -1)
-	{
-		perror ("read error:");
-	}
-	else
-	{
-		for (x = 0; x < bytes ; x++)
-		{
-			c = (buffer[x] & 0xff);
-			printf("%02X ",c);
-		}
+	// bytes = read(fd, &buffer, sizeof(buffer));
+	// if (bytes == -1) {
+	// 	perror ("read error:");
+	// } else {
+	// 	for (x = 0; x < bytes ; x++)
+	// 	{
+	// 		c = (buffer[x] & 0xff);
+	// 		printf("%02X ",c);
+	// 	}
 	printf("\n");
-	}
+	// }
+
 }
 
 /* Close Port */
