@@ -130,14 +130,14 @@ for (loop=0; ; loop+=(serialWait*2)) {
 		loop=0;
 	}
 	// bytes = read(fd, &buffer, sizeof(buffer));
-	IOReturn=ioctl(fd, FIONREAD, &bytesHex);
+	IOReturn=ioctl(fd, FIONREAD, &serialBytes);
 	if (IOReturn<0) {
 		perror("ioctl(hex)");
 		if (actualHexTimeout>0) actualHexTimeout--;
 	}
 	if (IOReturn==0) {
 		/* no data -< */
-		if ((bytes==0)&&(actualHexTimeout>0)) {
+		if ((serialBytes==0)&&(actualHexTimeout>0)) {
 			actualHexTimeout--;
 		}
 		/* copy received data to buffer */
