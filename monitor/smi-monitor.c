@@ -59,7 +59,6 @@ int main( int argc, char* argv[] ) {
 	int bytesSmi=0;
 	int bufferSmiCount=0;
 	unsigned char bufferSmi[50];
-
 	unsigned char tmpBuffer[40];
 
 	// //smi transmit
