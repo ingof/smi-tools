@@ -234,13 +234,13 @@ int main( int argc, char* argv[] ) {
 
 
 				// if (smiId==0x00) {
-					swbTxBuffer[0]= 0xF0;
-					swbTxBuffer[1]= 0x24;
-					swbTxBuffer[2]= 0x6B;
-					swbTxBuffer[3]= 0x81;
-					swbTxBuffer[4]= 0x12;
-					swbTxBuffer[5]= 0x02;	//crc
-					swbTxBuffer[6]= 0x27;	//crc
+				swbTxBuffer[0]= 0xF0;
+				swbTxBuffer[1]= 0x24;
+				swbTxBuffer[2]= 0x6B;
+				swbTxBuffer[3]= 0x01;
+				swbTxBuffer[4]= 0x14;
+				swbTxBuffer[5]= 0xf8;	//crc
+				swbTxBuffer[6]= 0xce;	//crc
 				// } else {
 				swbTxSize=7;
 				// // printBuffer(smiTxBuffer,smiTxSize);
@@ -349,67 +349,68 @@ int main( int argc, char* argv[] ) {
 				usleep(2000);
 				usleep(2000);
 				usleep(2000);
-				usleep(2000);				usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
-								usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
+				usleep(2000);
 
 
 
-					swbTxBuffer[0]= 0xF0;
-					swbTxBuffer[1]= 0x24;
-					swbTxBuffer[2]= 0x6B;
-					swbTxBuffer[3]= 0x01;
-					swbTxBuffer[4]= 0x14;
-					swbTxBuffer[5]= 0xf8;	//crc
-					swbTxBuffer[6]= 0xce;	//crc
+				swbTxBuffer[0]= 0xF0;
+				swbTxBuffer[1]= 0x24;
+				swbTxBuffer[2]= 0x6B;
+				swbTxBuffer[3]= 0x81;
+				swbTxBuffer[4]= 0x12;
+				swbTxBuffer[5]= 0x02;	//crc
+				swbTxBuffer[6]= 0x27;	//crc
 				// }
 				swbTxSize=7;
 				// printBuffer(smiTxBuffer,smiTxSize);
