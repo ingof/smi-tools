@@ -23,7 +23,7 @@ int main( int argc, char* argv[] ) {
 	int loop;
 	int bytes;
 	int c;
-	unsigned char buffer[20];
+	unsigned char bufferHex[20];
 
 	int actualTimeout;
 	int bytesHex;
@@ -164,7 +164,7 @@ for (loop=0; ; loop+=(serialWait*2)) {
 				}
 				if (bytesHex>0) {
 					// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
-					for (loop2=0;loop2<bytesSmi;loop2++) {
+					for (loop2=0;loop2<bytesHex;loop2++) {
 						bufferHex[bufferHexCount+loop2]=tmpBuffer[loop2];
 					}
 					bufferHexCount+=bytesHex;
