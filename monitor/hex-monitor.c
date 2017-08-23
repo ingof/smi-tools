@@ -6,6 +6,9 @@
 #include <termios.h> /* POSIX terminal control definitions */
 #include <stdlib.h> /* converting functions */
 
+#include <sys/ioctl.h>		/* ioctl() */
+#include <linux/serial.h>	/* custom divisor */
+
 int main( int argc, char* argv[] ) {
 	/* default for commandline parameter */
 	char * serialPort="/dev/ttyUSB0";
