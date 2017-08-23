@@ -96,10 +96,16 @@ options.c_cflag |= CS8;    /* Select 8 data bits */
 
 
 /* Setting 8N1 */
-options.c_cflag &= ~PARENB;
-options.c_cflag &= ~CSTOPB;
-options.c_cflag &= ~CSIZE;
-options.c_cflag |= CS8;
+options.c_cflag &= ~PARENB; 	/* deactivate Parity */
+options.c_cflag &= ~CSTOPB;		/* two stop bits */
+options.c_cflag &= ~CSIZE;		/* mask for data bits */
+options.c_cflag |= CS8;    		/* Select 8 data bits */
+options.c_iflag &= ~IXON;		/* deactivate XON */
+options.c_iflag &= ~IXOFF;		/* deactivate XOFF */
+options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
+options.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
+options.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
+options.c_iflag |= IGNBRK;		/* ignore break condition (SWB) */
 
 /* choosing RAW-Input */
 options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
@@ -108,10 +114,12 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 tcsetattr(fd, TCSANOW, &options);
 
 /* endless-loop */
-for (loop=0; ; loop++)
-    {
-    	bytes = read(fd, &buffer, sizeof(buffer));
-    	printf("%4d: ", loop);
+for (loop=0; ; loop++) {
+	if (loop>=0x80000000) {
+		loop=0;
+	}
+	bytes = read(fd, &buffer, sizeof(buffer));
+	printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000
 	if (bytes == -1)
 	{
 		perror ("read error:");

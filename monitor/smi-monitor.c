@@ -162,7 +162,9 @@ int main( int argc, char* argv[] ) {
 
 	/* endless-loop */
 	for (loop=0; ;loop++) {
-		if (loop>=0x80000000) loop=0;
+		if (loop>=0x80000000) {
+			loop=0;
+		}
 
 		/* Web-Server */
 		{

@@ -114,11 +114,10 @@ int openSwbPortDiv (char *port, int divisor) {
 	/* Setting Character Size */
 	options.c_cflag &= ~CSIZE; 		/* Mask the character size bits */
 	/* Setting 8N2 */
-	options.c_cflag |= CS8;    		/* Select 8 data bits */
 	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
 	options.c_cflag |= CSTOPB;		/* two stop bits */
-	options.c_cflag &= ~CSIZE;
-	options.c_cflag |= CS8;
+	options.c_cflag &= ~CSIZE;		/* mask for data bits */
+	options.c_cflag |= CS8;    		/* Select 8 data bits */
 	options.c_iflag &= ~IXON;		/* deactivate XON */
 	options.c_iflag &= ~IXOFF;		/* deactivate XOFF */
 	options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
