@@ -130,7 +130,7 @@ for (loop=0; ; loop+=(serialWait*2)) {
 		loop=0;
 	}
 	// bytes = read(fd, &buffer, sizeof(buffer));
-	IOReturn=ioctl(fd, FIONREAD, &bytes);
+	IOReturn=ioctl(fd, FIONREAD, &bytesHex);
 	if (IOReturn<0) {
 		perror("ioctl(hex)");
 		if (actualHexTimeout>0) actualHexTimeout--;
