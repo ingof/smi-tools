@@ -129,7 +129,7 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 tcsetattr(fd, TCSANOW, &options);
 
 /* endless-loop */
-for (loop=0; ; loop+=(serialWait*2)) {
+for (loop=0; ; loop++) {
 	if (loop>=0x80000000) {
 		loop=0;
 	}
