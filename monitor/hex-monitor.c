@@ -141,6 +141,7 @@ for (loop=0; ; loop+=(serialWait*2)) {
 					c = buffer[x];
 					printf("%02X ",c);
 				}
+			printf("\n");
 			}
 		}
 	}
@@ -155,7 +156,7 @@ for (loop=0; ; loop+=(serialWait*2)) {
 	// 		c = (buffer[x] & 0xff);
 	// 		printf("%02X ",c);
 	// 	}
-	printf("\n");
+	// printf("\n");
 	// }
 
 }
