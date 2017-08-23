@@ -119,9 +119,8 @@ for (loop=0; ; loop++) {
 		loop=0;
 	}
 	bytes = read(fd, &buffer, sizeof(buffer));
-	printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000
-	if (bytes == -1)
-	{
+	printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
+	if (bytes == -1) {
 		perror ("read error:");
 	}
 	else
