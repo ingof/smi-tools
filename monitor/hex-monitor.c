@@ -24,6 +24,11 @@ int main( int argc, char* argv[] ) {
 	int bytes;
 	int c;
 	unsigned char buffer[20];
+
+	int actualTimeout;
+	int bytesHex;
+	int bufferHexCount;
+
    //char *bufptr;
 
    /* first parameter is serialSpeed*/
@@ -127,26 +132,83 @@ for (loop=0; ; loop+=(serialWait*2)) {
 	IOReturn=ioctl(fd, FIONREAD, &bytes);
 	if (IOReturn<0) {
 		perror("ioctl(swb)");
-		// if (actualSwbTimeout>0) actualSwbTimeout--;
+		if (actualTimeout>0) actualTimeout--;
 	}
 
 	if (IOReturn==0) {
+		/* no data -< */
+		if ((Bytes==0)&&(actualTimeout>0)) {
+			actualTimeout--;
+		}
 		if (bytes == -1) {
 			perror ("read error:");
 		} else {
 			if (bytes>0) {
-				printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
-				for (x = 0; x < bytes ; x++)
-				{
-					c = buffer[x];
-					printf("%02X ",c);
+				if ((actualTimeout==0)&&(bufferCount==0)) {
+					/* start receiving and reset timeout */
+					actualTimeout=serialWait;
 				}
-			printf("\n");
+				if ((actualTimeout>=0)&&(bufferCount>=0)) {
+					/* start receiving and reset timeout */
+					actualTimeout=serialWait;
+				}
+				/* create temporary buffer for received Bytes */
+				int tmpBuffer[bytes];
+				bytesHex = read(fd, &tmpBuffer, sizeof(tmpBuffer));
+				if (bytesHex<0) {
+					perror("read(Smi)");
+				}
+				if (bytesHex<=0) {
+					actualTimeout--;
+				}
+				if (bytesHex>0) {
+					// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+					for (loop2=0;loop2<bytesSmi;loop2++) {
+						bufferSmi[bufferHexCount+loop2]=tmpBuffer[loop2];
+					}
+					bufferHexCount+=bytesHex;
+				}
+				/* stop receiving and print message */
+				if ((actualTimeout==0)&&(bufferHexCount>0)) {
+					printf("\n\033[1m%6d.%03d Hex:\033[0m ",loop/2000,(loop/2)%1000);
+					for (x = 0; x < (bufferHexCount-1) ; x++)
+					{
+						c = bufferSmi[x];
+						printf("%02X ",c);
+					}
+					switch (checkSmiCrc(bufferHex,bufferHexCount)) {
+						case -2:
+							/* frame without CRC -> yellow */
+							printf("\033[1m");
+							break;
+						case -1:
+							/* crc not ok -> red */
+							printf("\033[31m");
+							break;
+						default:
+							/* crc is ok -> green */
+							printf("\033[32m");
+							break;
+					}
+					c = bufferSmi[bufferSmiCount-1];
+					printf("%02X \033[m",c);
+					bufferSmiCount=0;
+					fflush(stdout); // Will now print everything in the stdout buffer
+				}
+
+			// 	printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
+			// 	for (x = 0; x < bytes ; x++)
+			// 	{
+			// 		c = buffer[x];
+			// 		printf("%02X ",c);
+			// 	}
+			// printf("\n");
 			}
 		}
 	}
 	/* wait (SerialWait)ms" */
-	usleep(serialWait*1000);
+	usleep(500);
+	// usleep(serialWait*1000);
 	// bytes = read(fd, &buffer, sizeof(buffer));
 	// if (bytes == -1) {
 	// 	perror ("read error:");
