@@ -16,6 +16,8 @@ int main( int argc, char* argv[] ) {
 	int serialSpeed=2400;
 	int serialWait=40;
 
+	int IOReturn;
+
 	int fd; /* File descriptor for the port */
 	int x;
 	int loop;
@@ -122,7 +124,7 @@ for (loop=0; ; loop+=(serialWait*2)) {
 		loop=0;
 	}
 	// bytes = read(fd, &buffer, sizeof(buffer));
-	IOReturn=ioctl(fdSwb, FIONREAD, &bytes);
+	IOReturn=ioctl(fd, FIONREAD, &bytes);
 	if (IOReturn<0) {
 		perror("ioctl(swb)");
 		// if (actualSwbTimeout>0) actualSwbTimeout--;
