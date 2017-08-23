@@ -21,11 +21,11 @@ int main( int argc, char* argv[] ) {
 	int fd; /* File descriptor for the port */
 	int x;
 	int loop;
-	int bytes;
+	int serialBytes;
 	int c;
-	unsigned char bufferHex[20];
+	unsigned char bufferHex[50];
 
-	int actualTimeout;
+	int actualHexTimeout;
 	int bytesHex;
 	int bufferHexCount;
 	int loop2;
@@ -132,64 +132,52 @@ for (loop=0; ; loop+=(serialWait*2)) {
 	// bytes = read(fd, &buffer, sizeof(buffer));
 	IOReturn=ioctl(fd, FIONREAD, &bytes);
 	if (IOReturn<0) {
-		perror("ioctl(swb)");
-		if (actualTimeout>0) actualTimeout--;
+		perror("ioctl(hex)");
+		if (actualHexTimeout>0) actualHexTimeout--;
 	}
-
 	if (IOReturn==0) {
 		/* no data -< */
-		if ((bytes==0)&&(actualTimeout>0)) {
-			actualTimeout--;
+		if ((bytes==0)&&(actualHexTimeout>0)) {
+			actualHexTimeout--;
 		}
-		if (bytes == -1) {
-			perror ("read error:");
-		} else {
-			if (bytes>0) {
-				if ((actualTimeout==0)&&(bufferHexCount==0)) {
-					/* start receiving and reset timeout */
-					actualTimeout=serialWait;
-				}
-				if ((actualTimeout>=0)&&(bufferHexCount>=0)) {
-					/* start receiving and reset timeout */
-					actualTimeout=serialWait;
-				}
-				/* create temporary buffer for received Bytes */
-				int tmpBuffer[bytes];
-				bytesHex = read(fd, &tmpBuffer, sizeof(tmpBuffer));
-				if (bytesHex<0) {
-					perror("read(Smi)");
-				}
-				if (bytesHex<=0) {
-					actualTimeout--;
-				}
-				if (bytesHex>0) {
-					// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
-					for (loop2=0;loop2<bytesHex;loop2++) {
-						bufferHex[bufferHexCount+loop2]=tmpBuffer[loop2];
-					}
-					bufferHexCount+=bytesHex;
-				}
-				/* stop receiving and print message */
-				if ((actualTimeout==0)&&(bufferHexCount>0)) {
-					printf("\n\033[1m%6d.%03d Hex:\033[0m ",loop/2000,(loop/2)%1000);
-					for (x = 0; x < (bufferHexCount-1) ; x++)
-					{
-						c = bufferHex[x];
-						printf("%02X ",c);
-					}
-
-					bufferHexCount=0;
-					fflush(stdout); // Will now print everything in the stdout buffer
-				}
-
-			// 	printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
-			// 	for (x = 0; x < bytes ; x++)
-			// 	{
-			// 		c = buffer[x];
-			// 		printf("%02X ",c);
-			// 	}
-			// printf("\n");
+		/* copy received data to buffer */
+		if (serialBytes>0) {
+			if ((actualHexTimeout==0)&&(bufferHexCount==0)) {
+				/* start receiving and reset timeout */
+				actualHexTimeout=serialWait;
 			}
+			if ((actualHexTimeout>=0)&&(bufferHexCount>=0)) {
+				/* start receiving and reset timeout */
+				actualHexTimeout=serialWait;
+			}
+			/* create temporary buffer for received Bytes */
+			int tmpBuffer[serialBytes];
+			bytesHex = read(fd, &tmpBuffer, sizeof(tmpBuffer));
+			if (bytesHex<0) {
+				perror("read(Hex)");
+			}
+			if (bytesHex<=0) {
+				actualHexTimeout--;
+			}
+			if (bytesHex>0) {
+				// strncpy(bufferSmi+bufferSmiCount, tmpBuffer, bytesSmi);
+				for (loop2=0;loop2<bytesHex;loop2++) {
+					bufferHex[bufferHexCount+loop2]=tmpBuffer[loop2];
+				}
+				bufferHexCount+=bytesHex;
+			}
+		}
+		/* stop receiving and print message */
+		if ((actualHexTimeout==0)&&(bufferHexCount>0)) {
+			printf("\n\033[1m%6d.%03d Hex:\033[0m ",loop/2000,(loop/2)%1000);
+			for (x = 0; x < (bufferHexCount-1) ; x++)
+			{
+				c = bufferHex[x];
+				printf("%02X ",c);
+			}
+
+			bufferHexCount=0;
+			fflush(stdout); // Will now print everything in the stdout buffer
 		}
 	}
 	/* wait (SerialWait)ms" */
