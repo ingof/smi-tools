@@ -43,7 +43,7 @@ int main( int argc, char* argv[] ) {
    } else {
    	serialWait=40;
    }
-   /*
+	/*
 	* 'open_port()' - Open serial port 1.
 	* Returns the file descriptor on success or -1 on error.
 	*/
