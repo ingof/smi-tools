@@ -14,21 +14,25 @@ int main( int argc, char* argv[] ) {
 	char * serialPort="/dev/ttyUSB0";
 	char serialPort2[]="/dev/ttyUSB0";
 	int serialSpeed=2400;
-	int serialWait=40;
+	int serialWait=3;
+
+	int actualHexTimeout;
 
 	int IOReturn;
 
+
 	int fd; /* File descriptor for the port */
+
+	int serialBytes;
 	int x;
 	int loop;
-	int serialBytes;
-	int c;
-	unsigned char bufferHex[50];
-
-	int actualHexTimeout;
-	int bytesHex;
-	int bufferHexCount;
 	int loop2;
+	int c;
+
+	int bytesHex=0;
+	int bufferHexCount=0;
+	unsigned char bufferHex[50];
+	unsigned char tmpBuffer[40];
 
    //char *bufptr;
 
@@ -151,7 +155,7 @@ for (loop=0; ; loop+=(serialWait*2)) {
 				actualHexTimeout=serialWait;
 			}
 			/* create temporary buffer for received Bytes */
-			int tmpBuffer[serialBytes];
+			// int tmpBuffer[serialBytes];
 			bytesHex = read(fd, &tmpBuffer, sizeof(tmpBuffer));
 			if (bytesHex<0) {
 				perror("read(Hex)");
