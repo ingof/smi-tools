@@ -48,7 +48,7 @@ int main( int argc, char* argv[] ) {
 	* Returns the file descriptor on success or -1 on error.
 	*/
 
-  fd = open(serialPort, O_RDWR | O_NOCTTY | O_NDELAY);
+  fd = open(serialPort, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
   if (fd == -1)
   {
   	/* Could not open the port. */
@@ -114,7 +114,7 @@ options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 tcsetattr(fd, TCSANOW, &options);
 
 /* endless-loop */
-for (loop=0; ; loop++) {
+for (loop=0; ; loop+=serialWait) {
 	if (loop>=0x80000000) {
 		loop=0;
 	}
@@ -122,16 +122,14 @@ for (loop=0; ; loop++) {
 	printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
 	if (bytes == -1) {
 		perror ("read error:");
-	}
-	else
-	{
+	} else {
 		for (x = 0; x < bytes ; x++)
 		{
 			c = buffer[x];
 			printf("%02X ",c);
 		}
 	}
-	/* wait 40ms */
+	/* wait (SerialWait)ms" */
 	usleep(serialWait*1000);
 	bytes = read(fd, &buffer, sizeof(buffer));
 	if (bytes == -1)
@@ -173,3 +171,20 @@ int open_port(void)
 	}
 	return (fd);
 }
+
+// int setNonblocking(int fd)
+// {
+//     int flags;
+//
+//     /* If they have O_NONBLOCK, use the Posix way to do it */
+// #if defined(O_NONBLOCK)
+//     /* Fixme: O_NONBLOCK is defined but broken on SunOS 4.1.x and AIX 3.2.5. */
+//     if (-1 == (flags = fcntl(fd, F_GETFL, 0)))
+//         flags = 0;
+//     return fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+// #else
+//     /* Otherwise, use the old way of doing it */
+//     flags = 1;
+//     return ioctl(fd, FIOBIO, &flags);
+// #endif
+// }
