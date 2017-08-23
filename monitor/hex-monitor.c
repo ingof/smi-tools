@@ -180,6 +180,8 @@ for (loop=0; ; loop+=(serialWait*2)) {
 				printf("%02X ",c);
 			}
 
+			c = bufferHex[bufferHexCount-1];
+			printf("%02X ",c);
 			bufferHexCount=0;
 			fflush(stdout); // Will now print everything in the stdout buffer
 		}
