@@ -131,10 +131,10 @@ for (loop=0; ; loop+=(serialWait*2)) {
 	}
 
 	if (IOReturn==0) {
-		printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
 		if (bytes == -1) {
 			perror ("read error:");
 		} else {
+			printf("\033[1m%6d.%03d HEX:\033[0m ",loop/2000,(loop/2)%1000);
 			for (x = 0; x < bytes ; x++)
 			{
 				c = buffer[x];
