@@ -8,7 +8,7 @@
 			"icon": "SMI-Monitor_{0}.png",
 			"protocol": "http",
 			"url": "/",
-			"port": "8088"
+			"port": "8086"
 		}
 	}
 }
