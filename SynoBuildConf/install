@@ -19,7 +19,7 @@ create_inner_tarball() {
   ### install needed file into PKG_DIR
   mkdir -p $binary_dir
 	#cp -av comandline/smi $binary_dir
-	cp -av monitor/crc $binary_dir
+	cp -av crc $binary_dir
 	#cp -av monitor/hex-monitor $binary_dir
 	#cp -av monitor/smi-monitor $binary_dir
   
@@ -37,7 +37,8 @@ create_spk(){
   cp -av scripts/* $scripts_dir
   
   ### Copy package icon
-  cp -av SMI-Monitor*.PNG $PKG_DIR
+  #cp -av SMI-Monitor*.PNG $PKG_DIR
+  cp -av ui/SMI-Monitor*.PNG $PKG_DIR
   
   ### Generate INFO file
   ./INFO.sh > INFO
