@@ -1,19 +1,16 @@
-# SynoBuildConf/build
+#!/bin/bash
+# Copyright (C) 2000-2016 Synology Inc. All rights reserved.
 
 case ${MakeClean} in
-       [Yy][Ee][Ss])
-               make clean
-               ;;
+	[Yy][Ee][Ss])
+		make clean
+		;;
 esac
 
-#NCURSES_INCS="`pkg-config ncurses --cflags`"
-#NCURSES_LIBS="`pkg-config ncurses --libs`"
+# You can use CC CFLAGS LD LDFLAGS CXX CXXFLAGS AR RANLIB READELF STRIP here
+echo "${CC} ${CFLAGS} monitor/crc.c -o crc.dummy"
+${CC} ${CFLAGS} monitor/crc.c -o crc.dummy
 
-#CFLAGS+="${CFLAGS} ${NCURSES_INCS}"
-#LDFLAGS+="${LDFLAGS} ${NCURSES_LIBS}"
-
-env CC="${CC}" AR=${AR} CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" \
-
-#./configure ${ConfigOpt}
-
+# Or you can use Makefile to genarate executable.
+echo "make ${MAKE_FLAGS}"
 make ${MAKE_FLAGS}
