@@ -1,5 +1,5 @@
-CC = gcc
-OPT = -g -Wall
+# CC = gcc
+# OPT = -g -Wall
 
 # default target
 default: all
