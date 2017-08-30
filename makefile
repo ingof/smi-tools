@@ -5,7 +5,7 @@ env	CC=/usr/local/i686-pc-linux-gnu/bin/i686-pc-linux-gnu-gcc \
 	LD=/usr/local/i686-pc-linux-gnu/bin/i686-pc-linux-gnu-ld \
 	RANLIB=/usr/local/i686-pc-linux-gnu/bin/i686-pc-linux-gnu-ranlib \
 	CFLAGS="-I/usr/local/i686-pc-linux-gnu/i686-pc-linux-gnu/sys-root/usr/include" \
-	LDFLAGS="-L/usr/local/i686-pc-linux-gnu/i686-pc-linux-gnu/sys-root/lib" \
+	LDFLAGS="-L/usr/local/i686-pc-linux-gnu/i686-pc-linux-gnu/sys-root/lib"
 
 
 ./configure \
