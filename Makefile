@@ -17,4 +17,4 @@ install: $(EXEC)
 	install $< $(DESTDIR)/usr/bin/
 
 clean:
-    rm -rf *.o $(EXEC)
+	rm -rf *.o $(EXEC)
