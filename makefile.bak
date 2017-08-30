@@ -1,6 +1,6 @@
 
-CC = gcc
-OPT = -g -Wall
+# CC = gcc
+# OPT = -g -Wall
 
 # default target
 default: all
@@ -23,10 +23,12 @@ monitor:  monitor/smi-monitor.c
 # removes all object, temporary and executable files
 clean:
 	$(RM) count *.o *~
-	rm -rf ../smi-tools *
+	# rm -rf ../smi-tools *
 	
 # installes the executable files
 install:
-	cp monitor/smi-monitor /usr/local/bin/
-	cp comandline/smi /usr/local/bin/
+	# cp monitor/smi-monitor /usr/local/bin/
+	# cp comandline/smi /usr/local/bin/
+	cp monitor/smi-monitor /usr/bin/
+	cp comandline/smi /usr/bin/
   
