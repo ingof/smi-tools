@@ -8,8 +8,8 @@ case ${MakeClean} in
 esac
 
 # You can use CC CFLAGS LD LDFLAGS CXX CXXFLAGS AR RANLIB READELF STRIP here
-echo "${CC} ${CFLAGS} monitor/crc.c -o crc.dummy"
-${CC} ${CFLAGS} monitor/crc.c -o crc.dummy
+echo "${CC} ${CFLAGS} monitor/crc.c -o crc"
+${CC} ${CFLAGS} monitor/crc.c -o crc
 
 # Or you can use Makefile to genarate executable.
 echo "make ${MAKE_FLAGS}"
