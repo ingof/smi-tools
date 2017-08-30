@@ -11,16 +11,24 @@ source /pkgscripts/include/pkg_util.sh
 
 create_inner_tarball() {
   local inner_tarball_dir=/tmp/_inner_tarball
-
+  local binary_dir=$package_tgz_dir/usr/bin
+  
   ### clear destination directory
   rm -rf $inner_tarball_dir && mkdir -p $inner_tarball_dir
 
   ### install needed file into PKG_DIR
+  mkdir -p $binary_dir
+	cp -av comandline/smi $binary_dir
+	cp -av monitor/crc $binary_dir
+	cp -av monitor/hex-monitor $binary_dir
+	cp -av monitor/smi-monitor $binary_dir
+  
   make install DESTDIR="$inner_tarball_dir"
 
   ### create package.txz: $1=source_dir, $2=dest_dir
   pkg_make_inner_tarball $inner_tarball_dir "${PKG_DIR}"
 }
+
 create_spk(){
   local scripts_dir=$PKG_DIR/scripts
   
