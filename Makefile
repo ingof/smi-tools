@@ -3,8 +3,8 @@
 ## You can use CC CFLAGS LD LDFLAGS CXX CXXFLAGS AR RANLIB READELF STRIP after include env.mak
 include /env.mak
 
-EXEC=monitor/smi-monitor
-OBJS=monitor/smi-monitor.o
+EXEC= monitor/smi-monitor
+OBJS= monitor/smi-monitor.o
 
 
 all: $(EXEC)
