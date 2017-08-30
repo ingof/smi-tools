@@ -10,7 +10,7 @@ OBJS= monitor/smi-monitor.o monitor/smi-serial.o monitor/swb-serial.o
 all: $(EXEC)
 
 $(EXEC): $(OBJS)
-    $(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
 install: $(EXEC)
 	mkdir -p $(DESTDIR)/usr/bin/
