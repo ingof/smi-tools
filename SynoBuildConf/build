@@ -2,7 +2,7 @@
 
 case ${MakeClean} in
        [Yy][Ee][Ss])
-               make distclean
+               make clean
                ;;
 esac
 
