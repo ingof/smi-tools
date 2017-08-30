@@ -38,8 +38,8 @@ create_spk(){
   
   ### Copy package icon
   #cp -av SMI-Monitor*.PNG $PKG_DIR
-  cp -av ui/SMI-Monitor.PNG $PKG_DIR
-  cp -av ui/SMI-Monitor_256.PNG $PKG_DIR
+  cp -av ui/SMI-Monitor*.png $PKG_DIR
+  cp -av ui/SMI-Monitor_256.png $PKG_DIR
   
   ### Generate INFO file
   ./INFO.sh > INFO
