@@ -5,5 +5,6 @@
 ### ex. create database, create symbolic link...
 
 ln -sf $SYNOPKG_PKGDEST/usr/bin/smi-monitor /usr/bin/
+ln -sf $SYNOPKG_PKGDEST/usr/bin/crc /usr/bin/
 
 exit 0
