@@ -8,12 +8,14 @@ case $1 in
 		exit 0
 		;;
 	stop)
-		exit 0
+		echo "stop" > $SYNOPKG_TEMP_LOGFILE
 		;;
 	status)
+		echo "status" > $SYNOPKG_TEMP_LOGFILE
 		exit 0
 		;;
 	log)
+		echo "log" > $SYNOPKG_TEMP_LOGFILE
 		exit 0
 		;;
 	*)
