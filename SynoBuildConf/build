@@ -11,7 +11,7 @@ esac
 #echo "${CC} ${CFLAGS} monitor/crc.c -o crc"
 #${CC} ${CFLAGS} monitor/crc.c -o crc
 #all:	monitor/hex-monitor.c monitor/swb-serial.c monitor/smi-serial.c monitor/smi-monitor.c monitor/crc.c comandline/smi.c
-${CC} ${CFLAGS} commandline/smi.c -o smi
+${CC} ${CFLAGS} comandline/smi.c -o smi
 	${CC} ${CFLAGS} monitor/hex-monitor.c -o hex-monitor
 	${CC} ${CFLAGS} -o smi-monitor monitor/swb-serial.c monitor/smi-serial.c monitor/smi-monitor.c
 ${CC} ${CFLAGS} -o crc monitor/crc.c
