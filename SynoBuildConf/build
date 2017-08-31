@@ -10,7 +10,7 @@ esac
 # You can use CC CFLAGS LD LDFLAGS CXX CXXFLAGS AR RANLIB READELF STRIP here
 #echo "${CC} ${CFLAGS} monitor/crc.c -o crc"
 #${CC} ${CFLAGS} monitor/crc.c -o crc
-all:	monitor/hex-monitor.c monitor/swb-serial.c monitor/smi-serial.c monitor/smi-monitor.c monitor/crc.c comandline/smi.c
+#all:	monitor/hex-monitor.c monitor/swb-serial.c monitor/smi-serial.c monitor/smi-monitor.c monitor/crc.c comandline/smi.c
 	$(CC) $(OPT) -o smi commandline/smi.c
 	$(CC) $(OPT) -o hex-monitor monitor/hex-monitor.c
 	$(CC) $(OPT) -o smi-monitor monitor/swb-serial.c monitor/smi-serial.c monitor/smi-monitor.c
