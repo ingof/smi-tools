@@ -11,11 +11,11 @@ esac
 #echo "${CC} ${CFLAGS} monitor/crc.c -o crc"
 #${CC} ${CFLAGS} monitor/crc.c -o crc
 #all:	monitor/hex-monitor.c monitor/swb-serial.c monitor/smi-serial.c monitor/smi-monitor.c monitor/crc.c comandline/smi.c
-${CC} ${CFLAGS} -o exec/smi comandline/smi.c
-${CC} ${CFLAGS} -o exec/hex-monitor monitor/hex-monitor.c
-${CC} ${CFLAGS} -o exec/smi-monitor monitor/swb-serial.c monitor/smi-serial.c monitor/smi-monitor.c
-${CC} ${CFLAGS} -o exec/crc monitor/crc.c
-${CC} ${CFLAGS} -o exec/prog monitor/prog.c
+${CC} ${CFLAGS} -o smi comandline/smi.c
+${CC} ${CFLAGS} -o hex-monitor monitor/hex-monitor.c
+${CC} ${CFLAGS} -o smi-monitor monitor/swb-serial.c monitor/smi-serial.c monitor/smi-monitor.c
+${CC} ${CFLAGS} -o crc monitor/crc.c
+${CC} ${CFLAGS} -o prog monitor/prog.c
 
 
 # Or you can use Makefile to genarate executable.
