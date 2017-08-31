@@ -2,6 +2,16 @@
 
 case $1 in
 	start)
+		echo "UsbSerial1m" > $SYNOPKG_TEMP_LOGFILE 
+		insmod /lib/modules/usbserial.ko > $SYNOPKG_TEMP_LOGFILE 
+		echo "UsbSerial2m" > $SYNOPKG_TEMP_LOGFILE 
+		insmod /lib/modules/usbserial.ko > $SYNOPKG_TEMP_LOGFILE 
+		echo "UsbSerial3o" > $SYNOPKG_TEMP_LOGFILE 
+		insmod /lib/modules/usbserial.ko
+		echo "UsbSerial4o" > $SYNOPKG_TEMP_LOGFILE 
+		insmod /lib/modules/usbserial.ko
+		echo "ftdi_sio" > $SYNOPKG_TEMP_LOGFILE 
+		insmod /lib/modules/ftdi_sio.ko
 		exit 0
 		;;
 	stop)
