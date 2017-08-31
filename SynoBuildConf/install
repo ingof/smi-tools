@@ -18,11 +18,11 @@ create_inner_tarball() {
 
   ### install needed file into PKG_DIR
   mkdir -p $binary_dir
-	cp -av exec/smi $binary_dir
-	cp -av exec/crc $binary_dir
-	cp -av exec/hex-monitor $binary_dir
-	cp -av exec/smi-monitor $binary_dir
-	cp -av exec/prog $binary_dir
+	cp -av smi $binary_dir
+	cp -av crc $binary_dir
+	cp -av hex-monitor $binary_dir
+	cp -av smi-monitor $binary_dir
+	cp -av prog $binary_dir
   
   make install DESTDIR="$inner_tarball_dir"
 
