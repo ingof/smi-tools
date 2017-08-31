@@ -4,7 +4,7 @@ case $1 in
 	start)
 		insmod /lib/modules/usbserial.ko
 		insmod /lib/modules/ftdi_sio.ko
-		echo "SMI-Monitor wurde gestartet.\n FTDI-USB Treiber wurden geladen.\n" > $SYNOPKG_TEMP_LOGFILE 
+		echo "FTDI-USB Treiber wurden geladen." > $SYNOPKG_TEMP_LOGFILE 
 		exit 0
 		;;
 	stop)
