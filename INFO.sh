@@ -2,7 +2,7 @@
 
 source /pkgscripts/include/pkg_util.sh
 
-package="SMI-Monitor"
+package="smi-monitor"
 displayname="SMI-Monitor"
 version="0.0.1"
 beta="yes"
@@ -13,8 +13,8 @@ arch="$(pkg_get_unified_platform)"
 maintainer="thefischer.net"
 maintainer_url="http://smiwiki.thefischer.net/"
 distributor="Ingo Fischer"
-distributor_url="http://smiwiki.thefischer.net/"
-adminport="8088"
+distributor_url=""
+adminport="8086"
 dsmuidir="ui"
 dsmappname="net.thefischer.SMI-Monitor"
 checkport="yes"
