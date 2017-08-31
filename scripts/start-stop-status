@@ -4,16 +4,19 @@ case $1 in
 	start)
 		insmod /lib/modules/usbserial.ko
 		insmod /lib/modules/ftdi_sio.ko
+		### Start this package.
+		smi-monitor "Start"
 		echo "FTDI-USB Treiber wurden geladen." > $SYNOPKG_TEMP_LOGFILE 
 		exit 0
 		;;
 	stop)
 		rmmod fdti_sio
 		rmmod usbserial
+		### Stop this package.
+		smi-monitor "Stop"
 		echo "FTDI-SUB Treiber wurden entladen." > $SYNOPKG_TEMP_LOGFILE
 		;;
 	status)
-		echo "status" > $SYNOPKG_TEMP_LOGFILE
 		### Check package alive.
 		if [ -h "/usr/bin/smi-monitor" ]; then
 			exit 0
@@ -22,7 +25,6 @@ case $1 in
 		fi
 		;;
 	log)
-		echo "log" > $SYNOPKG_TEMP_LOGFILE
 		exit 0
 		;;
 	*)
