@@ -2,16 +2,9 @@
 
 case $1 in
 	start)
-		echo "UsbSerial1m" > $SYNOPKG_TEMP_LOGFILE 
-		insmod /lib/modules/usbserial.ko > $SYNOPKG_TEMP_LOGFILE 
-		echo "UsbSerial2m" > $SYNOPKG_TEMP_LOGFILE 
-		insmod /lib/modules/usbserial.ko > $SYNOPKG_TEMP_LOGFILE 
-		echo "UsbSerial3o" > $SYNOPKG_TEMP_LOGFILE 
 		insmod /lib/modules/usbserial.ko
-		echo "UsbSerial4o" > $SYNOPKG_TEMP_LOGFILE 
-		insmod /lib/modules/usbserial.ko
-		echo "ftdi_sio5e" > $SYNOPKG_TEMP_LOGFILE 
 		insmod /lib/modules/ftdi_sio.ko
+		echo "SMI-Monitor wurde gestartet.\n FTDI-USB Treiber wurden geladen.\n" > $SYNOPKG_TEMP_LOGFILE 
 		exit 0
 		;;
 	stop)
