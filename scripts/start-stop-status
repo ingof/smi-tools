@@ -14,7 +14,12 @@ case $1 in
 		;;
 	status)
 		echo "status" > $SYNOPKG_TEMP_LOGFILE
-		exit 0
+		### Check package alive.
+		if [ -h "/usr/bin/smi-monitor" ]; then
+			exit 0
+		else
+			exit 1
+		fi
 		;;
 	log)
 		echo "log" > $SYNOPKG_TEMP_LOGFILE
