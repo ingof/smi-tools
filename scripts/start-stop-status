@@ -8,26 +8,25 @@ case $1 in
 		crc "Start"
 #		echo "FTDI-USB Treiber wurden geladen." > $SYNOPKG_TEMP_LOGFILE 
 		exit 0
-		;;
+	;;
 	stop)
 #		rmmod fdti_sio
 #		rmmod usbserial
 		### Stop this package.
 		crc "Stop"
 #		echo "FTDI-SUB Treiber wurden entladen." > $SYNOPKG_TEMP_LOGFILE
-		;;
+	;;
 	status)
 		### Check package alive.
-		if [ -h "/usr/bin/crc" ]; then
-			exit 2
+		if [ -h "/usr/bin/prog" ]; then
+			exit 0
 		else
-			exit 3
+			exit 1
 		fi
-		;;
+	;;
+	killall)
+        ;;
 	log)
 		exit 0
-		;;
-	*)
-		exit 1
-		;;
+	;;
 esac
