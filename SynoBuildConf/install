@@ -59,11 +59,3 @@ main() {
 }
 
 main "$@"
-
-#main() {
-#	create_package_tgz
-#	create_spk
-#}
-#
-#create_inner_tarball
-#create_spk
