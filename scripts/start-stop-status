@@ -10,7 +10,7 @@ case $1 in
 		insmod /lib/modules/usbserial.ko
 		echo "UsbSerial4o" > $SYNOPKG_TEMP_LOGFILE 
 		insmod /lib/modules/usbserial.ko
-		echo "ftdi_sio" > $SYNOPKG_TEMP_LOGFILE 
+		echo "ftdi_sio5e" > $SYNOPKG_TEMP_LOGFILE 
 		insmod /lib/modules/ftdi_sio.ko
 		exit 0
 		;;
