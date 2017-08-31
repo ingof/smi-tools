@@ -9,7 +9,8 @@ mkdir -p $PKG_DIR
 ### get spk packing functions
 source /pkgscripts/include/pkg_util.sh
 
-create_inner_tarball() {
+#create_inner_tarball() {
+create_package_tgz(){
   local inner_tarball_dir=/tmp/_inner_tarball
   local binary_dir=$package_tgz_dir/usr/bin
   
