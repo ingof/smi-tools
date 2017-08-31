@@ -8,7 +8,9 @@ case $1 in
 		exit 0
 		;;
 	stop)
-		echo "stop" > $SYNOPKG_TEMP_LOGFILE
+		rmmod fdti_sio
+		rmmod usbserial
+		echo "FTDI-SUB Treiber wurden entladen." > $SYNOPKG_TEMP_LOGFILE
 		;;
 	status)
 		echo "status" > $SYNOPKG_TEMP_LOGFILE
