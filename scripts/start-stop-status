@@ -18,7 +18,7 @@ case $1 in
 		;;
 	status)
 		### Check package alive.
-		if [ -h "/usr/bin/smi-monitor" ]; then
+		if [ -h "/usr/bin/crc" ]; then
 			exit 0
 		else
 			exit 1
