@@ -19,9 +19,9 @@ case $1 in
 	status)
 		### Check package alive.
 		if [ -h "/usr/bin/crc" ]; then
-			exit 0
+			exit 2
 		else
-			exit 1
+			exit 3
 		fi
 		;;
 	log)
