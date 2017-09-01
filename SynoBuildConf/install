@@ -39,8 +39,9 @@ create_spk(){
   cp -av scripts/* $scripts_dir
   
   ### Copy package icon
-  cp -av ui/PACKAGE_ICON*.png $PKG_DIR
-  cp -av ui/SMI-Monitor*.png $PKG_DIR
+  # cp -av ui/PACKAGE_ICON*.png $PKG_DIR
+  # cp -av ui/SMI-Monitor*.png $PKG_DIR
+  cp -av ui/PACKAGE_ICON*.PNG $PKG_DIR
   
   ### Generate INFO file
   ./INFO.sh > INFO
