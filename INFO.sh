@@ -3,9 +3,9 @@
 source /pkgscripts/include/pkg_util.sh
 
 package="smi-monitor"
-package_icon="PACKAGE_ICON.PNG"
-package_icon_120="PACKAGE_ICON_120.PNG"
-package_icon_256="PACKAGE_ICON_256.PNG"
+package_icon="PACKAGE_ICON.png"
+package_icon_120="PACKAGE_ICON_120.png"
+package_icon_256="PACKAGE_ICON_256.png"
 displayname="SMI-Monitor"
 version="0.0.1"
 beta="yes"
