@@ -1,11 +1,11 @@
 [{
-	"step_title": "Uninstall Archiva",
+	"step_title": "Uninstall SMI-Monitor",
 	"items": [{
 		"type": "multiselect",
-		"desc": "Do you want to remove SMI-monitor's configuration folder?",
+		"desc": "Möchten sie dem Konfigurationsordner des SMI-monitor's entfernen?",
 		"subitems": [{
 			"key": "pkgwizard_remove_config",
-			"desc": Remove SMI-Monitor's shared folder
+			"desc": "SMI-Monitor's geteilten Ordner löschen"
 		}]
 	}]
 }]
