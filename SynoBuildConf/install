@@ -33,14 +33,17 @@ create_inner_tarball() {
 
 create_spk(){
   local scripts_dir=$PKG_DIR/scripts
+  local wizard_dir=$PKG_DIR/WIZARD_UIFILES
   
   ### Copy Package Center scripts to PKG_DIR
   mkdir -p $scripts_dir
   cp -av scripts/* $scripts_dir
+
+  ### Copy wizard files to PKG_DIR
+  mkdir -p $wizard_dir
+  cp -av WIZARD_UIFILES $wizard_dir
   
   ### Copy package icon
-  # cp -av ui/PACKAGE_ICON*.png $PKG_DIR
-  # cp -av ui/SMI-Monitor*.png $PKG_DIR
   cp -av ui/PACKAGE_ICON*.PNG $PKG_DIR
   
   ### Generate INFO file
