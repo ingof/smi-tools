@@ -1,5 +1,5 @@
 [{
-	"step_title": "Uninstall Archiva",
+	"step_title": "Uninstall SMI-Monitor",
 	"items": [{
 		"type": "multiselect",
 		"desc": "Do you want to remove SMI-monitor's configuration folder?",
