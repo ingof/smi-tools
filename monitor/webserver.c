@@ -543,6 +543,11 @@ int getPostData(unsigned char *buffer, int size) {
 	char *word="\r\n\r\n";
 	char *postStart;
 
+	int smiCmd=0;
+	int smiId=0;
+	int smiGrp=0;
+
+
 	//TODO check header
 
 	/* find end of header */
@@ -581,7 +586,7 @@ int getPostData(unsigned char *buffer, int size) {
 			}
 		}
 	}
-	printf("id:%02X grp:%02X cmd:%02X\n",smiId,smiGrp,smiCmd);
+	Syslog(LOG_DEBUG, "DEBUG: http-command: id=%02X grp=%02X cmd=%02X\n",smiId,smiGrp,smiCmd);
 	fflush(stdout);
 	return 0;
 }
