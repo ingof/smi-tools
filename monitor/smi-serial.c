@@ -53,19 +53,20 @@ int openSmiPort (char *port) {
 	/* Set the baud rates to 2400... */
 	cfsetispeed(&options2, B2400);
 	cfsetospeed(&options2, B2400);
-	/* Enable the receiver and set local mode... */
-	options2.c_cflag |= (CLOCAL | CREAD);
-	/* Setting 8N1 */
-	options2.c_cflag &= ~CSIZE; 	/* Mask the character size bits */
-	options2.c_cflag |= CS8;    	/* Select 8 data bits */
-	options2.c_cflag &= ~PARENB; 	/* deactivate Parity */
-	options2.c_cflag &= ~CSTOPB;	/* one stop bit */
+	/* control flags */
+	options2.c_cflag |= (CLOCAL | CREAD);	/* enable port and set local */
+	options2.c_cflag &= ~CSIZE; 		/* Mask the character size bits */
+	options2.c_cflag |= CS8;    		/* Select 8 data bits */
+	options2.c_cflag &= ~PARENB; 		/* deactivate Parity */
+	options2.c_cflag &= ~CSTOPB;		/* one stop bit */
 	options2.c_iflag &= ~IXON;		/* deactivate XON */
 	options2.c_iflag &= ~IXOFF;		/* deactivate XOFF */
 	options2.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
 	options2.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
 	options2.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
 	options2.c_iflag |= IGNBRK;		/* ignore break condition (SMI) */
+	/* output FLags */
+	options.c_oflag &= ~OPOST;    		/* choosing RAW Output */
 	/* choosing RAW-Input */
 	options2.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	/* Set the new options for the port... */
