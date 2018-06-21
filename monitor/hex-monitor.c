@@ -121,6 +121,8 @@ options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
 options.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
 options.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
 options.c_iflag |= IGNBRK;		/* ignore break condition (SWB) */
+/* output FLags */
+options.c_oflag &= ~OPOST;    /* choosing RAW Output */
 
 /* choosing RAW-Input */
 options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
