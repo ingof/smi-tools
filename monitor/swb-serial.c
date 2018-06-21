@@ -111,19 +111,21 @@ int openSwbPortDiv (char *port, int divisor) {
 	}
 	/* Enable the receiver and set local mode... */
 	options.c_cflag |= (CLOCAL | CREAD);
-	/* Setting Character Size */
+	/* control flags */
 	options.c_cflag &= ~CSIZE; 		/* Mask the character size bits */
-	/* Setting 8N2 */
-	options.c_cflag &= ~PARENB; 	/* deactivate Parity */
+	options.c_cflag &= ~PARENB; 		/* deactivate Parity */
 	options.c_cflag |= CSTOPB;		/* two stop bits */
 	options.c_cflag &= ~CSIZE;		/* mask for data bits */
 	options.c_cflag |= CS8;    		/* Select 8 data bits */
+	/* input flags */
 	options.c_iflag &= ~IXON;		/* deactivate XON */
 	options.c_iflag &= ~IXOFF;		/* deactivate XOFF */
 	options.c_iflag &= ~IGNCR;		/* do NOT ignore CR */
 	options.c_iflag &= ~ICRNL;		/* do NOT replace CR with NL */
 	options.c_iflag &= ~INLCR;		/* do NOT replace NL with CL */
 	options.c_iflag |= IGNBRK;		/* ignore break condition (SWB) */
+	/* output FLags */
+	options.c_oflag &= ~OPOST;    		/* choosing RAW Output */
 	/* choosing RAW-Input */
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	/* Set the new options for the port... */
