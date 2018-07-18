@@ -20,11 +20,11 @@ int main( int argc, char* argv[] ) {
 	unsigned char buffer[12];
    //char *bufptr;
     
-   /* dirst paramter is driveID */
+   /* first paramter is driveID */
    if (argc > 1) {
    	driveID=atoi(argv[1]);
    }
-   /*secon paramter is the command */
+   /* second paramter is the command */
    if (argc > 2)
    {
    	/* Stop command */
@@ -35,6 +35,10 @@ int main( int argc, char* argv[] ) {
 	/* down command */
 	if (strcmp(argv[2], "down") == 0) commandID=2;
 	if (strcmp(argv[2], "runter") == 0) commandID=2;
+	/* pos1 command */
+	if (strcmp(argv[2], "pos1") == 0) commandID=3;
+	/* pos2 command */
+	if (strcmp(argv[2], "pos2") == 0) commandID=4;
    }
    
    /* third parameter is serialPort*/
