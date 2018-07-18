@@ -18,7 +18,7 @@ Send command to smi drive:
 * **required:** driveID<br>
 the ID of the drive. (0..15)
 * **optional:** command<br>
-stop, up, hoch, down, runter<br>
+stop, up, hoch, down, runter, pos1, pos2<br>
 default is stop
 * **optional:** serial port<br>
 default is /dev/ttyUSB1
